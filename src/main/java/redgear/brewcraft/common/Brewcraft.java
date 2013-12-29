@@ -5,7 +5,6 @@ import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityGhast;
@@ -18,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -29,10 +27,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
+import redgear.brewcraft.potions.EffectExtension;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.SubItemPotion.SubPotionEffect;
@@ -65,10 +63,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = RedGear.BrewcraftID, name= RedGear.BrewcraftName, version= RedGear.BrewcraftVersion, dependencies= RedGear.BrewcraftDepend)
 public class Brewcraft extends ModUtils{
@@ -166,16 +162,13 @@ public class Brewcraft extends ModUtils{
 	public static Potion creeper;
 	public static Potion immunity;
 
-	/**
-	 * TODO - Initiates items, blocks, and fluids.
-	 */
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {	
 		
-		angel = new PotionAngel(getInt("Potion Effect IDs", "'Angelic' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042).setPotionName("potion.angel");
-		flight = new PotionFlight(getInt("Potion Effect IDs", "'Flight' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 26), false, 16777215).setPotionName("potion.flight");
-		creeper = new PotionCreeper(getInt("Potion Effect IDs", "'Cumbustion' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089).setPotionName("potion.creeper");
-		immunity = new PotionImmunity(getInt("Potion Effect IDs", "'Immunity' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 28), false, 1987089).setPotionName("potion.immunity");
+		angel = new EffectExtension(getInt("Potion Effect IDs", "'Angelic' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042, 1).setPotionName("potion.angel");
+		flight = new EffectExtension(getInt("Potion Effect IDs", "'Flight' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 26), false, 16777215, 2).setPotionName("potion.flight");
+		creeper = new EffectExtension(getInt("Potion Effect IDs", "'Cumbustion' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089, 0).setPotionName("potion.creeper");
+		immunity = new EffectExtension(getInt("Potion Effect IDs", "'Immunity' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 28), false, 1987089, 3).setPotionName("potion.immunity");
 		
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust", "Blessed Powder"));
@@ -317,9 +310,6 @@ public class Brewcraft extends ModUtils{
 
 	}
 
-	/**
-	 * TODO - Handles villager trades and dungeon loot, and initiates all other voids.
-	 */
 	@Override
 	protected void Init(FMLInitializationEvent event) {
 		if(getBoolean("Global", "Mod Compatibility", "Toggle Mod Compatibility", true)){
@@ -344,19 +334,10 @@ public class Brewcraft extends ModUtils{
 		
 		MinecraftForge.EVENT_BUS.register(this);
 		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.CLIENT);
+		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.SERVER);
 	
 	}	
-	
-	/**
-	 * TODO - Handles compatibility with other mods.
-	 * 
-	 * Current list of compatible mods:
-	 * 
-	 * - Biomes o' Plenty
-	 * - Thaumcraft 4
-	 * - TConstruct
-	 * - Natura
-	 */
+
 	private void compatibility(){
 		
 		soul = ModConfigHelper.get("miscItems", 10);
@@ -366,30 +347,7 @@ public class Brewcraft extends ModUtils{
 		bone = ModConfigHelper.get("materials", 8);
 		
 		sulfur = ModConfigHelper.get("plantItem", 4);
-		
-	     /**
-		 * Biomes o' Plenty -
-		 * 
-		 * Ghastly Soul can be used to brew Festering Wither.
-		 * Pixie Dust can be used to brew Holy Water.
-		 * 
-		 * Thaumcraft 4 -
-		 * 
-		 * Zombie Brain can be used to brew anything in place of a Fermented Spider Eye.
-		 * Taint Tendrils can be used to brew a Taint Potion (eventually)
-		 * Taint can be reversed with an AntiTaint Potion, from brewing Taint Potion with a Zombie Brain or Fermented Spider Eye.
-		 * 
-		 * TConstruct & Natura -
-		 * 
-		 * Lava Crystal can brew water into lava.
-		 * Necrotic Bone can be used to brew Festering Wither.
-		 * Potash Apple can be made into Crushed Apples.
-		 * Sulfur can be used to brew a Potion of Combustion.
-		 * Any registered lump of sugar can be crafted into Crushed Apples with Natura's Potash Apple.
-		 * 
-		 * 
-		 */
-		
+
 		if(Mods.BiomesOPlenty.isIn() && (getBoolean("Mod Compatibility", "Biomes o' Plenty Compatibility", "Toggle Biomes o' Plenty Compatibility", true))){
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Biomes o' Plenty loaded, now running compatibility.");	
@@ -440,10 +398,7 @@ public class Brewcraft extends ModUtils{
 		}
 		
 	}
-	
-	/**
-	 * TODO - Adds all recipes, for crafting, smelting, and brewing.
-	 */
+
 	private void recipes(){
 		
 		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1, 5);
@@ -508,10 +463,7 @@ public class Brewcraft extends ModUtils{
 		}
 		
 	}
-	
-	/**
-	 * TODO - Handles events and stuff.
-	 */
+
 	@ForgeSubscribe
 	public void checkBottledFire(EntityInteractEvent event){
 		
@@ -606,12 +558,6 @@ public class Brewcraft extends ModUtils{
 	@Mod.EventHandler public void PostInitialization(FMLPostInitializationEvent event){super.PostInitialization(event);}
 }
 
-/**
- * TODO - Begin TickHandler.
- * 
- * Used this instead of an event handler due to the extreme inaccuracy of events based on the 
- * LivingUpdateEvent, such as the creeper explosion coming a few seconds slow.
- */
 class BrewcraftTickHandler implements ITickHandler{
 	
 	
@@ -646,13 +592,6 @@ class BrewcraftTickHandler implements ITickHandler{
 			
 			}
 			
-			/**
-			 * Hisses a couple of times, and when the potion effect wears off, the player explodes
-			 * and dies.
-			 * 
-			 * Explosion is currently quite glitchy.
-			 */
-			
 			if(player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 0){
 				player.removePotionEffect(Potion.poison.id);
 			}
@@ -662,10 +601,6 @@ class BrewcraftTickHandler implements ITickHandler{
 				player.removePotionEffect(Potion.hunger.id);
 				player.removePotionEffect(Potion.weakness.id);
 			}
-			
-			/**
-			 * 
-			 */
 		}
 		
 		if(player.isPotionActive(Brewcraft.angel)){
@@ -674,15 +609,19 @@ class BrewcraftTickHandler implements ITickHandler{
 			player.heal(0.5F);
 			player.getFoodStats().addStats(1, 0.1F);
 			
-			/**
-			 * Gives random chance to heal and nourish the player every entity update.
-			 */
-			
 			}
 			
 		}
 		
-		try{
+		if(player.isPotionActive(Brewcraft.angel) && player.getActivePotionEffect(Brewcraft.angel).getAmplifier() == 1){
+			
+			if(rand > 0.8D){
+			player.heal(1F);
+			player.getFoodStats().addStats(2, 0.5F);
+			
+			}
+			
+		}
 
 		if(player.getActivePotionEffect(Brewcraft.flight).getDuration() > 1 && player.capabilities.isCreativeMode == false){
 		player.capabilities.allowFlying = true;
@@ -694,18 +633,7 @@ class BrewcraftTickHandler implements ITickHandler{
 		}
 		
 		}
-		
-		}
-		catch(Exception e){
-			FMLLog.log(Level.SEVERE, "An error has occurred in Brewcraft, by this name: " + e.toString());
-		}
-			
-		/**
-	     * Allows flying for a short period, and then removes flying once it expires.
-	     * 
-	     * This crashes for some reason, I'm unsure of why exactly. I'll just catch any errors.
-		 */
-		
+
 		if(player.isPotionActive(Potion.fireResistance)){
 			
 			player.extinguish();
@@ -726,82 +654,5 @@ class BrewcraftTickHandler implements ITickHandler{
 		return "Brewcraft tick update.";
 	}
 	
-	
-}
-
-
-/**
- * TODO - Where I keep all of the potion effect classes.
- */
-
-class PotionCreeper extends Potion{
-
-	public PotionCreeper(int par1, boolean par2, int par3) {
-		super(par1, par2, par3);
-		
-		this.setIconIndex(1, 0);
-	}
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getStatusIconIndex()
-    {
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("redgear_brewcraft:textures/potion/icons.png"));
-            return 0;
-    }
-	
-}
-
-class PotionAngel extends Potion{
-
-	public PotionAngel(int par1, boolean par2, int par3) {
-		super(par1, par2, par3);
-		
-		this.setIconIndex(1, 0);
-	}
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getStatusIconIndex()
-    {
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("redgear_brewcraft:textures/potion/icons.png"));
-            return 1;
-    }
-	
-}
-
-class PotionFlight extends Potion{
-
-	public PotionFlight(int par1, boolean par2, int par3) {
-		super(par1, par2, par3);
-		
-		this.setIconIndex(1, 0);
-	}
-		
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getStatusIconIndex()
-    {
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("redgear_brewcraft:textures/potion/icons.png"));
-            return 2;
-    }
-	
-}
-
-class PotionImmunity extends Potion{
-
-	public PotionImmunity(int par1, boolean par2, int par3) {
-		super(par1, par2, par3);
-		
-		this.setIconIndex(1, 0);
-	}
-		
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getStatusIconIndex()
-    {
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("redgear_brewcraft:textures/potion/icons.png"));
-            return 3;
-    }
 	
 }
