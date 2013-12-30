@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -161,6 +162,8 @@ public class Brewcraft extends ModUtils{
 	public static Potion flight;
 	public static Potion creeper;
 	public static Potion immunity;
+	
+	public static final double rand = Math.random();
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {	
@@ -334,8 +337,48 @@ public class Brewcraft extends ModUtils{
 		
 		MinecraftForge.EVENT_BUS.register(this);
 		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.CLIENT);
-		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.SERVER);
-	
+		
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWater, 1000), bottleHolyWater.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWaterII, 1000), bottleHolyWaterII.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWaterLong, 1000), bottleHolyWaterLong.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFlying, 1000), bottleFlying.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFlyingLong, 1000), bottleFlyingLong.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWither, 1000), bottleWither.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWitherLong, 1000), bottleWitherLong.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWitherII, 1000), bottleWitherII.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidote, 1000), bottleAntidote.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidoteII, 1000), bottleAntidoteII.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidoteLong, 1000), bottleAntidoteLong.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoom, 1000), bottleBoom.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoomII, 1000), bottleBoomII.getStack(), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoomLong, 1000), bottleBoomLong.getStack(), new ItemStack(Item.glassBottle));
+		
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAwkward, 1000), new ItemStack(Item.glassBottle, 1, 16), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidVision, 1000), new ItemStack(Item.glassBottle, 1, 8198), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidVisionLong, 1000), new ItemStack(Item.glassBottle, 1, 8262), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidInvisible, 1000), new ItemStack(Item.glassBottle, 1, 8206), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidInvisibleLong, 1000), new ItemStack(Item.glassBottle, 1, 8270), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidRegen, 1000), new ItemStack(Item.glassBottle, 1, 8193), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidRegenLong, 1000), new ItemStack(Item.glassBottle, 1, 8257), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFast, 1000), new ItemStack(Item.glassBottle, 1, 8194), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFastII, 1000), new ItemStack(Item.glassBottle, 1, 8290), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFastLong, 1000), new ItemStack(Item.glassBottle, 1, 8258), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWeakness, 1000), new ItemStack(Item.glassBottle, 1, 8200), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidStrength, 1000), new ItemStack(Item.glassBottle, 1, 8201), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidStrengthLong, 1000), new ItemStack(Item.glassBottle, 1, 8265), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidStrengthII, 1000), new ItemStack(Item.glassBottle, 1, 8297), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFireResist, 1000), new ItemStack(Item.glassBottle, 1, 8195), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFireResistLong, 1000), new ItemStack(Item.glassBottle, 1, 8259), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidSlowness, 1000), new ItemStack(Item.glassBottle, 1, 8202), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidSlownessLong, 1000), new ItemStack(Item.glassBottle, 1, 8266), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidPoison, 1000), new ItemStack(Item.glassBottle, 1, 8196), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidPoisonLong, 1000), new ItemStack(Item.glassBottle, 1, 8260), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidPoisonII, 1000), new ItemStack(Item.glassBottle, 1, 8228), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHarm, 1000), new ItemStack(Item.glassBottle, 1, 8204), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHarmII, 1000), new ItemStack(Item.glassBottle, 1, 8236), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHealing, 1000), new ItemStack(Item.glassBottle, 1, 8196), new ItemStack(Item.glassBottle));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHealingII, 1000), new ItemStack(Item.glassBottle, 1, 8229), new ItemStack(Item.glassBottle));
+		
 	}	
 
 	private void compatibility(){
@@ -508,7 +551,7 @@ public class Brewcraft extends ModUtils{
 			
 			EntitySkeleton skeleton = (EntitySkeleton) event.entity;
 			
-			if(skeleton.getSkeletonType() == 1 && BrewcraftTickHandler.rand < 0.6D && event.source.getDamageType().equals("player")){
+			if(skeleton.getSkeletonType() == 1 && rand < 0.6D && event.source.getDamageType().equals("player")){
 				
 				skeleton.entityDropItem(Brewcraft.charredbone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
 				skeleton.worldObj.playSoundAtEntity(skeleton, "random.bowhit", 1F, 1F);
@@ -519,7 +562,7 @@ public class Brewcraft extends ModUtils{
 		
 		if (event.entityLiving instanceof EntityChicken){
 			
-			if (BrewcraftTickHandler.rand < 0.05D){
+			if (rand < 0.05D){
 				
 				event.entityLiving.entityDropItem(Brewcraft.goldenfeather.getStack(), 0.0F);
 				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
@@ -556,103 +599,4 @@ public class Brewcraft extends ModUtils{
 	@Mod.EventHandler public void PreInitialization(FMLPreInitializationEvent event){super.PreInitialization(event);}
 	@Mod.EventHandler public void Initialization(FMLInitializationEvent event){super.Initialization(event);}
 	@Mod.EventHandler public void PostInitialization(FMLPostInitializationEvent event){super.PostInitialization(event);}
-}
-
-class BrewcraftTickHandler implements ITickHandler{
-	
-	
-	public static final double rand = Math.random();
-
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {}
-
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		
-		EntityPlayer player = (EntityPlayer) tickData[0];
-		
-		if(player.isPotionActive(Brewcraft.creeper)){
-
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 8){
-				
-			player.worldObj.playSoundAtEntity(player, "mob.creeper.say", 1F, 1F);
-			
-			}
-			
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 4){
-				
-			player.worldObj.playSoundAtEntity(player, "mob.creeper.say", 1F, 1F);
-			
-			}
-			
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 1 && player.capabilities.isCreativeMode == false){
-				
-			player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 4, true);
-			player.attackEntityFrom(DamageSource.generic, 1000F);
-			
-			}
-			
-			if(player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 0){
-				player.removePotionEffect(Potion.poison.id);
-			}
-			
-			if(player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 1){
-				player.removePotionEffect(Potion.poison.id);
-				player.removePotionEffect(Potion.hunger.id);
-				player.removePotionEffect(Potion.weakness.id);
-			}
-		}
-		
-		if(player.isPotionActive(Brewcraft.angel)){
-			
-			if(rand > 0.8D){
-			player.heal(0.5F);
-			player.getFoodStats().addStats(1, 0.1F);
-			
-			}
-			
-		}
-		
-		if(player.isPotionActive(Brewcraft.angel) && player.getActivePotionEffect(Brewcraft.angel).getAmplifier() == 1){
-			
-			if(rand > 0.8D){
-			player.heal(1F);
-			player.getFoodStats().addStats(2, 0.5F);
-			
-			}
-			
-		}
-
-		if(player.getActivePotionEffect(Brewcraft.flight).getDuration() > 1 && player.capabilities.isCreativeMode == false){
-		player.capabilities.allowFlying = true;
-		if(player.getActivePotionEffect(Brewcraft.flight).getDuration() == 1){
-			
-			player.capabilities.isFlying = false;
-			player.capabilities.allowFlying = false;
-			
-		}
-		
-		}
-
-		if(player.isPotionActive(Potion.fireResistance)){
-			
-			player.extinguish();
-		}
-
-	}
-
-
-	@Override
-	public EnumSet<TickType> ticks() {
-
-		return EnumSet.of(TickType.PLAYER);
-	}
-
-	@Override
-	public String getLabel() {
-
-		return "Brewcraft tick update.";
-	}
-	
-	
 }
