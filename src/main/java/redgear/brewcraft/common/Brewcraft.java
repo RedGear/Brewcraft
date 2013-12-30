@@ -1,6 +1,5 @@
 package redgear.brewcraft.common;
 
-import java.util.EnumSet;
 import java.util.logging.Level;
 
 import net.minecraft.block.Block;
@@ -56,10 +55,8 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -403,26 +400,36 @@ public class Brewcraft extends ModUtils{
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Thaumcraft 4 loaded, now running compatibility.");
 			
-		registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), ItemApi.getItem("itemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("itemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("itemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), ItemApi.getItem("itemResource", 5), 1, 4);
+		registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+		registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
 		
-		ThaumcraftApi.registerObjectTag(brewery.id, 0, new AspectList().add(Aspect.MECHANISM, 8).add(Aspect.METAL, 3));
+		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), ItemApi.getItem("ItemResource", 12), 1, 4);
+		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), ItemApi.getItem("ItemResource", 11), 1, 4);
+		
+		ThaumcraftApi.registerObjectTag(brewery.id, 0, new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
 		
 		ThaumcraftApi.registerObjectTag(ingredients.itemID, 0, new AspectList().add(Aspect.LIFE,  3).add(Aspect.LIGHT, 2).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ingredients.itemID, 1, new AspectList().add(Aspect.HUNGER, 2));
-		ThaumcraftApi.registerObjectTag(ingredients.itemID, 2, new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
-		ThaumcraftApi.registerObjectTag(ingredients.itemID, 3, new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
+		ThaumcraftApi.registerObjectTag(ingredients.itemID, 1, new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
+		ThaumcraftApi.registerObjectTag(ingredients.itemID, 2, new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
 		
 		ThaumcraftApi.registerObjectTag(potions.itemID, 0, new AspectList().add(Aspect.MAGIC, 3).add(Aspect.FIRE, 2));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 1, new AspectList().add(Aspect.MAGIC, 3).add(Aspect.LIFE, 6));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 2, new AspectList().add(Aspect.HUNGER, 1));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 3, new AspectList().add(Aspect.MAGIC, 3).add(Aspect.FLIGHT, 3));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 4, new AspectList().add(Aspect.DEATH, 6).add(Aspect.MAGIC, 3));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 5, new AspectList().add(Aspect.BEAST, 4).add(Aspect.DEATH, 1).add(Aspect.MAGIC, 3));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 6, new AspectList().add(Aspect.MAGIC, 3).add(Aspect.HEAL, 5));
-		ThaumcraftApi.registerObjectTag(potions.itemID, 7, new AspectList().add(Aspect.MAGIC, 3).add(Aspect.WEAPON, 7));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 1, new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 2, new AspectList().add(Aspect.LIGHT, 13).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 3, new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 5));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 4, new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 5, new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 5));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 6, new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 7, new AspectList().add(Aspect.DEATH, 13).add(Aspect.DARKNESS, 13).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 8, new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 7));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 9, new AspectList().add(Aspect.BEAST, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 10, new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 11, new AspectList().add(Aspect.LIFE, 13).add(Aspect.HEAL, 13).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 12, new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 5));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 13, new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 14, new AspectList().add(Aspect.WEAPON, 13).add(Aspect.MAGIC, 3));
+		ThaumcraftApi.registerObjectTag(potions.itemID, 15, new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 5));
 		}
 		
 		if(Mods.TConstruct.isIn() && getBoolean("Mod Compatibility", "Tinkers' Construct Compatibility", "Toggle Tinkers' Construct Compatibility", true)){
@@ -517,7 +524,7 @@ public class Brewcraft extends ModUtils{
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(Brewcraft.bottleFire.getStack());
 				event.entityLiving.attackEntityFrom(DamageSource.magic, 2.5F);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.pop", 1F, 1F);
+				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.magmacube.jump", 1F, 1F);
 				
 			}
 			
@@ -530,7 +537,7 @@ public class Brewcraft extends ModUtils{
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(Brewcraft.bottleGhast.getStack());
 				event.entityLiving.attackEntityFrom(DamageSource.cactus, 30F);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.pop", 1F, 1F);
+				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.ghast.death", 1F, 1F);
 				
 			}
 			
