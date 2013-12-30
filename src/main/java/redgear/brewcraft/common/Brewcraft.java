@@ -67,14 +67,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = RedGear.BrewcraftID, name= RedGear.BrewcraftName, version= RedGear.BrewcraftVersion, dependencies= RedGear.BrewcraftDepend)
+@Mod(modid = "RedGear|Brewcraft", name= "Brewcraft", version= "@ModVersion@", dependencies= "required-after:RedGear|Core;")
 public class Brewcraft extends ModUtils{
 	
 	public Brewcraft() {
 		super(3578, 11972);
 	}
 
-	@Instance(RedGear.BrewcraftID)
+	@Instance("RedGear|Brewcraft")
 	public static ModUtils inst;
     
     public static RecipeRegistry registry = new RecipeRegistry();
