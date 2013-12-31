@@ -16,9 +16,7 @@ buildscript {
 	}
 }
 
-dependencies {
-	compile('redgear.core:RedGearCore:1.5.8').ext.git = 'https://github.com/RedGear/RedGearCore.git'
-}
+
 
 apply plugin: 'forge'
 
@@ -28,6 +26,10 @@ configFile.withReader {
 	def prop = new Properties()
 	prop.load(it)
 	ext.config = new ConfigSlurper().parse prop
+}
+
+dependencies {
+	compile('redgear.core:RedGearCore:1.5.8' + config.core_version).ext.git = 'https://github.com/RedGear/RedGearCore/tree/' + config.core_commit + '.git'
 }
 
 version = config.mod_version
