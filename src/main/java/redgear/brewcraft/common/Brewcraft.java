@@ -118,7 +118,6 @@ public class Brewcraft extends ModUtils{
 	public static Fluid fluidBoom;
 	public static Fluid fluidBoomII;
 	public static Fluid fluidBoomLong;
-	
 	public static Fluid fluidAwkward;
 	public static Fluid fluidVision;
 	public static Fluid fluidVisionLong;
@@ -149,11 +148,12 @@ public class Brewcraft extends ModUtils{
 	
 	public static ItemStack soul;
 	public static ItemStack dust;
-	
 	public static ItemStack crystal;
 	public static ItemStack bone;
-	
 	public static ItemStack sulfur;
+	public static ItemStack brain;
+	public static ItemStack goo;
+	public static ItemStack tendril;
 	
 	public static Potion angel;
 	public static Potion flight;
@@ -277,7 +277,6 @@ public class Brewcraft extends ModUtils{
 		fluidBoom = FluidUtil.createFluid("potionBoom", "redgear_brewcraft:potionDarkGreen");
 		fluidBoomII = FluidUtil.createFluid("potionBoomII", "redgear_brewcraft:potionDarkGreen");
 		fluidBoomLong = FluidUtil.createFluid("potionBoomLong", "redgear_brewcraft:potionDarkGreen");
-		
 		fluidAwkward = FluidUtil.createFluid("potionAwkward", "redgear_brewcraft:potionBlue");
 		fluidVision = FluidUtil.createFluid("potionVision", "redgear_brewcraft:potionDarkBlue");
 		fluidVisionLong = FluidUtil.createFluid("potionVisionLong", "redgear_brewcraft:potionDarkBlue");
@@ -382,31 +381,42 @@ public class Brewcraft extends ModUtils{
 		
 		soul = ModConfigHelper.get("miscItems", 10);
 		dust = ModConfigHelper.get("miscItems", 11);
-		
 		crystal = ModConfigHelper.get("materials", 7);
 		bone = ModConfigHelper.get("materials", 8);
-		
 		sulfur = ModConfigHelper.get("plantItem", 4);
+		brain = ModConfigHelper.get("ItemResource", 5);
+		goo = ModConfigHelper.get("ItemResource", 11);
+		tendril = ModConfigHelper.get("ItemResource", 12);
 
 		if(Mods.BiomesOPlenty.isIn() && (getBoolean("Mod Compatibility", "Biomes o' Plenty Compatibility", "Toggle Biomes o' Plenty Compatibility", true))){
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Biomes o' Plenty loaded, now running compatibility.");	
 			
-		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), soul, 1, 4);
+		if(!(soul == null)){
+			registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), soul, 1, 4);
+		}
+		if(!(dust == null)){
 		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), dust, 1, 4);
+		}
 		}
 		
 		if(Mods.Thaum.isIn() && (getBoolean("Mod Compatibility", "Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility", true))){	
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Thaumcraft 4 loaded, now running compatibility.");
 			
-		registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+		if(!(brain == null)){
+			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), ItemApi.getItem("ItemResource", 5), 1, 4);
+		}
 		
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), ItemApi.getItem("ItemResource", 12), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), ItemApi.getItem("ItemResource", 11), 1, 4);
+		if(!(goo == null)){
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo, 1, 4);
+		}
+		if(!(tendril == null)){
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
+		}
 		
 		ThaumcraftApi.registerObjectTag(brewery.id, 0, new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
 		
@@ -436,15 +446,22 @@ public class Brewcraft extends ModUtils{
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Tinkers' Construct loaded, now running compatibility.");	
 		
-		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100), crystal, 1, 4);	
-		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, 1, 4);
+		if(!(crystal == null)){
+			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100), crystal, 1, 4);	
+		}
+		
+		if(!(bone == null)){
+			registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, 1, 4);
+		}
 		}
 		
 		if(Mods.Natura.isIn() && (getBoolean("Mod Compatibility", "Natura Compatibility", "Toggle Natura Compatibility", true))){
 			
 		FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName + "] has found Natura loaded, now running compatibility.");	
 		
-		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, 7);
+		if(!(sulfur == null)){
+			registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, 7);
+		}
 		}
 		
 	}
@@ -466,32 +483,32 @@ public class Brewcraft extends ModUtils{
 		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomLong, 100), new ItemStack(Item.redstone), 1, 4);
 		
 		if(getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)){
-		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidAwkward, 100), new ItemStack(Item.netherStalkSeeds), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidVision, 100), new ItemStack(Item.goldenCarrot), 1, 4);
-		registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidVisionLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidInvisible, 100), new FluidStack(fluidInvisibleLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidRegen, 100), new ItemStack(Item.ghastTear), 1, 4);
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidRegenLong, 100), new ItemStack(Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFast, 100), new ItemStack(Item.sugar), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastII, 100), new ItemStack(Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidStrength, 100), new ItemStack(Item.blazePowder), 1, 4);
-		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthII, 100), new ItemStack(Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFireResist, 100), new ItemStack(Item.magmaCream), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidFireResistLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidSlowness, 100), new FluidStack(fluidSlownessLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), new ItemStack(Item.spiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonLong, 100), new ItemStack(Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidHarm, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
-		registry.addRecipe(new FluidStack(fluidHarm, 100), new FluidStack(fluidHarmII, 100), new ItemStack(Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidHealing, 100), new ItemStack(Item.speckledMelon), 1, 4);
-		registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidHealingII, 100), new ItemStack(Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonII, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidAwkward, 100), new ItemStack(Item.netherStalkSeeds), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidVision, 100), new ItemStack(Item.goldenCarrot), 1, 4);
+			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidVisionLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidInvisible, 100), new FluidStack(fluidInvisibleLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidRegen, 100), new ItemStack(Item.ghastTear), 1, 4);
+			registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidRegenLong, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFast, 100), new ItemStack(Item.sugar), 1, 4);
+			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastII, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidStrength, 100), new ItemStack(Item.blazePowder), 1, 4);
+			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthII, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFireResist, 100), new ItemStack(Item.magmaCream), 1, 4);
+			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidFireResistLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidSlowness, 100), new FluidStack(fluidSlownessLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), new ItemStack(Item.spiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonLong, 100), new ItemStack(Item.redstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidHarm, 100), new ItemStack(Item.fermentedSpiderEye), 1, 4);
+			registry.addRecipe(new FluidStack(fluidHarm, 100), new FluidStack(fluidHarmII, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidHealing, 100), new ItemStack(Item.speckledMelon), 1, 4);
+			registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidHealingII, 100), new ItemStack(Item.glowstone), 1, 4);
+			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonII, 100), new ItemStack(Item.glowstone), 1, 4);
 		}
 		
 		if(getBoolean("Recipes", "Golden Feather Recipe", "Toggle Golden Feather Recipe", true)){
@@ -516,7 +533,7 @@ public class Brewcraft extends ModUtils{
 
 	@ForgeSubscribe
 	public void checkBottledFire(EntityInteractEvent event){
-		
+
 		if (event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube){
 			
 			if (event.entityPlayer.getHeldItem() != null && event.entityPlayer.getHeldItem().itemID == Item.glassBottle.itemID){
@@ -526,19 +543,20 @@ public class Brewcraft extends ModUtils{
 				event.entityLiving.attackEntityFrom(DamageSource.magic, 2.5F);
 				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.magmacube.jump", 1F, 1F);
 				
-			}
+				 }
 			
-		}
+			}
+
 		
 		if(event.entityLiving instanceof EntityGhast){
-			
+
 			if (event.entityPlayer.getHeldItem() != null && event.entityPlayer.getHeldItem().itemID == Item.glassBottle.itemID){
 				
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(Brewcraft.bottleGhast.getStack());
 				event.entityLiving.attackEntityFrom(DamageSource.cactus, 30F);
 				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.ghast.death", 1F, 1F);
-				
+			
 			}
 			
 		}
@@ -553,7 +571,6 @@ public class Brewcraft extends ModUtils{
 			event.setCanceled(true);
 			
 		}
-		
 		if(event.entity instanceof EntitySkeleton){
 			
 			EntitySkeleton skeleton = (EntitySkeleton) event.entity;

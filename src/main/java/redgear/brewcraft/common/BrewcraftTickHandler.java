@@ -20,30 +20,30 @@ public class BrewcraftTickHandler implements ITickHandler{
 		
 		if(player.isPotionActive(Brewcraft.creeper)){
 
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 8){
+			if(player.isPotionActive(Brewcraft.creeper) && player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 8){
 				
 			player.worldObj.playSoundAtEntity(player, "mob.creeper.say", 1F, 1F);
 			
 			}
 			
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 4){
+			if(player.isPotionActive(Brewcraft.creeper) && player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 4){
 				
 			player.worldObj.playSoundAtEntity(player, "mob.creeper.say", 1F, 1F);
 			
 			}
 			
-			if(player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 1 && player.capabilities.isCreativeMode == false){
+			if(player.isPotionActive(Brewcraft.creeper) && player.getActivePotionEffect(Brewcraft.creeper).getDuration() == 1 && player.capabilities.isCreativeMode == false){
 				
 			player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 4, true);
-			player.attackEntityFrom(DamageSource.generic, 1000F);
+			player.attackEntityFrom(DamageSource.generic, 25F);
 			
 			}
 			
-			if(player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 0){
+			if(player.isPotionActive(Brewcraft.immunity) && player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 0){
 				player.removePotionEffect(Potion.poison.id);
 			}
 			
-			if(player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 1){
+			if(player.isPotionActive(Brewcraft.creeper) && player.getActivePotionEffect(Brewcraft.immunity).getAmplifier() == 1){
 				player.removePotionEffect(Potion.poison.id);
 				player.removePotionEffect(Potion.hunger.id);
 				player.removePotionEffect(Potion.weakness.id);
@@ -70,9 +70,9 @@ public class BrewcraftTickHandler implements ITickHandler{
 			
 		}
 
-		if(player.getActivePotionEffect(Brewcraft.flight).getDuration() > 1 && player.capabilities.isCreativeMode == false){
+		if(player.isPotionActive(Brewcraft.flight) && player.getActivePotionEffect(Brewcraft.flight).getDuration() > 1 && player.capabilities.isCreativeMode == false){
 		player.capabilities.allowFlying = true;
-		if(player.getActivePotionEffect(Brewcraft.flight).getDuration() == 1){
+		if(player.isPotionActive(Brewcraft.flight) && player.getActivePotionEffect(Brewcraft.flight).getDuration() == 1 || player.isPotionActive(Brewcraft.flight) && player.getActivePotionEffect(Brewcraft.flight).getDuration() < 1){
 			
 			player.capabilities.isFlying = false;
 			player.capabilities.allowFlying = false;
