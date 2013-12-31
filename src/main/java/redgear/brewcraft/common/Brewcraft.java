@@ -165,10 +165,10 @@ public class Brewcraft extends ModUtils{
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {	
 		
-		angel = new EffectExtension(getInt("Potion Effect IDs", "'Angelic' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042, 1).setPotionName("potion.angel");
-		flight = new EffectExtension(getInt("Potion Effect IDs", "'Flight' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 26), false, 16777215, 2).setPotionName("potion.flight");
-		creeper = new EffectExtension(getInt("Potion Effect IDs", "'Cumbustion' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089, 0).setPotionName("potion.creeper");
-		immunity = new EffectExtension(getInt("Potion Effect IDs", "'Immunity' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 28), false, 1987089, 3).setPotionName("potion.immunity");
+		angel = new EffectExtension(getInt("Potion Effect IDs", "'Angelic' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042).setPotionName("potion.angel");
+		flight = new EffectExtension(getInt("Potion Effect IDs", "'Flight' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 26), false, 16777215).setPotionName("potion.flight");
+		creeper = new EffectExtension(getInt("Potion Effect IDs", "'Cumbustion' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089).setPotionName("potion.creeper");
+		immunity = new EffectExtension(getInt("Potion Effect IDs", "'Immunity' Effect ID", "Must be over 20 to avoid conflict with vanilla.", 28), false, 8131210).setPotionName("potion.immunity");
 		
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust", "Blessed Powder"));
