@@ -1,22 +1,20 @@
 package redgear.brewcraft.potions;
 
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityBrewcraftPotion extends EntityThrowable {
 	
 	private ItemStack potionDamage;
-	public PotionEffect splash;
-
-	public EntityBrewcraftPotion(World par1World, PotionEffect effect) {
-		super(par1World);
-		this.splash = effect;
-
-	}
 	
     public EntityBrewcraftPotion(World par1World, EntityPlayer par2EntityLiving, ItemStack par3ItemStack)
     {
@@ -30,12 +28,37 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unused" })
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 		
-		//I'm missing something huge here.
-		//The public PotionEffect 'splash' which is linked to the second parameter in the
-		//contructor should be used here somehow.
+		 AxisAlignedBB distance = this.boundingBox.expand(4.0D, 2.0D, 4.0D);
+		 List var4 = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, distance);
+		 Iterator var5 = var4.iterator();
+		 
+		 while (var5.hasNext())
+         {
+             EntityLiving var6 = (EntityLiving)var5.next();
+             double var7 = this.getDistanceSqToEntity(var6);
+
+             if (var7 < 16.0D)
+             {
+                 double var9 = 1.0D - Math.sqrt(var7) / 4.0D;
+
+                 if (var6 == movingobjectposition.entityHit)
+                 {
+                     var9 = 1.0D;
+                 }
+
+                     //PotionEffect var12 = (PotionEffect)PotionEffect;
+                     //int var13 = var12.getPotionID();
+                     //var6.addPotionEffect(new PotionEffect(var13, duration, var12.getAmplifier()));
+                 
+                 	 //Need to somehow implement this. . .
+
+             }
+             
+         }
 
 	}
 	

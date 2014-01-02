@@ -32,7 +32,6 @@ import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.potions.EffectExtension;
 import redgear.brewcraft.potions.MetaItemPotion;
-import redgear.brewcraft.potions.MetaItemSplash;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.SubItemPotion.SubPotionEffect;
 import redgear.brewcraft.recipes.RecipeRegistry;
@@ -102,7 +101,7 @@ public class Brewcraft extends ModUtils{
 	public static SimpleItem bottleBoomII;
 	public static SimpleItem bottleBoomLong;
 	
-	public static MetaItemSplash splashes;
+	public static MetaItemPotion splashes;
 	public static SimpleItem splashEmpty;
 	public static SimpleItem splashFire;
 	public static SimpleItem splashHolyWater;

@@ -55,9 +55,29 @@ public class MetaItemPotion extends MetaItem{
     }
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    {
+        if (!par2World.isRemote && ((SubItemPotion)getMetaItem(par1ItemStack.getItemDamage())).isSplash()){
+        			
+            if (!par3EntityPlayer.capabilities.isCreativeMode)
+            {
+                --par1ItemStack.stackSize;
+            }
+
+            par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+            if (!par2World.isRemote)
+            {
+                par2World.spawnEntityInWorld(new EntityBrewcraftPotion(par2World, par3EntityPlayer, par1ItemStack));
+            }
+
+            return par1ItemStack;
+        }  	
+        else
+        {
+            par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+            return par1ItemStack;
+        }
     }
 	
 	@Override
