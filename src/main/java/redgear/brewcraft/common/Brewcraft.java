@@ -69,42 +69,10 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem holydust;
 	public static SimpleItem goldenfeather;
 	public static SimpleItem charredbone;
+	public static SimpleItem splashbottle;
 
 	public static MetaItemPotion potions;
-	public static SimpleItem bottleFire;
-	public static SimpleItem bottleHolyWater;
-	public static SimpleItem bottleHolyWaterII;
-	public static SimpleItem bottleHolyWaterLong;
-	public static SimpleItem bottleFlying;
-	public static SimpleItem bottleFlyingLong;
-	public static SimpleItem bottleWither;
-	public static SimpleItem bottleWitherII;
-	public static SimpleItem bottleWitherLong;
-	public static SimpleItem bottleGhast;
-	public static SimpleItem bottleAntidote;
-	public static SimpleItem bottleAntidoteII;
-	public static SimpleItem bottleAntidoteLong;
-	public static SimpleItem bottleBoom;
-	public static SimpleItem bottleBoomII;
-	public static SimpleItem bottleBoomLong;
-
 	public static MetaItemPotion splashes;
-	public static SimpleItem splashEmpty;
-	public static SimpleItem splashFire;
-	public static SimpleItem splashHolyWater;
-	public static SimpleItem splashHolyWaterII;
-	public static SimpleItem splashHolyWaterLong;
-	public static SimpleItem splashFlying;
-	public static SimpleItem splashFlyingLong;
-	public static SimpleItem splashWither;
-	public static SimpleItem splashWitherII;
-	public static SimpleItem splashWitherLong;
-	public static SimpleItem splashAntidote;
-	public static SimpleItem splashAntidoteII;
-	public static SimpleItem splashAntidoteLong;
-	public static SimpleItem splashBoom;
-	public static SimpleItem splashBoomII;
-	public static SimpleItem splashBoomLong;
 
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
@@ -184,119 +152,108 @@ public class Brewcraft extends ModUtils {
 		charredbone = ingredients.addMetaItem(new SubItem("charredbone", "Charred Bone"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
-		bottleFire = potions.addMetaItem(new SubItemPotion("bottleFire", "Bottled Fire", false, new SubPotionEffect() {
+		createSpecialPotion("Fire", "Fire", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.setFire(10);
 			}
-		}));
-		bottleHolyWater = potions.addMetaItem(new SubItemPotion("bottleHolyWater", "Potion of Holy Water", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
-					}
-				}));
-		bottleHolyWaterII = potions.addMetaItem(new SubItemPotion("bottleHolyWaterII", "Potion of Holy Water II",
-				false, new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(angel.id, 100, 1));
-					}
-				}));
-		bottleHolyWaterLong = potions.addMetaItem(new SubItemPotion("bottleHolyWaterLong", "Long Potion of Holy Water",
-				false, new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(angel.id, 100, 1));
-					}
-				}));
-		bottleFlying = potions.addMetaItem(new SubItemPotion("bottleFlying", "Potion of Ascention", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
-					}
-				}));
-		bottleFlyingLong = potions.addMetaItem(new SubItemPotion("bottleFlyingLong", "Long Potion of Ascention", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
-					}
-				}));
-		bottleWither = potions.addMetaItem(new SubItemPotion("bottleWither", "Potion of Wither", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
-					}
-				}));
-		bottleWitherII = potions.addMetaItem(new SubItemPotion("bottleWitherII", "Potion of Wither II", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
-					}
-				}));
-		bottleWitherLong = potions.addMetaItem(new SubItemPotion("bottleWitherLong", "Long Potion of Wither", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
-					}
-				}));
-		bottleGhast = potions.addMetaItem(new SubItemPotion("bottleGhast", "Ghast in a Bottle", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 1));
-						//TODO: Check to see if this is a splash potion. If so, drop on ground, otherwise go into player inventory.
-						//player.inventory.addItemStackToInventory(new ItemStack(Item.ghastTear, 1, 0));
-					}
-				}));
-		bottleAntidote = potions.addMetaItem(new SubItemPotion("bottleAntidote", "Potion of Antidote", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
-					}
-				}));
-		bottleAntidoteII = potions.addMetaItem(new SubItemPotion("bottleAntidoteII", "Potion of Antidote II", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(immunity.id, 600, 1));
-					}
-				}));
-		bottleAntidoteLong = potions.addMetaItem(new SubItemPotion("bottleAntidoteLong", "Long Potion of Antidote",
-				false, new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(immunity.id, 1200, 1));
-					}
-				}));
-		bottleBoom = potions.addMetaItem(new SubItemPotion("bottleBoom", "Potion of Combustion", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));
-					}
-				}));
-		bottleBoomII = potions.addMetaItem(new SubItemPotion("bottleBoomII", "Potion of Combustion II", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));
-					}
-				}));
-		bottleBoomLong = potions.addMetaItem(new SubItemPotion("bottleBoomLong", "Long Potion of Combustion", false,
-				new SubPotionEffect() {
-					@Override
-					public void effect(World world, EntityLivingBase player) {
-						player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));
-					}
-				}));
+		});
+		createPotion("HolyWater", "HolyWater", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
+			}
+		});
+		createPotion("HolyWaterII", "HolyWaterII", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(angel.id, 50, 1));
+			}
+		});
+		createPotion("HolyWaterLong", "HolyWaterLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(angel.id, 200, 0));
+			}
+		});
+		createPotion("Flying", "Flying", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
+			}
+		});
+		createPotion("FlyingLong", "FlyingLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
+			}
+		});
+		createPotion("Wither", "Wither", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
+			}
+		});
+		createPotion("WitherII", "WitherII", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
+			}
+		});
+		createPotion("WitherLong", "WitherLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
+			}
+		});
+		createPotion("WitherLong", "WitherLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
+			}
+		});
+		createSpecialPotion("Ghast", "Ghast", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
+			}
+		});
+		createPotion("Antidote", "Antidote", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(immunity.id, 600, 0));
+			}
+		});
+		createPotion("AntidoteII", "AntidoteII", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(immunity.id, 300, 1));
+			}
+		});
+		createPotion("AntidoteLong", "AntidoteLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
+			}
+		});
+		createPotion("Boom", "Boom", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));;
+			}
+		});
+		createPotion("BoomII", "BoomII", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));;
+			}
+		});
+		createPotion("BoomLong", "BoomLong", new SubPotionEffect() {
+			@Override
+			public void effect(World world, EntityLivingBase player) {
+				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));;
+			}
+		});
 
 		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
 				new RenderItemBrewery(), new TileRendererBrewery());
@@ -367,35 +324,6 @@ public class Brewcraft extends ModUtils {
 	protected void PostInit(FMLPostInitializationEvent event) {
 
 		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.CLIENT);
-
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWater, 1000), bottleHolyWater.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWaterII, 1000),
-				bottleHolyWaterII.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidHolyWaterLong, 1000),
-				bottleHolyWaterLong.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFlying, 1000), bottleFlying.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidFlyingLong, 1000),
-				bottleFlyingLong.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWither, 1000), bottleWither.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWitherLong, 1000),
-				bottleWitherLong.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidWitherII, 1000), bottleWitherII.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidote, 1000), bottleAntidote.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidoteII, 1000),
-				bottleAntidoteII.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAntidoteLong, 1000),
-				bottleAntidoteLong.getStack(), new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoom, 1000), bottleBoom.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoomII, 1000), bottleBoomII.getStack(),
-				new ItemStack(Item.glassBottle));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidBoomLong, 1000), bottleBoomLong.getStack(),
-				new ItemStack(Item.glassBottle));
 
 		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluidAwkward, 1000), new ItemStack(
 				Item.glassBottle, 1, 16), new ItemStack(Item.glassBottle));
@@ -674,6 +602,7 @@ public class Brewcraft extends ModUtils {
 	}
 
 	private static SimpleItem emptyBottle = new SimpleItem(Item.glassBottle);
+	private static SimpleItem splashBottle = splashbottle;
 
 	/**
 	 * Helper method for creating potions
@@ -690,7 +619,13 @@ public class Brewcraft extends ModUtils {
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
+		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
 		//TODO: when empty splash bottle is added, just copy the above line and replace bottle with splash and emptyBottle with emptySplashBottle
+	}
+	
+	private void createSpecialPotion(String name, String iconName, SubPotionEffect effect) {
+		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
+		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
 	}
 
 	@Override
