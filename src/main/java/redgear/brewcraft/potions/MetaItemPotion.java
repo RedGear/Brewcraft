@@ -10,82 +10,79 @@ import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 import redgear.core.util.SimpleItem;
 
-public class MetaItemPotion extends MetaItem{
+public class MetaItemPotion extends MetaItem {
 
 	public MetaItemPotion(int itemID, String name) {
 		super(itemID, name);
-		this.setCreativeTab(CreativeTabs.tabBrewing);
+		setCreativeTab(CreativeTabs.tabBrewing);
 	}
-	
-	public SimpleItem addMetaItem(SubItemPotion newItem){
-		SimpleItem temp = super.addMetaItem(newItem);
-		
-		return temp;
+
+	public SimpleItem addMetaItem(SubItemPotion newItem) {
+		return super.addMetaItem(newItem);
 	}
-	
+
 	@Override
 	@Deprecated
-	public SimpleItem addMetaItem(SubItem newItem){
-		if(!(newItem instanceof SubItemPotion))
-    		throw new ClassCastException("MetaItemPotion can only except SubItemPotion!");
-        return addMetaItem((SubItemPotion) newItem);
+	/**
+	 * MetaItemPotion can only except SubItemPotion!
+	 */
+	public SimpleItem addMetaItem(SubItem newItem) {
+		if (!(newItem instanceof SubItemPotion))
+			throw new ClassCastException("MetaItemPotion can only except SubItemPotion!");
+		return addMetaItem((SubItemPotion) newItem);
 	}
-	
+
 	@Override
-	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player){
-		if (!player.capabilities.isCreativeMode){
-            --stack.stackSize;
-            player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0));
-        }
-		
-		if(!world.isRemote)
-			((SubItemPotion)getMetaItem(stack.getItemDamage())).effect(world, player);
-			
+	public SubItemPotion getMetaItem(int meta) {
+		return (SubItemPotion) super.getMetaItem(meta);
+	}
+
+	@Override
+	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+		if (!player.capabilities.isCreativeMode) {
+			--stack.stackSize;
+			player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0));
+		}
+
+		if (!world.isRemote)
+			getMetaItem(stack.getItemDamage()).effect(world, player);
+
 		return stack;
 	}
-	
-	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack){
-        return 32;
-    }
 
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack){
-        return EnumAction.drink;
-    }
-	
-	@Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        if (!par2World.isRemote && ((SubItemPotion)getMetaItem(par1ItemStack.getItemDamage())).isSplash()){
-        			
-            if (!par3EntityPlayer.capabilities.isCreativeMode)
-            {
-                --par1ItemStack.stackSize;
-            }
-
-            par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-            if (!par2World.isRemote)
-            {
-                par2World.spawnEntityInWorld(new EntityBrewcraftPotion(par2World, par3EntityPlayer, par1ItemStack));
-            }
-
-            return par1ItemStack;
-        }  	
-        else
-        {
-            par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-            return par1ItemStack;
-        }
-    }
-	
-	@Override
-	public boolean hasEffect(ItemStack par1ItemStack){
-		
-		return true;
-		
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 32;
 	}
-	
-	
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+		return EnumAction.drink;
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		SubItemPotion potion = getMetaItem(stack.getItemDamage());
+
+		if (!world.isRemote && potion.isSplash()) {
+
+			if (!player.capabilities.isCreativeMode)
+				--stack.stackSize;
+
+			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+			if (!world.isRemote)
+				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, potion));
+
+		} else
+			player.setItemInUse(stack, getMaxItemUseDuration(stack));
+
+		return stack;
+	}
+
+	@Override
+	public boolean hasEffect(ItemStack par1ItemStack) {
+		return true;
+	}
+
 }
