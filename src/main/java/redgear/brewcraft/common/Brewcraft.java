@@ -147,9 +147,9 @@ public class Brewcraft extends ModUtils {
 				.setPotionName("potion.immunity");
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.ingredients");
-		holydust = ingredients.addMetaItem(new SubItem("holydust", "Blessed Powder"));
-		goldenfeather = ingredients.addMetaItem(new SubItem("goldenfeather", "Golden Feather"));
-		charredbone = ingredients.addMetaItem(new SubItem("charredbone", "Charred Bone"));
+		holydust = ingredients.addMetaItem(new SubItem("holydust"));
+		goldenfeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
+		charredbone = ingredients.addMetaItem(new SubItem("charredbone"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
 		createSpecialPotion("Fire", "Fire", new SubPotionEffect() {

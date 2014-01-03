@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'git-dependencies'
+//apply plugin: 'git-dependencies'
 
 buildscript {
 	repositories {
@@ -12,7 +12,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
-		classpath 'org.batcha.gradle.plugins:git-dependencies:0.1'
+		//classpath 'org.batcha.gradle.plugins:git-dependencies:0.1'
 	}
 }
 
@@ -29,7 +29,8 @@ configFile.withReader {
 }
 
 dependencies {
-	compile('redgear.core:RedGearCore:1.5.8' + config.core_version).ext.git = 'https://github.com/RedGear/RedGearCore/tree/' + config.core_commit + '.git'
+	compile('net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT')
+	//compile('redgear.core:RedGearCore:1.5.8' + config.core_version).ext.git = 'https://github.com/RedGear/RedGearCore/tree/' + config.core_commit + '.git'
 }
 
 version = config.mod_version

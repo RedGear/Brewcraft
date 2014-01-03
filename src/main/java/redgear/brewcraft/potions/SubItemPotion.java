@@ -10,7 +10,7 @@ public class SubItemPotion extends SubItem {
 	public boolean isSplash;
 
 	public SubItemPotion(String name, boolean isSplash, SubPotionEffect effect) {
-		super(name, "");
+		super(name);
 		this.effect = effect;
 		this.isSplash = isSplash;
 	}
