@@ -1,0 +1,3 @@
+[submodule "src/core/java"]
+	path = src/core/java
+	url = https://github.com/RedGear/RedGearLib
