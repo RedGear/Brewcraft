@@ -61,7 +61,7 @@ public class BrewcraftEventHandler {
 		if (event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube)
 			if (event.entityPlayer.getHeldItem() != null
 					&& event.entityPlayer.getHeldItem().itemID == Brewcraft.ingredients.itemID
-					&& event.entityPlayer.getHeldItem().getItemDamage() == Brewcraft.splashbottle.meta) {
+					&& event.entityPlayer.getHeldItem().getItemDamage() == Brewcraft.splashBottle.meta) {
 
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
@@ -73,7 +73,7 @@ public class BrewcraftEventHandler {
 		if (event.entityLiving instanceof EntityGhast)
 			if (event.entityPlayer.getHeldItem() != null
 					&& event.entityPlayer.getHeldItem().itemID == Brewcraft.ingredients.itemID
-					&& event.entityPlayer.getHeldItem().getItemDamage() == Brewcraft.splashbottle.meta) {
+					&& event.entityPlayer.getHeldItem().getItemDamage() == Brewcraft.splashBottle.meta) {
 
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 21));
@@ -143,7 +143,7 @@ public class BrewcraftEventHandler {
 		if (event.entityPlayer.worldObj.getBlockId(event.x, event.y + 1, event.z) == Block.fire.blockID
 				&& event.entityPlayer.inventory.getCurrentItem() != null
 				&& event.entityPlayer.inventory.getCurrentItem().itemID == Brewcraft.ingredients.itemID
-				&& event.entityPlayer.inventory.getCurrentItem().getItemDamage() == Brewcraft.splashbottle.meta) {
+				&& event.entityPlayer.inventory.getCurrentItem().getItemDamage() == Brewcraft.splashBottle.meta) {
 
 			event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 			event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
@@ -155,7 +155,7 @@ public class BrewcraftEventHandler {
 		if (event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.lavaMoving.blockID
 				&& event.entityPlayer.inventory.getCurrentItem() != null
 				&& event.entityPlayer.inventory.getCurrentItem().itemID == Item.glassBottle.itemID
-				&& event.entityPlayer.inventory.getCurrentItem().getItemDamage() == Brewcraft.splashbottle.meta) {
+				&& event.entityPlayer.inventory.getCurrentItem().getItemDamage() == Brewcraft.splashBottle.meta) {
 
 			event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 			event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 21));
