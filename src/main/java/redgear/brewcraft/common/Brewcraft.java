@@ -152,103 +152,97 @@ public class Brewcraft extends ModUtils {
 		charredbone = ingredients.addMetaItem(new SubItem("charredbone"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
-		createSpecialPotion("Fire", "Fire", new SubPotionEffect() {
+		createSpecialPotion("Fire", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.setFire(10);
 			}
 		});
-		createPotion("HolyWater", "HolyWater", new SubPotionEffect() {
+		createPotion("HolyWater", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
 			}
 		});
-		createPotion("HolyWaterII", "HolyWaterII", new SubPotionEffect() {
+		createPotion("HolyWaterII", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 50, 1));
 			}
 		});
-		createPotion("HolyWaterLong", "HolyWaterLong", new SubPotionEffect() {
+		createPotion("HolyWaterLong", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 200, 0));
 			}
 		});
-		createPotion("Flying", "Flying", new SubPotionEffect() {
+		createPotion("Flying", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
 			}
 		});
-		createPotion("FlyingLong", "FlyingLong", new SubPotionEffect() {
+		createPotion("FlyingLong", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
 			}
 		});
-		createPotion("Wither", "Wither", new SubPotionEffect() {
+		createPotion("Wither", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
 			}
 		});
-		createPotion("WitherII", "WitherII", new SubPotionEffect() {
+		createPotion("WitherII", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
 			}
 		});
-		createPotion("WitherLong", "WitherLong", new SubPotionEffect() {
+		createPotion("WitherLong", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
 			}
 		});
-		createPotion("WitherLong", "WitherLong", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
-			}
-		});
-		createSpecialPotion("Ghast", "Ghast", new SubPotionEffect() {
+		createSpecialPotion("Ghast", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
 			}
 		});
-		createPotion("Antidote", "Antidote", new SubPotionEffect() {
+		createPotion("Antidote", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 600, 0));
 			}
 		});
-		createPotion("AntidoteII", "AntidoteII", new SubPotionEffect() {
+		createPotion("AntidoteII", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 300, 1));
 			}
 		});
-		createPotion("AntidoteLong", "AntidoteLong", new SubPotionEffect() {
+		createPotion("AntidoteLong", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
 			}
 		});
-		createPotion("Boom", "Boom", new SubPotionEffect() {
+		createPotion("Boom", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));;
 			}
 		});
-		createPotion("BoomII", "BoomII", new SubPotionEffect() {
+		createPotion("BoomII", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));;
 			}
 		});
-		createPotion("BoomLong", "BoomLong", new SubPotionEffect() {
+		createPotion("BoomLong", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));;
@@ -623,7 +617,7 @@ public class Brewcraft extends ModUtils {
 		//TODO: when empty splash bottle is added, just copy the above line and replace bottle with splash and emptyBottle with emptySplashBottle
 	}
 	
-	private void createSpecialPotion(String name, String iconName, SubPotionEffect effect) {
+	private void createSpecialPotion(String name, SubPotionEffect effect) {
 		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
 		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
 	}
