@@ -37,7 +37,7 @@ apply plugin: 'forge'
 minecraft {
         version = config.minecraft_version + "-" + config.forge_version
         
-        replaceIn config.mod_main
+        replaceIn config.mod_main + '.java'
         replace "@ModVersion@", project.version
 }
 
