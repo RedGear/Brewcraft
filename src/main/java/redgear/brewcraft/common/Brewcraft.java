@@ -69,7 +69,7 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem holydust;
 	public static SimpleItem goldenfeather;
 	public static SimpleItem charredbone;
-	public static SimpleItem splashbottle;
+	public static SimpleItem splashBottle;
 
 	public static MetaItemPotion potions;
 
@@ -531,7 +531,6 @@ public class Brewcraft extends ModUtils {
 	}
 
 	private static SimpleItem emptyBottle = new SimpleItem(Item.glassBottle);
-	private static SimpleItem splashBottle = splashbottle;
 
 	/**
 	 * Helper method for creating potions
