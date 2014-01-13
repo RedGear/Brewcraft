@@ -1,6 +1,10 @@
 package redgear.brewcraft.common;
 
+import java.util.Collection;
 import java.util.logging.Level;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -76,46 +80,6 @@ public class Brewcraft extends ModUtils {
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
 
-	public static Fluid fluidHolyWater;
-	public static Fluid fluidHolyWaterII;
-	public static Fluid fluidHolyWaterLong;
-	public static Fluid fluidFlying;
-	public static Fluid fluidFlyingLong;
-	public static Fluid fluidWither;
-	public static Fluid fluidWitherII;
-	public static Fluid fluidWitherLong;
-	public static Fluid fluidAntidote;
-	public static Fluid fluidAntidoteII;
-	public static Fluid fluidAntidoteLong;
-	public static Fluid fluidBoom;
-	public static Fluid fluidBoomII;
-	public static Fluid fluidBoomLong;
-	public static Fluid fluidAwkward;
-	public static Fluid fluidVision;
-	public static Fluid fluidVisionLong;
-	public static Fluid fluidInvisible;
-	public static Fluid fluidInvisibleLong;
-	public static Fluid fluidRegen;
-	public static Fluid fluidRegenLong;
-	public static Fluid fluidFast;
-	public static Fluid fluidFastLong;
-	public static Fluid fluidFastII;
-	public static Fluid fluidWeakness;
-	public static Fluid fluidStrength;
-	public static Fluid fluidStrengthLong;
-	public static Fluid fluidStrengthII;
-	public static Fluid fluidFireResist;
-	public static Fluid fluidFireResistLong;
-	public static Fluid fluidSlowness;
-	public static Fluid fluidSlownessLong;
-	public static Fluid fluidPoison;
-	public static Fluid fluidPoisonII;
-	public static Fluid fluidPoisonLong;
-	public static Fluid fluidHarm;
-	public static Fluid fluidHarmII;
-	public static Fluid fluidHealing;
-	public static Fluid fluidHealingII;
-
 	private final String breweryTexture = "brewery";
 
 	public static ItemStack soul;
@@ -131,6 +95,8 @@ public class Brewcraft extends ModUtils {
 	public static Potion flight;
 	public static Potion creeper;
 	public static Potion immunity;
+	
+	public Multimap<ItemStack, Fluid> potionMap = ArrayListMultimap.<ItemStack, Fluid> create();
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -326,10 +292,10 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Biomes o' Plenty loaded, now running compatibility.");
 
 			if (!(soul == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), soul, 1,
+				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), getFluidFromPotion(new ItemStack(potions, 1, 11)), soul, 1,
 						4);
 			if (!(dust == null))
-				registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), dust, 1, 4);
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8193)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8193)), dust, 1, 4);
 		}
 
 		if (Mods.Thaum.isIn()
@@ -340,20 +306,20 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Thaumcraft 4 loaded, now running compatibility.");
 
 			if (!(brain == null)) {
-				registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100),
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8198)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8206)),
 						ItemApi.getItem("ItemResource", 5), 1, 4);
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100),
+				registry.addRecipe(new FluidStack(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), 100), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8200)),
 						ItemApi.getItem("ItemResource", 5), 1, 4);
-				registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100),
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8201)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8200)),
 						ItemApi.getItem("ItemResource", 5), 1, 4);
-				registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100),
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8195)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8202)),
 						ItemApi.getItem("ItemResource", 5), 1, 4);
 			}
 
 			if (!(goo == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo, 1, 4);
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), goo, 1, 4);
 			if (!(tendril == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
+				registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), tendril, 1, 4);
 
 			ThaumcraftApi.registerObjectTag(brewery.id, 0,
 					new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
@@ -411,7 +377,7 @@ public class Brewcraft extends ModUtils {
 						crystal, 1, 4);
 
 			if (!(bone == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, 1,
+				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), getFluidFromPotion(new ItemStack(potions, 1, 11)), bone, 1,
 						4);
 		}
 
@@ -422,90 +388,90 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, 7);
+				registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 11)), getFluidFromPotion(new ItemStack(potions, 1, 24)), sulfur, 1, 7);
 		}
 
 	}
 
 	private void recipes() {
 
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1, 5);
-		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterII, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8193)), getFluidFromPotion(new ItemStack(potions, 1, 1)), holydust, 1, 5);
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 1)), getFluidFromPotion(new ItemStack(potions, 1, 3)), new ItemStack(
 				Item.glowstone), 1, 5);
-		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterLong, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 1)), getFluidFromPotion(new ItemStack(potions, 1, 5)), new ItemStack(
 				Item.redstone), 1, 5);
-		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidFlying, 100), goldenfeather,
+		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), getFluidFromPotion(new ItemStack(potions, 1, 7)), goldenfeather,
 				1, 6);
-		registry.addRecipe(new FluidStack(fluidFlying, 100), new FluidStack(fluidFlyingLong, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 7)), getFluidFromPotion(new ItemStack(potions, 1, 9)), new ItemStack(
 				Item.redstone), 1, 6);
-		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone, 1, 4);
-		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherII, 100), new ItemStack(
+		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), getFluidFromPotion(new ItemStack(potions, 1, 11)), charredbone, 1, 4);
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 11)), getFluidFromPotion(new ItemStack(potions, 1, 13)), new ItemStack(
 				Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherLong, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 11)), getFluidFromPotion(new ItemStack(potions, 1, 15)), new ItemStack(
 				Item.redstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidAntidote, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8197)), getFluidFromPotion(new ItemStack(potions, 1, 18)), new ItemStack(
 				Item.redstone), 1, 6);
-		registry.addRecipe(new FluidStack(fluidAntidote, 100), new FluidStack(fluidAntidoteII, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 18)), getFluidFromPotion(new ItemStack(potions, 1, 20)), new ItemStack(
 				Item.glowstone), 1, 6);
-		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 11)), getFluidFromPotion(new ItemStack(potions, 1, 24)), new ItemStack(
 				Item.gunpowder), 1, 4);
-		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomII, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 24)), getFluidFromPotion(new ItemStack(potions, 1, 26)), new ItemStack(
 				Item.glowstone), 1, 4);
-		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomLong, 100), new ItemStack(
+		registry.addRecipe(getFluidFromPotion(new ItemStack(potions, 1, 24)), getFluidFromPotion(new ItemStack(potions, 1, 28)), new ItemStack(
 				Item.redstone), 1, 4);
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
-			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidAwkward, 100),
+			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)),
 					new ItemStack(Item.netherStalkSeeds), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidVision, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8198)), new ItemStack(
 					Item.goldenCarrot), 1, 4);
-			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidVisionLong, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8198)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8262)), new ItemStack(
 					Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8198)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8206)), new ItemStack(
 					Item.fermentedSpiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidInvisible, 100), new FluidStack(fluidInvisibleLong, 100),
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8206)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8270)),
 					new ItemStack(Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidRegen, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8193)), new ItemStack(
 					Item.ghastTear), 1, 4);
-			registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidRegenLong, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8193)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8257)), new ItemStack(
 					Item.glowstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFast, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8194)), new ItemStack(
 					Item.sugar), 1, 4);
-			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastLong, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8194)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8258)), new ItemStack(
 					Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastII, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8194)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8290)), new ItemStack(
 					Item.glowstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8200)), new ItemStack(
 					Item.fermentedSpiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8201)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8200)), new ItemStack(
 					Item.fermentedSpiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidStrength, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8201)), new ItemStack(
 					Item.blazePowder), 1, 4);
-			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthLong, 100),
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8201)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8265)),
 					new ItemStack(Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthII, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8201)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8233)), new ItemStack(
 					Item.glowstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFireResist, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8195)), new ItemStack(
 					Item.magmaCream), 1, 4);
-			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidFireResistLong, 100),
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8195)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8259)),
 					new ItemStack(Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8195)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8202)), new ItemStack(
 					Item.fermentedSpiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidSlowness, 100), new FluidStack(fluidSlownessLong, 100),
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8202)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8266)),
 					new ItemStack(Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), new ItemStack(
 					Item.spiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonLong, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8260)), new ItemStack(
 					Item.redstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidHarm, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8204)), new ItemStack(
 					Item.fermentedSpiderEye), 1, 4);
-			registry.addRecipe(new FluidStack(fluidHarm, 100), new FluidStack(fluidHarmII, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8204)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8236)), new ItemStack(
 					Item.glowstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidHealing, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 16)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8197)), new ItemStack(
 					Item.speckledMelon), 1, 4);
-			registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidHealingII, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8197)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8229)), new ItemStack(
 					Item.glowstone), 1, 4);
-			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonII, 100), new ItemStack(
+			registry.addRecipe(getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8196)), getFluidFromPotion(new ItemStack(Item.glassBottle, 1, 8228)), new ItemStack(
 					Item.glowstone), 1, 4);
 		}
 
@@ -547,7 +513,8 @@ public class Brewcraft extends ModUtils {
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
 		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
-		//TODO: when empty splash bottle is added, just copy the above line and replace bottle with splash and emptyBottle with emptySplashBottle
+		potionMap.put(bottle.getStack(), potion);
+		potionMap.put(bottle.getStack(), potion);
 	}
 	
 	private void createSpecialPotion(String name, SubPotionEffect effect) {
@@ -568,6 +535,20 @@ public class Brewcraft extends ModUtils {
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaBottle), emptyBottle.getStack());
 		if(!(metaSplash == 0))
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaSplash), splashBottle.getStack());
+		potionMap.put(new ItemStack(Item.glassBottle, 1, metaBottle), potion);
+		potionMap.put(new ItemStack(Item.glassBottle, 1, metaSplash), potion);
+	}
+	
+	/**
+	 * Method to get a fluid from a given potion.
+	 * 
+	 * @param potion - The potion that you're getting the fluid for.
+	 */
+	private FluidStack getFluidFromPotion(ItemStack potion){
+		Collection<Fluid> fluidList = potionMap.get(potion);
+		Fluid fluid = fluidList.iterator().next();
+		
+		return new FluidStack(fluid, 100);
 	}
 
 	@Override
