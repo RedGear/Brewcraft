@@ -76,20 +76,36 @@ public class Brewcraft extends ModUtils {
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
 
+	private final String breweryTexture = "brewery";
+
+	public static ItemStack soul;
+	public static ItemStack dust;
+	public static ItemStack crystal;
+	public static ItemStack bone;
+	public static ItemStack sulfur;
+	public static ItemStack brain;
+	public static ItemStack goo;
+	public static ItemStack tendril;
+
+	public static Potion angel;
+	public static Potion flight;
+	public static Potion creeper;
+	public static Potion immunity;
+	
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
 	public static Fluid fluidHolyWaterLong;
 	public static Fluid fluidFlying;
 	public static Fluid fluidFlyingLong;
 	public static Fluid fluidWither;
-	public static Fluid fluidWitherII;
 	public static Fluid fluidWitherLong;
+	public static Fluid fluidWitherII;
 	public static Fluid fluidAntidote;
 	public static Fluid fluidAntidoteII;
 	public static Fluid fluidAntidoteLong;
 	public static Fluid fluidBoom;
-	public static Fluid fluidBoomII;
 	public static Fluid fluidBoomLong;
+	public static Fluid fluidBoomII;
 	public static Fluid fluidAwkward;
 	public static Fluid fluidVision;
 	public static Fluid fluidVisionLong;
@@ -115,22 +131,8 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHarmII;
 	public static Fluid fluidHealing;
 	public static Fluid fluidHealingII;
-
-	private final String breweryTexture = "brewery";
-
-	public static ItemStack soul;
-	public static ItemStack dust;
-	public static ItemStack crystal;
-	public static ItemStack bone;
-	public static ItemStack sulfur;
-	public static ItemStack brain;
-	public static ItemStack goo;
-	public static ItemStack tendril;
-
-	public static Potion angel;
-	public static Potion flight;
-	public static Potion creeper;
-	public static Potion immunity;
+	
+	public final int DEFAULT_TIME = 7;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -157,49 +159,49 @@ public class Brewcraft extends ModUtils {
 				player.setFire(10);
 			}
 		});
-		createPotion("HolyWater", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
+		fluidHolyWater = createPotion("HolyWater", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
 			}
 		});
-		createPotion("HolyWaterII", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
+		fluidHolyWaterII = createPotion("HolyWaterII", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 50, 1));
 			}
 		});
-		createPotion("HolyWaterLong", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
+		fluidHolyWaterLong = createPotion("HolyWaterLong", "redgear_brewcraft:potionHoly", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 200, 0));
 			}
 		});
-		createPotion("Flying", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
+		fluidFlying = createPotion("Flying", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
 			}
 		});
-		createPotion("FlyingLong", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
+		fluidFlyingLong = createPotion("FlyingLong", "redgear_brewcraft:potionFlying", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
 			}
 		});
-		createPotion("Wither", "redgear_brewcraft:potionWither", new SubPotionEffect() {
+		fluidWither = createPotion("Wither", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
 			}
 		});
-		createPotion("WitherII", "redgear_brewcraft:potionWither", new SubPotionEffect() {
+		fluidWitherII = createPotion("WitherII", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
 			}
 		});
-		createPotion("WitherLong", "redgear_brewcraft:potionWither", new SubPotionEffect() {
+		fluidWitherLong = createPotion("WitherLong", "redgear_brewcraft:potionWither", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
@@ -211,37 +213,37 @@ public class Brewcraft extends ModUtils {
 				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
 			}
 		});
-		createPotion("Antidote", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
+		fluidAntidote = createPotion("Antidote", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 600, 0));
 			}
 		});
-		createPotion("AntidoteII", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
+		fluidAntidoteII = createPotion("AntidoteII", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 300, 1));
 			}
 		});
-		createPotion("AntidoteLong", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
+		fluidAntidoteLong = createPotion("AntidoteLong", "redgear_brewcraft:potionAntidote", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
 			}
 		});
-		createPotion("Boom", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
+		fluidBoom = createPotion("Boom", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));;
 			}
 		});
-		createPotion("BoomII", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
+		fluidBoomII = createPotion("BoomII", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));;
 			}
 		});
-		createPotion("BoomLong", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
+		fluidBoomLong = createPotion("BoomLong", "redgear_brewcraft:potionBoom", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));;
@@ -253,35 +255,34 @@ public class Brewcraft extends ModUtils {
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 		
-		createVanillaPotion("Awkward", "redgear_brewcraft:potionBlue", 16, 0);
-		createVanillaPotion("Vision", "redgear_brewcraft:potionDarkBlue", 8198, 16390);
-		createVanillaPotion("VisionLong", "redgear_brewcraft:potionDarkBlue", 8262, 16454);
-		createVanillaPotion("Invisible", "redgear_brewcraft:potionGrey", 8206, 16398);
-		createVanillaPotion("InvisibleLong", "redgear_brewcraft:potionGrey", 8270, 16462);
-		createVanillaPotion("Regen", "redgear_brewcraft:potionPink", 8193, 16385);
-		createVanillaPotion("RegenLong", "redgear_brewcraft:potionPink", 8257, 16449);
-		createVanillaPotion("Fast", "redgear_brewcraft:potionLightBlue", 8194, 16386);
-		createVanillaPotion("FastLong", "redgear_brewcraft:potionLightBlue", 8290, 16450);
-		createVanillaPotion("FastII", "redgear_brewcraft:potionLightBlue", 8258, 16418);
-		createVanillaPotion("Weakness", "redgear_brewcraft:potionPurple", 8200, 16456);
-		createVanillaPotion("Strength", "redgear_brewcraft:potionMagenta", 8201, 16393);
-		createVanillaPotion("StrengthLong", "redgear_brewcraft:potionMagenta", 8265, 16457);
-		createVanillaPotion("StrengthII", "redgear_brewcraft:potionMagenta", 8297, 16425);
-		createVanillaPotion("FireResist", "redgear_brewcraft:potionLightPink", 8195, 16387);
-		createVanillaPotion("FireResistLong", "redgear_brewcraft:potionLightPink", 8259, 16451);
-		createVanillaPotion("Slowness", "redgear_brewcraft:potionPurple", 8202, 16394);
-		createVanillaPotion("SlownessLong", "redgear_brewcraft:potionPurple", 8266, 16458);
-		createVanillaPotion("Poison", "redgear_brewcraft:potionGreen", 8196, 16388);
-		createVanillaPotion("PoisonII", "redgear_brewcraft:potionGreen", 8260, 16420);
-		createVanillaPotion("PoisonLong", "redgear_brewcraft:potionGreen", 8228, 16452);
-		createVanillaPotion("Harm", "redgear_brewcraft:potionDarkPurple", 8204, 16396);
-		createVanillaPotion("HarmII", "redgear_brewcraft:potionDarkPurple", 8236, 16428);
-		createVanillaPotion("Healing", "redgear_brewcraft:potionRed", 8196, 16389);
-		createVanillaPotion("HealingII", "redgear_brewcraft:potionRed", 8229, 16421);
-
-		ingredients.setCreativeTab(CreativeTabs.tabBrewing);
+		fluidAwkward = createVanillaPotion("Awkward", "redgear_brewcraft:potionBlue", 16, 0);
+		fluidVision = createVanillaPotion("Vision", "redgear_brewcraft:potionDarkBlue", 8198, 16390);
+		fluidVisionLong = createVanillaPotion("VisionLong", "redgear_brewcraft:potionDarkBlue", 8262, 16454);
+		fluidInvisible = createVanillaPotion("Invisible", "redgear_brewcraft:potionGrey", 8206, 16398);
+		fluidInvisibleLong = createVanillaPotion("InvisibleLong", "redgear_brewcraft:potionGrey", 8270, 16462);
+		fluidRegen = createVanillaPotion("Regen", "redgear_brewcraft:potionPink", 8193, 16385);
+		fluidRegenLong = createVanillaPotion("RegenLong", "redgear_brewcraft:potionPink", 8257, 16449);
+		fluidFast = createVanillaPotion("Fast", "redgear_brewcraft:potionLightBlue", 8194, 16386);
+		fluidFastLong = createVanillaPotion("FastLong", "redgear_brewcraft:potionLightBlue", 8290, 16450);
+		fluidFastII = createVanillaPotion("FastII", "redgear_brewcraft:potionLightBlue", 8258, 16418);
+		fluidWeakness = createVanillaPotion("Weakness", "redgear_brewcraft:potionPurple", 8200, 16456);
+		fluidStrength = createVanillaPotion("Strength", "redgear_brewcraft:potionMagenta", 8201, 16393);
+		fluidStrengthLong = createVanillaPotion("StrengthLong", "redgear_brewcraft:potionMagenta", 8265, 16457);
+		fluidStrengthII = createVanillaPotion("StrengthII", "redgear_brewcraft:potionMagenta", 8297, 16425);
+		fluidFireResist = createVanillaPotion("FireResist", "redgear_brewcraft:potionLightPink", 8195, 16387);
+		fluidFireResistLong = createVanillaPotion("FireResistLong", "redgear_brewcraft:potionLightPink", 8259, 16451);
+		fluidSlowness = createVanillaPotion("Slowness", "redgear_brewcraft:potionPurple", 8202, 16394);
+		fluidSlownessLong = createVanillaPotion("SlownessLong", "redgear_brewcraft:potionPurple", 8266, 16458);
+		fluidPoison = createVanillaPotion("Poison", "redgear_brewcraft:potionGreen", 8196, 16388);
+		fluidPoisonII = createVanillaPotion("PoisonII", "redgear_brewcraft:potionGreen", 8260, 16420);
+		fluidPoisonLong = createVanillaPotion("PoisonLong", "redgear_brewcraft:potionGreen", 8228, 16452);
+		fluidHarm = createVanillaPotion("Harm", "redgear_brewcraft:potionDarkPurple", 8204, 16396);
+		fluidHarmII = createVanillaPotion("HarmII", "redgear_brewcraft:potionDarkPurple", 8236, 16428);
+		fluidHealing = createVanillaPotion("Healing", "redgear_brewcraft:potionRed", 8196, 16389);
+		fluidHealingII = createVanillaPotion("HealingII", "redgear_brewcraft:potionRed", 8229, 16421);
 
 		brewery.getBlock().setCreativeTab(CreativeTabs.tabBrewing);
+		ingredients.setCreativeTab(CreativeTabs.tabBrewing);
 
 	}
 
@@ -355,16 +356,15 @@ public class Brewcraft extends ModUtils {
 			if (!(tendril == null))
 				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
 
+			if(getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks", "Toggle Aspects from Thaumcraft 4", true)){
 			ThaumcraftApi.registerObjectTag(brewery.id, 0,
 					new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
-
 			ThaumcraftApi.registerObjectTag(ingredients.itemID, 0,
 					new AspectList().add(Aspect.LIFE, 3).add(Aspect.LIGHT, 2).add(Aspect.MAGIC, 2));
 			ThaumcraftApi.registerObjectTag(ingredients.itemID, 1,
 					new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
 			ThaumcraftApi.registerObjectTag(ingredients.itemID, 2,
 					new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
-
 			ThaumcraftApi.registerObjectTag(potions.itemID, 0, new AspectList().add(Aspect.MAGIC, 3)
 					.add(Aspect.FIRE, 2));
 			ThaumcraftApi.registerObjectTag(potions.itemID, 1,
@@ -397,6 +397,7 @@ public class Brewcraft extends ModUtils {
 					new AspectList().add(Aspect.WEAPON, 13).add(Aspect.MAGIC, 3));
 			ThaumcraftApi.registerObjectTag(potions.itemID, 15,
 					new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 5));
+			}
 		}
 
 		if (Mods.TConstruct.isIn()
@@ -408,11 +409,11 @@ public class Brewcraft extends ModUtils {
 
 			if (!(crystal == null))
 				registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100),
-						crystal, 1, 4);
+						crystal, 1, DEFAULT_TIME);
 
 			if (!(bone == null))
 				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, 1,
-						4);
+						DEFAULT_TIME);
 		}
 
 		if (Mods.Natura.isIn()
@@ -422,91 +423,91 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, 7);
+				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, DEFAULT_TIME + 5);
 		}
 
 	}
 
 	private void recipes() {
 
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1, 5);
+		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterII, 100), new ItemStack(
-				Item.glowstone), 1, 5);
+				Item.glowstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterLong, 100), new ItemStack(
-				Item.redstone), 1, 5);
+				Item.redstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidFlying, 100), goldenfeather,
-				1, 6);
+				1, DEFAULT_TIME + 1);
 		registry.addRecipe(new FluidStack(fluidFlying, 100), new FluidStack(fluidFlyingLong, 100), new ItemStack(
-				Item.redstone), 1, 6);
+				Item.redstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone, 1, 4);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherII, 100), new ItemStack(
-				Item.glowstone), 1, 4);
+				Item.glowstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherLong, 100), new ItemStack(
-				Item.redstone), 1, 4);
+				Item.redstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidAntidote, 100), new ItemStack(
-				Item.redstone), 1, 6);
+				Item.redstone), 1, DEFAULT_TIME + 2);
 		registry.addRecipe(new FluidStack(fluidAntidote, 100), new FluidStack(fluidAntidoteII, 100), new ItemStack(
-				Item.glowstone), 1, 6);
+				Item.glowstone), 1, DEFAULT_TIME + 2);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), new ItemStack(
-				Item.gunpowder), 1, 4);
+				Item.gunpowder), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomII, 100), new ItemStack(
-				Item.glowstone), 1, 4);
+				Item.glowstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomLong, 100), new ItemStack(
-				Item.redstone), 1, 4);
+				Item.redstone), 1, DEFAULT_TIME);
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
 			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidAwkward, 100),
 					new ItemStack(Item.netherStalkSeeds), 1, 4);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidVision, 100), new ItemStack(
-					Item.goldenCarrot), 1, 4);
+					Item.goldenCarrot), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidVisionLong, 100), new ItemStack(
-					Item.redstone), 1, 4);
+					Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, 4);
+					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidInvisible, 100), new FluidStack(fluidInvisibleLong, 100),
-					new ItemStack(Item.redstone), 1, 4);
+					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidRegen, 100), new ItemStack(
-					Item.ghastTear), 1, 4);
+					Item.ghastTear), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidRegenLong, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFast, 100), new ItemStack(
-					Item.sugar), 1, 4);
+					Item.sugar), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastLong, 100), new ItemStack(
-					Item.redstone), 1, 4);
+					Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastII, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, 4);
+					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, 4);
+					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidStrength, 100), new ItemStack(
-					Item.blazePowder), 1, 4);
+					Item.blazePowder), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthLong, 100),
-					new ItemStack(Item.redstone), 1, 4);
+					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthII, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFireResist, 100), new ItemStack(
-					Item.magmaCream), 1, 4);
+					Item.magmaCream), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidFireResistLong, 100),
-					new ItemStack(Item.redstone), 1, 4);
+					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, 4);
+					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidSlowness, 100), new FluidStack(fluidSlownessLong, 100),
-					new ItemStack(Item.redstone), 1, 4);
+					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), new ItemStack(
-					Item.spiderEye), 1, 4);
+					Item.spiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonLong, 100), new ItemStack(
-					Item.redstone), 1, 4);
+					Item.redstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidHarm, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, 4);
+					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidHarm, 100), new FluidStack(fluidHarmII, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidHealing, 100), new ItemStack(
-					Item.speckledMelon), 1, 4);
+					Item.speckledMelon), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidHealingII, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonII, 100), new ItemStack(
-					Item.glowstone), 1, 4);
+					Item.glowstone), 1, DEFAULT_TIME);
 		}
 
 		if (getBoolean("Recipes", "Golden Feather Recipe", "Toggle Golden Feather Recipe", true))
@@ -540,14 +541,15 @@ public class Brewcraft extends ModUtils {
 	 * @param iconName
 	 * @param effect
 	 */
-	private void createPotion(String name, String iconName, SubPotionEffect effect) {
+	private Fluid createPotion(String name, String iconName, SubPotionEffect effect) {
 		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
 		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
 		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
-		//TODO: when empty splash bottle is added, just copy the above line and replace bottle with splash and emptyBottle with emptySplashBottle
+		
+		return potion;
 	}
 	
 	private void createSpecialPotion(String name, SubPotionEffect effect) {
@@ -563,11 +565,13 @@ public class Brewcraft extends ModUtils {
 	 * @param metaBottle - The meta of the corresponding vanilla potion.
 	 * @param metaSplash - The meta of the corresponding vanilla splash potion.
 	 */
-	private void createVanillaPotion(String name, String iconName, int metaBottle, int metaSplash) {
+	private Fluid createVanillaPotion(String name, String iconName, int metaBottle, int metaSplash) {
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaBottle), emptyBottle.getStack());
 		if(!(metaSplash == 0))
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaSplash), splashBottle.getStack());
+		
+		return potion;
 	}
 
 	@Override
