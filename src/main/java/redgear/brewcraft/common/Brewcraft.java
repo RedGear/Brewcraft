@@ -151,6 +151,7 @@ public class Brewcraft extends ModUtils {
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenfeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredbone = ingredients.addMetaItem(new SubItem("charredbone"));
+		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
 		createSpecialPotion("Fire", new SubPotionEffect() {
