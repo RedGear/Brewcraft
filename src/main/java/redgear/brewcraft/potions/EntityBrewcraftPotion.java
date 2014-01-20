@@ -20,7 +20,6 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 
 	@Override
 	protected void entityInit() {
-		// TODO Auto-generated method stub
 
 	}
 

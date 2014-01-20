@@ -15,6 +15,7 @@ public class MetaItemPotion extends MetaItem {
 	public MetaItemPotion(int itemID, String name) {
 		super(itemID, name);
 		setCreativeTab(CreativeTabs.tabBrewing);
+		setMaxStackSize(1);
 	}
 
 	public SimpleItem addMetaItem(SubItemPotion newItem) {
