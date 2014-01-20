@@ -71,6 +71,8 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem charredbone;
 	public static SimpleItem splashBottle;
 
+	public static SimpleItem emptyBottle = new SimpleItem(Item.glassBottle);
+
 	public static MetaItemPotion potions;
 
 	public static MetaTile brewing;
@@ -91,7 +93,7 @@ public class Brewcraft extends ModUtils {
 	public static Potion flight;
 	public static Potion creeper;
 	public static Potion immunity;
-	
+
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
 	public static Fluid fluidHolyWaterLong;
@@ -131,7 +133,7 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHarmII;
 	public static Fluid fluidHealing;
 	public static Fluid fluidHealingII;
-	
+
 	public final int DEFAULT_TIME = 7;
 
 	@Override
@@ -235,19 +237,22 @@ public class Brewcraft extends ModUtils {
 		fluidBoom = createPotion("Boom", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));;
+				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));
+				;
 			}
 		});
 		fluidBoomII = createPotion("BoomII", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));;
+				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));
+				;
 			}
 		});
 		fluidBoomLong = createPotion("BoomLong", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));;
+				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));
+				;
 			}
 		});
 
@@ -255,7 +260,7 @@ public class Brewcraft extends ModUtils {
 				new RenderItemBrewery(), new TileRendererBrewery());
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
-		
+
 		fluidAwkward = createVanillaPotion("Awkward", "redgear_brewcraft:potionBlue", 16, 0);
 		fluidVision = createVanillaPotion("Vision", "redgear_brewcraft:potionDarkBlue", 8198, 16390);
 		fluidVisionLong = createVanillaPotion("VisionLong", "redgear_brewcraft:potionDarkBlue", 8262, 16454);
@@ -357,47 +362,48 @@ public class Brewcraft extends ModUtils {
 			if (!(tendril == null))
 				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
 
-			if(getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks", "Toggle Aspects from Thaumcraft 4", true)) {
-			ThaumcraftApi.registerObjectTag(brewery.id, 0,
-					new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
-			ThaumcraftApi.registerObjectTag(ingredients.itemID, 0,
-					new AspectList().add(Aspect.LIFE, 3).add(Aspect.LIGHT, 2).add(Aspect.MAGIC, 2));
-			ThaumcraftApi.registerObjectTag(ingredients.itemID, 1,
-					new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
-			ThaumcraftApi.registerObjectTag(ingredients.itemID, 2,
-					new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 0, new AspectList().add(Aspect.MAGIC, 3)
-					.add(Aspect.FIRE, 2));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 1,
-					new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 2,
-					new AspectList().add(Aspect.LIGHT, 13).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 3,
-					new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 5));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 4,
-					new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 5,
-					new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 5));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 6,
-					new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 7,
-					new AspectList().add(Aspect.DEATH, 13).add(Aspect.DARKNESS, 13).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 8,
-					new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 7));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 9,
-					new AspectList().add(Aspect.BEAST, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 10, new AspectList().add(Aspect.LIFE, 8)
-					.add(Aspect.HEAL, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 11,
-					new AspectList().add(Aspect.LIFE, 13).add(Aspect.HEAL, 13).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 12, new AspectList().add(Aspect.LIFE, 8)
-					.add(Aspect.HEAL, 8).add(Aspect.MAGIC, 5));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 13,
-					new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 14,
-					new AspectList().add(Aspect.WEAPON, 13).add(Aspect.MAGIC, 3));
-			ThaumcraftApi.registerObjectTag(potions.itemID, 15,
-					new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 5));
+			if (getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
+					"Toggle Aspects from Thaumcraft 4", true)) {
+				ThaumcraftApi.registerObjectTag(brewery.id, 0,
+						new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
+				ThaumcraftApi.registerObjectTag(ingredients.itemID, 0,
+						new AspectList().add(Aspect.LIFE, 3).add(Aspect.LIGHT, 2).add(Aspect.MAGIC, 2));
+				ThaumcraftApi.registerObjectTag(ingredients.itemID, 1,
+						new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
+				ThaumcraftApi.registerObjectTag(ingredients.itemID, 2,
+						new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 0,
+						new AspectList().add(Aspect.MAGIC, 3).add(Aspect.FIRE, 2));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 1,
+						new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 2,
+						new AspectList().add(Aspect.LIGHT, 13).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 3,
+						new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 5));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 4,
+						new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 5,
+						new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 5));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 6,
+						new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 7,
+						new AspectList().add(Aspect.DEATH, 13).add(Aspect.DARKNESS, 13).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 8,
+						new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 7));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 9,
+						new AspectList().add(Aspect.BEAST, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 10,
+						new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 11,
+						new AspectList().add(Aspect.LIFE, 13).add(Aspect.HEAL, 13).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 12,
+						new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 5));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 13,
+						new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 14,
+						new AspectList().add(Aspect.WEAPON, 13).add(Aspect.MAGIC, 3));
+				ThaumcraftApi.registerObjectTag(potions.itemID, 15,
+						new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 5));
 			}
 		}
 
@@ -424,14 +430,16 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1, DEFAULT_TIME + 5);
+				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1,
+						DEFAULT_TIME + 5);
 		}
 
 	}
 
 	private void recipes() {
 
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1, DEFAULT_TIME);
+		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1,
+				DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterII, 100), new ItemStack(
 				Item.glowstone), 1, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterLong, 100), new ItemStack(
@@ -515,7 +523,7 @@ public class Brewcraft extends ModUtils {
 			GameRegistry.addShapedRecipe(goldenfeather.getStack(),
 					new Object[] {"!!!", "!@!", "!!!", Character.valueOf('!'), Item.goldNugget, Character.valueOf('@'),
 							Item.feather });
-		
+
 		if (getBoolean("Recipes", "Splash Bottle Recipe", "Toggle Splash Bottle Recipe", true))
 			GameRegistry.addShapedRecipe(splashBottle.getStack(3),
 					new Object[] {" @!", "@ @", " @ ", Character.valueOf('!'), Item.gunpowder, Character.valueOf('@'),
@@ -537,8 +545,6 @@ public class Brewcraft extends ModUtils {
 
 	}
 
-	private static SimpleItem emptyBottle = new SimpleItem(Item.glassBottle);
-
 	/**
 	 * Helper method for creating potions
 	 * 
@@ -554,29 +560,31 @@ public class Brewcraft extends ModUtils {
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
 		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
-		
+
 		return potion;
 	}
-	
+
 	private void createSpecialPotion(String name, SubPotionEffect effect) {
-		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
-		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
+		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
+		potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
 	}
-	
+
 	/**
 	 * Helper method for vanilla potions.
 	 * 
-	 * @param name - The suffix for potion names, using 'splash', 'bottle', and 'potion.'
+	 * @param name - The suffix for potion names.
 	 * @param iconName
 	 * @param metaBottle - The meta of the corresponding vanilla potion.
 	 * @param metaSplash - The meta of the corresponding vanilla splash potion.
 	 */
 	private Fluid createVanillaPotion(String name, String iconName, int metaBottle, int metaSplash) {
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
-		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaBottle), emptyBottle.getStack());
-		if(!(metaSplash == 0))
-		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.glassBottle, 1, metaSplash), splashBottle.getStack());
-		
+		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.potion, 1, metaBottle),
+				emptyBottle.getStack());
+		if (!(metaSplash == 0))
+			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.potion, 1, metaSplash),
+					splashBottle.getStack());
+
 		return potion;
 	}
 

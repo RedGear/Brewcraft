@@ -14,11 +14,6 @@ public class SubItemPotion extends SubItem {
 		this.effect = effect;
 		this.isSplash = isSplash;
 	}
-	
-	@Deprecated
-	public SubItemPotion(String name, String displayName, boolean isSplash, SubPotionEffect effect) {
-		this(name, isSplash, effect);
-	}
 
 	public boolean isSplash() {
 		return isSplash;
