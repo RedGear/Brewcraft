@@ -357,7 +357,7 @@ public class Brewcraft extends ModUtils {
 			if (!(tendril == null))
 				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
 
-			if(getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks", "Toggle Aspects from Thaumcraft 4", true)){
+			if(getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks", "Toggle Aspects from Thaumcraft 4", true)) {
 			ThaumcraftApi.registerObjectTag(brewery.id, 0,
 					new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
 			ThaumcraftApi.registerObjectTag(ingredients.itemID, 0,

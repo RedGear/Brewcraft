@@ -46,9 +46,9 @@ public class BrewcraftEventHandler {
 
 			}
 		
-		if(Brewcraft.splashBottle.equals(event.entityPlayer.getHeldItem())){
+		if(Brewcraft.splashBottle.equals(event.entityPlayer.getHeldItem())) {
 			
-			if(event.entityLiving instanceof EntityGhast){
+			if(event.entityLiving instanceof EntityGhast) {
 				
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
@@ -57,7 +57,7 @@ public class BrewcraftEventHandler {
 				
 			}
 			
-			if(event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube){
+			if(event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube) {
 				
 				event.entityPlayer.inventory.consumeInventoryItem(Item.glassBottle.itemID);
 				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
@@ -76,6 +76,7 @@ public class BrewcraftEventHandler {
 
 		if (event.entity instanceof EntityGhast && event.source.equals(DamageSource.cactus))
 			event.setCanceled(true);
+		
 		if (event.entity instanceof EntitySkeleton) {
 
 			final EntitySkeleton skeleton = (EntitySkeleton) event.entity;
