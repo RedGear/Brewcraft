@@ -38,6 +38,7 @@ import redgear.core.network.CoreGuiHandler;
 import redgear.core.util.CoreDungeonLoot;
 import redgear.core.util.CoreDungeonLoot.LootRarity;
 import redgear.core.util.CoreTradeHandler;
+import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
 import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
@@ -149,7 +150,7 @@ public class Brewcraft extends ModUtils {
 				"Must be over 20 to avoid conflict with vanilla.", 28), false, 8131210)
 				.setPotionName("potion.immunity");
 
-		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.ingredients");
+		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenfeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredbone = ingredients.addMetaItem(new SubItem("charredbone"));
@@ -162,49 +163,49 @@ public class Brewcraft extends ModUtils {
 				player.setFire(10);
 			}
 		});
-		fluidHolyWater = createPotion("HolyWater", "redgear_brewcraft:potionGold", new SubPotionEffect() {
+		fluidHolyWater = createPotion("HolyWater", "potionGold", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
 			}
 		});
-		fluidHolyWaterII = createPotion("HolyWaterII", "redgear_brewcraft:potionGold", new SubPotionEffect() {
+		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 50, 1));
 			}
 		});
-		fluidHolyWaterLong = createPotion("HolyWaterLong", "redgear_brewcraft:potionGold", new SubPotionEffect() {
+		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(angel.id, 200, 0));
 			}
 		});
-		fluidFlying = createPotion("Flying", "redgear_brewcraft:potionWhite", new SubPotionEffect() {
+		fluidFlying = createPotion("Flying", "potionWhite", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
 			}
 		});
-		fluidFlyingLong = createPotion("FlyingLong", "redgear_brewcraft:potionWhite", new SubPotionEffect() {
+		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
 			}
 		});
-		fluidWither = createPotion("Wither", "redgear_brewcraft:potionBlack", new SubPotionEffect() {
+		fluidWither = createPotion("Wither", "potionBlack", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
 			}
 		});
-		fluidWitherII = createPotion("WitherII", "redgear_brewcraft:potionBlack", new SubPotionEffect() {
+		fluidWitherII = createPotion("WitherII", "potionBlack", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
 			}
 		});
-		fluidWitherLong = createPotion("WitherLong", "redgear_brewcraft:potionBlack", new SubPotionEffect() {
+		fluidWitherLong = createPotion("WitherLong", "potionBlack", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
@@ -216,39 +217,39 @@ public class Brewcraft extends ModUtils {
 				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
 			}
 		});
-		fluidAntidote = createPotion("Antidote", "redgear_brewcraft:potionDarkPurple", new SubPotionEffect() {
+		fluidAntidote = createPotion("Antidote", "potionDarkPurple", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 600, 0));
 			}
 		});
-		fluidAntidoteII = createPotion("AntidoteII", "redgear_brewcraft:potionDarkPurple", new SubPotionEffect() {
+		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 300, 1));
 			}
 		});
-		fluidAntidoteLong = createPotion("AntidoteLong", "redgear_brewcraft:potionDarkPurple", new SubPotionEffect() {
+		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
 			}
 		});
-		fluidBoom = createPotion("Boom", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
+		fluidBoom = createPotion("Boom", "potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));
 				;
 			}
 		});
-		fluidBoomII = createPotion("BoomII", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
+		fluidBoomII = createPotion("BoomII", "potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));
 				;
 			}
 		});
-		fluidBoomLong = createPotion("BoomLong", "redgear_brewcraft:potionDarkGreen", new SubPotionEffect() {
+		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", new SubPotionEffect() {
 			@Override
 			public void effect(World world, EntityLivingBase player) {
 				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));
@@ -258,34 +259,37 @@ public class Brewcraft extends ModUtils {
 
 		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
 				new RenderItemBrewery(), new TileRendererBrewery());
+		
+		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
+		
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 
-		fluidAwkward = createVanillaPotion("Awkward", "redgear_brewcraft:potionBlue", 16, 0);
-		fluidVision = createVanillaPotion("Vision", "redgear_brewcraft:potionDarkBlue", 8198, 16390);
-		fluidVisionLong = createVanillaPotion("VisionLong", "redgear_brewcraft:potionDarkBlue", 8262, 16454);
-		fluidInvisible = createVanillaPotion("Invisible", "redgear_brewcraft:potionGrey", 8206, 16398);
-		fluidInvisibleLong = createVanillaPotion("InvisibleLong", "redgear_brewcraft:potionGrey", 8270, 16462);
-		fluidRegen = createVanillaPotion("Regen", "redgear_brewcraft:potionPink", 8193, 16385);
-		fluidRegenLong = createVanillaPotion("RegenLong", "redgear_brewcraft:potionPink", 8257, 16449);
-		fluidFast = createVanillaPotion("Fast", "redgear_brewcraft:potionLightBlue", 8194, 16386);
-		fluidFastLong = createVanillaPotion("FastLong", "redgear_brewcraft:potionLightBlue", 8290, 16450);
-		fluidFastII = createVanillaPotion("FastII", "redgear_brewcraft:potionLightBlue", 8258, 16418);
-		fluidWeakness = createVanillaPotion("Weakness", "redgear_brewcraft:potionPurple", 8200, 16456);
-		fluidStrength = createVanillaPotion("Strength", "redgear_brewcraft:potionMagenta", 8201, 16393);
-		fluidStrengthLong = createVanillaPotion("StrengthLong", "redgear_brewcraft:potionMagenta", 8265, 16457);
-		fluidStrengthII = createVanillaPotion("StrengthII", "redgear_brewcraft:potionMagenta", 8297, 16425);
-		fluidFireResist = createVanillaPotion("FireResist", "redgear_brewcraft:potionLightPink", 8195, 16387);
-		fluidFireResistLong = createVanillaPotion("FireResistLong", "redgear_brewcraft:potionLightPink", 8259, 16451);
-		fluidSlowness = createVanillaPotion("Slowness", "redgear_brewcraft:potionPurple", 8202, 16394);
-		fluidSlownessLong = createVanillaPotion("SlownessLong", "redgear_brewcraft:potionPurple", 8266, 16458);
-		fluidPoison = createVanillaPotion("Poison", "redgear_brewcraft:potionGreen", 8196, 16388);
-		fluidPoisonII = createVanillaPotion("PoisonII", "redgear_brewcraft:potionGreen", 8260, 16420);
-		fluidPoisonLong = createVanillaPotion("PoisonLong", "redgear_brewcraft:potionGreen", 8228, 16452);
-		fluidHarm = createVanillaPotion("Harm", "redgear_brewcraft:potionDarkPurple", 8204, 16396);
-		fluidHarmII = createVanillaPotion("HarmII", "redgear_brewcraft:potionDarkPurple", 8236, 16428);
-		fluidHealing = createVanillaPotion("Healing", "redgear_brewcraft:potionRed", 8196, 16389);
-		fluidHealingII = createVanillaPotion("HealingII", "redgear_brewcraft:potionRed", 8229, 16421);
+		fluidAwkward = createVanillaPotion("Awkward", "potionBlue", 16, 0);
+		fluidVision = createVanillaPotion("Vision", "potionDarkBlue", 8198, 16390);
+		fluidVisionLong = createVanillaPotion("VisionLong", "potionDarkBlue", 8262, 16454);
+		fluidInvisible = createVanillaPotion("Invisible", "potionGrey", 8206, 16398);
+		fluidInvisibleLong = createVanillaPotion("InvisibleLong", "potionGrey", 8270, 16462);
+		fluidRegen = createVanillaPotion("Regen", "potionPink", 8193, 16385);
+		fluidRegenLong = createVanillaPotion("RegenLong", "potionPink", 8257, 16449);
+		fluidFast = createVanillaPotion("Fast", "potionLightBlue", 8194, 16386);
+		fluidFastLong = createVanillaPotion("FastLong", "potionLightBlue", 8290, 16450);
+		fluidFastII = createVanillaPotion("FastII", "potionLightBlue", 8258, 16418);
+		fluidWeakness = createVanillaPotion("Weakness", "potionPurple", 8200, 16456);
+		fluidStrength = createVanillaPotion("Strength", "potionMagenta", 8201, 16393);
+		fluidStrengthLong = createVanillaPotion("StrengthLong", "potionMagenta", 8265, 16457);
+		fluidStrengthII = createVanillaPotion("StrengthII", "potionMagenta", 8297, 16425);
+		fluidFireResist = createVanillaPotion("FireResist", "potionLightPink", 8195, 16387);
+		fluidFireResistLong = createVanillaPotion("FireResistLong", "potionLightPink", 8259, 16451);
+		fluidSlowness = createVanillaPotion("Slowness", "potionPurple", 8202, 16394);
+		fluidSlownessLong = createVanillaPotion("SlownessLong", "potionPurple", 8266, 16458);
+		fluidPoison = createVanillaPotion("Poison", "potionGreen", 8196, 16388);
+		fluidPoisonII = createVanillaPotion("PoisonII", "potionGreen", 8260, 16420);
+		fluidPoisonLong = createVanillaPotion("PoisonLong", "potionGreen", 8228, 16452);
+		fluidHarm = createVanillaPotion("Harm", "potionDarkPurple", 8204, 16396);
+		fluidHarmII = createVanillaPotion("HarmII", "potionDarkPurple", 8236, 16428);
+		fluidHealing = createVanillaPotion("Healing", "potionRed", 8196, 16389);
+		fluidHealingII = createVanillaPotion("HealingII", "potionRed", 8229, 16421);
 
 		brewery.getBlock().setCreativeTab(CreativeTabs.tabBrewing);
 		ingredients.setCreativeTab(CreativeTabs.tabBrewing);
@@ -529,20 +533,33 @@ public class Brewcraft extends ModUtils {
 					new Object[] {" @!", "@ @", " @ ", Character.valueOf('!'), Item.gunpowder, Character.valueOf('@'),
 							Block.glass });
 
-		for (String ingot : new String[] {"ingotLead", "ingotIron", "ingotBrass" })
-			if (getBoolean("Ore Dictionary", "Brewery Recipe", "Toggle Brewery Recipe Ore Dictionary Use", true))
-				GameRegistry.addRecipe(new ShapedOreRecipe(brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
-						Character.valueOf('!'), ingot, Character.valueOf('@'), Block.brewingStand,
-						Character.valueOf('#'), Block.cauldron }));
+		boolean ironOverride = false;
 
-		if (getBoolean("Recipes", "Brewery Recipe", "Toggle Brewery Recipe", true))
-			GameRegistry.addRecipe(new ShapedOreRecipe(brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
-					Character.valueOf('!'), Item.ingotIron, Character.valueOf('@'), Block.brewingStand,
-					Character.valueOf('#'), Block.cauldron }));
+		if (getBoolean("Recipes", "Lead Brewery", "Toggle crafting the Brewery with Lead if avalible"))
+			ironOverride = breweryRecipe("ingotLead");
+
+		if (getBoolean("Recipes", "Brass Brewery", "Toggle crafting the Brewery with Brass if avalible"))
+			ironOverride = ironOverride || breweryRecipe("ingotBrass");
+
+		if (!(ironOverride && !getBoolean("Recipes", "Iron Brewery",
+				"Toggle crafting the Brewery with Iron. (Can only be disabled if Lead or Brass is avalible)")))
+			breweryRecipe("ingotIron"); //Dat boolean expression!
 
 		if (getBoolean("Recipes", "Charred Bone Recipe", "Toggle Charred Bone Smelting Recipe", true))
 			GameRegistry.addSmelting(Item.bone.itemID, Brewcraft.charredbone.getStack(), 0.1F);
 
+	}
+
+	private boolean breweryRecipe(String ingot) {
+		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
+
+		if (metal != null) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
+					Character.valueOf('!'), ingot, Character.valueOf('@'), Item.brewingStand, Character.valueOf('#'),
+					Item.cauldron }));
+			return true;
+		} else
+			return false;
 	}
 
 	/**
