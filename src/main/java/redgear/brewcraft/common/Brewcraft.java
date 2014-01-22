@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -20,6 +21,7 @@ import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.potions.EffectExtension;
+import redgear.brewcraft.potions.EntityBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.SubItemPotion.SubPotionEffect;
@@ -136,6 +138,7 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHealingII;
 
 	public final int DEFAULT_TIME = 7;
+	public final int ITEM_CONSUMPTION_BASE = 30;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -315,6 +318,7 @@ public class Brewcraft extends ModUtils {
 	protected void PostInit(FMLPostInitializationEvent event) {
 
 		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.CLIENT);
+		
 
 	}
 
@@ -352,19 +356,19 @@ public class Brewcraft extends ModUtils {
 
 			if (!(brain == null)) {
 				registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100),
-						ItemApi.getItem("ItemResource", 5), 1, 4);
+						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
 				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100),
-						ItemApi.getItem("ItemResource", 5), 1, 4);
+						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
 				registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100),
-						ItemApi.getItem("ItemResource", 5), 1, 4);
+						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
 				registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100),
-						ItemApi.getItem("ItemResource", 5), 1, 4);
+						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
 			}
 
 			if (!(goo == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo, 1, 4);
+				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo, ITEM_CONSUMPTION_BASE + 10, 4);
 			if (!(tendril == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, 1, 4);
+				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, ITEM_CONSUMPTION_BASE + 10, 4);
 
 			if (getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
 					"Toggle Aspects from Thaumcraft 4", true)) {
@@ -420,10 +424,10 @@ public class Brewcraft extends ModUtils {
 
 			if (!(crystal == null))
 				registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100),
-						crystal, 1, DEFAULT_TIME);
+						crystal, ITEM_CONSUMPTION_BASE + 10, DEFAULT_TIME);
 
 			if (!(bone == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, 1,
+				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, ITEM_CONSUMPTION_BASE + 30,
 						DEFAULT_TIME);
 		}
 
@@ -434,7 +438,7 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, 1,
+				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, ITEM_CONSUMPTION_BASE + 30,
 						DEFAULT_TIME + 5);
 		}
 
@@ -442,85 +446,85 @@ public class Brewcraft extends ModUtils {
 
 	private void recipes() {
 
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, 1,
+		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, ITEM_CONSUMPTION_BASE + 10,
 				DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterII, 100), new ItemStack(
-				Item.glowstone), 1, DEFAULT_TIME);
+				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterLong, 100), new ItemStack(
-				Item.redstone), 1, DEFAULT_TIME);
+				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidFlying, 100), goldenfeather,
-				1, DEFAULT_TIME + 1);
+				ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 1);
 		registry.addRecipe(new FluidStack(fluidFlying, 100), new FluidStack(fluidFlyingLong, 100), new ItemStack(
-				Item.redstone), 1, DEFAULT_TIME);
-		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone, 1, 4);
+				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
+		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone, ITEM_CONSUMPTION_BASE - 10, 4);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherII, 100), new ItemStack(
-				Item.glowstone), 1, DEFAULT_TIME);
+				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherLong, 100), new ItemStack(
-				Item.redstone), 1, DEFAULT_TIME);
+				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidAntidote, 100), new ItemStack(
-				Item.redstone), 1, DEFAULT_TIME + 2);
+				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
 		registry.addRecipe(new FluidStack(fluidAntidote, 100), new FluidStack(fluidAntidoteII, 100), new ItemStack(
-				Item.glowstone), 1, DEFAULT_TIME + 2);
+				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), new ItemStack(
-				Item.gunpowder), 1, DEFAULT_TIME);
+				Item.gunpowder), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomII, 100), new ItemStack(
-				Item.glowstone), 1, DEFAULT_TIME);
+				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidBoom, 100), new FluidStack(fluidBoomLong, 100), new ItemStack(
-				Item.redstone), 1, DEFAULT_TIME);
+				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
 			registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(fluidAwkward, 100),
-					new ItemStack(Item.netherStalkSeeds), 1, 4);
+					new ItemStack(Item.netherStalkSeeds), ITEM_CONSUMPTION_BASE, 4);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidVision, 100), new ItemStack(
-					Item.goldenCarrot), 1, DEFAULT_TIME);
+					Item.goldenCarrot), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidVisionLong, 100), new ItemStack(
-					Item.redstone), 1, DEFAULT_TIME);
+					Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
+					Item.fermentedSpiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidInvisible, 100), new FluidStack(fluidInvisibleLong, 100),
-					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
+					new ItemStack(Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidRegen, 100), new ItemStack(
-					Item.ghastTear), 1, DEFAULT_TIME);
+					Item.ghastTear), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidRegenLong, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFast, 100), new ItemStack(
-					Item.sugar), 1, DEFAULT_TIME);
+					Item.sugar), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastLong, 100), new ItemStack(
-					Item.redstone), 1, DEFAULT_TIME);
+					Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFast, 100), new FluidStack(fluidFastII, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
+					Item.fermentedSpiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
+					Item.fermentedSpiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidStrength, 100), new ItemStack(
-					Item.blazePowder), 1, DEFAULT_TIME);
+					Item.blazePowder), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthLong, 100),
-					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
+					new ItemStack(Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidStrengthII, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidFireResist, 100), new ItemStack(
-					Item.magmaCream), 1, DEFAULT_TIME);
+					Item.magmaCream), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidFireResistLong, 100),
-					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
+					new ItemStack(Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
+					Item.fermentedSpiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidSlowness, 100), new FluidStack(fluidSlownessLong, 100),
-					new ItemStack(Item.redstone), 1, DEFAULT_TIME);
+					new ItemStack(Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), new ItemStack(
-					Item.spiderEye), 1, DEFAULT_TIME);
+					Item.spiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonLong, 100), new ItemStack(
-					Item.redstone), 1, DEFAULT_TIME);
+					Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidHarm, 100), new ItemStack(
-					Item.fermentedSpiderEye), 1, DEFAULT_TIME);
+					Item.fermentedSpiderEye), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidHarm, 100), new FluidStack(fluidHarmII, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidHealing, 100), new ItemStack(
-					Item.speckledMelon), 1, DEFAULT_TIME);
+					Item.speckledMelon), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidHealing, 100), new FluidStack(fluidHealingII, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 			registry.addRecipe(new FluidStack(fluidPoison, 100), new FluidStack(fluidPoisonII, 100), new ItemStack(
-					Item.glowstone), 1, DEFAULT_TIME);
+					Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		}
 
 		if (getBoolean("Recipes", "Golden Feather Recipe", "Toggle Golden Feather Recipe", true))
