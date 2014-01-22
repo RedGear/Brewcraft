@@ -30,6 +30,7 @@ public class BrewcraftTickHandler implements ITickHandler {
 
 		if (creeper == 1)
 			if (player.capabilities.isCreativeMode == false) {
+				player.removePotionEffect(Brewcraft.creeper.id);
 				player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 4, true);
 				player.attackEntityFrom(DamageSource.generic, 25F);
 			}
