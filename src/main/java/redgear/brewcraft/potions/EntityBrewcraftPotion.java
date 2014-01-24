@@ -33,7 +33,7 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 			double distance = getDistanceSqToEntity(entity);
 
 			if (distance < 16.0D)
-				potion.effect(worldObj, entity);
+				potion.effect(entity);
 
 		}
 

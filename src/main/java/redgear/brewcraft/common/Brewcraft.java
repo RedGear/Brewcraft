@@ -5,13 +5,9 @@ import java.util.logging.Level;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -20,11 +16,9 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
-import redgear.brewcraft.potions.EffectExtension;
-import redgear.brewcraft.potions.EntityBrewcraftPotion;
+import redgear.brewcraft.potions.CustomPotionEffects;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
-import redgear.brewcraft.potions.SubItemPotion.SubPotionEffect;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
@@ -53,8 +47,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "RedGear|Brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:RedGear|Core;")
 public class Brewcraft extends ModUtils {
@@ -91,11 +83,6 @@ public class Brewcraft extends ModUtils {
 	public static ItemStack brain;
 	public static ItemStack goo;
 	public static ItemStack tendril;
-
-	public static Potion angel;
-	public static Potion flight;
-	public static Potion creeper;
-	public static Potion immunity;
 
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
@@ -142,16 +129,7 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-
-		angel = new EffectExtension(getInt("Potion Effect IDs", "'Angelic' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042).setPotionName("potion.angel");
-		flight = new EffectExtension(getInt("Potion Effect IDs", "'Flight' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 26), false, 16777215).setPotionName("potion.flight");
-		creeper = new EffectExtension(getInt("Potion Effect IDs", "'Cumbustion' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089).setPotionName("potion.creeper");
-		immunity = new EffectExtension(getInt("Potion Effect IDs", "'Immunity' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 28), false, 8131210)
-				.setPotionName("potion.immunity");
+		CustomPotionEffects cpe = new CustomPotionEffects(this);
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
@@ -160,111 +138,41 @@ public class Brewcraft extends ModUtils {
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
-		createSpecialPotion("Fire", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.setFire(10);
-			}
-		});
-		fluidHolyWater = createPotion("HolyWater", "potionGold", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(angel.id, 100, 0));
-			}
-		});
-		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(angel.id, 50, 1));
-			}
-		});
-		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(angel.id, 200, 0));
-			}
-		});
-		fluidFlying = createPotion("Flying", "potionWhite", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(flight.id, 300, 0));
-			}
-		});
-		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(flight.id, 600, 0));
-			}
-		});
-		fluidWither = createPotion("Wither", "potionBlack", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(Potion.wither.id, 400, 0));
-			}
-		});
-		fluidWitherII = createPotion("WitherII", "potionBlack", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(Potion.wither.id, 200, 1));
-			}
-		});
-		fluidWitherLong = createPotion("WitherLong", "potionBlack", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(Potion.wither.id, 800, 0));
-			}
-		});
-		createSpecialPotion("Ghast", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 400, 0));
-			}
-		});
-		fluidAntidote = createPotion("Antidote", "potionDarkPurple", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(immunity.id, 600, 0));
-			}
-		});
-		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(immunity.id, 300, 1));
-			}
-		});
-		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(immunity.id, 1200, 0));
-			}
-		});
-		fluidBoom = createPotion("Boom", "potionDarkGreen", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 160, 0));
-				;
-			}
-		});
-		fluidBoomII = createPotion("BoomII", "potionDarkGreen", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 80, 1));
-				;
-			}
-		});
-		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", new SubPotionEffect() {
-			@Override
-			public void effect(World world, EntityLivingBase player) {
-				player.addPotionEffect(new PotionEffect(creeper.id, 320, 0));
-				;
-			}
-		});
+
+		/*
+		 * createSpecialPotion("Fire", new SubPotionEffect() {
+		 * 
+		 * @Override
+		 * public void effect(World world, EntityLivingBase player) {
+		 * player.setFire(10);
+		 * }
+		 * });
+		 */
+
+		fluidHolyWater = createPotion("HolyWater", "potionGold", cpe.angel, 100, 0);
+		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", cpe.angel, 50, 1);
+		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", cpe.angel, 200, 0);
+
+		fluidFlying = createPotion("Flying", "potionWhite", cpe.flight, 300, 0);
+		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", cpe.flight, 600, 0);
+		fluidWither = createPotion("Wither", "potionBlack", Potion.wither, 400, 0);
+		fluidWitherII = createPotion("WitherII", "potionBlack", Potion.wither, 200, 1);
+		fluidWitherLong = createPotion("WitherLong", "potionBlack", Potion.wither, 800, 0);
+
+		createSpecialPotion("Ghast", Potion.confusion, 400, 0);
+
+		fluidAntidote = createPotion("Antidote", "potionDarkPurple", cpe.immunity, 600, 0);
+		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", cpe.immunity, 300, 1);
+		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", cpe.immunity, 1200, 0);
+		fluidBoom = createPotion("Boom", "potionDarkGreen", cpe.creeper, 160, 0);
+		fluidBoomII = createPotion("BoomII", "potionDarkGreen", cpe.creeper, 80, 1);
+		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", cpe.creeper, 320, 0);
 
 		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
 				new RenderItemBrewery(), new TileRendererBrewery());
-		
+
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
-		
+
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 
@@ -317,9 +225,6 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void PostInit(FMLPostInitializationEvent event) {
 
-		TickRegistry.registerTickHandler(new BrewcraftTickHandler(), Side.CLIENT);
-		
-
 	}
 
 	private void compatibility() {
@@ -366,9 +271,11 @@ public class Brewcraft extends ModUtils {
 			}
 
 			if (!(goo == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo, ITEM_CONSUMPTION_BASE + 10, 4);
+				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo,
+						ITEM_CONSUMPTION_BASE + 10, 4);
 			if (!(tendril == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril, ITEM_CONSUMPTION_BASE + 10, 4);
+				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril,
+						ITEM_CONSUMPTION_BASE + 10, 4);
 
 			if (getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
 					"Toggle Aspects from Thaumcraft 4", true)) {
@@ -427,8 +334,8 @@ public class Brewcraft extends ModUtils {
 						crystal, ITEM_CONSUMPTION_BASE + 10, DEFAULT_TIME);
 
 			if (!(bone == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone, ITEM_CONSUMPTION_BASE + 30,
-						DEFAULT_TIME);
+				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone,
+						ITEM_CONSUMPTION_BASE + 30, DEFAULT_TIME);
 		}
 
 		if (Mods.Natura.isIn()
@@ -438,16 +345,16 @@ public class Brewcraft extends ModUtils {
 					+ "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur, ITEM_CONSUMPTION_BASE + 30,
-						DEFAULT_TIME + 5);
+				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur,
+						ITEM_CONSUMPTION_BASE + 30, DEFAULT_TIME + 5);
 		}
 
 	}
 
 	private void recipes() {
 
-		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust, ITEM_CONSUMPTION_BASE + 10,
-				DEFAULT_TIME);
+		registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), holydust,
+				ITEM_CONSUMPTION_BASE + 10, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterII, 100), new ItemStack(
 				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidHolyWater, 100), new FluidStack(fluidHolyWaterLong, 100), new ItemStack(
@@ -456,7 +363,8 @@ public class Brewcraft extends ModUtils {
 				ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 1);
 		registry.addRecipe(new FluidStack(fluidFlying, 100), new FluidStack(fluidFlyingLong, 100), new ItemStack(
 				Item.redstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
-		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone, ITEM_CONSUMPTION_BASE - 10, 4);
+		registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), charredbone,
+				ITEM_CONSUMPTION_BASE - 10, 4);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherII, 100), new ItemStack(
 				Item.glowstone), ITEM_CONSUMPTION_BASE, DEFAULT_TIME);
 		registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidWitherLong, 100), new ItemStack(
@@ -574,9 +482,9 @@ public class Brewcraft extends ModUtils {
 	 * @param iconName
 	 * @param effect
 	 */
-	private Fluid createPotion(String name, String iconName, SubPotionEffect effect) {
-		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
-		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
+	private Fluid createPotion(String name, String iconName, Potion effect, int duration, int strength) {
+		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength));
+		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect, duration, strength));
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
@@ -585,9 +493,9 @@ public class Brewcraft extends ModUtils {
 		return potion;
 	}
 
-	private void createSpecialPotion(String name, SubPotionEffect effect) {
-		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect));
-		potions.addMetaItem(new SubItemPotion("splash" + name, true, effect));
+	private void createSpecialPotion(String name, Potion effect, int duration, int strength) {
+		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength));
+		potions.addMetaItem(new SubItemPotion("splash" + name, true, effect, duration, strength));
 	}
 
 	/**

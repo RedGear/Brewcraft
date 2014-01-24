@@ -46,7 +46,7 @@ public class MetaItemPotion extends MetaItem {
 		}
 
 		if (!world.isRemote)
-			getMetaItem(stack.getItemDamage()).effect(world, player);
+			getMetaItem(stack.getItemDamage()).effect(player);
 
 		return stack;
 	}
