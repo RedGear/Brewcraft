@@ -85,5 +85,10 @@
 	<entry key="fluid.Redgear.Brewcraft.potionHarmII.name">Poción de Dañar II</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealing.name">Poción de Curación</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealingII.name">Poción de Curación II</entry>
+	
+	<entry key="potion.creeper">Combustión</entry>
+	<entry key="potion.angel">Bendito</entry>
+	<entry key="potion.flight">Vuelo</entry>
+	<entry key="potion.immunity">Inmunidad</entry>
 
 </properties>

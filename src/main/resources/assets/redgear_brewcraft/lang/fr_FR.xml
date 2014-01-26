@@ -85,5 +85,10 @@
 	<entry key="fluid.Redgear.Brewcraft.potionHarmII.name">Potion de Nuire II</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealing.name">Potion de Guérison</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealingII.name">Potion de Guérison II</entry>
+	
+	<entry key="potion.creeper">Combustion</entry>
+	<entry key="potion.angel">Béni</entry>
+	<entry key="potion.flight">Vol</entry>
+	<entry key="potion.immunity">Immunité</entry>
 
 </properties>

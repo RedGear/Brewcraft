@@ -8,6 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -17,6 +18,7 @@ import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.potions.CustomPotionEffects;
+import redgear.brewcraft.potions.EntityBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.recipes.RecipeRegistry;
@@ -46,6 +48,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = "RedGear|Brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:RedGear|Core;")
@@ -130,6 +133,7 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
 		CustomPotionEffects cpe = new CustomPotionEffects(this);
+		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 10, true);
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
@@ -447,14 +451,14 @@ public class Brewcraft extends ModUtils {
 
 		boolean ironOverride = false;
 
-		if (getBoolean("Recipes", "Lead Brewery", "Toggle crafting the Brewery with Lead if avalible"))
+		if (getBoolean("Recipes", "Lead Brewery", "Toggle crafting the Brewery with Lead if available"))
 			ironOverride = breweryRecipe("ingotLead");
 
-		if (getBoolean("Recipes", "Brass Brewery", "Toggle crafting the Brewery with Brass if avalible"))
+		if (getBoolean("Recipes", "Brass Brewery", "Toggle crafting the Brewery with Brass if available"))
 			ironOverride = ironOverride || breweryRecipe("ingotBrass");
 
 		if (!(ironOverride && !getBoolean("Recipes", "Iron Brewery",
-				"Toggle crafting the Brewery with Iron. (Can only be disabled if Lead or Brass is avalible)")))
+				"Toggle crafting the Brewery with Iron. (Can only be disabled if Lead or Brass is available)")))
 			breweryRecipe("ingotIron"); //Dat boolean expression!
 
 		if (getBoolean("Recipes", "Charred Bone Recipe", "Toggle Charred Bone Smelting Recipe", true))

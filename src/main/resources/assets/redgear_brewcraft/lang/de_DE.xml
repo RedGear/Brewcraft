@@ -85,5 +85,10 @@
 	<entry key="fluid.Redgear.Brewcraft.potionHarmII.name">Trank zu Schaden II</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealing.name">Trank der Heilung</entry>
 	<entry key="fluid.Redgear.Brewcraft.potionHealingII.name">Trank der Heilung II</entry>
+	
+	<entry key="potion.creeper">Verbrennung</entry>
+	<entry key="potion.angel">Gesegnet</entry>
+	<entry key="potion.flight">Flug</entry>
+	<entry key="potion.immunity">Immunität</entry>
 
 </properties>

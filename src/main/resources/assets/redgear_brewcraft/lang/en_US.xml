@@ -85,5 +85,10 @@
 	<entry key="fluid.RedGear.Brewcraft.potionHarmII">Potion of Harming II</entry>
 	<entry key="fluid.RedGear.Brewcraft.potionHealing">Potion of Healing</entry>
 	<entry key="fluid.RedGear.Brewcraft.potionHealingII">Potion of Healing II</entry>
+	
+	<entry key="potion.creeper">Combustion</entry>
+	<entry key="potion.angel">Blessed</entry>
+	<entry key="potion.flight">Flight</entry>
+	<entry key="potion.immunity">Immunity</entry>
 
 </properties>
