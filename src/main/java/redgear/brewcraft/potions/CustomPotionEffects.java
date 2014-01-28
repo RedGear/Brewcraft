@@ -16,7 +16,7 @@ public class CustomPotionEffects{
 
 	public CustomPotionEffects(ModUtils inst) {
 		angel = new PotionExtension(inst.getInt("Potion Effect IDs", "'Angelic' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 25), false, 16114042) {
+				"Must be over 20 to avoid conflict with vanilla.", 29), false, 16114042) {
 			/**
 			 * Perform this potion's normal ever-tick effect.
 			 */
@@ -73,7 +73,7 @@ public class CustomPotionEffects{
 			public boolean isReady(int duration, int amplifier) {
 				return duration == 1;
 			}
-		}.setPotionName("potion.flight").setIconIndex(1, 1);
+		}.setPotionName("potion.flight").setIconIndex(2, 0);
 
 		creeper = new PotionExtension(inst.getInt("Potion Effect IDs", "'Cumbustion' Effect ID",
 				"Must be over 20 to avoid conflict with vanilla.", 27), true, 1987089) {
@@ -94,7 +94,7 @@ public class CustomPotionEffects{
 					living.attackEntityFrom(DamageSource.generic, 25F);
 				}
 			}
-		}.setPotionName("potion.creeper").setIconIndex(1, 2);
+		}.setPotionName("potion.creeper").setIconIndex(0, 0);
 
 		immunity = new PotionExtension(inst.getInt("Potion Effect IDs", "'Immunity' Effect ID",
 				"Must be over 20 to avoid conflict with vanilla.", 28), false, 8131210) {
@@ -112,7 +112,7 @@ public class CustomPotionEffects{
 
 			}
 
-		}.setPotionName("potion.immunity");
+		}.setPotionName("potion.immunity").setIconIndex(3, 0);
 
 	}
 }
