@@ -1,5 +1,7 @@
 package redgear.brewcraft.common;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.logging.Level;
 
 import net.minecraft.block.Block;
@@ -20,6 +22,7 @@ import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.potions.CustomPotionEffects;
 import redgear.brewcraft.potions.EntityBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
+import redgear.brewcraft.potions.RenderBrewcraftPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.block.MetaTile;
@@ -42,6 +45,7 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
@@ -132,8 +136,14 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
+		
+		if(getBoolean("Potion List Expansion", "Toggle Potion List Expansion", "Disable it you are running another mod that expands the list.", true))
+			expandPotionList();
+		
 		CustomPotionEffects cpe = new CustomPotionEffects(this);
+		
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 10, true);
+		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
@@ -520,6 +530,45 @@ public class Brewcraft extends ModUtils {
 
 		return potion;
 	}
+	
+	private void expandPotionList()
+    {
+            Potion[] potionTypes = null;
+            
+            if (Potion.potionTypes.length != getInt("Potion List Expansion", "Potion List Extension Size",
+    				"Will only do something if expanding the potion list is set to true.", 3200))
+            {
+                    for (Field f : Potion.class.getDeclaredFields())
+                    {
+                            f.setAccessible(true);
+                            try
+                            {
+                                    if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a"))
+                                    {
+                                            Field modfield = Field.class.getDeclaredField("modifiers");
+                                            modfield.setAccessible(true);
+                                            modfield.setInt(f, f.getModifiers() & ~Modifier.FINAL);
+                                            
+                                            potionTypes = (Potion[]) f.get(null);
+                                            final Potion[] newPotionTypes = new Potion[getInt("Potion List Expansion", "Potion List Extension Size",
+                                    				"Will only do something if expanding the potion list is set to true.", 3200)];
+                                            for (int i = 0; i < newPotionTypes.length; i++)
+                                            {
+                                                    if (i < Potion.potionTypes.length)
+                                                            newPotionTypes[i] = Potion.potionTypes[i];
+                                                    else
+                                                            newPotionTypes[i] = null;
+                                            }
+                                            f.set(null, newPotionTypes);
+                                    }
+                            }
+                            catch (Exception e)
+                            {
+                                    inst.logDebug(e);
+                            }
+                    }
+            }
+    }
 
 	@Override
 	@Mod.EventHandler
