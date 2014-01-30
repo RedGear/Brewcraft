@@ -1,10 +1,13 @@
-package redgear.brewcraft.potions;
+package redgear.brewcraft.entity;
 
 import java.util.List;
+
+import redgear.brewcraft.potions.SubItemPotion;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -55,5 +58,9 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 	@Override
 	protected float func_70183_g() {
 		return -20.0F;
+	}
+	
+	public ItemStack getPotion(){
+		return this.getDataWatcher().getWatchableObjectItemStack(10);
 	}
 }

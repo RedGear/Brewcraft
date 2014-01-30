@@ -6,6 +6,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 import redgear.core.util.SimpleItem;
