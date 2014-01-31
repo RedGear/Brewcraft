@@ -7,8 +7,8 @@ import redgear.core.item.SubItem;
 
 public class SubItemPotion extends SubItem {
 
-	private final int potionId;
-	private final boolean isSplash;
+	public final int potionId;
+	public final boolean isSplash;
 	public final int duration;
 	public final int strength;
 
@@ -18,10 +18,6 @@ public class SubItemPotion extends SubItem {
 		this.isSplash = isSplash;
 		this.duration = duration;
 		this.strength = strength;
-	}
-
-	public boolean isSplash() {
-		return isSplash;
 	}
 
 	public void effect(EntityLivingBase entity) {

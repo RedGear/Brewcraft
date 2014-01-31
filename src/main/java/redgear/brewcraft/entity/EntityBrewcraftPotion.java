@@ -60,7 +60,7 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 		return -20.0F;
 	}
 	
-	public ItemStack getPotion(){
+	public ItemStack getPotion(){ //What is this?
 		return this.getDataWatcher().getWatchableObjectItemStack(10);
 	}
 }

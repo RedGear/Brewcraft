@@ -10,7 +10,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -21,9 +20,12 @@ import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.RenderBrewcraftPotion;
-import redgear.brewcraft.potions.CustomPotionEffects;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
+import redgear.brewcraft.potions.effects.EffectAngel;
+import redgear.brewcraft.potions.effects.EffectCreeper;
+import redgear.brewcraft.potions.effects.EffectFlight;
+import redgear.brewcraft.potions.effects.EffectImmunity;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
@@ -34,7 +36,6 @@ import redgear.core.fluids.FluidUtil;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 import redgear.core.mod.ModUtils;
-import redgear.core.mod.RedGear;
 import redgear.core.network.CoreGuiHandler;
 import redgear.core.util.CoreDungeonLoot;
 import redgear.core.util.CoreDungeonLoot.LootRarity;
@@ -131,18 +132,23 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHealing;
 	public static Fluid fluidHealingII;
 
+	public static Potion angel;
+	public static Potion flight;
+	public static Potion creeper;
+	public static Potion immunity;
+
 	public final int DEFAULT_TIME = 7;
 	public final int ITEM_CONSUMPTION_BASE = 30;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-		
-		if(getBoolean("Potion List Expansion", "Toggle Potion List Expansion", "Disable it you are running another mod that expands the list.", true))
+
+		if (getBoolean("Potion List Expansion", "Toggle Potion List Expansion",
+				"Disable it you are running another mod that expands the list.", true))
 			expandPotionList();
-		
-		CustomPotionEffects cpe = new CustomPotionEffects(this);
-		
-		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 10, true);
+
+		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
+				EntityRegistry.findGlobalUniqueEntityId(), this, 128, 10, true);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
@@ -152,6 +158,18 @@ public class Brewcraft extends ModUtils {
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
+
+		angel = new EffectAngel(getInt("Potion Effect IDs", "'Angelic' Effect ID",
+				"Must be over 20 to avoid conflict with vanilla.", 29));
+
+		flight = new EffectFlight(getInt("Potion Effect IDs", "'Flight' Effect ID",
+				"Must be over 20 to avoid conflict with vanilla.", 26));
+
+		creeper = new EffectCreeper(getInt("Potion Effect IDs", "'Cumbustion' Effect ID",
+				"Must be over 20 to avoid conflict with vanilla.", 27));
+
+		immunity = new EffectImmunity(inst.getInt("Potion Effect IDs", "'Immunity' Effect ID",
+				"Must be over 20 to avoid conflict with vanilla.", 28));
 
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {
@@ -163,24 +181,24 @@ public class Brewcraft extends ModUtils {
 		 * });
 		 */
 
-		fluidHolyWater = createPotion("HolyWater", "potionGold", cpe.angel, 100, 0);
-		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", cpe.angel, 50, 1);
-		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", cpe.angel, 200, 0);
+		fluidHolyWater = createPotion("HolyWater", "potionGold", angel, 100, 0);
+		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", angel, 50, 1);
+		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", angel, 200, 0);
 
-		fluidFlying = createPotion("Flying", "potionWhite", cpe.flight, 300, 0);
-		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", cpe.flight, 600, 0);
+		fluidFlying = createPotion("Flying", "potionWhite", flight, 300, 0);
+		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", flight, 600, 0);
 		fluidWither = createPotion("Wither", "potionBlack", Potion.wither, 400, 0);
 		fluidWitherII = createPotion("WitherII", "potionBlack", Potion.wither, 200, 1);
 		fluidWitherLong = createPotion("WitherLong", "potionBlack", Potion.wither, 800, 0);
 
 		createSpecialPotion("Ghast", Potion.confusion, 400, 0);
 
-		fluidAntidote = createPotion("Antidote", "potionDarkPurple", cpe.immunity, 600, 0);
-		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", cpe.immunity, 300, 1);
-		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", cpe.immunity, 1200, 0);
-		fluidBoom = createPotion("Boom", "potionDarkGreen", cpe.creeper, 160, 0);
-		fluidBoomII = createPotion("BoomII", "potionDarkGreen", cpe.creeper, 80, 1);
-		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", cpe.creeper, 320, 0);
+		fluidAntidote = createPotion("Antidote", "potionDarkPurple", immunity, 600, 0);
+		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", immunity, 300, 1);
+		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", immunity, 1200, 0);
+		fluidBoom = createPotion("Boom", "potionDarkGreen", creeper, 160, 0);
+		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
+		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
 
 		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
 				new RenderItemBrewery(), new TileRendererBrewery());
@@ -256,8 +274,7 @@ public class Brewcraft extends ModUtils {
 				&& getBoolean("Mod Compatibility", "Biomes o' Plenty Compatibility",
 						"Toggle Biomes o' Plenty Compatibility", true)) {
 
-			FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName
-					+ "] has found Biomes o' Plenty loaded, now running compatibility.");
+			FMLLog.log(Level.INFO, "[" + modName + "] has found Biomes o' Plenty loaded, now running compatibility.");
 
 			if (!(soul == null))
 				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), soul, 1,
@@ -270,8 +287,7 @@ public class Brewcraft extends ModUtils {
 				&& getBoolean("Mod Compatibility", "Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility",
 						true)) {
 
-			FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName
-					+ "] has found Thaumcraft 4 loaded, now running compatibility.");
+			FMLLog.log(Level.INFO, "[" + modName + "] has found Thaumcraft 4 loaded, now running compatibility.");
 
 			if (!(brain == null)) {
 				registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100),
@@ -340,8 +356,7 @@ public class Brewcraft extends ModUtils {
 				&& getBoolean("Mod Compatibility", "Tinkers' Construct Compatibility",
 						"Toggle Tinkers' Construct Compatibility", true)) {
 
-			FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName
-					+ "] has found Tinkers' Construct loaded, now running compatibility.");
+			FMLLog.log(Level.INFO, "[" + modName + "] has found Tinkers' Construct loaded, now running compatibility.");
 
 			if (!(crystal == null))
 				registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100),
@@ -355,8 +370,7 @@ public class Brewcraft extends ModUtils {
 		if (Mods.Natura.isIn()
 				&& getBoolean("Mod Compatibility", "Natura Compatibility", "Toggle Natura Compatibility", true)) {
 
-			FMLLog.log(Level.INFO, "[" + RedGear.BrewcraftName
-					+ "] has found Natura loaded, now running compatibility.");
+			FMLLog.log(Level.INFO, "[" + modName + "] has found Natura loaded, now running compatibility.");
 
 			if (!(sulfur == null))
 				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur,
@@ -530,45 +544,30 @@ public class Brewcraft extends ModUtils {
 
 		return potion;
 	}
-	
-	private void expandPotionList()
-    {
-            Potion[] potionTypes = null;
-            
-            if (Potion.potionTypes.length != getInt("Potion List Expansion", "Potion List Extension Size",
-    				"Will only do something if expanding the potion list is set to true.", 3200))
-            {
-                    for (Field f : Potion.class.getDeclaredFields())
-                    {
-                            f.setAccessible(true);
-                            try
-                            {
-                                    if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a"))
-                                    {
-                                            Field modfield = Field.class.getDeclaredField("modifiers");
-                                            modfield.setAccessible(true);
-                                            modfield.setInt(f, f.getModifiers() & ~Modifier.FINAL);
-                                            
-                                            potionTypes = (Potion[]) f.get(null);
-                                            final Potion[] newPotionTypes = new Potion[getInt("Potion List Expansion", "Potion List Extension Size",
-                                    				"Will only do something if expanding the potion list is set to true.", 3200)];
-                                            for (int i = 0; i < newPotionTypes.length; i++)
-                                            {
-                                                    if (i < Potion.potionTypes.length)
-                                                            newPotionTypes[i] = Potion.potionTypes[i];
-                                                    else
-                                                            newPotionTypes[i] = null;
-                                            }
-                                            f.set(null, newPotionTypes);
-                                    }
-                            }
-                            catch (Exception e)
-                            {
-                                    inst.logDebug(e);
-                            }
-                    }
-            }
-    }
+
+	private void expandPotionList() {
+		int targetSize = getInt("Potion List Expansion", "Potion List Extension Size",
+				"Will only do something if expanding the potion list is set to true.", 64);
+
+		if (Potion.potionTypes.length != targetSize)
+			for (Field f : Potion.class.getDeclaredFields()) {
+				f.setAccessible(true);
+				try {
+					if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a")) {
+						Field modfield = Field.class.getDeclaredField("modifiers");
+						modfield.setAccessible(true);
+						modfield.setInt(f, f.getModifiers() & ~Modifier.FINAL);
+
+						final Potion[] newPotionTypes = new Potion[targetSize];
+						for (int i = 0; i < Potion.potionTypes.length; i++)
+							newPotionTypes[i] = Potion.potionTypes[i];
+						f.set(null, newPotionTypes);
+					}
+				} catch (Exception e) {
+					logDebug(e);
+				}
+			}
+	}
 
 	@Override
 	@Mod.EventHandler

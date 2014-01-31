@@ -66,7 +66,7 @@ public class MetaItemPotion extends MetaItem {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		SubItemPotion potion = getMetaItem(stack.getItemDamage());
 
-		if (!world.isRemote && potion.isSplash()) {
+		if (!world.isRemote && potion.isSplash) {
 
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;
