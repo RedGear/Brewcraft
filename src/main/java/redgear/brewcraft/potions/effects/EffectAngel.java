@@ -2,7 +2,6 @@ package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectAngel extends PotionExtension {
@@ -18,26 +17,27 @@ public class EffectAngel extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		System.out.println("Test");
-		Brewcraft.inst.logDebug("Angel effect on ", living, " at ", strength);
 
 		if (strength == 0) {
-			Brewcraft.inst.logDebug("Strength == 0. Healing...");
 			living.heal(0.5F);
-			if (living instanceof EntityPlayer) {
-				Brewcraft.inst.logDebug("Is player, filling hunger...");
+			if (living instanceof EntityPlayer)
 				((EntityPlayer) living).getFoodStats().addStats(1, 0.1F);
-			}
 
 		}
 
 		if (strength == 1) {
-			Brewcraft.inst.logDebug("Strength == 1. Healing...");
 			living.heal(1F);
-			if (living instanceof EntityPlayer) {
-				Brewcraft.inst.logDebug("Is player, filling hunger...");
+			if (living instanceof EntityPlayer)
 				((EntityPlayer) living).getFoodStats().addStats(2, 0.5F);
-			}
 		}
+	}
+
+	/**
+	 * checks if Potion effect is ready to be applied this tick.
+	 */
+	@Override
+	public boolean isReady(int duration, int amplifier) {
+		int k = 50 >> amplifier;
+		return k > 0 ? amplifier % k == 0 : true;
 	}
 }

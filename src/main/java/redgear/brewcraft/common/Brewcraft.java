@@ -27,6 +27,7 @@ import redgear.brewcraft.potions.effects.EffectCreeper;
 import redgear.brewcraft.potions.effects.EffectFlight;
 import redgear.brewcraft.potions.effects.EffectImmunity;
 import redgear.brewcraft.recipes.RecipeRegistry;
+import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTileMachine;
@@ -148,7 +149,7 @@ public class Brewcraft extends ModUtils {
 			expandPotionList();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
-				EntityRegistry.findGlobalUniqueEntityId(), this, 128, 10, true);
+				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.instance, 128, 10, true);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");

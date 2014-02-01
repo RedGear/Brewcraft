@@ -1,7 +1,6 @@
 package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.DamageSource;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectCreeper extends PotionExtension {
@@ -22,10 +21,7 @@ public class EffectCreeper extends PotionExtension {
 		if (duration == 4)
 			living.worldObj.playSoundAtEntity(living, "mob.creeper.death", 1F, 1F);
 
-		if (duration == 1) {
-			//living.removePotionEffect(id);
-			living.worldObj.createExplosion(living, living.posX, living.posY, living.posZ, 4, true);
-			//living.attackEntityFrom(DamageSource.generic, 25F);
-		}
+		if (duration == 1)
+			living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 4, true);
 	}
 }

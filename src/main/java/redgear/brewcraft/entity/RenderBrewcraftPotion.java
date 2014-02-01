@@ -22,22 +22,6 @@ public class RenderBrewcraftPotion extends Render {
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			bindEntityTexture(potion);
 			Tessellator tessellator = Tessellator.instance;
-
-			/*
-			 * if (stack != null) {
-			 * int color = ((ItemPotion2)
-			 * stack.getItem()).getColorFromItemStack(stack, 0);
-			 * float r = (color >> 16 & 255) / 255.0F;
-			 * float g = (color >> 8 & 255) / 255.0F;
-			 * float b = (color & 255) / 255.0F;
-			 * GL11.glColor3f(r, g, b);
-			 * GL11.glPushMatrix();
-			 * this.drawIcon(tessellator, ItemPotion2.getPotionIcon("overlay"));
-			 * GL11.glPopMatrix();
-			 * GL11.glColor3f(1.0F, 1.0F, 1.0F);
-			 * }
-			 */
-
 			drawIcon(tessellator, icon);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glPopMatrix();

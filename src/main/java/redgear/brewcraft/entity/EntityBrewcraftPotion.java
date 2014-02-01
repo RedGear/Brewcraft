@@ -3,7 +3,7 @@ package redgear.brewcraft.entity;
 import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -13,74 +13,71 @@ import net.minecraft.world.World;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 
-public class EntityBrewcraftPotion extends EntityThrowable {
+public class EntityBrewcraftPotion extends EntityPotion {
 
-	//private final SubItemPotion potion;
+	private final int stackIndex = 10;
 
-	public EntityBrewcraftPotion(World world, EntityLivingBase thrower) {
-		super(world, thrower);
-		
-		//this.potion = potion;
+	public EntityBrewcraftPotion(World par1World) {
+		super(par1World);
 	}
-	
-	public EntityBrewcraftPotion setPotion(ItemStack potion){
-		getDataWatcher().addObject(10, potion);
-		getDataWatcher().setObjectWatched(10);
-		return this;
+
+	public EntityBrewcraftPotion(World world, double x, double y, double z, ItemStack potion) {
+		super(world, x, y, z, potion);
+		setPotion(potion);
+	}
+
+	public EntityBrewcraftPotion(World world, EntityLivingBase thrower, ItemStack potion) {
+		super(world, thrower, potion);
+		setPotion(potion);
+	}
+
+	public void setPotion(ItemStack potion) {
+		getDataWatcher().updateObject(stackIndex, potion);
+		getDataWatcher().setObjectWatched(stackIndex);
 	}
 
 	@Override
 	protected void entityInit() {
-
+		getDataWatcher().addObjectByDataType(10, 5);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 
-		AxisAlignedBB range = boundingBox.expand(4.0D, 2.0D, 4.0D);
-		List<EntityLivingBase> entiesList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
+		if (!worldObj.isRemote) {
+			AxisAlignedBB range = boundingBox.expand(4.0D, 2.0D, 4.0D);
+			List<EntityLivingBase> entiesList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
 
-		for (EntityLivingBase entity : entiesList) { //Use a for each whenever possible
-			double distance = getDistanceSqToEntity(entity);
+			for (EntityLivingBase entity : entiesList) { //Use a for each whenever possible
+				double distance = getDistanceSqToEntity(entity);
 
-			if (distance < 16.0D)
-				getPotion().effect(entity);
+				if (distance < 16.0D)
+					getPotion().effect(entity);
 
+			}
+
+			worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ),
+					getPotionDamage());
+			setDead();
 		}
 
 	}
 
-	/**
-	 * Gets the amount of gravity to apply to the thrown entity with each tick.
-	 */
-	@Override
-	protected float getGravityVelocity() {
-		return 0.05F;
-	}
-
-	@Override
-	protected float func_70182_d() {
-		return 0.5F;
-	}
-
-	@Override
-	protected float func_70183_g() {
-		return -20.0F;
-	}
-	
-	public Icon getIcon(){
+	public Icon getIcon() {
 		return getPotion().getIcon();
 	}
 
 	public SubItemPotion getPotion() {
-		ItemStack stack =  getDataWatcher().getWatchableObjectItemStack(10);
+		ItemStack stack = getDataWatcher().getWatchableObjectItemStack(stackIndex);
+		if (stack == null)
+			return null;
+
 		Item item = Item.itemsList[stack.itemID];
-		if(item instanceof MetaItemPotion){
+		if (item instanceof MetaItemPotion) {
 			MetaItemPotion metaItem = (MetaItemPotion) item;
 			return metaItem.getMetaItem(stack.getItemDamage());
-		}
-		else
+		} else
 			return null; //Should never happen. 
 	}
 }
