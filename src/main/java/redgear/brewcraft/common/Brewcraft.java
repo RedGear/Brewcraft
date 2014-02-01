@@ -160,16 +160,16 @@ public class Brewcraft extends ModUtils {
 		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
 
 		angel = new EffectAngel(getInt("Potion Effect IDs", "'Angelic' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 29));
+				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 40));
 
 		flight = new EffectFlight(getInt("Potion Effect IDs", "'Flight' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 26));
+				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 41));
 
-		creeper = new EffectCreeper(getInt("Potion Effect IDs", "'Cumbustion' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 27));
+		creeper = new EffectCreeper(getInt("Potion Effect IDs", "'Combustion' Effect ID",
+				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 42));
 
 		immunity = new EffectImmunity(inst.getInt("Potion Effect IDs", "'Immunity' Effect ID",
-				"Must be over 20 to avoid conflict with vanilla.", 28));
+				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 43));
 
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {

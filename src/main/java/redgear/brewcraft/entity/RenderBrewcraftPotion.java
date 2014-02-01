@@ -9,12 +9,10 @@ public class RenderBrewcraftPotion extends Render {
 	@Override
 	public void doRender(Entity arg0, double arg1, double arg2, double arg3,
 			float arg4, float arg5) {
-
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity arg0) {
 		return null;
 	}
-
 }

@@ -59,8 +59,4 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 	protected float func_70183_g() {
 		return -20.0F;
 	}
-	
-	public ItemStack getPotion(){ //What is this?
-		return this.getDataWatcher().getWatchableObjectItemStack(10);
-	}
 }
