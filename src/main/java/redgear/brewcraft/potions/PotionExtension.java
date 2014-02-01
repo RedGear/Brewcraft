@@ -36,4 +36,12 @@ public abstract class PotionExtension extends Potion {
 			double distanceFromSplash) {
 
 	}
+	
+	/**
+     * checks if Potion effect is ready to be applied this tick.
+     */
+	@Override
+    public boolean isReady(int duration, int amplifier){
+		return true;
+    }
 }

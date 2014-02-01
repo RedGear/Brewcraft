@@ -37,4 +37,9 @@ public class EffectFlight extends PotionExtension {
 	public boolean isReady(int duration, int amplifier) {
 		return duration == 1;
 	}
+	
+	@Override
+	public boolean isInstant(){
+		return true;
+	}
 }

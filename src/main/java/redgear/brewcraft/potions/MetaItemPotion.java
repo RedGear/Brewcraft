@@ -74,7 +74,7 @@ public class MetaItemPotion extends MetaItem {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
 			if (!world.isRemote)
-				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, potion));
+				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player).setPotion(new ItemStack(this.itemID, 1, stack.getItemDamage())));
 
 		} else
 			player.setItemInUse(stack, getMaxItemUseDuration(stack));

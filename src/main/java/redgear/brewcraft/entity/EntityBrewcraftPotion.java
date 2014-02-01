@@ -2,23 +2,31 @@ package redgear.brewcraft.entity;
 
 import java.util.List;
 
-import redgear.brewcraft.potions.SubItemPotion;
-
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import redgear.brewcraft.potions.MetaItemPotion;
+import redgear.brewcraft.potions.SubItemPotion;
 
 public class EntityBrewcraftPotion extends EntityThrowable {
 
-	private final SubItemPotion potion;
+	//private final SubItemPotion potion;
 
-	public EntityBrewcraftPotion(World world, EntityPlayer thrower, SubItemPotion potion) {
+	public EntityBrewcraftPotion(World world, EntityLivingBase thrower) {
 		super(world, thrower);
-		this.potion = potion;
+		
+		//this.potion = potion;
+	}
+	
+	public EntityBrewcraftPotion setPotion(ItemStack potion){
+		getDataWatcher().addObject(10, potion);
+		getDataWatcher().setObjectWatched(10);
+		return this;
 	}
 
 	@Override
@@ -26,6 +34,7 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 
@@ -36,7 +45,7 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 			double distance = getDistanceSqToEntity(entity);
 
 			if (distance < 16.0D)
-				potion.effect(entity);
+				getPotion().effect(entity);
 
 		}
 
@@ -58,5 +67,20 @@ public class EntityBrewcraftPotion extends EntityThrowable {
 	@Override
 	protected float func_70183_g() {
 		return -20.0F;
+	}
+	
+	public Icon getIcon(){
+		return getPotion().getIcon();
+	}
+
+	public SubItemPotion getPotion() {
+		ItemStack stack =  getDataWatcher().getWatchableObjectItemStack(10);
+		Item item = Item.itemsList[stack.itemID];
+		if(item instanceof MetaItemPotion){
+			MetaItemPotion metaItem = (MetaItemPotion) item;
+			return metaItem.getMetaItem(stack.getItemDamage());
+		}
+		else
+			return null; //Should never happen. 
 	}
 }

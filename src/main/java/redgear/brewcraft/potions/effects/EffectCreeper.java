@@ -23,9 +23,9 @@ public class EffectCreeper extends PotionExtension {
 			living.worldObj.playSoundAtEntity(living, "mob.creeper.death", 1F, 1F);
 
 		if (duration == 1) {
-			living.removePotionEffect(id);
+			//living.removePotionEffect(id);
 			living.worldObj.createExplosion(living, living.posX, living.posY, living.posZ, 4, true);
-			living.attackEntityFrom(DamageSource.generic, 25F);
+			//living.attackEntityFrom(DamageSource.generic, 25F);
 		}
 	}
 }
