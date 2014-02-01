@@ -7,7 +7,7 @@ import redgear.brewcraft.potions.PotionExtension;
 public class EffectImmunity extends PotionExtension {
 
 	public EffectImmunity(int id) {
-		super(id, false, 8131210);
+		super(id, false, 13371061);
 		setPotionName("potion.immunity");
 		setIconIndex(3, 0);
 	}

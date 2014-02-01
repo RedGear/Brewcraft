@@ -8,7 +8,7 @@ import redgear.brewcraft.potions.PotionExtension;
 public class EffectFlight extends PotionExtension {
 
 	public EffectFlight(int id) {
-		super(id, false, 16777215);
+		super(id, false, 13750737);
 		setPotionName("potion.flight");
 		setIconIndex(2, 0);
 	}
