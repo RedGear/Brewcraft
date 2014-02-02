@@ -48,6 +48,9 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 
 		addTank(inputTank, 10, 13, 16, 60);
 		addTank(outputTank, 147, 13, 16, 60);
+		
+		addDrawSnippet(10, 13, 16, 60, 176, 0);
+		addDrawSnippet(147, 13, 16, 60, 176, 0);
 
 		itemBar = addProgressBar(69, 31, 3, 24);
 		proccessBar = addProgressBar(5, 13, 3, 60);
