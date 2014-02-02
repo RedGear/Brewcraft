@@ -19,12 +19,12 @@ public class EffectCreeper extends PotionExtension {
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
 		int duration = living.getActivePotionEffect(this).duration;
+		boolean flag = living.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
 		if(living instanceof EntityCreeper) {
 			EntityCreeper creeper = (EntityCreeper) living;
 			if(duration == 1)
-				creeper.worldObj.spawnEntityInWorld(new EntityLightningBolt(creeper.worldObj, creeper.posX, creeper.posY, creeper.posZ));
-				//creeper.getDataWatcher().updateObject(17, Byte.valueOf((byte)1));
+				creeper.getDataWatcher().updateObject(17, Byte.valueOf((byte)1));
 				
 		}
 		
@@ -32,6 +32,14 @@ public class EffectCreeper extends PotionExtension {
 			EntityPlayer player = (EntityPlayer) living;
 			if(player.capabilities.isCreativeMode)
 				Brewcraft.inst.logDebug("Player is creative, not exploding.");
+			
+			if(!(player.capabilities.isCreativeMode)) {
+				if(strength == 0)
+					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 4, flag);
+				
+				if(strength == 1)
+					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 7, flag);
+			}
 		}
 		
 		if(!(living instanceof EntityPlayer) && !(living instanceof EntityCreeper)) {
@@ -42,7 +50,6 @@ public class EffectCreeper extends PotionExtension {
 				living.worldObj.playSoundAtEntity(living, "mob.creeper.say", 1F, 1F);
 			
 			if(duration == 1) {
-				boolean flag = living.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 				if(strength == 0) {
 					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 4, flag);
 					living.attackEntityFrom(DamageSource.generic, 30F);
