@@ -2,7 +2,6 @@ package redgear.brewcraft.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,8 +30,6 @@ import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTileMachine;
-import redgear.core.compat.ModConfigHelper;
-import redgear.core.compat.Mods;
 import redgear.core.fluids.FluidUtil;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
@@ -43,12 +40,7 @@ import redgear.core.util.CoreDungeonLoot.LootRarity;
 import redgear.core.util.CoreTradeHandler;
 import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
-import thaumcraft.api.ItemApi;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -83,15 +75,6 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem brewery;
 
 	private final String breweryTexture = "brewery";
-
-	public static ItemStack soul;
-	public static ItemStack dust;
-	public static ItemStack crystal;
-	public static ItemStack bone;
-	public static ItemStack sulfur;
-	public static ItemStack brain;
-	public static ItemStack goo;
-	public static ItemStack tendril;
 
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
@@ -138,8 +121,8 @@ public class Brewcraft extends ModUtils {
 	public static Potion creeper;
 	public static Potion immunity;
 
-	public final int DEFAULT_TIME = 7;
-	public final int ITEM_CONSUMPTION_BASE = 30;
+	public final static int DEFAULT_TIME = 7;
+	public final static int ITEM_CONSUMPTION_BASE = 30;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -243,7 +226,7 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void Init(FMLInitializationEvent event) {
 		if (getBoolean("Global", "Mod Compatibility", "Toggle Mod Compatibility", true))
-			compatibility();
+			BrewcraftCompatibility.init();
 		recipes();
 
 		if (getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot", "Toggle Golden Feather as Dungeon Loot", true))
@@ -257,126 +240,6 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PostInit(FMLPostInitializationEvent event) {
-
-	}
-
-	private void compatibility() {
-
-		soul = ModConfigHelper.get("miscItems", 10);
-		dust = ModConfigHelper.get("miscItems", 11);
-		crystal = ModConfigHelper.get("materials", 7);
-		bone = ModConfigHelper.get("materials", 8);
-		sulfur = ModConfigHelper.get("plantItem", 4);
-		brain = ModConfigHelper.get("ItemResource", 5);
-		goo = ModConfigHelper.get("ItemResource", 11);
-		tendril = ModConfigHelper.get("ItemResource", 12);
-
-		if (Mods.BiomesOPlenty.isIn()
-				&& getBoolean("Mod Compatibility", "Biomes o' Plenty Compatibility",
-						"Toggle Biomes o' Plenty Compatibility", true)) {
-
-			FMLLog.log(Level.INFO, "[" + modName + "] has found Biomes o' Plenty loaded, now running compatibility.");
-
-			if (!(soul == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), soul, 1,
-						4);
-			if (!(dust == null))
-				registry.addRecipe(new FluidStack(fluidRegen, 100), new FluidStack(fluidHolyWater, 100), dust, 1, 4);
-		}
-
-		if (Mods.Thaum.isIn()
-				&& getBoolean("Mod Compatibility", "Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility",
-						true)) {
-
-			FMLLog.log(Level.INFO, "[" + modName + "] has found Thaumcraft 4 loaded, now running compatibility.");
-
-			if (!(brain == null)) {
-				registry.addRecipe(new FluidStack(fluidVision, 100), new FluidStack(fluidInvisible, 100),
-						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidWeakness, 100),
-						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
-				registry.addRecipe(new FluidStack(fluidStrength, 100), new FluidStack(fluidWeakness, 100),
-						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
-				registry.addRecipe(new FluidStack(fluidFireResist, 100), new FluidStack(fluidSlowness, 100),
-						ItemApi.getItem("ItemResource", 5), ITEM_CONSUMPTION_BASE, 4);
-			}
-
-			if (!(goo == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), goo,
-						ITEM_CONSUMPTION_BASE + 10, 4);
-			if (!(tendril == null))
-				registry.addRecipe(new FluidStack(fluidAwkward, 100), new FluidStack(fluidPoison, 100), tendril,
-						ITEM_CONSUMPTION_BASE + 10, 4);
-
-			if (getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
-					"Toggle Aspects from Thaumcraft 4", true)) {
-				ThaumcraftApi.registerObjectTag(brewery.id, 0,
-						new AspectList().add(Aspect.MECHANISM, 11).add(Aspect.METAL, 7));
-				ThaumcraftApi.registerObjectTag(ingredients.itemID, 0,
-						new AspectList().add(Aspect.LIFE, 3).add(Aspect.LIGHT, 2).add(Aspect.MAGIC, 2));
-				ThaumcraftApi.registerObjectTag(ingredients.itemID, 1,
-						new AspectList().add(Aspect.GREED, 3).add(Aspect.FLIGHT, 1));
-				ThaumcraftApi.registerObjectTag(ingredients.itemID, 2,
-						new AspectList().add(Aspect.DEATH, 2).add(Aspect.BEAST, 1));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 0,
-						new AspectList().add(Aspect.MAGIC, 3).add(Aspect.FIRE, 2));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 1,
-						new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 2,
-						new AspectList().add(Aspect.LIGHT, 13).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 3,
-						new AspectList().add(Aspect.LIGHT, 8).add(Aspect.MAGIC, 5));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 4,
-						new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 5,
-						new AspectList().add(Aspect.FLIGHT, 8).add(Aspect.MAGIC, 5));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 6,
-						new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 7,
-						new AspectList().add(Aspect.DEATH, 13).add(Aspect.DARKNESS, 13).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 8,
-						new AspectList().add(Aspect.DEATH, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 7));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 9,
-						new AspectList().add(Aspect.BEAST, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 10,
-						new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 11,
-						new AspectList().add(Aspect.LIFE, 13).add(Aspect.HEAL, 13).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 12,
-						new AspectList().add(Aspect.LIFE, 8).add(Aspect.HEAL, 8).add(Aspect.MAGIC, 5));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 13,
-						new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 14,
-						new AspectList().add(Aspect.WEAPON, 13).add(Aspect.MAGIC, 3));
-				ThaumcraftApi.registerObjectTag(potions.itemID, 15,
-						new AspectList().add(Aspect.WEAPON, 8).add(Aspect.MAGIC, 5));
-			}
-		}
-
-		if (Mods.TConstruct.isIn()
-				&& getBoolean("Mod Compatibility", "Tinkers' Construct Compatibility",
-						"Toggle Tinkers' Construct Compatibility", true)) {
-
-			FMLLog.log(Level.INFO, "[" + modName + "] has found Tinkers' Construct loaded, now running compatibility.");
-
-			if (!(crystal == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), new FluidStack(FluidRegistry.LAVA, 100),
-						crystal, ITEM_CONSUMPTION_BASE + 10, DEFAULT_TIME);
-
-			if (!(bone == null))
-				registry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), new FluidStack(fluidWither, 100), bone,
-						ITEM_CONSUMPTION_BASE + 30, DEFAULT_TIME);
-		}
-
-		if (Mods.Natura.isIn()
-				&& getBoolean("Mod Compatibility", "Natura Compatibility", "Toggle Natura Compatibility", true)) {
-
-			FMLLog.log(Level.INFO, "[" + modName + "] has found Natura loaded, now running compatibility.");
-
-			if (!(sulfur == null))
-				registry.addRecipe(new FluidStack(fluidWither, 100), new FluidStack(fluidBoom, 100), sulfur,
-						ITEM_CONSUMPTION_BASE + 30, DEFAULT_TIME + 5);
-		}
 
 	}
 
