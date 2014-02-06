@@ -226,7 +226,7 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void Init(FMLInitializationEvent event) {
 		if (getBoolean("Global", "Mod Compatibility", "Toggle Mod Compatibility", true))
-			BrewcraftCompatibility.init();
+			BrewcraftCompatibility.run();
 		recipes();
 
 		if (getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot", "Toggle Golden Feather as Dungeon Loot", true))
