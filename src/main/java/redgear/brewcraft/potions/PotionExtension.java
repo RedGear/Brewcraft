@@ -11,7 +11,7 @@ public abstract class PotionExtension extends Potion {
 
 	public PotionExtension(int id, boolean isBad, int particleColor) {
 		super(id, isBad, particleColor);
-		
+
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public abstract class PotionExtension extends Potion {
 
 	@Override
 	/**
-	 * Perform this potion's normal ever-tick effect. 
+	 * Perform this potion's normal every-tick effect. 
 	 */
 	public abstract void performEffect(EntityLivingBase living, int strength);
 
@@ -36,12 +36,12 @@ public abstract class PotionExtension extends Potion {
 			double distanceFromSplash) {
 
 	}
-	
+
 	/**
-     * checks if Potion effect is ready to be applied this tick.
-     */
+	 * checks if Potion effect is ready to be applied this tick.
+	 */
 	@Override
-    public boolean isReady(int duration, int amplifier){
+	public boolean isReady(int duration, int amplifier) {
 		return true;
-    }
+	}
 }

@@ -40,15 +40,12 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		outFull = addSlot(new TankSlot(this, 124, 57, true, 1));
 		itemSlot = addSlot(79, 36);
 
-		inputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
+		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 4, this);
 		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4).addFluidMap(-1, TransferRule.OUTPUT);
-
-		for (BreweryRecipe recipe : Brewcraft.registry.recipes)
-			inputTank.addFluidMap(recipe.input.fluidID, TransferRule.INPUT);
 
 		addTank(inputTank, 10, 13, 16, 60);
 		addTank(outputTank, 147, 13, 16, 60);
-		
+
 		addDrawSnippet(10, 13, 16, 60, 176, 0);
 		addDrawSnippet(147, 13, 16, 60, 176, 0);
 
@@ -58,22 +55,22 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 
 	@Override
 	protected void doPreWork() {
+		if (itemLeft <= 0) {
+			ItemStack stack = getStackInSlot(itemSlot);
+			if (stack != null) {
+				currItem = new SimpleItem(stack);
+				if (inputTank.isEmpty() || Brewcraft.registry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
+					//If there is no fluid or if there is a recipe for this item and fluid.
+					decrStackSize(itemSlot, 1);
+					itemLeft = 120;
+				}
+			}
+		}
+
 		fillTank(inFull, inEmpty, inputTank);
 		emptyTank(outEmpty, outFull, outputTank);
 		ejectAllFluids();
 
-		if (itemLeft <= 240) { //if there is two or less, then there is room for one more. Capacity is three. 
-			ItemStack stack = getStackInSlot(itemSlot);
-			if (stack != null && (itemLeft == 0 || currItem.equals(stack))) {
-				currItem = new SimpleItem(stack); //it's either the same or empty.
-				for (BreweryRecipe recipe : Brewcraft.registry.recipes)
-					if (recipe.item.equals(currItem)) {
-						decrStackSize(itemSlot, 1);
-						itemLeft += 120;
-						break;
-					}
-			}
-		}
 	}
 
 	@Override
@@ -105,7 +102,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		}
 
 		if (prog.id == itemBar) {
-			prog.total = 360;
+			prog.total = 120;
 			prog.value = itemLeft;
 		}
 
@@ -137,4 +134,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		itemLeft = tag.getInteger("itemLeft");
 	}
 
+	public SimpleItem getCurrItem() {
+		return currItem;
+	}
 }
