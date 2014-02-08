@@ -2,7 +2,6 @@ package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectFlight extends PotionExtension {
@@ -15,36 +14,19 @@ public class EffectFlight extends PotionExtension {
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		Brewcraft.inst.logDebug("Stop!");
+		int duration = living.getActivePotionEffect(this).duration;
+
 		if (living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
-			if (!player.capabilities.isCreativeMode) {
-				player.capabilities.allowFlying = false;
-				player.capabilities.isFlying = false;
-			}
+			if (duration <= 1) {
+				if (!player.capabilities.isCreativeMode) {
+					player.capabilities.allowFlying = false;
+					player.capabilities.isFlying = false;
+				}
+			} else
+				player.capabilities.allowFlying = true;
+			if(!player.worldObj.isRemote)
+				player.sendPlayerAbilities();
 		}
-	}
-
-	/**
-	 * Hits the provided entity with this potion's instant effect.
-	 */
-	@Override
-	public void affectEntity(EntityLivingBase thrower, EntityLivingBase reciver, int potionStrength,
-			double distanceFromSplash) {
-		Brewcraft.inst.logDebug("Fly!");
-		if (reciver instanceof EntityPlayer)
-			((EntityPlayer) reciver).capabilities.allowFlying = true;
-	}
-
-	@Override
-	public boolean isReady(int duration, int amplifier) {
-		Brewcraft.inst.logDebug("Is Ready");
-		return duration == 1;
-	}
-
-	@Override
-	public boolean isInstant() {
-		Brewcraft.inst.logDebug("Is Instant");
-		return true;
 	}
 }
