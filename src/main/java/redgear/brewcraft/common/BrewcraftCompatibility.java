@@ -1,12 +1,16 @@
 package redgear.brewcraft.common;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.core.compat.Mods;
+import redgear.core.util.SimpleItem;
 import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import biomesoplenty.api.Items;
 import buildcraft.api.fuels.IronEngineFuel;
 import forestry.api.storage.BackpackManager;
 
@@ -115,7 +119,29 @@ public class BrewcraftCompatibility {
 			
 		}
 		
-		
+		if(Mods.BiomesOPlenty.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
+				"Biomes o' Plenty Compatibility", "Toggle Biomes o' Plenty Compatibility", true)) {
+			
+			Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither,
+					new SimpleItem(Items.miscItems.get().itemID, 10),
+					Brewcraft.ITEM_CONSUMPTION_BASE - 1, Brewcraft.DEFAULT_TIME - 3);
+			Brewcraft.registry.addRecipe(Brewcraft.fluidRegen, Brewcraft.fluidHolyWater,
+					new SimpleItem(Items.miscItems.get().itemID, 11), Brewcraft.ITEM_CONSUMPTION_BASE + 1);
+			Brewcraft.registry.addRecipe(Brewcraft.fluidAwkward, Brewcraft.fluidPoison,
+					new SimpleItem(Items.poison.get().itemID), Brewcraft.ITEM_CONSUMPTION_BASE - 2);
+			Brewcraft.registry.addRecipe(Brewcraft.fluidAwkward, Brewcraft.fluidFireResist,
+					new SimpleItem(Items.miscItems.get().itemID, 1));
+			Brewcraft.registry.addRecipe(Brewcraft.fluidVision, Brewcraft.fluidInvisible,
+					new SimpleItem(Items.miscItems.get().itemID, 3));
+			Brewcraft.registry.addRecipe(Brewcraft.fluidAwkward, Brewcraft.fluidWeakness,
+					new SimpleItem(Items.miscItems.get().itemID, 3));
+			Brewcraft.registry.addRecipe(Brewcraft.fluidStrength, Brewcraft.fluidWeakness,
+					new SimpleItem(Items.miscItems.get().itemID, 3));
+			Brewcraft.registry.addRecipe(Brewcraft.fluidFireResist, Brewcraft.fluidSlowness,
+					new SimpleItem(Items.miscItems.get().itemID, 3));
+			Brewcraft.registry.addRecipe(Brewcraft.fluidPoison, Brewcraft.fluidHarm,
+					new SimpleItem(Items.miscItems.get().itemID, 3));
+		}
 		
 	}
 
