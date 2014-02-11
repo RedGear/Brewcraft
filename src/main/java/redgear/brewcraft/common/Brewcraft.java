@@ -215,7 +215,7 @@ public class Brewcraft extends ModUtils {
 		fluidPoisonLong = createVanillaPotion("PoisonLong", "potionGreen", 8228, 16452);
 		fluidHarm = createVanillaPotion("Harm", "potionDarkPurple", 8204, 16396);
 		fluidHarmII = createVanillaPotion("HarmII", "potionDarkPurple", 8236, 16428);
-		fluidHealing = createVanillaPotion("Healing", "potionRed", 8196, 16389);
+		fluidHealing = createVanillaPotion("Healing", "potionRed", 8197, 16389);
 		fluidHealingII = createVanillaPotion("HealingII", "potionRed", 8229, 16421);
 
 		brewery.getBlock().setCreativeTab(CreativeTabs.tabBrewing);
