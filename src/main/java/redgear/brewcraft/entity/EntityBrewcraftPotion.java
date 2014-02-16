@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -132,7 +132,7 @@ public class EntityBrewcraftPotion extends EntityPotion {
 
 	}
 
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return getPotionItem().getIcon();
 	}
 
@@ -145,7 +145,7 @@ public class EntityBrewcraftPotion extends EntityPotion {
 		if (stack == null)
 			return null;
 
-		Item item = Item.itemsList[stack.itemID];
+		Item item = stack.getItem();
 		if (item instanceof MetaItemPotion) {
 			MetaItemPotion metaItem = (MetaItemPotion) item;
 			return metaItem.getMetaItem(stack.getItemDamage());

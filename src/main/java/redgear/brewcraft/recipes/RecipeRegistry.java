@@ -2,7 +2,6 @@ package redgear.brewcraft.recipes;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,8 +54,7 @@ public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeR
 				&& time > 0) {
 			if (!recipes.add(new BreweryRecipe(input, output, item, itemAmount, time)))
 				Brewcraft.inst.myLogger
-						.log(Level.WARNING,
-								"There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
+						.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
 		} else { //There is a programming bug that someone needs to fix, so let's throw it as a warning. 
 			StringBuilder message = new StringBuilder(
 					"There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: ");
@@ -79,7 +77,7 @@ public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeR
 			if (time <= 0)
 				message.append("Time is less than 1. ");
 
-			Brewcraft.inst.myLogger.log(Level.WARNING, message.toString());
+			Brewcraft.inst.myLogger.warn(message.toString());
 		}
 	}
 

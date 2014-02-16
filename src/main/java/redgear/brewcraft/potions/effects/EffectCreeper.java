@@ -16,7 +16,7 @@ public class EffectCreeper extends PotionExtension {
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		int duration = living.getActivePotionEffect(this).duration;
+		int duration = living.getActivePotionEffect(this).getDuration();
 		boolean flag = living.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
 		if (living instanceof EntityCreeper && duration == 1)

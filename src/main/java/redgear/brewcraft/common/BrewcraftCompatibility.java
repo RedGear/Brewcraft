@@ -1,16 +1,8 @@
 package redgear.brewcraft.common;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import redgear.core.compat.Mods;
-import redgear.core.util.SimpleItem;
+import redgear.core.mod.Mods;
 import thaumcraft.api.ItemApi;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import biomesoplenty.api.Items;
 import buildcraft.api.fuels.IronEngineFuel;
 import forestry.api.storage.BackpackManager;
 
@@ -28,7 +20,7 @@ public class BrewcraftCompatibility {
 		
 		if(Mods.Thaum.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility",
 				"Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility", true)) {
-			
+			/*
 			if (Brewcraft.inst.getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
 					"Toggle Aspects from Thaumcraft 4",true)) {
 				
@@ -93,7 +85,7 @@ public class BrewcraftCompatibility {
 					Brewcraft.registry.addRecipe(new FluidStack(Brewcraft.fluidFireResist, 100), new FluidStack(Brewcraft.fluidSlowness, 100),
 							brain, Brewcraft.ITEM_CONSUMPTION_BASE, 4);
 				}
-			
+			*/
 		}
 		
 		if(Mods.Forestry.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
@@ -121,7 +113,7 @@ public class BrewcraftCompatibility {
 		
 		if(Mods.BiomesOPlenty.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
 				"Biomes o' Plenty Compatibility", "Toggle Biomes o' Plenty Compatibility", true)) {
-			
+			/*
 			Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither,
 					new SimpleItem(Items.miscItems.get().itemID, 10),
 					Brewcraft.ITEM_CONSUMPTION_BASE - 1, Brewcraft.DEFAULT_TIME - 3);
@@ -140,7 +132,7 @@ public class BrewcraftCompatibility {
 			Brewcraft.registry.addRecipe(Brewcraft.fluidFireResist, Brewcraft.fluidSlowness,
 					new SimpleItem(Items.miscItems.get().itemID, 3));
 			Brewcraft.registry.addRecipe(Brewcraft.fluidPoison, Brewcraft.fluidHarm,
-					new SimpleItem(Items.miscItems.get().itemID, 3));
+					new SimpleItem(Items.miscItems.get().itemID, 3));*/
 		}
 		
 	}

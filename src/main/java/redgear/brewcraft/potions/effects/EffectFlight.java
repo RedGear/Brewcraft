@@ -14,7 +14,7 @@ public class EffectFlight extends PotionExtension {
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		int duration = living.getActivePotionEffect(this).duration;
+		int duration = living.getActivePotionEffect(this).getDuration();
 
 		if (living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;

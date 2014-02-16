@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL12;
 public class RenderBrewcraftPotion extends Render {
 
 	public void doRender(EntityBrewcraftPotion potion, double x, double y, double z, float f1, float f2) {
-		Icon icon = potion.getIcon();
+		IIcon icon = potion.getIcon();
 
 		if (icon != null) {
 			GL11.glPushMatrix();
@@ -28,7 +28,7 @@ public class RenderBrewcraftPotion extends Render {
 		}
 	}
 
-	private void drawIcon(Tessellator tessellator, Icon icon) {
+	private void drawIcon(Tessellator tessellator, IIcon icon) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

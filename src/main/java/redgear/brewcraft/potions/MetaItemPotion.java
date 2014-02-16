@@ -2,8 +2,8 @@ package redgear.brewcraft.potions;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
@@ -13,8 +13,8 @@ import redgear.core.util.SimpleItem;
 
 public class MetaItemPotion extends MetaItem {
 
-	public MetaItemPotion(int itemID, String name) {
-		super(itemID, name);
+	public MetaItemPotion(String name) {
+		super(name);
 		setCreativeTab(CreativeTabs.tabBrewing);
 		setMaxStackSize(1);
 	}
@@ -43,7 +43,7 @@ public class MetaItemPotion extends MetaItem {
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {
 			--stack.stackSize;
-			player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0));
+			player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle, 1, 0));
 		}
 
 		if (!world.isRemote)

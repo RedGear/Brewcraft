@@ -6,7 +6,8 @@ import java.lang.reflect.Modifier;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
@@ -17,7 +18,6 @@ import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
-import redgear.brewcraft.entity.RenderBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -39,7 +39,6 @@ import redgear.core.util.CoreDungeonLoot.LootRarity;
 import redgear.core.util.CoreTradeHandler;
 import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -48,14 +47,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "RedGear|Brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:RedGear|Core;")
+@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:redgear_core;")
 public class Brewcraft extends ModUtils {
 
-	public Brewcraft() {
-		super(3578, 11972);
-	}
-
-	@Instance("RedGear|Brewcraft")
+	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
 	public static RecipeRegistry registry = new RecipeRegistry();
@@ -66,7 +61,7 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem charredbone;
 	public static SimpleItem splashBottle;
 
-	public static SimpleItem emptyBottle = new SimpleItem(Item.glassBottle);
+	public static SimpleItem emptyBottle = new SimpleItem(Items.glass_bottle);
 
 	public static MetaItemPotion potions;
 
@@ -132,16 +127,16 @@ public class Brewcraft extends ModUtils {
 			expandPotionList();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
-				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.instance, 128, 10, true);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
+				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
+		//RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
 
-		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
+		ingredients = new MetaItem("RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenfeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredbone = ingredients.addMetaItem(new SubItem("charredbone"));
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
-		potions = new MetaItemPotion(getItemId("potions"), "RedGear.Brewcraft.Potions");
+		potions = new MetaItemPotion("RedGear.Brewcraft.Potions");
 
 		angel = new EffectAngel(getInt("Potion Effect IDs", "'Angelic' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 40));
@@ -184,10 +179,10 @@ public class Brewcraft extends ModUtils {
 		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
 		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
 
-		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
-				new RenderItemBrewery(), new TileRendererBrewery());
+		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery(),
+				new TileRendererBrewery());
 
-		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
+		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
@@ -232,9 +227,9 @@ public class Brewcraft extends ModUtils {
 		if (getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot", "Toggle Golden Feather as Dungeon Loot", true))
 			CoreDungeonLoot.addLootToDungeons(goldenfeather.getStack(), LootRarity.RARE);
 		if (getBoolean("Global", "Golden Feather Villager Trades", "Toggle Golden Feather Villager Trades", true))
-			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Item.emerald, 7, 0), goldenfeather.getStack());
+			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 7, 0), goldenfeather.getStack());
 		if (getBoolean("Global", "Blessed Powder Villager Trades", "Toggle Blessed Powder Villager Trades", true))
-			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Item.emerald, 11, 0), holydust.getStack());
+			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 11, 0), holydust.getStack());
 
 	}
 
@@ -246,57 +241,59 @@ public class Brewcraft extends ModUtils {
 	private void recipes() {
 
 		registry.addRecipe(fluidRegen, fluidHolyWater, holydust, ITEM_CONSUMPTION_BASE + 1);
-		registry.addRecipe(fluidHolyWater, fluidHolyWaterII, Item.glowstone);
-		registry.addRecipe(fluidHolyWater, fluidHolyWaterLong, Item.redstone);
+		registry.addRecipe(fluidHolyWater, fluidHolyWaterII, Items.glowstone_dust);
+		registry.addRecipe(fluidHolyWater, fluidHolyWaterLong, Items.redstone);
 		registry.addRecipe(FluidRegistry.WATER, fluidFlying, goldenfeather, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 1);
-		registry.addRecipe(fluidFlying, fluidFlyingLong, Item.redstone);
+		registry.addRecipe(fluidFlying, fluidFlyingLong, Items.redstone);
 		registry.addRecipe(FluidRegistry.LAVA, fluidWither, charredbone, ITEM_CONSUMPTION_BASE - 1, DEFAULT_TIME - 3);
-		registry.addRecipe(fluidWither, fluidWitherII, Item.glowstone);
-		registry.addRecipe(fluidWither, fluidWitherLong, Item.redstone);
-		registry.addRecipe(fluidHealing, fluidAntidote, Item.redstone, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
-		registry.addRecipe(fluidAntidote, fluidAntidoteII, Item.glowstone, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
-		registry.addRecipe(fluidWither, fluidBoom, Item.gunpowder);
-		registry.addRecipe(fluidBoom, fluidBoomII, Item.glowstone);
-		registry.addRecipe(fluidBoom, fluidBoomLong, Item.redstone);
+		registry.addRecipe(fluidWither, fluidWitherII, Items.glowstone_dust);
+		registry.addRecipe(fluidWither, fluidWitherLong, Items.redstone);
+		registry.addRecipe(fluidHealing, fluidAntidote, Items.redstone, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
+		registry.addRecipe(fluidAntidote, fluidAntidoteII, Items.glowstone_dust, ITEM_CONSUMPTION_BASE,
+				DEFAULT_TIME + 2);
+		registry.addRecipe(fluidWither, fluidBoom, Items.gunpowder);
+		registry.addRecipe(fluidBoom, fluidBoomII, Items.glowstone_dust);
+		registry.addRecipe(fluidBoom, fluidBoomLong, Items.redstone);
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
-			registry.addRecipe(FluidRegistry.WATER, fluidAwkward, Item.netherStalkSeeds, ITEM_CONSUMPTION_BASE, 4);
-			registry.addRecipe(fluidAwkward, fluidVision, Item.goldenCarrot);
-			registry.addRecipe(fluidVision, fluidVisionLong, Item.redstone);
-			registry.addRecipe(fluidVision, fluidInvisible, Item.fermentedSpiderEye);
-			registry.addRecipe(fluidInvisible, fluidInvisibleLong, Item.redstone);
-			registry.addRecipe(fluidAwkward, fluidRegen, Item.ghastTear);
-			registry.addRecipe(fluidRegen, fluidRegenLong, Item.glowstone);
-			registry.addRecipe(fluidAwkward, fluidFast, Item.sugar);
-			registry.addRecipe(fluidFast, fluidFastLong, Item.redstone);
-			registry.addRecipe(fluidFast, fluidFastII, Item.glowstone);
-			registry.addRecipe(fluidAwkward, fluidWeakness, Item.fermentedSpiderEye);
-			registry.addRecipe(fluidStrength, fluidWeakness, Item.fermentedSpiderEye);
-			registry.addRecipe(fluidAwkward, fluidStrength, Item.blazePowder);
-			registry.addRecipe(fluidStrength, fluidStrengthLong, Item.redstone);
-			registry.addRecipe(fluidStrength, fluidStrengthII, Item.glowstone);
-			registry.addRecipe(fluidAwkward, fluidFireResist, Item.magmaCream);
-			registry.addRecipe(fluidFireResist, fluidFireResistLong, Item.redstone);
-			registry.addRecipe(fluidFireResist, fluidSlowness, Item.fermentedSpiderEye);
-			registry.addRecipe(fluidSlowness, fluidSlownessLong, Item.redstone);
-			registry.addRecipe(fluidAwkward, fluidPoison, Item.spiderEye);
-			registry.addRecipe(fluidPoison, fluidPoisonLong, Item.redstone);
-			registry.addRecipe(fluidPoison, fluidHarm, Item.fermentedSpiderEye);
-			registry.addRecipe(fluidHarm, fluidHarmII, Item.glowstone);
-			registry.addRecipe(fluidAwkward, fluidHealing, Item.speckledMelon);
-			registry.addRecipe(fluidHealing, fluidHealingII, Item.glowstone);
-			registry.addRecipe(fluidPoison, fluidPoisonII, Item.glowstone);
+			registry.addRecipe(FluidRegistry.WATER, fluidAwkward, Items.nether_wart, ITEM_CONSUMPTION_BASE, 4);
+			registry.addRecipe(fluidAwkward, fluidVision, Items.golden_carrot);
+			registry.addRecipe(fluidVision, fluidVisionLong, Items.redstone);
+			registry.addRecipe(fluidVision, fluidInvisible, Items.fermented_spider_eye);
+			registry.addRecipe(fluidInvisible, fluidInvisibleLong, Items.redstone);
+			registry.addRecipe(fluidAwkward, fluidRegen, Items.ghast_tear);
+			registry.addRecipe(fluidRegen, fluidRegenLong, Items.glowstone_dust);
+			registry.addRecipe(fluidAwkward, fluidFast, Items.sugar);
+			registry.addRecipe(fluidFast, fluidFastLong, Items.redstone);
+			registry.addRecipe(fluidFast, fluidFastII, Items.glowstone_dust);
+			registry.addRecipe(fluidAwkward, fluidWeakness, Items.fermented_spider_eye);
+			registry.addRecipe(fluidStrength, fluidWeakness, Items.fermented_spider_eye);
+			registry.addRecipe(fluidAwkward, fluidStrength, Items.blaze_powder);
+			registry.addRecipe(fluidStrength, fluidStrengthLong, Items.redstone);
+			registry.addRecipe(fluidStrength, fluidStrengthII, Items.glowstone_dust);
+			registry.addRecipe(fluidAwkward, fluidFireResist, Items.magma_cream);
+			registry.addRecipe(fluidFireResist, fluidFireResistLong, Items.redstone);
+			registry.addRecipe(fluidFireResist, fluidSlowness, Items.fermented_spider_eye);
+			registry.addRecipe(fluidSlowness, fluidSlownessLong, Items.redstone);
+			registry.addRecipe(fluidAwkward, fluidPoison, Items.spider_eye);
+			registry.addRecipe(fluidPoison, fluidPoisonLong, Items.redstone);
+			registry.addRecipe(fluidPoison, fluidHarm, Items.fermented_spider_eye);
+			registry.addRecipe(fluidHarm, fluidHarmII, Items.glowstone_dust);
+			registry.addRecipe(fluidAwkward, fluidHealing, Items.speckled_melon);
+			registry.addRecipe(fluidHealing, fluidHealingII, Items.glowstone_dust);
+			registry.addRecipe(fluidPoison, fluidPoisonII, Items.glowstone_dust);
 		}
 
 		if (getBoolean("Recipes", "Golden Feather Recipe", "Toggle Golden Feather Recipe", true))
-			GameRegistry.addShapedRecipe(goldenfeather.getStack(),
-					new Object[] {"!!!", "!@!", "!!!", Character.valueOf('!'), Item.goldNugget, Character.valueOf('@'),
-							Item.feather });
+			GameRegistry.addShapedRecipe(
+					goldenfeather.getStack(),
+					new Object[] {"!!!", "!@!", "!!!", Character.valueOf('!'), Items.gold_nugget,
+							Character.valueOf('@'), Items.feather });
 
 		if (getBoolean("Recipes", "Splash Bottle Recipe", "Toggle Splash Bottle Recipe", true))
 			GameRegistry.addShapedRecipe(splashBottle.getStack(3),
-					new Object[] {" @!", "@ @", " @ ", Character.valueOf('!'), Item.gunpowder, Character.valueOf('@'),
-							Block.glass });
+					new Object[] {" @!", "@ @", " @ ", Character.valueOf('!'), Items.gunpowder, Character.valueOf('@'),
+							Blocks.glass });
 
 		boolean ironOverride = false;
 
@@ -311,7 +308,7 @@ public class Brewcraft extends ModUtils {
 			breweryRecipe("ingotIron"); //Dat boolean expression!
 
 		if (getBoolean("Recipes", "Charred Bone Recipe", "Toggle Charred Bone Smelting Recipe", true))
-			GameRegistry.addSmelting(Item.bone.itemID, Brewcraft.charredbone.getStack(), 0.1F);
+			GameRegistry.addSmelting(Items.bone, Brewcraft.charredbone.getStack(), 0.1F);
 
 	}
 
@@ -320,8 +317,8 @@ public class Brewcraft extends ModUtils {
 
 		if (metal != null) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
-					Character.valueOf('!'), ingot, Character.valueOf('@'), Item.brewingStand, Character.valueOf('#'),
-					Item.cauldron }));
+					Character.valueOf('!'), ingot, Character.valueOf('@'), Items.brewing_stand, Character.valueOf('#'),
+					Items.cauldron }));
 			return true;
 		} else
 			return false;
@@ -361,10 +358,10 @@ public class Brewcraft extends ModUtils {
 	 */
 	private Fluid createVanillaPotion(String name, String iconName, int metaBottle, int metaSplash) {
 		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
-		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.potion, 1, metaBottle),
+		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle.getStack());
 		if (!(metaSplash == 0))
-			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Item.potion, 1, metaSplash),
+			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaSplash),
 					splashBottle.getStack());
 
 		return potion;
