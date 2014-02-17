@@ -1,6 +1,5 @@
 package redgear.brewcraft.common;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,12 +21,20 @@ public class BrewcraftCompatibility {
 	
 	public static void run() {
 		
+		boolean BoP = Brewcraft.inst.getBoolean("Compatibility", "Biomes o' Plenty Integration",
+				"Toggle Biomes o' Plenty Integration", true);
+		boolean Forestry = Brewcraft.inst.getBoolean("Compatibility", "Forestry Integration",
+				"Toggle Forestry Integration", true);
+		boolean BC = Brewcraft.inst.getBoolean("Compatibility", "Buildcraft Integration",
+				"Toggle Buildcraft Integration", true);
+		boolean TC = Brewcraft.inst.getBoolean("Compatibility", "Thaumcraft Integration",
+				"Toggle Thaumcraft Ingtegration", true);
+		
 		brain = ItemApi.getItem("itemResource", 5);
 		goo = ItemApi.getItem("itemResource", 11);
 		tendril = ItemApi.getItem("itemResource", 12);
 		
-		if(Mods.Thaum.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility",
-				"Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility", true)) {
+		if(Mods.Thaum.isIn() && TC) {
 			
 			if (Brewcraft.inst.getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
 					"Toggle Aspects from Thaumcraft 4",true)) {
@@ -96,8 +103,7 @@ public class BrewcraftCompatibility {
 			
 		}
 		
-		if(Mods.Forestry.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
-				"Forestry Compatibility", "Toggle Forestry Compatibility", true)) {
+		if(Mods.Forestry.isIn() && Forestry) {
 			
 			BackpackManager.backpackItems[3].add(Brewcraft.goldenfeather.getStack());
 			BackpackManager.backpackItems[3].add(Brewcraft.charredbone.getStack());
@@ -107,8 +113,7 @@ public class BrewcraftCompatibility {
 			
 		}
 		
-		if(Mods.BuildcraftCore.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
-				"Buildcraft Compatibility", "Toggle Buildcraft Compatibility", true)) {
+		if(Mods.BuildcraftCore.isIn() && BC) {
 			
 			int power = 12;
 			int time = 16000;
@@ -119,8 +124,7 @@ public class BrewcraftCompatibility {
 			
 		}
 		
-		if(Mods.BiomesOPlenty.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
-				"Biomes o' Plenty Compatibility", "Toggle Biomes o' Plenty Compatibility", true)) {
+		if(Mods.BiomesOPlenty.isIn() && BoP) {
 			
 			Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither,
 					new SimpleItem(Items.miscItems.get().itemID, 10),

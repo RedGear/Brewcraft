@@ -17,7 +17,6 @@ import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
-import redgear.brewcraft.entity.RenderBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -39,16 +38,16 @@ import redgear.core.util.CoreDungeonLoot.LootRarity;
 import redgear.core.util.CoreTradeHandler;
 import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "RedGear|Brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:RedGear|Core;")
+@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:RedGear|Core;after:BiomesOPlenty")
 public class Brewcraft extends ModUtils {
 
 	public Brewcraft() {
@@ -57,6 +56,9 @@ public class Brewcraft extends ModUtils {
 
 	@Instance("RedGear|Brewcraft")
 	public static ModUtils inst;
+	
+    @SidedProxy(clientSide = "redgear.brewcraft.client.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
+    public static BrewcraftCommonProxy proxy;
 
 	public static RecipeRegistry registry = new RecipeRegistry();
 
@@ -73,7 +75,7 @@ public class Brewcraft extends ModUtils {
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
 
-	private final String breweryTexture = "brewery";
+	public static final String breweryTexture = "brewery";
 
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
@@ -133,7 +135,8 @@ public class Brewcraft extends ModUtils {
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.instance, 128, 10, true);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
+		
+		proxy.registerRenders();
 
 		ingredients = new MetaItem(getItemId("ingredients"), "RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
@@ -152,18 +155,8 @@ public class Brewcraft extends ModUtils {
 		creeper = new EffectCreeper(getInt("Potion Effect IDs", "'Combustion' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 42));
 
-		immunity = new EffectImmunity(inst.getInt("Potion Effect IDs", "'Immunity' Effect ID",
+		immunity = new EffectImmunity(getInt("Potion Effect IDs", "'Immunity' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 43));
-
-		/*
-		 * createSpecialPotion("Fire", new SubPotionEffect() {
-		 * 
-		 * @Override
-		 * public void effect(World world, EntityLivingBase player) {
-		 * player.setFire(10);
-		 * }
-		 * });
-		 */
 
 		fluidHolyWater = createPotion("HolyWater", "potionGold", angel, 100, 0);
 		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", angel, 50, 1);
@@ -174,9 +167,7 @@ public class Brewcraft extends ModUtils {
 		fluidWither = createPotion("Wither", "potionBlack", Potion.wither, 400, 0);
 		fluidWitherII = createPotion("WitherII", "potionBlack", Potion.wither, 200, 1);
 		fluidWitherLong = createPotion("WitherLong", "potionBlack", Potion.wither, 800, 0);
-
-		createSpecialPotion("Ghast", Potion.confusion, 400, 0);
-
+		
 		fluidAntidote = createPotion("Antidote", "potionDarkPurple", immunity, 600, 0);
 		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", immunity, 300, 1);
 		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", immunity, 1200, 0);
@@ -188,7 +179,7 @@ public class Brewcraft extends ModUtils {
 				new RenderItemBrewery(), new TileRendererBrewery());
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
-
+		
 		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 
@@ -344,11 +335,6 @@ public class Brewcraft extends ModUtils {
 		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
 
 		return potion;
-	}
-
-	private void createSpecialPotion(String name, Potion effect, int duration, int strength) {
-		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength));
-		potions.addMetaItem(new SubItemPotion("splash" + name, true, effect, duration, strength));
 	}
 
 	/**
