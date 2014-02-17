@@ -175,8 +175,7 @@ public class Brewcraft extends ModUtils {
 		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
 		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
 
-		brewing = new MetaTileSpecialRenderer(getBlockId("brewery"), Material.iron, "RedGear.Brewcraft.Brewery",
-				new RenderItemBrewery(), new TileRendererBrewery());
+		brewing = proxy.createBrewery();
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
 		
