@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,9 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
-import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
@@ -27,7 +24,6 @@ import redgear.brewcraft.potions.effects.EffectImmunity;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
-import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTileMachine;
 import redgear.core.fluids.FluidUtil;
 import redgear.core.item.MetaItem;
@@ -41,6 +37,7 @@ import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -52,6 +49,9 @@ public class Brewcraft extends ModUtils {
 
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
+	
+	@SidedProxy(clientSide = "redgear.brewcraft.common.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
+	public static BrewcraftCommonProxy proxy;
 
 	public static RecipeRegistry registry = new RecipeRegistry();
 
@@ -68,7 +68,7 @@ public class Brewcraft extends ModUtils {
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
 
-	private final String breweryTexture = "brewery";
+	public static final String breweryTexture = "brewery";
 
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
@@ -128,7 +128,7 @@ public class Brewcraft extends ModUtils {
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
-		//RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
+		proxy.registerRenders();
 
 		ingredients = new MetaItem("RedGear.Brewcraft.Ingredients");
 		holydust = ingredients.addMetaItem(new SubItem("holydust"));
@@ -179,8 +179,7 @@ public class Brewcraft extends ModUtils {
 		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
 		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
 
-		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery(),
-				new TileRendererBrewery());
+		brewing = proxy.createBrewery();
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 
