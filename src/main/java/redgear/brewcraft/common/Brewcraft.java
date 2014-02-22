@@ -24,7 +24,7 @@ import redgear.brewcraft.potions.effects.EffectImmunity;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
-import redgear.core.block.SubTileMachine;
+import redgear.core.block.SubTile;
 import redgear.core.fluids.FluidUtil;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
@@ -67,8 +67,6 @@ public class Brewcraft extends ModUtils {
 
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
-
-	public static final String breweryTexture = "brewery";
 
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
@@ -183,7 +181,7 @@ public class Brewcraft extends ModUtils {
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 
-		brewery = brewing.addMetaBlock(new SubTileMachine("Brewery", breweryTexture, TileEntityBrewery.class,
+		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 
 		fluidAwkward = createVanillaPotion("Awkward", "potionBlue", 16, 0);

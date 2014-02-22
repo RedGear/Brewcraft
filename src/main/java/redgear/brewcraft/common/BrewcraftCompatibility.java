@@ -2,7 +2,6 @@ package redgear.brewcraft.common;
 
 import net.minecraft.item.ItemStack;
 import redgear.core.mod.Mods;
-import thaumcraft.api.ItemApi;
 import buildcraft.api.fuels.IronEngineFuel;
 import forestry.api.storage.BackpackManager;
 
@@ -14,13 +13,18 @@ public class BrewcraftCompatibility {
 	
 	public static void run() {
 		
-		brain = ItemApi.getItem("itemResource", 5);
-		goo = ItemApi.getItem("itemResource", 11);
-		tendril = ItemApi.getItem("itemResource", 12);
+		
 		
 		if(Mods.Thaum.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility",
 				"Thaumcraft 4 Compatibility", "Toggle Thaumcraft 4 Compatibility", true)) {
 			/*
+			 * brain = ItemApi.getItem("itemResource", 5);
+		goo = ItemApi.getItem("itemResource", 11);
+		tendril = ItemApi.getItem("itemResource", 12);
+			 * 
+			 * 
+			 * 
+			 * 
 			if (Brewcraft.inst.getBoolean("Compatibility", "Thaumcraft 4 Aspects on Items and Blocks",
 					"Toggle Aspects from Thaumcraft 4",true)) {
 				
