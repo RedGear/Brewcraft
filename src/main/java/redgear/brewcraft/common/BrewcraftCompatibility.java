@@ -95,15 +95,15 @@ public class BrewcraftCompatibility {
 		if(Mods.Forestry.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
 				"Forestry Compatibility", "Toggle Forestry Compatibility", true)) {
 			
-			BackpackManager.backpackItems[3].add(Brewcraft.goldenfeather.getStack());
-			BackpackManager.backpackItems[3].add(Brewcraft.charredbone.getStack());
-			BackpackManager.backpackItems[4].add(Brewcraft.holydust.getStack());
+			BackpackManager.backpackItems[3].add(Brewcraft.goldenFeather.getStack());
+			BackpackManager.backpackItems[3].add(Brewcraft.charredBone.getStack());
+			BackpackManager.backpackItems[4].add(Brewcraft.holyDust.getStack());
 			BackpackManager.backpackItems[4].add(Brewcraft.brewery.getStack());
 			BackpackManager.backpackItems[4].add(new ItemStack(Brewcraft.potions));
 			
 		}
 		
-		if(Mods.BuildcraftCore.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
+		if(Mods.BCCore.isIn() && Brewcraft.inst.getBoolean("Mod Compatibility", 
 				"Buildcraft Compatibility", "Toggle Buildcraft Compatibility", true)) {
 			
 			int power = 12;

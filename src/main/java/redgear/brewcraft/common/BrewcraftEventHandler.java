@@ -88,20 +88,32 @@ public class BrewcraftEventHandler {
 					&& event.source.getDamageType().equals("player")) {
 
 				skeleton.entityDropItem(
-						Brewcraft.charredbone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
+						Brewcraft.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
 				skeleton.worldObj.playSoundAtEntity(skeleton, "random.bowhit", 1F, 1F);
 
 			}
+			
+			if (event.entity instanceof EntityGhast) {
+
+				if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
+
+					event.entity.entityDropItem(
+							Brewcraft.obsidianTear.getStack(1), 0.0F);
+					event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
+
+				}
 
 		}
 
-		if (event.entityLiving instanceof EntityChicken)
+		if (event.entityLiving instanceof EntityChicken) {
 			if (rand.nextDouble() < 0.05D) {
 
-				event.entityLiving.entityDropItem(Brewcraft.goldenfeather.getStack(), 0.0F);
+				event.entityLiving.entityDropItem(Brewcraft.goldenFeather.getStack(), 0.0F);
 				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
 
 			}
+			
+		}
 
 	}
 
