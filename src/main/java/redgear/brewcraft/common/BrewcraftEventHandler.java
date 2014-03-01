@@ -92,6 +92,7 @@ public class BrewcraftEventHandler {
 				skeleton.worldObj.playSoundAtEntity(skeleton, "random.bowhit", 1F, 1F);
 
 			}
+		}
 			
 			if (event.entity instanceof EntityGhast) {
 

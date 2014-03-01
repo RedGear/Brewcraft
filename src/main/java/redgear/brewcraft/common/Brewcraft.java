@@ -23,6 +23,7 @@ import redgear.brewcraft.potions.effects.EffectCreeper;
 import redgear.brewcraft.potions.effects.EffectFlight;
 import redgear.brewcraft.potions.effects.EffectFrozen;
 import redgear.brewcraft.potions.effects.EffectImmunity;
+import redgear.brewcraft.potions.effects.EffectStability;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
@@ -162,7 +163,7 @@ public class Brewcraft extends ModUtils {
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 44))
 				.func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891", -0.95000000596046448D, 2);
 		
-		stability = new EffectFrozen(inst.getInt("Potion Effect IDs", "'Stability' Effect ID",
+		stability = new EffectStability(inst.getInt("Potion Effect IDs", "'Stability' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45))
 				.func_111184_a(SharedMonsterAttributes.knockbackResistance, "7107DE5E-7CE8-4030-940E-514C1F160892", 0.45000000596046448D, 2);
 	
