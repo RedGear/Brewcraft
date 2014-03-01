@@ -2,6 +2,7 @@ item.RedGear.Brewcraft.Ingredients.holydust.name=Blessed Powder
 item.RedGear.Brewcraft.Ingredients.goldenfeather.name=Golden Feather
 item.RedGear.Brewcraft.Ingredients.charredbone.name=Charred Bone
 item.RedGear.Brewcraft.Ingredients.splashBottle.name=Glass Bottle
+item.RedGear.Brewcraft.Ingredients.obsidiantear.name=Obsidian Tear
 	
 item.RedGear.Brewcraft.Potions.bottleFire.name=Bottled Fire
 item.RedGear.Brewcraft.Potions.bottleHolyWater.name=Potion of Holy Water
@@ -19,6 +20,10 @@ item.RedGear.Brewcraft.Potions.bottleAntidoteLong.name=Long Potion of Remedy
 item.RedGear.Brewcraft.Potions.bottleBoom.name=Potion of Combustion
 item.RedGear.Brewcraft.Potions.bottleBoomII.name=Potion of Combustion II
 item.RedGear.Brewcraft.Potions.bottleBoomLong.name=Long Potion of Combustion
+item.RedGear.Brewcraft.Potions.bottleStability.name=Potion of Stability
+item.RedGear.Brewcraft.Potions.bottleStabilityLong.name=Long Potion of Stability
+item.RedGear.Brewcraft.Potions.bottleFreezing.name=Potion of Cryogenics
+item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Long Potion of Cryogenics
 	
 item.RedGear.Brewcraft.Potions.splashFire.name=Potion of Fire
 item.RedGear.Brewcraft.Potions.splashHolyWater.name=Potion of Holy Water
@@ -36,6 +41,10 @@ item.RedGear.Brewcraft.Potions.splashAntidoteLong.name=Long Potion of Remedy
 item.RedGear.Brewcraft.Potions.splashBoom.name=Potion of Combustion
 item.RedGear.Brewcraft.Potions.splashBoomII.name=Potion of Combustion II
 item.RedGear.Brewcraft.Potions.splashBoomLong.name=Long Potion of Combustion
+item.RedGear.Brewcraft.Potions.splashStability.name=Potion of Stability
+item.RedGear.Brewcraft.Potions.splashStabilityLong.name=Long Potion of Stability
+item.RedGear.Brewcraft.Potions.splashFreezing.name=Potion of Cryogenics
+item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Long Potion of Cryogenics
 	
 tile.RedGear.Brewcraft.Brewery.Brewery.name=Brewery
 	
@@ -54,6 +63,10 @@ fluid.RedGear.Brewcraft.potionAntidoteLong=Long Remedy
 fluid.RedGear.Brewcraft.potionBoom=Unstable Gunpowder Compound
 fluid.RedGear.Brewcraft.potionBoomII=Unstable Gunpowder Compound II
 fluid.RedGear.Brewcraft.potionBoomLong=Long Unstable Gunpowder Compound
+fluid.RedGear.Brewcraft.potionStability=Stability
+fluid.RedGear.Brewcraft.potionStabilityLong=Long Stability
+fluid.RedGear.Brewcraft.potionFreezing=Cryogenic Fluid
+fluid.RedGear.Brewcraft.potionFreezingLong=Long Cryogenic Fluid
 	
 fluid.RedGear.Brewcraft.potionAwkward=Awkward Potion
 fluid.RedGear.Brewcraft.potionVision=Potion of Night Vision
@@ -85,3 +98,5 @@ potion.creeper=Combustion
 potion.angel=Blessed
 potion.flight=Flight
 potion.immunity=Immunity
+potion.frozen=Frozen
+potion.stability=Stability

@@ -1,7 +1,8 @@
-item.Redgear.Brewcraft.Ingredients.holydust.name=Gesegnet Pulver
+﻿item.Redgear.Brewcraft.Ingredients.holydust.name=Gesegnet Pulver
 item.Redgear.Brewcraft.Ingredients.goldenfeather.name=Goldene Feder
 item.Redgear.Brewcraft.Ingredients.charredbone.name=Verkohlten Knochen
 item.Redgear.Brewcraft.Ingredients.splashBottle.name=Glasflasche
+item.RedGear.Brewcraft.Ingredients.obsidiantear.name=Obsidian Tränen
 	
 item.Redgear.Brewcraft.Potions.bottleFire.name=Trank des Feuers
 item.Redgear.Brewcraft.Potions.bottleHolyWater.name=Trank des Heiligen Wassers
@@ -19,6 +20,10 @@ item.Redgear.Brewcraft.Potions.bottleAntidoteLong.name=Lange Trank der Nacherfü
 item.Redgear.Brewcraft.Potions.bottleBoom.name=Trank der Verbrennung
 item.Redgear.Brewcraft.Potions.bottleBoomII.name=Trank der Verbrennung II
 item.Redgear.Brewcraft.Potions.bottleBoomLong.name=Lange Trank der Verbrennung
+item.RedGear.Brewcraft.Potions.bottleStability.name=Trank der Stabilität
+item.RedGear.Brewcraft.Potions.bottleStabilityLong.name=Lange Trank der Stabilität
+item.RedGear.Brewcraft.Potions.bottleFreezing.name=Trank der Kryotechnik
+item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Lange Trank der Kryotechnik
 	
 item.Redgear.Brewcraft.Potions.splashFire.name=Trank des Feuers
 item.Redgear.Brewcraft.Potions.splashHolyWater.name=Trank des Heiligen Wassers
@@ -36,6 +41,10 @@ item.Redgear.Brewcraft.Potions.splashAntidoteLong.name=Lange Trank der Nacherfü
 item.Redgear.Brewcraft.Potions.splashBoom.name=Trank der Verbrennung
 item.Redgear.Brewcraft.Potions.splashBoomII.name=Trank der Verbrennung II
 item.Redgear.Brewcraft.Potions.splashBoomLong.name=Lange Trank der Verbrennung
+item.RedGear.Brewcraft.Potions.splashStability.name=Trank der Stabilität
+item.RedGear.Brewcraft.Potions.splashStabilityLong.name=Lange Trank der Stabilität
+item.RedGear.Brewcraft.Potions.splashFreezing.name=Trank der Kryotechnik
+item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Lange Trank der Kryotechnik
 	
 tile.Redgear.Brewcraft.Brewery.Brewery.name=Brauerei
 	
@@ -54,6 +63,10 @@ fluid.Redgear.Brewcraft.potionAntidoteLong.name=Long Abhilfe
 fluid.Redgear.Brewcraft.potionBoom.name=Instabile Verbindung Schießpulver
 fluid.Redgear.Brewcraft.potionBoomII.name=Instabile Verbindung Schießpulver II
 fluid.Redgear.Brewcraft.potionBoomLong.name=Lange Instabile Verbindung Schießpulver
+fluid.RedGear.Brewcraft.potionStability=Stabilität
+fluid.RedGear.Brewcraft.potionStabilityLong=Lange Stabilität
+fluid.RedGear.Brewcraft.potionFreezing=Tieftemperaturfluid
+fluid.RedGear.Brewcraft.potionFreezingLong=Lange Tieftemperaturfluid
 	
 fluid.Redgear.Brewcraft.potionAwkward.name=Umständlich Trank
 fluid.Redgear.Brewcraft.potionVision.name=Trank von Nachtsicht
@@ -85,3 +98,5 @@ potion.creeper=Verbrennung
 potion.angel=Gesegnet
 potion.flight=Flug
 potion.immunity=Immunität
+potion.frozen=Gefroren
+potion.stability=Stabilität

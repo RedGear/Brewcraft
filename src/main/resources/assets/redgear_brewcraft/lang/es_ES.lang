@@ -1,7 +1,8 @@
-item.Redgear.Brewcraft.Ingredients.holydust.name=Polvo Bendito
+﻿item.Redgear.Brewcraft.Ingredients.holydust.name=Polvo Bendito
 item.Redgear.Brewcraft.Ingredients.goldenfeather.name=Pluma de Ovro
 item.Redgear.Brewcraft.Ingredients.charredbone.name=Hueso Carbonizado
 item.Redgear.Brewcraft.Ingredients.splashBottle.name=Botella de Vidrio
+item.RedGear.Brewcraft.Ingredients.obsidiantear.name=Lágrima de Obsidiana
 	
 item.Redgear.Brewcraft.Potions.bottleFire.name=Fuego Embotellada
 item.Redgear.Brewcraft.Potions.bottleHolyWater.name=Poción de Agua Bendita
@@ -19,6 +20,10 @@ item.Redgear.Brewcraft.Potions.bottleAntidoteLong.name=Largo Poción de Remedio
 item.Redgear.Brewcraft.Potions.bottleBoom.name=Poción de la Combustión
 item.Redgear.Brewcraft.Potions.bottleBoomII.name=Poción de la Combustión II
 item.Redgear.Brewcraft.Potions.bottleBoomLong.name=Largo Poción de la Combustión
+item.RedGear.Brewcraft.Potions.bottleStability.name=Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.bottleStabilityLong.name=Largo Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.bottleFreezing.name=Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Largo Poción de la Criogenia
 	
 item.Redgear.Brewcraft.Potions.splashFire.name=Poción de Fuego
 item.Redgear.Brewcraft.Potions.splashHolyWater.name=Poción de Agua Bendita
@@ -36,6 +41,10 @@ item.Redgear.Brewcraft.Potions.splashAntidoteLong.name=Largo Poción de Remedio
 item.Redgear.Brewcraft.Potions.splashBoom.name=Poción de la Combustión
 item.Redgear.Brewcraft.Potions.splashBoomII.name=Poción de la Combustión II
 item.Redgear.Brewcraft.Potions.splashBoomLong.name=Largo Poción de la Combustión
+item.RedGear.Brewcraft.Potions.splashStability.name=Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.splashStabilityLong.name=Largo Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.splashFreezing.name=Poción de la Estabilidad
+item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Largo Poción de la Estabilidad
 	
 tile.Redgear.Brewcraft.Brewery.Brewery.name=Cervecería
 	
@@ -54,6 +63,10 @@ fluid.Redgear.Brewcraft.potionAntidoteLong.name=Largo Remedio
 fluid.Redgear.Brewcraft.potionBoom.name=Compuesto de Pólvora
 fluid.Redgear.Brewcraft.potionBoomII.name=Compuesto de Pólvora II
 fluid.Redgear.Brewcraft.potionBoomLong.name=Largo Compuesto de Pólvora
+fluid.RedGear.Brewcraft.potionStability=Estabilidad
+fluid.RedGear.Brewcraft.potionStabilityLong=Largo Estabilidad
+fluid.RedGear.Brewcraft.potionFreezing=Fluido Criogénico
+fluid.RedGear.Brewcraft.potionFreezingLong=Largo Fluido Criogénico
 	
 fluid.Redgear.Brewcraft.potionAwkward.name=Poción Extraña
 fluid.Redgear.Brewcraft.potionVision.name=Poción de la Visión Nocturna
@@ -85,3 +98,5 @@ potion.creeper=Combustión
 potion.angel=Bendito
 potion.flight=Vuelo
 potion.immunity=Inmunidad
+potion.frozen=Congelado
+potion.stability=Estabilidad
