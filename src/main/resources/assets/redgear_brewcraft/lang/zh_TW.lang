@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+	<comment>Chinese Localization File for Brewcraft</comment>
+        
+	<entry key="item.RedGear.Brewcraft.Ingredients.holydust.name">神聖粉末</entry>
+	<entry key="item.RedGear.Brewcraft.Ingredients.goldenfeather.name">黃金羽毛</entry>
+	<entry key="item.RedGear.Brewcraft.Ingredients.charredbone.name">凋零骨頭</entry>
+	<entry key="item.RedGear.Brewcraft.Ingredients.splashBottle.name">玻璃瓶</entry>
+	
+	<entry key="item.RedGear.Brewcraft.Potions.bottleFire.name">抗火藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleHolyWater.name">神聖藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleHolyWaterII.name">神聖藥水II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleHolyWaterLong.name">長效神聖藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleFlying.name">飛行藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleFlyingLong.name">長效飛行藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleWither.name">凋零藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleWitherII.name">凋零藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleWitherLong.name">長效凋零藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleGhast.name">噁心藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleAntidote.name">補救的藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleAntidoteII.name">補救的藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleAntidoteLong.name">長效補救的藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleBoom.name">燃燒藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleBoomII.name">燃燒藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.bottleBoomLong.name">長效燃燒藥水</entry>
+	
+	<entry key="item.RedGear.Brewcraft.Potions.splashFire.name">投擲抗火藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashHolyWater.name">投擲神聖藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashHolyWaterII.name">投擲神聖藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashHolyWaterLong.name">投擲長效神聖藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashFlying.name">投擲飛行藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashFlyingLong.name">投擲長效飛行藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashWither.name">投擲凋零藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashWitherII.name">投擲凋零藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashWitherLong.name">投擲長效凋零藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashGhast.name">投擲噁心藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashAntidote.name">投擲淨化藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashAntidoteII.name">投擲淨化藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashAntidoteLong.name">投擲長效淨化藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashBoom.name">投擲自爆藥水</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashBoomII.name">投擲自爆藥水 II</entry>
+	<entry key="item.RedGear.Brewcraft.Potions.splashBoomLong.name">投擲長效自爆藥水</entry>
+	
+	<entry key="tile.RedGear.Brewcraft.Brewery.Brewery.name">釀造機</entry>
+	
+	<entry key="fluid.RedGear.Brewcraft.potionHolyWater">聖水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHolyWaterII">濃稠聖水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHolyWaterLong">長效聖水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFlying">飛行水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFlyingII">強力飛行水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFlyingLong">濃稠飛行水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionWither">潰爛凋零水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionWitherII">強效潰爛凋零水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionWitherLong">濃稠潰爛凋零水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionAntidote">淨化水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionAntidoteII">強效淨化水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionAntidoteLong">濃稠淨化水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionBoom">不穩定的火藥化合物</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionBoomII">不穩定的烈性火藥化合物</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionBoomLong">不穩定的濃稠火藥化合物</entry>
+	
+	<entry key="fluid.RedGear.Brewcraft.potionAwkward">尷尬藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionVision">夜視藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionVisionLong">強效夜視藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionInvisible">隱形藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionInvisibleLong">強效隱形藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionRegen">恢復藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionRegenLong">強效恢復藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFast">急迫藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFastLong">長效急迫藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFastII">強效急迫藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionWeakness">虛弱藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionStrength">力量藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionStrengthLong">長效力量藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionStrengthII">強效力量藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFireResist">火焰抗性藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionFireResistLong">長效火焰抗性藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionSlowness">緩慢藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionSlownessLong">長效緩慢藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionPoison">毒藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionPoisonII">強效毒藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionPoisonLong">長效毒藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHarm">傷害的藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHarmII">強效傷害的藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHealing">治療藥水</entry>
+	<entry key="fluid.RedGear.Brewcraft.potionHealingII">強效治療藥水</entry>
+	
+	<entry key="potion.creeper">苦力怕</entry>
+	<entry key="potion.angel">天使</entry>
+	<entry key="potion.flight">飛行</entry>
+	<entry key="potion.immunity">免疫</entry>
+
+</properties>
