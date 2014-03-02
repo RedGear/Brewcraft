@@ -136,6 +136,7 @@ public class Brewcraft extends ModUtils {
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
+		
 		proxy.registerRenders();
 
 		ingredients = new MetaItem("RedGear.Brewcraft.Ingredients");
@@ -165,7 +166,7 @@ public class Brewcraft extends ModUtils {
 		
 		stability = new EffectStability(inst.getInt("Potion Effect IDs", "'Stability' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45))
-				.func_111184_a(SharedMonsterAttributes.knockbackResistance, "7107DE5E-7CE8-4030-940E-514C1F160892", 0.45000000596046448D, 2);
+				.func_111184_a(SharedMonsterAttributes.knockbackResistance, "7107DE5E-7CE8-4030-940E-514C1F160892", 0.95000000596046448D, 2);
 	
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {
@@ -272,8 +273,7 @@ public class Brewcraft extends ModUtils {
 		registry.addRecipe(fluidWither, fluidWitherII, Items.glowstone_dust);
 		registry.addRecipe(fluidWither, fluidWitherLong, Items.redstone);
 		registry.addRecipe(fluidHealing, fluidAntidote, Items.redstone, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
-		registry.addRecipe(fluidAntidote, fluidAntidoteII, Items.glowstone_dust, ITEM_CONSUMPTION_BASE,
-				DEFAULT_TIME + 2);
+		registry.addRecipe(fluidAntidote, fluidAntidoteII, Items.glowstone_dust, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
 		registry.addRecipe(fluidWither, fluidBoom, Items.gunpowder);
 		registry.addRecipe(fluidBoom, fluidBoomII, Items.glowstone_dust);
 		registry.addRecipe(fluidBoom, fluidBoomLong, Items.redstone);
@@ -317,7 +317,7 @@ public class Brewcraft extends ModUtils {
 					new Object[] {"!!!", "!@!", "!!!", Character.valueOf('!'), Items.gold_nugget,
 							Character.valueOf('@'), Items.feather });
 		
-		if (getBoolean("Recipes", "Obsidian Tear Recipe", "Toggle Obsidian Tear Recipe", true))
+		if (getBoolean("Recipes", "Plagued Tear Recipe", "Toggle Plagued Tear Recipe", false))
 			GameRegistry.addShapedRecipe(
 					obsidianTear.getStack(),
 					new Object[] {"!!!", "!@!", "!!!", Character.valueOf('!'), Blocks.obsidian,
