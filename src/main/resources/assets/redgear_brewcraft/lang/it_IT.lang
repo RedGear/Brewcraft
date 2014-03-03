@@ -20,8 +20,6 @@ item.Redgear.Brewcraft.Potions.bottleAntidoteLong.name=Lungo Pozione di Rimedio
 item.Redgear.Brewcraft.Potions.bottleBoom.name=Pozione della Combustione
 item.Redgear.Brewcraft.Potions.bottleBoomII.name=Pozione della Combustione II
 item.Redgear.Brewcraft.Potions.bottleBoomLong.name=Lungo Pozione della Combustione
-item.RedGear.Brewcraft.Potions.bottleStability.name=Pozione della Stabilità
-item.RedGear.Brewcraft.Potions.bottleStabilityLong.name=Lungo Pozione della Stabilità
 item.RedGear.Brewcraft.Potions.bottleFreezing.name=Pozione della Criogenia
 item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Lungo Pozione della Criogenia
 	
@@ -41,8 +39,6 @@ item.Redgear.Brewcraft.Potions.splashAntidoteLong.name=Long Pozione di Rimedio
 item.Redgear.Brewcraft.Potions.splashBoom.name=Pozione della Combustione
 item.Redgear.Brewcraft.Potions.splashBoomII.name=Pozione della Combustione II
 item.Redgear.Brewcraft.Potions.splashBoomLong.name=Lungo Pozione della Combustione
-item.RedGear.Brewcraft.Potions.splashStability.name=Pozione della Stabilità
-item.RedGear.Brewcraft.Potions.splashStabilityLong.name=Lungo Pozione della Stabilità
 item.RedGear.Brewcraft.Potions.splashFreezing.name=Pozione della Criogenia
 item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Lungo Pozione della Criogenia
 	
@@ -63,8 +59,6 @@ fluid.Redgear.Brewcraft.potionAntidoteLong.name=Lungo Rimedio
 fluid.Redgear.Brewcraft.potionBoom.name=Composto di Polvere da Sparo
 fluid.Redgear.Brewcraft.potionBoomII.name=Composto di Polvere da Sparo II
 fluid.Redgear.Brewcraft.potionBoomLong.name=Lungo Composto di Polvere da Sparo
-fluid.RedGear.Brewcraft.potionStability=Stabilità
-fluid.RedGear.Brewcraft.potionStabilityLong=Lungo Stabilità
 fluid.RedGear.Brewcraft.potionFreezing=Fluido Criogenico
 fluid.RedGear.Brewcraft.potionFreezingLong=Lungo Fluido Criogenico
 	
@@ -99,4 +93,3 @@ potion.angel=Benedetto
 potion.flight=Volo
 potion.immunity=Immunità
 potion.frozen=Congelato
-potion.stability=Stabilità

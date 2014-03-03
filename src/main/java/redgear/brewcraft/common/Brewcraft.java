@@ -23,7 +23,6 @@ import redgear.brewcraft.potions.effects.EffectCreeper;
 import redgear.brewcraft.potions.effects.EffectFlight;
 import redgear.brewcraft.potions.effects.EffectFrozen;
 import redgear.brewcraft.potions.effects.EffectImmunity;
-import redgear.brewcraft.potions.effects.EffectStability;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
@@ -113,15 +112,12 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHealingII;
 	public static Fluid fluidFreezing;
 	public static Fluid fluidFreezingLong;
-	public static Fluid fluidStability;
-	public static Fluid fluidStabilityLong;
 
 	public static Potion angel;
 	public static Potion flight;
 	public static Potion creeper;
 	public static Potion immunity;
 	public static Potion frozen;
-	public static Potion stability;
 
 	public final static int DEFAULT_TIME = 7;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
@@ -163,11 +159,6 @@ public class Brewcraft extends ModUtils {
 		frozen = new EffectFrozen(inst.getInt("Potion Effect IDs", "'Frozen' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 44))
 				.func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891", -0.95000000596046448D, 2);
-		
-		stability = new EffectStability(inst.getInt("Potion Effect IDs", "'Stability' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45))
-				.func_111184_a(SharedMonsterAttributes.knockbackResistance, "7107DE5E-7CE8-4030-940E-514C1F160892", 0.95000000596046448D, 2);
-	
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {
 		 * 
@@ -199,9 +190,6 @@ public class Brewcraft extends ModUtils {
 		
 		fluidFreezing = createPotion("Freezing", "potionCyan", frozen, 300, 0);
 		fluidFreezingLong = createPotion("FreezingLong", "potionCyan", frozen, 600, 0);
-		
-		fluidStability = createPotion("Stability", "potionGrey", stability, 600, 0);
-		fluidStabilityLong = createPotion("Stability", "potionGrey", stability, 1200, 0);
 
 		brewing = proxy.createBrewery();
 
@@ -279,8 +267,6 @@ public class Brewcraft extends ModUtils {
 		registry.addRecipe(fluidBoom, fluidBoomLong, Items.redstone);
 		registry.addRecipe(fluidSlowness, fluidFreezing, Items.snowball);
 		registry.addRecipe(fluidFreezing, fluidFreezingLong, Items.redstone);
-		registry.addRecipe(fluidAwkward, fluidStability, obsidianTear);
-		registry.addRecipe(fluidStability, fluidStabilityLong, Items.redstone);
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
 			registry.addRecipe(FluidRegistry.WATER, fluidAwkward, Items.nether_wart, ITEM_CONSUMPTION_BASE, 4);

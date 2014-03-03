@@ -20,8 +20,6 @@ item.Redgear.Brewcraft.Potions.bottleAntidoteLong.name=Lange Trank der Nacherfü
 item.Redgear.Brewcraft.Potions.bottleBoom.name=Trank der Verbrennung
 item.Redgear.Brewcraft.Potions.bottleBoomII.name=Trank der Verbrennung II
 item.Redgear.Brewcraft.Potions.bottleBoomLong.name=Lange Trank der Verbrennung
-item.RedGear.Brewcraft.Potions.bottleStability.name=Trank der Stabilität
-item.RedGear.Brewcraft.Potions.bottleStabilityLong.name=Lange Trank der Stabilität
 item.RedGear.Brewcraft.Potions.bottleFreezing.name=Trank der Kryotechnik
 item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Lange Trank der Kryotechnik
 	
@@ -41,8 +39,6 @@ item.Redgear.Brewcraft.Potions.splashAntidoteLong.name=Lange Trank der Nacherfü
 item.Redgear.Brewcraft.Potions.splashBoom.name=Trank der Verbrennung
 item.Redgear.Brewcraft.Potions.splashBoomII.name=Trank der Verbrennung II
 item.Redgear.Brewcraft.Potions.splashBoomLong.name=Lange Trank der Verbrennung
-item.RedGear.Brewcraft.Potions.splashStability.name=Trank der Stabilität
-item.RedGear.Brewcraft.Potions.splashStabilityLong.name=Lange Trank der Stabilität
 item.RedGear.Brewcraft.Potions.splashFreezing.name=Trank der Kryotechnik
 item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Lange Trank der Kryotechnik
 	
@@ -63,8 +59,6 @@ fluid.Redgear.Brewcraft.potionAntidoteLong.name=Long Abhilfe
 fluid.Redgear.Brewcraft.potionBoom.name=Instabile Verbindung Schießpulver
 fluid.Redgear.Brewcraft.potionBoomII.name=Instabile Verbindung Schießpulver II
 fluid.Redgear.Brewcraft.potionBoomLong.name=Lange Instabile Verbindung Schießpulver
-fluid.RedGear.Brewcraft.potionStability=Stabilität
-fluid.RedGear.Brewcraft.potionStabilityLong=Lange Stabilität
 fluid.RedGear.Brewcraft.potionFreezing=Tieftemperaturfluid
 fluid.RedGear.Brewcraft.potionFreezingLong=Lange Tieftemperaturfluid
 	
@@ -99,4 +93,3 @@ potion.angel=Gesegnet
 potion.flight=Flug
 potion.immunity=Immunität
 potion.frozen=Gefroren
-potion.stability=Stabilität
