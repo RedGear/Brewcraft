@@ -20,6 +20,7 @@ import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
 import redgear.brewcraft.potions.effects.EffectCreeper;
+import redgear.brewcraft.potions.effects.EffectFireproof;
 import redgear.brewcraft.potions.effects.EffectFlight;
 import redgear.brewcraft.potions.effects.EffectFrozen;
 import redgear.brewcraft.potions.effects.EffectImmunity;
@@ -175,7 +176,7 @@ public class Brewcraft extends ModUtils {
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 44))
 				.func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891", -0.95000000596046448D, 2);
 		
-		fireproof = new EffectFrozen(inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID",
+		fireproof = new EffectFireproof(inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45));
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {
