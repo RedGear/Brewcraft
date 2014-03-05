@@ -1,7 +1,6 @@
 package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import redgear.brewcraft.potions.PotionExtension;
 
@@ -23,19 +22,20 @@ public class EffectAngel extends PotionExtension {
 				living.attackEntityFrom(DamageSource.magic, 2F);
 			else
 				living.heal(0.5F);
-
-			if (living instanceof EntityPlayer)
-				((EntityPlayer) living).getFoodStats().addStats(1, 0.1F);
 		}
 
-		if (strength >= 1) {
+		if (strength == 1) {
 			if (living.isEntityUndead())
 				living.attackEntityFrom(DamageSource.magic, 4F);
 			else
 				living.heal(1F);
-
-			if (living instanceof EntityPlayer)
-				((EntityPlayer) living).getFoodStats().addStats(2, 0.5F);
+		}
+		
+		if (strength >= 2) {
+			if (living.isEntityUndead())
+				living.attackEntityFrom(DamageSource.magic, 8F);
+			else
+				living.heal(2F);
 		}
 	}
 

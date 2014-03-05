@@ -74,17 +74,21 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidHolyWater;
 	public static Fluid fluidHolyWaterII;
 	public static Fluid fluidHolyWaterLong;
+	public static Fluid fluidHolyWaterIII;
 	public static Fluid fluidFlying;
 	public static Fluid fluidFlyingLong;
 	public static Fluid fluidWither;
 	public static Fluid fluidWitherLong;
 	public static Fluid fluidWitherII;
+	public static Fluid fluidWitherIII;
 	public static Fluid fluidAntidote;
 	public static Fluid fluidAntidoteII;
 	public static Fluid fluidAntidoteLong;
+	public static Fluid fluidAntidoteIII;
 	public static Fluid fluidBoom;
 	public static Fluid fluidBoomLong;
 	public static Fluid fluidBoomII;
+	public static Fluid fluidBoomIII;
 	public static Fluid fluidAwkward;
 	public static Fluid fluidVision;
 	public static Fluid fluidVisionLong;
@@ -92,24 +96,34 @@ public class Brewcraft extends ModUtils {
 	public static Fluid fluidInvisibleLong;
 	public static Fluid fluidRegen;
 	public static Fluid fluidRegenLong;
+	public static Fluid fluidRegenII;
+	public static Fluid fluidRegenIII;
 	public static Fluid fluidFast;
 	public static Fluid fluidFastLong;
 	public static Fluid fluidFastII;
+	public static Fluid fluidFastIII;
 	public static Fluid fluidWeakness;
 	public static Fluid fluidStrength;
 	public static Fluid fluidStrengthLong;
 	public static Fluid fluidStrengthII;
+	public static Fluid fluidStrengthIII;
 	public static Fluid fluidFireResist;
 	public static Fluid fluidFireResistLong;
+	public static Fluid fluidFireResistII;
+	public static Fluid fluidFireResistIII;
+	public static Fluid fluidFireResistIIII;
 	public static Fluid fluidSlowness;
 	public static Fluid fluidSlownessLong;
 	public static Fluid fluidPoison;
 	public static Fluid fluidPoisonII;
+	public static Fluid fluidPoisonIII;
 	public static Fluid fluidPoisonLong;
 	public static Fluid fluidHarm;
 	public static Fluid fluidHarmII;
+	public static Fluid fluidHarmIII;
 	public static Fluid fluidHealing;
 	public static Fluid fluidHealingII;
+	public static Fluid fluidHealingIII;
 	public static Fluid fluidFreezing;
 	public static Fluid fluidFreezingLong;
 
@@ -118,6 +132,7 @@ public class Brewcraft extends ModUtils {
 	public static Potion creeper;
 	public static Potion immunity;
 	public static Potion frozen;
+	public static Potion fireproof;
 
 	public final static int DEFAULT_TIME = 7;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
@@ -159,6 +174,9 @@ public class Brewcraft extends ModUtils {
 		frozen = new EffectFrozen(inst.getInt("Potion Effect IDs", "'Frozen' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 44))
 				.func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891", -0.95000000596046448D, 2);
+		
+		fireproof = new EffectFrozen(inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID",
+				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45));
 		/*
 		 * createSpecialPotion("Fire", new SubPotionEffect() {
 		 * 
@@ -172,24 +190,25 @@ public class Brewcraft extends ModUtils {
 		fluidHolyWater = createPotion("HolyWater", "potionGold", angel, 100, 0);
 		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", angel, 50, 1);
 		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", angel, 200, 0);
-
+		fluidHolyWaterIII = createPotion("HolyWaterIII", "potionGold", angel, 100, 2);
 		fluidFlying = createPotion("Flying", "potionWhite", flight, 300, 0);
 		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", flight, 600, 0);
 		fluidWither = createPotion("Wither", "potionBlack", Potion.wither, 400, 0);
 		fluidWitherII = createPotion("WitherII", "potionBlack", Potion.wither, 200, 1);
+		fluidWitherIII = createPotion("WitherIII", "potionBlack", Potion.wither, 200, 2);
 		fluidWitherLong = createPotion("WitherLong", "potionBlack", Potion.wither, 800, 0);
-
-		createSpecialPotion("Ghast", Potion.confusion, 400, 0);
-
 		fluidAntidote = createPotion("Antidote", "potionDarkPurple", immunity, 600, 0);
 		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", immunity, 300, 1);
+		fluidAntidoteIII = createPotion("AntidoteIII", "potionDarkPurple", immunity, 300, 2);
 		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", immunity, 1200, 0);
 		fluidBoom = createPotion("Boom", "potionDarkGreen", creeper, 160, 0);
 		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
-		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
-		
+		fluidBoomIII = createPotion("BoomIII", "potionDarkGreen", creeper, 80, 2);
+		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);	
 		fluidFreezing = createPotion("Freezing", "potionCyan", frozen, 300, 0);
 		fluidFreezingLong = createPotion("FreezingLong", "potionCyan", frozen, 600, 0);
+		
+		createSpecialPotion("Ghast", Potion.confusion, 400, 0);
 
 		brewing = proxy.createBrewery();
 
@@ -204,6 +223,7 @@ public class Brewcraft extends ModUtils {
 		fluidInvisible = createVanillaPotion("Invisible", "potionGrey", 8206, 16398);
 		fluidInvisibleLong = createVanillaPotion("InvisibleLong", "potionGrey", 8270, 16462);
 		fluidRegen = createVanillaPotion("Regen", "potionPink", 8193, 16385);
+		fluidRegenII = createVanillaPotion("RegenII", "potionPink", 8289, 16481);
 		fluidRegenLong = createVanillaPotion("RegenLong", "potionPink", 8257, 16449);
 		fluidFast = createVanillaPotion("Fast", "potionLightBlue", 8194, 16386);
 		fluidFastLong = createVanillaPotion("FastLong", "potionLightBlue", 8290, 16450);
@@ -223,6 +243,15 @@ public class Brewcraft extends ModUtils {
 		fluidHarmII = createVanillaPotion("HarmII", "potionDarkPurple", 8236, 16428);
 		fluidHealing = createVanillaPotion("Healing", "potionRed", 8196, 16389);
 		fluidHealingII = createVanillaPotion("HealingII", "potionRed", 8229, 16421);
+		
+		fluidRegenIII = createPotion("RegenIII", "potionPink", Potion.regeneration, 20 * 60, 2);
+		fluidFastIII = createPotion("FastIII", "potionLightBlue", Potion.moveSpeed, 20 * 180, 2);
+		fluidStrengthIII = createPotion("StrengthIII", "potionMagenta", Potion.damageBoost, 20 * 180, 2);
+		fluidFireResistII = createPotion("FireResistII", "potionLightPink", Potion.fireResistance, 20 * 180, 1);
+		fluidFireResistIII = createPotion("FireResistIII", "potionLightPink", fireproof, 20 * 180, 2);
+		fluidPoisonIII = createPotion("PoisonIII", "potionGreen", Potion.poison, 20 * 45, 2);
+		fluidHarmIII = createPotion("HarmIII", "potionDarkPurple", Potion.harm, 20, 2);
+		fluidHealingIII = createPotion("HealingIII", "potionRed", Potion.heal, 20, 2);
 
 		brewery.getBlock().setCreativeTab(CreativeTabs.tabBrewing);
 		ingredients.setCreativeTab(CreativeTabs.tabBrewing);
@@ -267,6 +296,23 @@ public class Brewcraft extends ModUtils {
 		registry.addRecipe(fluidBoom, fluidBoomLong, Items.redstone);
 		registry.addRecipe(fluidSlowness, fluidFreezing, Items.snowball);
 		registry.addRecipe(fluidFreezing, fluidFreezingLong, Items.redstone);
+		registry.addRecipe(fluidFireResist, fluidFireResistII, Items.glowstone_dust);
+		registry.addRecipe(fluidFireResistII, fluidFireResistIII, obsidianTear);
+		registry.addRecipe(fluidHolyWaterII, fluidHolyWaterIII, obsidianTear);
+		registry.addRecipe(fluidWitherII, fluidWitherIII, obsidianTear);
+		registry.addRecipe(fluidAntidoteII, fluidAntidoteIII, obsidianTear);
+		registry.addRecipe(fluidBoomII, fluidBoomIII, obsidianTear);
+		registry.addRecipe(fluidRegenII, fluidRegenIII, obsidianTear);
+		registry.addRecipe(fluidFastII, fluidFastIII, obsidianTear);
+		registry.addRecipe(fluidStrengthII, fluidStrengthIII, obsidianTear);
+		registry.addRecipe(fluidPoisonII, fluidPoisonIII, obsidianTear);
+		registry.addRecipe(fluidHarmII, fluidHarmIII, obsidianTear);
+		registry.addRecipe(fluidHealingII, fluidHealingIII, obsidianTear);
+		
+		/**
+		* registry.addRecipe(fluidFireResistIII, fluidFireResistIIII, ?);
+		* Creative only?
+		*/
 
 		if (getBoolean("Recipes", "Vanilla Potions are Brewable", "Toggle Vanilla Potion Brewing Recipes", true)) {
 			registry.addRecipe(FluidRegistry.WATER, fluidAwkward, Items.nether_wart, ITEM_CONSUMPTION_BASE, 4);

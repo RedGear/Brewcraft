@@ -38,8 +38,12 @@ public class EffectCreeper extends PotionExtension {
 					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 4, flag);
 					living.attackEntityFrom(DamageSource.generic, 30F);
 				}
-				else {
+				else if (strength == 1) {
 					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 7, flag);
+					living.attackEntityFrom(DamageSource.generic, 30F);
+				}
+				else {
+					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 11, flag);
 					living.attackEntityFrom(DamageSource.generic, 30F);
 				}
 			}

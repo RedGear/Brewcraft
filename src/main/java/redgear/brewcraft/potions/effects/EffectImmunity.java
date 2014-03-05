@@ -16,9 +16,15 @@ public class EffectImmunity extends PotionExtension {
 	public void performEffect(EntityLivingBase living, int strength) {
 		living.removePotionEffect(Potion.poison.id);
 
-		if (strength >= 1) {
+		if (strength == 1) {
 			living.removePotionEffect(Potion.hunger.id);
 			living.removePotionEffect(Potion.weakness.id);
+		}
+		
+		if (strength >= 2) {
+			living.removePotionEffect(Potion.hunger.id);
+			living.removePotionEffect(Potion.weakness.id);
+			living.removePotionEffect(Potion.wither.id);
 		}
 
 	}

@@ -8,12 +8,14 @@ import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import redgear.core.world.WorldLocation;
@@ -136,5 +138,19 @@ public class BrewcraftEventHandler {
 
 		}
 
+	}
+	
+	@SubscribeEvent
+	public void fireproofCheck(final LivingHurtEvent event) {
+		if(event.source.equals(DamageSource.lava) 
+				|| event.source.equals(DamageSource.inFire)) {
+			if(event.entity instanceof EntityPlayer) {
+				final EntityPlayer player = (EntityPlayer) event.entity;
+				if(player.getActivePotionEffect(Brewcraft.fireproof) != null) {
+					event.setCanceled(true);
+					player.heal(1F);
+				}
+			}
+		}
 	}
 }
