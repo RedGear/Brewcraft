@@ -39,17 +39,7 @@ public class BrewcraftEventHandler {
 	}
 
 	@SubscribeEvent
-	public void checkBottledFire(final EntityInteractEvent event) {
-
-		if (event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube)
-			if (Brewcraft.emptyBottle.equals(event.entityPlayer.getHeldItem())) {
-
-				event.entityPlayer.inventory.consumeInventoryItem(Brewcraft.emptyBottle.getItem());
-				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 0));
-				event.entityLiving.attackEntityFrom(DamageSource.magic, 2.5F);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.magmacube.jump", 1F, 1F);
-
-			}
+	public void checkForGhast(final EntityInteractEvent event) {
 
 		if (Brewcraft.splashBottle.equals(event.entityPlayer.getHeldItem())) {
 
@@ -61,18 +51,7 @@ public class BrewcraftEventHandler {
 				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.ghast.death", 1F, 1F);
 
 			}
-
-			if (event.entityLiving instanceof EntityBlaze || event.entityLiving instanceof EntityMagmaCube) {
-
-				event.entityPlayer.inventory.consumeInventoryItem(Items.glass_bottle);
-				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
-				event.entityLiving.attackEntityFrom(DamageSource.magic, 2.5F);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.magmacube.jump", 1F, 1F);
-
-			}
-
 		}
-
 	}
 
 	@SubscribeEvent
@@ -105,7 +84,6 @@ public class BrewcraftEventHandler {
 					event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
 
 				}
-
 		}
 
 		if (event.entityLiving instanceof EntityChicken) {
@@ -114,42 +92,6 @@ public class BrewcraftEventHandler {
 				event.entityLiving.entityDropItem(Brewcraft.goldenFeather.getStack(), 0.0F);
 				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
 
-			}
-			
-		}
-
-	}
-
-	@SubscribeEvent
-	public void checkBottledFire2(final PlayerInteractEvent event) {
-		if (Brewcraft.emptyBottle.equals(event.entityPlayer.getHeldItem())
-				|| Brewcraft.splashBottle.equals(event.entityPlayer.getHeldItem())) {
-			WorldLocation loc = new WorldLocation(event.x, event.y, event.z, event.entityPlayer.worldObj);
-			Block block = loc.getBlock();
-
-			if (block == Blocks.lava || block == Blocks.fire) {
-				event.entityPlayer.inventory.consumeInventoryItem(Items.glass_bottle);
-				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1,
-						Brewcraft.emptyBottle.equals(event.entityPlayer.getHeldItem()) ? 0 : 1));
-				loc.setAir();
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.pop", 1F, 1F);
-
-			}
-
-		}
-
-	}
-	
-	@SubscribeEvent
-	public void fireproofCheck(final LivingHurtEvent event) {
-		if(event.source.equals(DamageSource.lava) 
-				|| event.source.equals(DamageSource.inFire)) {
-			if(event.entity instanceof EntityPlayer) {
-				final EntityPlayer player = (EntityPlayer) event.entity;
-				if(player.getActivePotionEffect(Brewcraft.fireproof) != null) {
-					event.setCanceled(true);
-					player.heal(1F);
-				}
 			}
 		}
 	}

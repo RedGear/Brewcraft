@@ -16,6 +16,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
+import redgear.brewcraft.plugins.BuildcraftPlugin;
+import redgear.brewcraft.plugins.ForestryPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -261,8 +263,12 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void Init(FMLInitializationEvent event) {
-		if (getBoolean("Global", "Mod Compatibility", "Toggle Mod Compatibility", true))
-			BrewcraftCompatibility.run();
+		
+		//addPlugin(new BOPPlugin());
+		//addPlugin(new ThaumcraftPlugin());
+		addPlugin(new ForestryPlugin());
+		addPlugin(new BuildcraftPlugin());
+		
 		recipes();
 
 		if (getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot", "Toggle Golden Feather as Dungeon Loot", true))
