@@ -2,23 +2,20 @@ package redgear.brewcraft.common;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.monster.EntityBlaze;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
+
 import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import redgear.core.world.WorldLocation;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BrewcraftEventHandler {
@@ -29,7 +26,7 @@ public class BrewcraftEventHandler {
 
 	}
 
-	public static BrewcraftEventHandler create() {
+	public static BrewcraftEventHandler forge() {
 		if (instance == null) {
 			instance = new BrewcraftEventHandler();
 			MinecraftForge.EVENT_BUS.register(instance);
@@ -93,6 +90,15 @@ public class BrewcraftEventHandler {
 				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
 
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void collectBrewery(LivingUpdateEvent event) {
+		if(event.entity instanceof EntityPlayer) {
+			final EntityPlayer player = (EntityPlayer) event.entity;
+			if(player.inventory.hasItemStack(Brewcraft.brewery.getStack()))
+				player.addStat(AchievementPlugin.craftBrewery, 1);
 		}
 	}
 }

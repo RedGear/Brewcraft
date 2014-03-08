@@ -16,8 +16,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
-import redgear.brewcraft.plugins.BuildcraftPlugin;
-import redgear.brewcraft.plugins.ForestryPlugin;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
+import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -268,6 +269,8 @@ public class Brewcraft extends ModUtils {
 		//addPlugin(new ThaumcraftPlugin());
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
+
+		addPlugin(new AchievementPlugin());
 		
 		recipes();
 
@@ -277,6 +280,8 @@ public class Brewcraft extends ModUtils {
 			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 7, 0), goldenFeather.getStack());
 		if (getBoolean("Global", "Blessed Powder Villager Trades", "Toggle Blessed Powder Villager Trades", true))
 			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 11, 0), holyDust.getStack());
+		
+		BrewcraftEventHandler.forge();
 
 	}
 

@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins;
+package redgear.brewcraft.plugins.compat;
 
 import cpw.mods.fml.common.LoaderState.ModState;
 import redgear.brewcraft.common.Brewcraft;

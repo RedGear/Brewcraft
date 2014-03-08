@@ -1,7 +1,9 @@
 package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectImmunity extends PotionExtension {
@@ -25,6 +27,10 @@ public class EffectImmunity extends PotionExtension {
 			living.removePotionEffect(Potion.hunger.id);
 			living.removePotionEffect(Potion.weakness.id);
 			living.removePotionEffect(Potion.wither.id);
+		}
+		
+		if(living instanceof EntityPlayer && AchievementPlugin.immunity != null) {
+			((EntityPlayer)living).addStat(AchievementPlugin.immunity, 1);
 		}
 
 	}

@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectCreeper extends PotionExtension {
@@ -45,6 +46,9 @@ public class EffectCreeper extends PotionExtension {
 				else {
 					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 11, flag);
 					living.attackEntityFrom(DamageSource.generic, 30F);
+				}
+				if(living instanceof EntityPlayer && AchievementPlugin.explode != null) {
+					((EntityPlayer)living).addStat(AchievementPlugin.explode, 1);
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins;
+package redgear.brewcraft.plugins.compat;
 
 import buildcraft.api.fuels.IronEngineFuel;
 import cpw.mods.fml.common.LoaderState.ModState;

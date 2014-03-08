@@ -1,6 +1,8 @@
 package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectFrozen extends PotionExtension {
@@ -16,6 +18,10 @@ public class EffectFrozen extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
+		
+		if(living instanceof EntityPlayer && AchievementPlugin.freeze != null) {
+			((EntityPlayer)living).addStat(AchievementPlugin.freeze, 1);
+		}
 		
 	}
 
