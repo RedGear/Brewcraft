@@ -1,11 +1,11 @@
 package redgear.brewcraft.potions;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
@@ -15,7 +15,7 @@ public class MetaItemPotion extends MetaItem {
 
 	public MetaItemPotion(String name) {
 		super(name);
-		setCreativeTab(CreativeTabs.tabBrewing);
+		setCreativeTab(Brewcraft.tab);
 		setMaxStackSize(1);
 	}
 

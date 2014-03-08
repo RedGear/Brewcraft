@@ -137,6 +137,8 @@ public class Brewcraft extends ModUtils {
 	public static Potion immunity;
 	public static Potion frozen;
 	public static Potion fireproof;
+	
+	public static CreativeTabs tab;
 
 	public final static int DEFAULT_TIME = 7;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
@@ -144,6 +146,8 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
+		
+		tab = new BrewcraftTab("brewcraft").setNoTitle();
 
 		if (getBoolean("Potion List Expansion", "Toggle Potion List Expansion",
 				"Disable it you are running another mod that expands the list.", true))
@@ -258,8 +262,8 @@ public class Brewcraft extends ModUtils {
 		fluidHarmIII = createPotion("HarmIII", "potionDarkPurple", Potion.harm, 20, 2);
 		fluidHealingIII = createPotion("HealingIII", "potionRed", Potion.heal, 20, 2);
 
-		brewery.getBlock().setCreativeTab(CreativeTabs.tabBrewing);
-		ingredients.setCreativeTab(CreativeTabs.tabBrewing);
+		brewery.getBlock().setCreativeTab(tab);
+		ingredients.setCreativeTab(tab);
 
 	}
 
