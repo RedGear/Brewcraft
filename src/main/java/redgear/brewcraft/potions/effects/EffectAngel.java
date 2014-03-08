@@ -24,21 +24,21 @@ public class EffectAngel extends PotionExtension {
 			if (living.isEntityUndead())
 				living.attackEntityFrom(DamageSource.magic, 2F);
 			else
-				living.heal(0.5F);
+				living.heal(1F);
 		}
 
 		if (strength == 1) {
 			if (living.isEntityUndead())
 				living.attackEntityFrom(DamageSource.magic, 4F);
 			else
-				living.heal(1F);
+				living.heal(2F);
 		}
 		
 		if (strength >= 2) {
 			if (living.isEntityUndead())
 				living.attackEntityFrom(DamageSource.magic, 8F);
 			else
-				living.heal(2F);
+				living.heal(3F);
 		}
 		
 		if(living instanceof EntityPlayer && AchievementPlugin.holywater != null) {

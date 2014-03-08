@@ -2,8 +2,7 @@ package redgear.brewcraft.common;
 
 import java.util.Random;
 
-import redgear.brewcraft.plugins.common.AchievementPlugin;
-
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
@@ -14,8 +13,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BrewcraftEventHandler {
@@ -94,11 +94,27 @@ public class BrewcraftEventHandler {
 	}
 	
 	@SubscribeEvent
-	public void collectBrewery(LivingUpdateEvent event) {
+	public void collectBrewery(final LivingUpdateEvent event) {
 		if(event.entity instanceof EntityPlayer) {
 			final EntityPlayer player = (EntityPlayer) event.entity;
 			if(player.inventory.hasItemStack(Brewcraft.brewery.getStack()))
 				player.addStat(AchievementPlugin.craftBrewery, 1);
+		}
+	}
+	
+	@SubscribeEvent
+	public void cancelFireDamage(final LivingHurtEvent event) {
+		if(event.entity instanceof EntityLivingBase) {
+			final EntityLivingBase living = (EntityLivingBase) event.entity;
+			if(living.getActivePotionEffect(Brewcraft.fireproof) != null) {
+				if(event.source.equals(DamageSource.lava) || event.source.equals(DamageSource.inFire) 
+			    	    || event.source.equals(DamageSource.onFire)) {
+					event.ammount = 0;
+					if(living.getActivePotionEffect(Brewcraft.fireproof).getAmplifier() >= 1) {
+						living.heal(1F);
+					}
+				}
+			}
 		}
 	}
 }

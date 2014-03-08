@@ -252,7 +252,8 @@ public class Brewcraft extends ModUtils {
 		fluidFastIII = createPotion("FastIII", "potionLightBlue", Potion.moveSpeed, 20 * 180, 2);
 		fluidStrengthIII = createPotion("StrengthIII", "potionMagenta", Potion.damageBoost, 20 * 180, 2);
 		fluidFireResistII = createPotion("FireResistII", "potionLightPink", Potion.fireResistance, 20 * 180, 1);
-		fluidFireResistIII = createPotion("FireResistIII", "potionLightPink", fireproof, 20 * 180, 2);
+		fluidFireResistIII = createPotion("FireResistIII", "potionLightPink", fireproof, 20 * 180, 0);
+		fluidFireResistIIII = createPotion("FireResistIIII", "potionLightPink", fireproof, 20 * 180, 1);
 		fluidPoisonIII = createPotion("PoisonIII", "potionGreen", Potion.poison, 20 * 45, 2);
 		fluidHarmIII = createPotion("HarmIII", "potionDarkPurple", Potion.harm, 20, 2);
 		fluidHealingIII = createPotion("HealingIII", "potionRed", Potion.heal, 20, 2);
