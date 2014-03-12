@@ -93,3 +93,6 @@ potion.angel=Béni
 potion.flight=Vol
 potion.immunity=Immunité
 potion.frozen=Gelé
+
+
+itemGroup.brewcraft=Brewcraft

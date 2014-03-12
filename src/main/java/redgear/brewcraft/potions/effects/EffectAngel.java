@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
-import redgear.brewcraft.potions.PotionExtension;
 
 public class EffectAngel extends PotionExtension {
 

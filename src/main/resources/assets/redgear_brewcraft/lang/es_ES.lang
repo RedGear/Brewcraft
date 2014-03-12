@@ -109,3 +109,6 @@ achievement.potionImmunity=Primeros Auxilios
 achievement.potionImmunity.desc=Vacune a ti mismo contra debuffs
 achievement.potionHolyWater=Angel Custodio
 achievement.potionHolyWater.desc=Estar afectado por una poción de Agua Bendita
+
+
+itemGroup.brewcraft=Brewcraft

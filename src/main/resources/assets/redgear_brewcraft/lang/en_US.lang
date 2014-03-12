@@ -109,3 +109,18 @@ achievement.potionImmunity=First Aid
 achievement.potionImmunity.desc=Immunize against debuffs
 achievement.potionHolyWater=Guardian Angel
 achievement.potionHolyWater.desc=Be affected by a Potion of Holy Water
+
+itemGroup.brewcraft=Brewcraft
+
+potion.angel.0.desc=Rapid Healing (+0.5 Heart/Second)
+potion.angel.1.desc=Rapid Healing (+1 Heart/Second)
+potion.angel.2.desc=Rapid Healing (+2 Hearts/Second)
+potion.immunity.0.desc=Immunity to poison
+potion.immunity.1.desc=Immunity to a few debuffs
+potion.immunity.2.desc=Immunity to most debuffs
+potion.creeper.0.desc=Explosion (Radius = 4)
+potion.creeper.1.desc=Explosion (Radius = 7)
+potion.creeper.2.desc=Explosion (Radius = 11)
+potion.frozen.0.desc=-99% Movement Speed
+potion.fireproof.0.desc=-100% Fire Damage
+potion.fireproof.1.desc=You are healed by fire

@@ -109,3 +109,6 @@ achievement.potionImmunity=Erste Hilfe
 achievement.potionImmunity.desc=Werden über einen Trank der Abhilfe immunisiert
 achievement.potionHolyWater=Schutzengel
 achievement.potionHolyWater.desc=Durch einen Trank der heiligen Wassers beeinflusst werden
+
+
+itemGroup.brewcraft=Brewcraft

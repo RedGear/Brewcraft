@@ -1,4 +1,4 @@
-package redgear.brewcraft.potions;
+package redgear.brewcraft.potions.effects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
