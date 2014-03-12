@@ -9,7 +9,7 @@ public class EffectFireproof extends PotionExtension{
 	public EffectFireproof(int id) {
 		super(id, false, 10034944);
 		setPotionName("potion.fireproof");
-		setIconIndex(6, 0);
+		setIconIndex(7, 0);
 		
 	}
 
