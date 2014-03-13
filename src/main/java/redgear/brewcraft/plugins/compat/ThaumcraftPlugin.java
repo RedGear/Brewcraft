@@ -1,6 +1,8 @@
 package redgear.brewcraft.plugins.compat;
 
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.LoaderState.ModState;
+import forestry.api.storage.BackpackManager;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
@@ -15,7 +17,7 @@ public class ThaumcraftPlugin implements IPlugin{
 
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -30,9 +32,11 @@ public class ThaumcraftPlugin implements IPlugin{
 
 	@Override
 	public void Init(ModUtils mod) {
-		if(Mods.Thaum.isIn() && Brewcraft.inst.getBoolean("Plugins",
-				"Thaumcraft 4 Plugin", "Toggle Thaumcraft 4 Plugin", true)) {
-			
+		if(Brewcraft.inst.getBoolean("Plugins", "Thaumcraft 4 Plugin",
+			"Toggle Thaumcraft 4 Plugin", true)) {
+		if(Mods.Thaum.isIn()) {
+
+			}
 		}
 	}
 

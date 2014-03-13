@@ -6,9 +6,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class BrewcraftTab extends CreativeTabs{
+	
+	private boolean hasBackground;
 
-	public BrewcraftTab(String lable) {
+	public BrewcraftTab(String lable, boolean background) {
 		super(lable);
+		
+		this.hasBackground = background;
 	}
 
 	@Override
@@ -19,9 +23,11 @@ public class BrewcraftTab extends CreativeTabs{
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public String getBackgroundImageName()
-    {
-        return "background.png";
+    public String getBackgroundImageName() {
+		if(hasBackground)
+			return "background.png";
+		else
+			return "items.png";
     }
 
 }

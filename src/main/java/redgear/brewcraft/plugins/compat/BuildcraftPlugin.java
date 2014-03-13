@@ -19,7 +19,7 @@ public class BuildcraftPlugin implements IPlugin{
 
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -34,12 +34,14 @@ public class BuildcraftPlugin implements IPlugin{
 
 	@Override
 	public void Init(ModUtils mod) {
-		if(Mods.BCCore.isIn() && Brewcraft.inst.getBoolean("Plugins", 
-				"Buildcraft Plugin", "Toggle Buildcraft Plugin", true)) {
-			IronEngineFuel.addFuel(Brewcraft.fluidBoom, power, time);
-			IronEngineFuel.addFuel(Brewcraft.fluidBoomII, power * 2, time * 2 / 3);
-			IronEngineFuel.addFuel(Brewcraft.fluidBoomIII, power * 4, time / 4);
-			IronEngineFuel.addFuel(Brewcraft.fluidBoomLong, power * 2 / 3, time * 3);
+		if(Brewcraft.inst.getBoolean("Plugins", "Buildcraft Plugin",
+				"Toggle Buildcraft Plugin", true)) {
+			if(Mods.BCCore.isIn()) {
+				IronEngineFuel.addFuel(Brewcraft.fluidBoom, power, time);
+				IronEngineFuel.addFuel(Brewcraft.fluidBoomII, power * 2, time * 2 / 3);
+				IronEngineFuel.addFuel(Brewcraft.fluidBoomIII, power * 4, time / 4);
+				IronEngineFuel.addFuel(Brewcraft.fluidBoomLong, power * 2 / 3, time * 3);
+			}
 		}
 	}
 

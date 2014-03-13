@@ -122,7 +122,7 @@ public class MetaItemPotion extends MetaItem {
         if(potion.hasDesc) {
         par3List.add("");
         par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-        par3List.add(StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
+        par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
         }
 		
 	}

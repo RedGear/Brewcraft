@@ -15,7 +15,7 @@ public class BOPPlugin implements IPlugin{
 
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -30,9 +30,11 @@ public class BOPPlugin implements IPlugin{
 
 	@Override
 	public void Init(ModUtils mod) {
-		if(Mods.BiomesOPlenty.isIn() && Brewcraft.inst.getBoolean("Plugins", 
-				"Biomes o' Plenty Plugin", "Toggle Biomes o' Plenty Plugin", true)) {
-			
+		if(Brewcraft.inst.getBoolean("Plugins", "Biomes o' Plenty Plugin",
+				"Toggle Biomes o' Plenty Plugin", true)) {
+			if(Mods.BiomesOPlenty.isIn()) {
+				
+			}
 		}
 	}
 

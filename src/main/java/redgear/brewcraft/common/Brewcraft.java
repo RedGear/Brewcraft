@@ -147,7 +147,11 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
 		
-		tab = new BrewcraftTab("brewcraft").setNoTitle();
+		if(getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+				"Toggle the cool background for the Brewcraft creative tab.", true))
+			tab = new BrewcraftTab("brewcraft", true).setNoTitle();
+		else
+			tab = new BrewcraftTab("brewcraft", false).setNoTitle();
 
 		if (getBoolean("Potion List Expansion", "Toggle Potion List Expansion",
 				"Disable it you are running another mod that expands the list.", true))
