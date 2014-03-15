@@ -23,27 +23,13 @@ public class EffectCreeper extends PotionExtension {
 			((EntityCreeper) living).getDataWatcher().updateObject(17, Byte.valueOf((byte) 1));
 
 		else {
-			if (duration == 8)
-				living.worldObj.playSoundAtEntity(living, "mob.creeper.say", 1F, 1F);
-
-			if (duration == 4)
-				living.worldObj.playSoundAtEntity(living, "mob.creeper.say", 1F, 1F);
-
+			
 			if (duration == 1) {
 
 				if (living instanceof EntityPlayer && ((EntityPlayer) living).capabilities.isCreativeMode)
 					return;//Don't explode if target is player in creative. 
 
-				if (strength == 0) {
-					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 4, flag);
-					living.attackEntityFrom(DamageSource.generic, 30F);
-				}
-				else if (strength == 1) {
-					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 7, flag);
-					living.attackEntityFrom(DamageSource.generic, 30F);
-				}
-				else {
-					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 11, flag);
+					living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, strength * 3 + 4, flag);
 					living.attackEntityFrom(DamageSource.generic, 30F);
 				}
 				if(living instanceof EntityPlayer && AchievementPlugin.explode != null) {
@@ -52,5 +38,3 @@ public class EffectCreeper extends PotionExtension {
 			}
 		}
 	}
-
-}

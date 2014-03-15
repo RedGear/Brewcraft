@@ -19,27 +19,11 @@ public class EffectAngel extends PotionExtension {
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
 		
-		if (strength == 0) {
 			if (living.isEntityUndead())
-				living.attackEntityFrom(DamageSource.magic, 2F);
+				living.attackEntityFrom(DamageSource.magic, strength * 2 + 2F);
 			else
-				living.heal(1F);
-		}
+				living.heal(strength + 1 * 1F);
 
-		if (strength == 1) {
-			if (living.isEntityUndead())
-				living.attackEntityFrom(DamageSource.magic, 4F);
-			else
-				living.heal(2F);
-		}
-		
-		if (strength >= 2) {
-			if (living.isEntityUndead())
-				living.attackEntityFrom(DamageSource.magic, 8F);
-			else
-				living.heal(3F);
-		}
-		
 		if(living instanceof EntityPlayer && AchievementPlugin.holywater != null) {
 			((EntityPlayer)living).addStat(AchievementPlugin.holywater, 1);
 		}
