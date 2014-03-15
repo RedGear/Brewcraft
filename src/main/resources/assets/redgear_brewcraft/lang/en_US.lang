@@ -162,8 +162,8 @@ potion.angel.desc2=Huge damage to undead
 potion.immunity.0.desc=Immunity to poison
 potion.immunity.1.desc=Immunity to a few debuffs
 potion.immunity.2.desc=Immunity to most debuffs
-potion.strength.2.desc=+390% Attack Damage
-potion.swiftness.2.desc=+60% Speed
+potion.damageBoost.2.desc=+390% Attack Damage
+potion.moveSpeed.2.desc=+60% Speed
 potion.creeper.0.desc=Explosion (Radius = 4)
 potion.creeper.1.desc=Explosion (Radius = 7)
 potion.creeper.2.desc=Explosion (Radius = 11)

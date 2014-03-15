@@ -1,11 +1,8 @@
 package redgear.brewcraft.potions;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StringUtils;
 import redgear.core.item.SubItem;
 
 public class SubItemPotion extends SubItem {
@@ -34,18 +31,4 @@ public class SubItemPotion extends SubItem {
 	public Potion getEffect() {
 		return potion;
 	}
-	
-    @SideOnly(Side.CLIENT)
-    public static String getDurationString(PotionEffect par0PotionEffect)
-    {
-        if (par0PotionEffect.getIsPotionDurationMax())
-        {
-            return "**:**";
-        }
-        else
-        {
-            int i = par0PotionEffect.getDuration();
-            return StringUtils.ticksToElapsedTime(i);
-        }
-    }
 }

@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -107,7 +108,7 @@ public class MetaItemPotion extends MetaItem {
         
         if (!potion.getEffect().isInstant())
         {
-            s1 = s1 + " (" + potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength)) + ")";
+            s1 = s1 + " (" + Potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength)) + ")";
         }
         
         if (potion.getEffect().isBadEffect())
@@ -125,7 +126,7 @@ public class MetaItemPotion extends MetaItem {
         par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
         }
         if(potion.potionId == Brewcraft.angel.id)
-        	par3List.add(StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
+        	par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
 		
 	}
 
