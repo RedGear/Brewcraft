@@ -19,6 +19,7 @@ import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
+import redgear.brewcraft.plugins.compat.SWTPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -273,11 +274,10 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void Init(FMLInitializationEvent event) {
-		
-		//addPlugin(new BOPPlugin());
-		//addPlugin(new ThaumcraftPlugin());
+
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
+		addPlugin(new SWTPlugin());
 
 		addPlugin(new AchievementPlugin());
 		
