@@ -144,6 +144,8 @@ public class Brewcraft extends ModUtils {
 	public final static int DEFAULT_TIME = 7;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
 	public final static int ITEM_CONSUMPTION_BASE = 4;
+	
+	public static final String potionTexture = "potionWhite";
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -200,26 +202,26 @@ public class Brewcraft extends ModUtils {
 		 * });
 		 */
 
-		fluidHolyWater = createPotion("HolyWater", "potionGold", angel, 100, 0, true);
-		fluidHolyWaterII = createPotion("HolyWaterII", "potionGold", angel, 50, 1, true);
-		fluidHolyWaterLong = createPotion("HolyWaterLong", "potionGold", angel, 200, 0, true);
-		fluidHolyWaterIII = createPotion("HolyWaterIII", "potionGold", angel, 100, 2, true);
-		fluidFlying = createPotion("Flying", "potionWhite", flight, 300, 0, false);
-		fluidFlyingLong = createPotion("FlyingLong", "potionWhite", flight, 600, 0, false);
-		fluidWither = createPotion("Wither", "potionBlack", Potion.wither, 400, 0, false);
-		fluidWitherII = createPotion("WitherII", "potionBlack", Potion.wither, 200, 1, false);
-		fluidWitherIII = createPotion("WitherIII", "potionBlack", Potion.wither, 200, 2, false);
-		fluidWitherLong = createPotion("WitherLong", "potionBlack", Potion.wither, 800, 0, false);
-		fluidAntidote = createPotion("Antidote", "potionDarkPurple", immunity, 600, 0, true);
-		fluidAntidoteII = createPotion("AntidoteII", "potionDarkPurple", immunity, 300, 1, true);
-		fluidAntidoteIII = createPotion("AntidoteIII", "potionDarkPurple", immunity, 300, 2, true);
-		fluidAntidoteLong = createPotion("AntidoteLong", "potionDarkPurple", immunity, 1200, 0, true);
-		fluidBoom = createPotion("Boom", "potionDarkGreen", creeper, 160, 0, true);
-		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1, true);
-		fluidBoomIII = createPotion("BoomIII", "potionDarkGreen", creeper, 80, 2, true);
-		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0, true);	
-		fluidFreezing = createPotion("Freezing", "potionCyan", frozen, 300, 0, true);
-		fluidFreezingLong = createPotion("FreezingLong", "potionCyan", frozen, 600, 0, true);
+		fluidHolyWater = createPotion("HolyWater", angel, 100, 0, true);
+		fluidHolyWaterII = createPotion("HolyWaterII", angel, 50, 1, true);
+		fluidHolyWaterLong = createPotion("HolyWaterLong", angel, 200, 0, true);
+		fluidHolyWaterIII = createPotion("HolyWaterIII", angel, 100, 2, true);
+		fluidFlying = createPotion("Flying", flight, 300, 0, false);
+		fluidFlyingLong = createPotion("FlyingLong", flight, 600, 0, false);
+		fluidWither = createPotion("Wither", Potion.wither, 400, 0, false);
+		fluidWitherII = createPotion("WitherII", Potion.wither, 200, 1, false);
+		fluidWitherIII = createPotion("WitherIII", Potion.wither, 200, 2, false);
+		fluidWitherLong = createPotion("WitherLong", Potion.wither, 800, 0, false);
+		fluidAntidote = createPotion("Antidote", immunity, 600, 0, true);
+		fluidAntidoteII = createPotion("AntidoteII", immunity, 300, 1, true);
+		fluidAntidoteIII = createPotion("AntidoteIII", immunity, 300, 2, true);
+		fluidAntidoteLong = createPotion("AntidoteLong", immunity, 1200, 0, true);
+		fluidBoom = createPotion("Boom", creeper, 160, 0, true);
+		fluidBoomII = createPotion("BoomII", creeper, 80, 1, true);
+		fluidBoomIII = createPotion("BoomIII", creeper, 80, 2, true);
+		fluidBoomLong = createPotion("BoomLong", creeper, 320, 0, true);
+		fluidFreezing = createPotion("Freezing", frozen, 300, 0, true);
+		fluidFreezingLong = createPotion("FreezingLong", frozen, 600, 0, true);
 
 		brewing = proxy.createBrewery();
 
@@ -228,42 +230,42 @@ public class Brewcraft extends ModUtils {
 		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class,
 				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
 
-		fluidAwkward = createVanillaPotion("Awkward", "potionBlue", 16, 0);
-		fluidVision = createVanillaPotion("Vision", "potionDarkBlue", 8198, 16390);
-		fluidVisionLong = createVanillaPotion("VisionLong", "potionDarkBlue", 8262, 16454);
-		fluidInvisible = createVanillaPotion("Invisible", "potionGrey", 8206, 16398);
-		fluidInvisibleLong = createVanillaPotion("InvisibleLong", "potionGrey", 8270, 16462);
-		fluidRegen = createVanillaPotion("Regen", "potionPink", 8193, 16385);
-		fluidRegenII = createVanillaPotion("RegenII", "potionPink", 8289, 16481);
-		fluidRegenLong = createVanillaPotion("RegenLong", "potionPink", 8257, 16449);
-		fluidFast = createVanillaPotion("Fast", "potionLightBlue", 8194, 16386);
-		fluidFastLong = createVanillaPotion("FastLong", "potionLightBlue", 8290, 16450);
-		fluidFastII = createVanillaPotion("FastII", "potionLightBlue", 8258, 16418);
-		fluidWeakness = createVanillaPotion("Weakness", "potionPurple", 8200, 16456);
-		fluidStrength = createVanillaPotion("Strength", "potionMagenta", 8201, 16393);
-		fluidStrengthLong = createVanillaPotion("StrengthLong", "potionMagenta", 8265, 16457);
-		fluidStrengthII = createVanillaPotion("StrengthII", "potionMagenta", 8297, 16425);
-		fluidFireResist = createVanillaPotion("FireResist", "potionLightPink", 8195, 16387);
-		fluidFireResistLong = createVanillaPotion("FireResistLong", "potionLightPink", 8259, 16451);
-		fluidSlowness = createVanillaPotion("Slowness", "potionPurple", 8202, 16394);
-		fluidSlownessLong = createVanillaPotion("SlownessLong", "potionPurple", 8266, 16458);
-		fluidPoison = createVanillaPotion("Poison", "potionGreen", 8196, 16388);
-		fluidPoisonII = createVanillaPotion("PoisonII", "potionGreen", 8260, 16420);
-		fluidPoisonLong = createVanillaPotion("PoisonLong", "potionGreen", 8228, 16452);
-		fluidHarm = createVanillaPotion("Harm", "potionDarkPurple", 8204, 16396);
-		fluidHarmII = createVanillaPotion("HarmII", "potionDarkPurple", 8236, 16428);
-		fluidHealing = createVanillaPotion("Healing", "potionRed", 8196, 16389);
-		fluidHealingII = createVanillaPotion("HealingII", "potionRed", 8229, 16421);
-		
-		fluidRegenIII = createPotion("RegenIII", "potionPink", Potion.regeneration, 20 * 8, 2, false);
-		fluidFastIII = createPotion("FastIII", "potionLightBlue", Potion.moveSpeed, 20 * 40, 2, true);
-		fluidStrengthIII = createPotion("StrengthIII", "potionMagenta", Potion.damageBoost, 20 * 40, 2, true);
-		fluidFireResistII = createPotion("FireResistII", "potionLightPink", Potion.fireResistance, 20 * 67, 1, false);
-		fluidFireResistIII = createPotion("FireResistIII", "potionLightPink", fireproof, 20 * 35, 0, true);
-		fluidFireResistIIII = createPotion("FireResistIIII", "potionLightPink", fireproof, 20 * 15, 1, true);
-		fluidPoisonIII = createPotion("PoisonIII", "potionGreen", Potion.poison, 20 * 8, 2, false);
-		fluidHarmIII = createPotion("HarmIII", "potionDarkPurple", Potion.harm, 20, 2, false);
-		fluidHealingIII = createPotion("HealingIII", "potionRed", Potion.heal, 20, 2, false);
+		fluidAwkward = createVanillaPotion("Awkward", 16, 0);
+		fluidVision = createVanillaPotion("Vision", 8198, 16390);
+		fluidVisionLong = createVanillaPotion("VisionLong", 8262, 16454);
+		fluidInvisible = createVanillaPotion("Invisible", 8206, 16398);
+		fluidInvisibleLong = createVanillaPotion("InvisibleLong", 8270, 16462);
+		fluidRegen = createVanillaPotion("Regen", 8193, 16385);
+		fluidRegenII = createVanillaPotion("RegenII", 8289, 16481);
+		fluidRegenLong = createVanillaPotion("RegenLong", 8257, 16449);
+		fluidFast = createVanillaPotion("Fast", 8194, 16386);
+		fluidFastLong = createVanillaPotion("FastLong", 8290, 16450);
+		fluidFastII = createVanillaPotion("FastII", 8258, 16418);
+		fluidWeakness = createVanillaPotion("Weakness", 8200, 16456);
+		fluidStrength = createVanillaPotion("Strength", 8201, 16393);
+		fluidStrengthLong = createVanillaPotion("StrengthLong", 8265, 16457);
+		fluidStrengthII = createVanillaPotion("StrengthII", 8297, 16425);
+		fluidFireResist = createVanillaPotion("FireResist", 8195, 16387);
+		fluidFireResistLong = createVanillaPotion("FireResistLong", 8259, 16451);
+		fluidSlowness = createVanillaPotion("Slowness", 8202, 16394);
+		fluidSlownessLong = createVanillaPotion("SlownessLong", 8266, 16458);
+		fluidPoison = createVanillaPotion("Poison", 8196, 16388);
+		fluidPoisonII = createVanillaPotion("PoisonII", 8260, 16420);
+		fluidPoisonLong = createVanillaPotion("PoisonLong", 8228, 16452);
+		fluidHarm = createVanillaPotion("Harm", 8204, 16396);
+		fluidHarmII = createVanillaPotion("HarmII", 8236, 16428);
+		fluidHealing = createVanillaPotion("Healing", 8196, 16389);
+		fluidHealingII = createVanillaPotion("HealingII", 8229, 16421);
+
+		fluidRegenIII = createPotion("RegenIII", Potion.regeneration, 20 * 8, 2, false);
+		fluidFastIII = createPotion("FastIII", Potion.moveSpeed, 20 * 40, 2, true);
+		fluidStrengthIII = createPotion("StrengthIII", Potion.damageBoost, 20 * 40, 2, true);
+		fluidFireResistII = createPotion("FireResistII", Potion.fireResistance, 20 * 67, 1, false);
+		fluidFireResistIII = createPotion("FireResistIII", fireproof, 20 * 35, 0, true);
+		fluidFireResistIIII = createPotion("FireResistIIII", fireproof, 20 * 15, 1, true);
+		fluidPoisonIII = createPotion("PoisonIII", Potion.poison, 20 * 8, 2, false);
+		fluidHarmIII = createPotion("HarmIII", Potion.harm, 20, 2, false);
+		fluidHealingIII = createPotion("HealingIII", Potion.heal, 20, 2, false);
 
 		brewery.getBlock().setCreativeTab(tab);
 		ingredients.setCreativeTab(tab);
@@ -416,17 +418,16 @@ public class Brewcraft extends ModUtils {
 	 * @param iconName
 	 * @param effect
 	 */
-	private Fluid createPotion(String name, String iconName, Potion effect, int duration, int strength, boolean desc) {
+	private Fluid createPotion(String name, Potion effect, int duration, int strength, boolean desc) {
 		SimpleItem bottle = potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength, desc));
 		SimpleItem splash = potions.addMetaItem(new SubItemPotion("splash" + name, true, effect, duration, strength, desc));
-		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
+		Fluid potion = FluidUtil.createFluid(new FluidPotion("potion" + name, effect.getLiquidColor()), potionTexture);
 
 		FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(), emptyBottle.getStack());
 		FluidContainerRegistry.registerFluidContainer(potion, splash.getStack(), splashBottle.getStack());
 
 		return potion;
 	}
-
 	/**
 	private void createSpecialPotion(String name, Potion effect, int duration, int strength, boolean desc) {
 		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength, desc));
@@ -442,11 +443,12 @@ public class Brewcraft extends ModUtils {
 	 * @param metaBottle - The meta of the corresponding vanilla potion.
 	 * @param metaSplash - The meta of the corresponding vanilla splash potion.
 	 */
-	private Fluid createVanillaPotion(String name, String iconName, int metaBottle, int metaSplash) {
-		Fluid potion = FluidUtil.createFluid("potion" + name, iconName);
+	private Fluid createVanillaPotion(String name, int metaBottle, int metaSplash) {
+		Fluid potion = FluidUtil.createFluid(
+				new FluidPotion("potion" + name, Items.potionitem.getColorFromDamage(metaBottle)), potionTexture);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle.getStack());
-		if (!(metaSplash == 0))
+		if (metaSplash != 0)
 			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaSplash),
 					splashBottle.getStack());
 
