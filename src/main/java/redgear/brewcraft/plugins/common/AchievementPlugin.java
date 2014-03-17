@@ -67,7 +67,7 @@ public class AchievementPlugin implements IPlugin{
 				.registerStat();
 			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0, Brewcraft.holyDust.getStack(), craftBrewery)
 				.registerStat();
-		
+			
 			pageBrewcraft = new AchievementPage("Brewcraft", craftBrewery, explode, freeze, fireproof, flight,
 				immunity, holywater);
 		
