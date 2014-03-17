@@ -220,8 +220,6 @@ public class Brewcraft extends ModUtils {
 		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0, true);	
 		fluidFreezing = createPotion("Freezing", "potionCyan", frozen, 300, 0, true);
 		fluidFreezingLong = createPotion("FreezingLong", "potionCyan", frozen, 600, 0, true);
-		
-		createSpecialPotion("Ghast", Potion.confusion, 400, 0, false);
 
 		brewing = proxy.createBrewery();
 
@@ -429,10 +427,12 @@ public class Brewcraft extends ModUtils {
 		return potion;
 	}
 
+	/**
 	private void createSpecialPotion(String name, Potion effect, int duration, int strength, boolean desc) {
 		potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect, duration, strength, desc));
 		potions.addMetaItem(new SubItemPotion("splash" + name, true, effect, duration, strength, desc));
 	}
+	*/
 
 	/**
 	 * Helper method for vanilla potions.

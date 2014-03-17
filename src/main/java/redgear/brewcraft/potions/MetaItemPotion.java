@@ -2,6 +2,7 @@ package redgear.brewcraft.potions;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import redgear.brewcraft.common.Brewcraft;
@@ -20,6 +22,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class MetaItemPotion extends MetaItem {
+	
+    @SideOnly(Side.CLIENT)
+    public static IIcon splash;
+    @SideOnly(Side.CLIENT)
+    public static IIcon bottle;
+    @SideOnly(Side.CLIENT)
+    public static IIcon overlay;
 
 	public MetaItemPotion(String name) {
 		super(name);
@@ -89,11 +98,20 @@ public class MetaItemPotion extends MetaItem {
 
 		return stack;
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int par1) {
+    	SubItemPotion potion = getMetaItem(par1);
+        return potion.isSplash ? this.splash : this.bottle;
+    }
 
 	@Override
-	public boolean hasEffect(ItemStack par1ItemStack) {
-		return true;
-	}
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamageForRenderPass(int par1, int par2)
+    {
+        return par2 == 0 ? this.overlay : super.getIconFromDamageForRenderPass(par1, par2);
+    }
 	
 	@Override
     @SideOnly(Side.CLIENT)
@@ -129,5 +147,39 @@ public class MetaItemPotion extends MetaItem {
         	par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
 		
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+    	SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
+    		return par2 > 0 ? 16777215 : potion.getEffect().getLiquidColor();
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean requiresMultipleRenderPasses() {
+        return true;
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    {
+        return (pass == 0);
+    }
 
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister par1IconRegister)
+    {
+        this.bottle = par1IconRegister.registerIcon("potion_bottle_drinkable");
+        this.splash = par1IconRegister.registerIcon("potion_bottle_splash");
+        this.overlay = par1IconRegister.registerIcon("potion_overlay");
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static IIcon func_94589_d(String par0Str)
+    {
+        return par0Str.equals("bottle_drinkable") ? bottle : (par0Str.equals("bottle_splash") ? splash : (par0Str.equals("overlay") ? overlay : null));
+    }
 }

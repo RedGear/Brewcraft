@@ -8,7 +8,7 @@ import redgear.brewcraft.plugins.common.AchievementPlugin;
 public class EffectImmunity extends PotionExtension {
 
 	public EffectImmunity(int id) {
-		super(id, false, 13371061);
+		super(id, false, 16753091);
 		setPotionName("potion.immunity");
 		setIconIndex(3, 0);
 	}

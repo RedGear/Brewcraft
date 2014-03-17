@@ -36,27 +36,8 @@ public class BrewcraftEventHandler {
 	}
 
 	@SubscribeEvent
-	public void checkForGhast(final EntityInteractEvent event) {
-
-		if (Brewcraft.splashBottle.equals(event.entityPlayer.getHeldItem())) {
-
-			if (event.entityLiving instanceof EntityGhast) {
-
-				event.entityPlayer.inventory.consumeInventoryItem(Items.glass_bottle);
-				event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(Brewcraft.potions, 1, 1));
-				event.entityLiving.attackEntityFrom(DamageSource.cactus, 30F);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "mob.ghast.death", 1F, 1F);
-
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void editDrops(final LivingDropsEvent event) {
 		final Random rand = event.entity.worldObj.rand;
-
-		if (event.entity instanceof EntityGhast && event.source.equals(DamageSource.cactus))
-			event.setCanceled(true);
 
 		if (event.entity instanceof EntitySkeleton) {
 
