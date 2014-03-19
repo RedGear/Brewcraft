@@ -24,10 +24,7 @@ public class BrewcraftTab extends CreativeTabs{
 	@Override
     @SideOnly(Side.CLIENT)
     public String getBackgroundImageName() {
-		if(hasBackground)
-			return "background.png";
-		else
-			return "items.png";
+		return hasBackground ? "background.png" : "items.png";
     }
 
 }

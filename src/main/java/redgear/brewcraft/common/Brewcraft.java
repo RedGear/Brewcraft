@@ -20,6 +20,7 @@ import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.SWTPlugin;
+import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.potions.effects.EffectAngel;
@@ -66,8 +67,8 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem holyDust;
 	public static SimpleItem goldenFeather;
 	public static SimpleItem charredBone;
-	public static SimpleItem splashBottle;
 	public static SimpleItem obsidianTear;
+	public static SimpleItem splashBottle;
 
 	public static SimpleItem emptyBottle = new SimpleItem(Items.glass_bottle);
 
@@ -141,9 +142,9 @@ public class Brewcraft extends ModUtils {
 	
 	public static CreativeTabs tab;
 
-	public final static int DEFAULT_TIME = 7;
+	public final static int DEFAULT_TIME = 4;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
-	public final static int ITEM_CONSUMPTION_BASE = 4;
+	public final static int ITEM_CONSUMPTION_BASE = 12;
 	
 	public static final String potionTexture = "potionWhite";
 
@@ -192,16 +193,7 @@ public class Brewcraft extends ModUtils {
 		
 		fireproof = new EffectFireproof(inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45));
-		/*
-		 * createSpecialPotion("Fire", new SubPotionEffect() {
-		 * 
-		 * @Override
-		 * public void effect(World world, EntityLivingBase player) {
-		 * player.setFire(10);
-		 * }
-		 * });
-		 */
-
+		
 		fluidHolyWater = createPotion("HolyWater", angel, 100, 0, true);
 		fluidHolyWaterII = createPotion("HolyWaterII", angel, 50, 1, true);
 		fluidHolyWaterLong = createPotion("HolyWaterLong", angel, 200, 0, true);
@@ -307,7 +299,7 @@ public class Brewcraft extends ModUtils {
 		registry.addRecipe(FluidRegistry.WATER, fluidFlying, goldenFeather, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 1);
 		registry.addRecipe(fluidFlying, fluidFlyingLong, Items.redstone);
 		registry.addRecipe(FluidRegistry.LAVA, fluidWither, charredBone, ITEM_CONSUMPTION_BASE - 1, DEFAULT_TIME - 3);
-		registry.addRecipe(FluidRegistry.LAVA, fluidWither, new SimpleItem(Items.skull, 1), ITEM_CONSUMPTION_BASE - 3, DEFAULT_TIME - 5);
+		registry.addRecipe(FluidRegistry.LAVA, fluidWither, new SimpleItem(Items.skull, 1), ITEM_CONSUMPTION_BASE, DEFAULT_TIME - 5);
 		registry.addRecipe(fluidWither, fluidWitherII, Items.glowstone_dust);
 		registry.addRecipe(fluidWither, fluidWitherLong, Items.redstone);
 		registry.addRecipe(fluidHealing, fluidAntidote, Items.redstone, ITEM_CONSUMPTION_BASE, DEFAULT_TIME + 2);
@@ -318,6 +310,7 @@ public class Brewcraft extends ModUtils {
 		registry.addRecipe(fluidSlowness, fluidFreezing, Items.snowball);
 		registry.addRecipe(fluidFreezing, fluidFreezingLong, Items.redstone);
 		registry.addRecipe(fluidFireResist, fluidFireResistII, Items.glowstone_dust);
+		registry.addRecipe(fluidRegen, fluidRegenII, Items.glowstone_dust);
 		registry.addRecipe(fluidFireResistII, fluidFireResistIII, obsidianTear);
 		registry.addRecipe(fluidHolyWaterII, fluidHolyWaterIII, obsidianTear);
 		registry.addRecipe(fluidWitherII, fluidWitherIII, obsidianTear);

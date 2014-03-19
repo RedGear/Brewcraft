@@ -51,7 +51,7 @@ public class SWTPlugin implements IPlugin{
 						Brewcraft.registry.addRecipe(Brewcraft.fluidWither, Brewcraft.fluidBoom, dynamite);
 						Brewcraft.registry.addRecipe(Brewcraft.fluidSlowness, Brewcraft.fluidFreezing, rockSnowball);
 						Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither, ectoplasm);
-						Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither, corruptEctoplasm, Brewcraft.ITEM_CONSUMPTION_BASE - 2, Brewcraft.DEFAULT_TIME - 3);
+						Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither, corruptEctoplasm, Brewcraft.ITEM_CONSUMPTION_BASE, Brewcraft.DEFAULT_TIME - 3);
 						Brewcraft.registry.addRecipe(Brewcraft.fluidRegen, Brewcraft.fluidHolyWater, pureSand);
 						Brewcraft.registry.addRecipe(Brewcraft.fluidPoison, Brewcraft.fluidHarm, fungus);
 						Brewcraft.registry.addRecipe(Brewcraft.fluidFireResist, Brewcraft.fluidSlowness, fungus);
