@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,9 +12,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
-import redgear.brewcraft.blocks.TileRendererBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
@@ -26,7 +23,6 @@ import redgear.brewcraft.potions.effects.EffectImmunity;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
-import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTileMachine;
 import redgear.core.fluids.FluidUtil;
 import redgear.core.item.MetaItem;
@@ -57,7 +53,7 @@ public class Brewcraft extends ModUtils {
 	@Instance("RedGear|Brewcraft")
 	public static ModUtils inst;
 	
-    @SidedProxy(clientSide = "redgear.brewcraft.client.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
+    @SidedProxy(clientSide = "redgear.brewcraft.common.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
     public static BrewcraftCommonProxy proxy;
 
 	public static RecipeRegistry registry = new RecipeRegistry();
@@ -175,7 +171,7 @@ public class Brewcraft extends ModUtils {
 		fluidBoomII = createPotion("BoomII", "potionDarkGreen", creeper, 80, 1);
 		fluidBoomLong = createPotion("BoomLong", "potionDarkGreen", creeper, 320, 0);
 
-		brewing = proxy.createBrewery();
+		brewing = proxy.createBrewery(getBlockId("brewery"));
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep);
 		

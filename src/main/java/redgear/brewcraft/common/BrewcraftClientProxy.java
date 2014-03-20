@@ -23,8 +23,8 @@ public class BrewcraftClientProxy extends BrewcraftCommonProxy {
 	
 
 
-	public  MetaTile createBrewery(){
-		return new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery().getRenderId());
+	public  MetaTile createBrewery(int blockId){
+		return new MetaTileSpecialRenderer(blockId, Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery().getRenderId());
 	}	
 
 }
