@@ -2,15 +2,14 @@ package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 
-public class EffectAngel extends PotionExtension {
+public class EffectFrozen extends PotionExtension {
 
-	public EffectAngel(int id) {
-		super(id, false, 16570666);
-		setPotionName("potion.angel");
-		setIconIndex(1, 0);
+	public EffectFrozen(int id) {
+		super(id, true, 13107192);
+		setPotionName("potion.frozen");
+		setIconIndex(4, 0);
 	}
 
 	/**
@@ -18,14 +17,8 @@ public class EffectAngel extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		
-			if (living.isEntityUndead())
-				living.attackEntityFrom(DamageSource.magic, strength * 2 + 2F);
-			else
-				living.heal(strength + 1 * 1F);
-
-		if(living instanceof EntityPlayer && AchievementPlugin.holywater != null) {
-			((EntityPlayer)living).addStat(AchievementPlugin.holywater, 1);
+		if(living instanceof EntityPlayer && AchievementPlugin.freeze != null) {
+			((EntityPlayer)living).addStat(AchievementPlugin.freeze, 1);
 		}
 	}
 

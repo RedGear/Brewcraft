@@ -1,21 +1,38 @@
 package redgear.brewcraft.potions;
 
-import net.minecraft.creativetab.CreativeTabs;
+import java.util.List;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 import redgear.core.util.SimpleItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MetaItemPotion extends MetaItem {
+	
+    @SideOnly(Side.CLIENT)
+    public static IIcon splash;
+    @SideOnly(Side.CLIENT)
+    public static IIcon bottle;
+    @SideOnly(Side.CLIENT)
+    public static IIcon overlay;
 
-	public MetaItemPotion(int itemID, String name) {
-		super(itemID, name);
-		setCreativeTab(CreativeTabs.tabBrewing);
+	public MetaItemPotion(String name) {
+		super(name);
+		setCreativeTab(Brewcraft.tab);
 		setMaxStackSize(1);
 	}
 
@@ -43,7 +60,7 @@ public class MetaItemPotion extends MetaItem {
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {
 			--stack.stackSize;
-			player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0));
+			player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle, 1, 0));
 		}
 
 		if (!world.isRemote)
@@ -65,26 +82,104 @@ public class MetaItemPotion extends MetaItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		SubItemPotion potion = getMetaItem(stack.getItemDamage());
-
-		if (!world.isRemote && potion.isSplash) {
-
-			if (!player.capabilities.isCreativeMode)
-				--stack.stackSize;
-
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-			if (!world.isRemote)
-				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
-
-		} else
-			player.setItemInUse(stack, getMaxItemUseDuration(stack));
+		if(!world.isRemote)
+			if (potion.isSplash) {
+	
+				if (!player.capabilities.isCreativeMode)
+					--stack.stackSize;
+	
+				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+	
+				if (!world.isRemote)
+					world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
+	
+			} else
+				player.setItemInUse(stack, getMaxItemUseDuration(stack));
 
 		return stack;
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int par1) {
+    	SubItemPotion potion = getMetaItem(par1);
+        return potion.isSplash ? this.splash : this.bottle;
+    }
 
 	@Override
-	public boolean hasEffect(ItemStack par1ItemStack) {
-		return true;
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamageForRenderPass(int par1, int par2)
+    {
+        return par2 == 0 ? this.overlay : super.getIconFromDamageForRenderPass(par1, par2);
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
+		String s1 = StatCollector.translateToLocal(potion.getEffect().getName()).trim();
+		
+        if (potion.strength > 0)
+        {
+            s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potion.strength).trim();
+        }
+        
+        if (!potion.getEffect().isInstant())
+        {
+            s1 = s1 + " (" + Potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength)) + ")";
+        }
+        
+        if (potion.getEffect().isBadEffect())
+        {
+            par3List.add(EnumChatFormatting.RED + s1);
+        }
+        else
+        {
+            par3List.add(EnumChatFormatting.GRAY + s1);
+        }
+        
+        if(potion.hasDesc) {
+        par3List.add("");
+        par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+        par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
+        }
+        if(potion.potionId == Brewcraft.angel.id)
+        	par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
+		
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+    	SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
+    		return par2 > 0 ? 16777215 : potion.getEffect().getLiquidColor();
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean requiresMultipleRenderPasses() {
+        return true;
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    {
+        return (pass == 0);
+    }
 
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister par1IconRegister)
+    {
+        this.bottle = par1IconRegister.registerIcon("potion_bottle_drinkable");
+        this.splash = par1IconRegister.registerIcon("potion_bottle_splash");
+        this.overlay = par1IconRegister.registerIcon("potion_overlay");
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static IIcon func_94589_d(String par0Str)
+    {
+        return par0Str.equals("bottle_drinkable") ? bottle : (par0Str.equals("bottle_splash") ? splash : (par0Str.equals("overlay") ? overlay : null));
+    }
 }

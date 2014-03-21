@@ -59,8 +59,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 			ItemStack stack = getStackInSlot(itemSlot);
 			if (stack != null) {
 				currItem = new SimpleItem(stack);
-				if (inputTank.isEmpty() || Brewcraft.registry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
-					//If there is no fluid or if there is a recipe for this item and fluid.
+				if(Brewcraft.registry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
 					decrStackSize(itemSlot, 1);
 					itemLeft = 120;
 				}

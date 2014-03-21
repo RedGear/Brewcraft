@@ -2,7 +2,7 @@ package redgear.brewcraft.potions.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.potions.PotionExtension;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 
 public class EffectFlight extends PotionExtension {
 
@@ -14,7 +14,7 @@ public class EffectFlight extends PotionExtension {
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		int duration = living.getActivePotionEffect(this).duration;
+		int duration = living.getActivePotionEffect(this).getDuration();
 
 		if (living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
@@ -27,6 +27,9 @@ public class EffectFlight extends PotionExtension {
 				player.capabilities.allowFlying = true;
 			if(!player.worldObj.isRemote)
 				player.sendPlayerAbilities();
+			if(AchievementPlugin.flight != null) {
+				player.addStat(AchievementPlugin.flight, 1);
+			}
 		}
 	}
 }

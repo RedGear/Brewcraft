@@ -17,14 +17,10 @@ public class BrewcraftClientProxy extends BrewcraftCommonProxy {
 	public void registerRenders() {
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
-		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBrewery.class, new TileRendererBrewery());
 	}
 	
-
-
-	public  MetaTile createBrewery(int blockId){
-		return new MetaTileSpecialRenderer(blockId, Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery().getRenderId());
+	public  MetaTile createBrewery(){
+		return new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery", new RenderItemBrewery().getRenderId());
 	}	
-
 }
