@@ -1,9 +1,8 @@
-package redgear.brewcraft.common;
+package redgear.brewcraft.client;
 
 import net.minecraft.block.material.Material;
-import redgear.brewcraft.blocks.RenderItemBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
-import redgear.brewcraft.blocks.TileRendererBrewery;
+import redgear.brewcraft.common.BrewcraftCommonProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.RenderBrewcraftPotion;
 import redgear.core.block.MetaTile;

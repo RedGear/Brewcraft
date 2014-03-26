@@ -1,13 +1,14 @@
 package redgear.brewcraft.plugins.compat;
 
-import buildcraft.api.fuels.IronEngineFuel;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.LoaderState.ModState;
-import forestry.api.storage.BackpackManager;
 import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.mod.Mods;
+import cpw.mods.fml.common.LoaderState.ModState;
+import forestry.api.storage.BackpackManager;
 
 public class ForestryPlugin implements IPlugin{
 	
@@ -29,12 +30,12 @@ public class ForestryPlugin implements IPlugin{
 		if(Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin",
 				"Toggle Forestry Plugin", true)) {
 			if(Mods.Forestry.isIn()) {
-				BackpackManager.backpackItems[HUNTER].add(Brewcraft.goldenFeather.getStack());
-				BackpackManager.backpackItems[HUNTER].add(Brewcraft.charredBone.getStack());
-				BackpackManager.backpackItems[HUNTER].add(Brewcraft.obsidianTear.getStack());
-				BackpackManager.backpackItems[ADVENTURER].add(Brewcraft.holyDust.getStack());
+				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.goldenFeather.getStack());
+				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.charredBone.getStack());
+				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.obsidianTear.getStack());
+				BackpackManager.backpackItems[ADVENTURER].add(IngredientPlugin.holyDust.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(Brewcraft.brewery.getStack());
-				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(Brewcraft.potions));
+				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(PotionPlugin.potions));
 			}
 		}
 	}

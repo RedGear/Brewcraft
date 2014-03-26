@@ -5,131 +5,13 @@ item.RedGear.Brewcraft.Ingredients.splashBottle.name=Glass Bottle
 item.RedGear.Brewcraft.Ingredients.obsidiantear.name=Plagued Tear
 	
 
-item.RedGear.Brewcraft.Potions.bottleHolyWater.name=Potion of Holy Water
-item.RedGear.Brewcraft.Potions.bottleHolyWaterII.name=Potion of Holy Water
-item.RedGear.Brewcraft.Potions.splashHolyWater.name=Splash Potion of Holy Water
-item.RedGear.Brewcraft.Potions.splashHolyWaterII.name=Splash Potion of Holy Water
-item.RedGear.Brewcraft.Potions.bottleHolyWaterIII.name=Potion of Holy Water
-item.RedGear.Brewcraft.Potions.splashHolyWaterIII.name=Splash Potion of Holy Water
-item.RedGear.Brewcraft.Potions.bottleHolyWaterLong.name=Potion of Holy Water
-item.RedGear.Brewcraft.Potions.splashHolyWaterLong.name=Splash Potion of Holy Water
-
-item.RedGear.Brewcraft.Potions.bottleFlying.name=Potion of Ascension
-item.RedGear.Brewcraft.Potions.bottleFlyingLong.name=Potion of Ascension
-item.RedGear.Brewcraft.Potions.splashFlying.name=Splash Potion of Ascension
-item.RedGear.Brewcraft.Potions.splashFlyingLong.name=Splash Potion of Ascension
-
-item.RedGear.Brewcraft.Potions.bottleWither.name=Potion of Wither
-item.RedGear.Brewcraft.Potions.bottleWitherII.name=Potion of Wither
-item.RedGear.Brewcraft.Potions.bottleWitherLong.name=Potion of Wither
-item.RedGear.Brewcraft.Potions.splashWither.name=Splash Potion of Wither
-item.RedGear.Brewcraft.Potions.splashWitherII.name=Splash Potion of Wither
-item.RedGear.Brewcraft.Potions.splashWitherLong.name=Splash Potion of Wither
-item.RedGear.Brewcraft.Potions.splashWitherIII.name=Splash Potion of Wither
-item.RedGear.Brewcraft.Potions.bottleWitherIII.name=Potion of Wither
-
-item.RedGear.Brewcraft.Potions.bottleAntidote.name=Potion of Remedy
-item.RedGear.Brewcraft.Potions.bottleAntidoteII.name=Potion of Remedy
-item.RedGear.Brewcraft.Potions.bottleAntidoteLong.name=Potion of Remedy
-item.RedGear.Brewcraft.Potions.splashAntidote.name=Splash Potion of Remedy
-item.RedGear.Brewcraft.Potions.splashAntidoteII.name=Splash Potion of Remedy
-item.RedGear.Brewcraft.Potions.splashAntidoteLong.name=Splash Potion of Remedy
-item.RedGear.Brewcraft.Potions.splashAntidoteIII.name=Splash Potion of Remedy
-item.RedGear.Brewcraft.Potions.bottleAntidoteIII.name=Potion of Remedy
-
-item.RedGear.Brewcraft.Potions.bottleBoom.name=Potion of Combustion
-item.RedGear.Brewcraft.Potions.bottleBoomII.name=Potion of Combustion
-item.RedGear.Brewcraft.Potions.bottleBoomLong.name=Potion of Combustion
-item.RedGear.Brewcraft.Potions.splashBoom.name=Splash Potion of Combustion
-item.RedGear.Brewcraft.Potions.splashBoomII.name=Splash Potion of Combustion
-item.RedGear.Brewcraft.Potions.splashBoomLong.name=Splash Potion of Combustion
-item.RedGear.Brewcraft.Potions.splashBoomIII.name=Splash Potion of Combustion
-item.RedGear.Brewcraft.Potions.bottleBoomIII.name=Potion of Combustion
-
-item.RedGear.Brewcraft.Potions.bottleGhast.name=Bottled Ghast
-item.RedGear.Brewcraft.Potions.splashGhast.name=Bottled Ghast
-
-item.RedGear.Brewcraft.Potions.bottleFreezing.name=Potion of Cryogenics
-item.RedGear.Brewcraft.Potions.bottleFreezingLong.name=Potion of Cryogenics
-item.RedGear.Brewcraft.Potions.splashFreezing.name=Splash Potion of Cryogenics
-item.RedGear.Brewcraft.Potions.splashFreezingLong.name=Splash Potion of Cryogenics
-
-item.RedGear.Brewcraft.Potions.bottleRegenIII.name=Potion of Regeneration
-item.RedGear.Brewcraft.Potions.splashRegenIII.name=Splash Potion of Regeneration
-item.RedGear.Brewcraft.Potions.bottleFastIII.name=Potion of Swiftness
-item.RedGear.Brewcraft.Potions.splashFastIII.name=Splash Potion of Swiftness
-item.RedGear.Brewcraft.Potions.splashStrengthIII.name=Splash Potion of Strength
-item.RedGear.Brewcraft.Potions.bottleStrengthIII.name=Potion of Strength
-item.RedGear.Brewcraft.Potions.splashFastIII.name=Splash Potion of Swiftness
-item.RedGear.Brewcraft.Potions.bottleFireResistII.name=Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.splashFireResistII.name=Splash Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.bottleFireResistIII.name=Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.splashFireResistIII.name=Splash Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.bottleFireResistIIII.name=Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.splashFireResistIIII.name=Splash Potion of Fire Resistance
-item.RedGear.Brewcraft.Potions.bottlePoisonIII.name=Potion of Poison
-item.RedGear.Brewcraft.Potions.splashPoisonIII.name=Splash Potion of Poison
-item.RedGear.Brewcraft.Potions.bottleHarmIII.name=Potion of Harming
-item.RedGear.Brewcraft.Potions.splashHarmIII.name=Potion of Harming
-item.RedGear.Brewcraft.Potions.bottleHealingIII.name=Potion of Healing
-item.RedGear.Brewcraft.Potions.splashHealingIII.name=Splash Potion of Healing
+potion.angel.postfix=Potion of Holy Water
+potion.flight.postfix=Potion of Ascension
+potion.immunity.postfix=Potion of Remedy
+potion.creeper.postfix=Potion of Combustion
+potion.frozen.postfix=Potion of Cryogenics
 	
 tile.RedGear.Brewcraft.Brewery.Brewery.name=Brewery
-	
-fluid.redgear.brewcraft.potionHolyWater=Holy Water
-fluid.redgear.brewcraft.potionHolyWaterII=Holy Water II
-fluid.redgear.brewcraft.potionHolyWaterIII=Holy Water III
-fluid.redgear.brewcraft.potionHolyWaterLong=Long Holy Water
-fluid.redgear.brewcraft.potionFlying=Effervescent Ascension
-fluid.redgear.brewcraft.potionFlyingLong=Long Effervescent Ascension
-fluid.redgear.brewcraft.potionWither=Festering Wither
-fluid.redgear.brewcraft.potionWitherII=Festering Wither II
-fluid.redgear.brewcraft.potionWitherIII=Festering Wither III
-fluid.redgear.brewcraft.potionWitherLong=Long Festering Wither
-fluid.redgear.brewcraft.potionAntidote=Remedy
-fluid.redgear.brewcraft.potionAntidoteII=Remedy II
-fluid.redgear.brewcraft.potionAntidoteIII=Remedy III
-fluid.redgear.brewcraft.potionAntidoteLong=Long Remedy
-fluid.redgear.brewcraft.potionBoom=Unstable Gunpowder Compound
-fluid.redgear.brewcraft.potionBoomII=Unstable Gunpowder Compound II
-fluid.redgear.brewcraft.potionBoomIII=Unstable Gunpowder Compound III
-fluid.redgear.brewcraft.potionBoomLong=Long Unstable Gunpowder Compound
-fluid.redgear.brewcraft.potionFreezing=Cryogenic Fluid
-fluid.redgear.brewcraft.potionFreezingLong=Long Cryogenic Fluid
-	
-fluid.redgear.brewcraft.potionAwkward=Awkward Potion
-fluid.redgear.brewcraft.potionVision=Potion of Night Vision
-fluid.redgear.brewcraft.potionVisionLong=Long Potion of Night Vision
-fluid.redgear.brewcraft.potionInvisible=Potion of Invisibility
-fluid.redgear.brewcraft.potionInvisibleLong=Long Potion of Invisibility
-fluid.redgear.brewcraft.potionRegen=Potion of Regeneraton
-fluid.redgear.brewcraft.potionRegenLong=Long Potion of Regeneration
-fluid.redgear.brewcraft.potionFast=Potion of Swiftness
-fluid.redgear.brewcraft.potionFastLong=Long Potion of Swiftness
-fluid.redgear.brewcraft.potionFastII=Potion of Swiftness II
-fluid.redgear.brewcraft.potionFastIII=Potion of Swiftness III
-fluid.redgear.brewcraft.potionWeakness=Potion of Weakness
-fluid.redgear.brewcraft.potionStrength=Potion of Strength
-fluid.redgear.brewcraft.potionStrengthLong=Long Potion of Strength
-fluid.redgear.brewcraft.potionStrengthII=Potion of Strength II
-fluid.redgear.brewcraft.potionStrengthIII=Potion of Strength III
-fluid.redgear.brewcraft.potionFireResist=Potion of Fire Resistance
-fluid.redgear.brewcraft.potionFireResistII=Potion of Fire Resistance II
-fluid.redgear.brewcraft.potionFireResistIII=Potion of Fire Resistance III
-fluid.redgear.brewcraft.potionFireResistIIII=Potion of Fire Resistance IIII
-fluid.redgear.brewcraft.potionFireResistLong=Long Potion of Fire Resistance
-fluid.redgear.brewcraft.potionSlowness=Potion of Slowness
-fluid.redgear.brewcraft.potionSlownessLong=Long Potion of Slowness
-fluid.redgear.brewcraft.potionPoison=Potion of Poison
-fluid.redgear.brewcraft.potionPoisonII=Potion of Poison II
-fluid.redgear.brewcraft.potionPoisonIII=Potion of Poison III
-fluid.redgear.brewcraft.potionPoisonLong=Long Potion of Poison
-fluid.redgear.brewcraft.potionHarm=Potion of Harming
-fluid.redgear.brewcraft.potionHarmII=Potion of Harming II
-fluid.redgear.brewcraft.potionHarmIII=Potion of Harming III
-fluid.redgear.brewcraft.potionHealing=Potion of Healing
-fluid.redgear.brewcraft.potionHealingII=Potion of Healing II
-fluid.redgear.brewcraft.potionHealingIII=Potion of Healing III
 	
 potion.creeper=Combustion
 potion.angel=Blessed

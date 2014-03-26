@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.client;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -6,6 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import redgear.brewcraft.blocks.ModelBrewery;
+import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.core.util.StringHelper;
 

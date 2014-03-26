@@ -5,7 +5,6 @@ import java.util.Set;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.BrewingAPI;
@@ -13,27 +12,31 @@ import redgear.brewcraft.common.Brewcraft;
 import redgear.core.util.SimpleItem;
 
 public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeRegistry {
+	
+	public final static int DEFAULT_TIME = 4;
+	public final static int FLUID_CONSUMPTION_BASE = 100;
+	public final static int ITEM_CONSUMPTION_BASE = 12;
 
 	public Set<BreweryRecipe> recipes = new HashSet<BreweryRecipe>();
 
 	public RecipeRegistry() {
-		BrewingAPI.registry = this;
+		BrewingAPI.RECIPE_REGISTRY = this;
 	}
 
 	public void addRecipe(Fluid input, Fluid output, Item item) {
-		addRecipe(input, output, item, Brewcraft.ITEM_CONSUMPTION_BASE);
+		addRecipe(input, output, item, ITEM_CONSUMPTION_BASE);
 	}
 
 	public void addRecipe(Fluid input, Fluid output, SimpleItem item) {
-		addRecipe(input, output, item, Brewcraft.ITEM_CONSUMPTION_BASE);
+		addRecipe(input, output, item, ITEM_CONSUMPTION_BASE);
 	}
 
 	public void addRecipe(Fluid input, Fluid output, Item item, int itemAmount) {
-		addRecipe(input, output, item, itemAmount, Brewcraft.DEFAULT_TIME);
+		addRecipe(input, output, item, itemAmount, DEFAULT_TIME);
 	}
 
 	public void addRecipe(Fluid input, Fluid output, SimpleItem item, int itemAmount) {
-		addRecipe(input, output, item, itemAmount, Brewcraft.DEFAULT_TIME);
+		addRecipe(input, output, item, itemAmount, DEFAULT_TIME);
 	}
 
 	public void addRecipe(Fluid input, Fluid output, Item item, int itemAmount, int time) {
@@ -41,8 +44,8 @@ public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeR
 	}
 
 	public void addRecipe(Fluid input, Fluid output, SimpleItem item, int itemAmount, int time) {
-		addRecipe(input == null ? null : new FluidStack(input, Brewcraft.FLUID_CONSUMPTION_BASE), output == null ? null
-				: new FluidStack(output, Brewcraft.FLUID_CONSUMPTION_BASE), item, itemAmount, time);
+		addRecipe(input == null ? null : new FluidStack(input, FLUID_CONSUMPTION_BASE), output == null ? null
+				: new FluidStack(output, FLUID_CONSUMPTION_BASE), item, itemAmount, time);
 	}
 
 	@Override

@@ -1,40 +1,32 @@
-package redgear.brewcraft.common;
+package redgear.brewcraft.event;
 
 import java.util.Random;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.common.Brewcraft;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class BrewcraftEventHandler {
+public class DropHandler {
+	
+	private static DropHandler instance;
 
-	private static BrewcraftEventHandler instance;
-
-	private BrewcraftEventHandler() {
+	private DropHandler() {
 
 	}
 
-	public static BrewcraftEventHandler forge() {
+	public static DropHandler register() {
 		if (instance == null) {
-			instance = new BrewcraftEventHandler();
+			instance = new DropHandler();
 			MinecraftForge.EVENT_BUS.register(instance);
 
 		}
 		return instance;
 	}
-
+	
 	@SubscribeEvent
 	public void editDrops(final LivingDropsEvent event) {
 		final Random rand = event.entity.worldObj.rand;
@@ -73,29 +65,5 @@ public class BrewcraftEventHandler {
 			}
 		}
 	}
-	
-	@SubscribeEvent
-	public void collectBrewery(final LivingUpdateEvent event) {
-		if(event.entity instanceof EntityPlayer) {
-			final EntityPlayer player = (EntityPlayer) event.entity;
-			if(player.inventory.hasItemStack(Brewcraft.brewery.getStack()))
-				player.addStat(AchievementPlugin.craftBrewery, 1);
-		}
-	}
-	
-	@SubscribeEvent
-	public void cancelFireDamage(final LivingHurtEvent event) {
-		if(event.entity instanceof EntityLivingBase) {
-			final EntityLivingBase living = (EntityLivingBase) event.entity;
-			if(living.getActivePotionEffect(Brewcraft.fireproof) != null) {
-				if(event.source.equals(DamageSource.lava) || event.source.equals(DamageSource.inFire) 
-			    	    || event.source.equals(DamageSource.onFire)) {
-					event.ammount = 0;
-					if(living.getActivePotionEffect(Brewcraft.fireproof).getAmplifier() >= 1) {
-						living.heal(1F);
-					}
-				}
-			}
-		}
-	}
+
 }

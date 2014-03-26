@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,6 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.core.render.SimpleBlockRenderingHandler;
 
 public class RenderItemBrewery  extends SimpleBlockRenderingHandler{

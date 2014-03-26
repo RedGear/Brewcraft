@@ -44,15 +44,6 @@ public class AchievementPlugin implements IPlugin{
 	@Override
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("Plugins", "Achievement Plugin", "Toggle Achievement Plugin", true)) {
-			/**
-			 * @param String - The ID of the achievement.
-			 * @paran String - The name of the achievement.
-			 * @param int - the X coord of the achievement on the GUI.
-			 * @param int - the Y coord of the achievement on the GUI.
-			 * @param ItemStack - the icon for the achievement.
-			 * @param Achievement - the precursor for the achievement.
-			 */
-		
 			craftBrewery = new Achievement("craftBrewery", "craftBrewery", 0, 0, Brewcraft.brewery.getStack(), null)
 				.registerStat().setSpecial();
 			explode = new Achievement("potionExplode", "potionExplode", 1, 3, Items.gunpowder, craftBrewery)
@@ -61,11 +52,11 @@ public class AchievementPlugin implements IPlugin{
 				.registerStat();
 			fireproof = new Achievement("potionFireproof", "potionFireproof", 2, -2, Blocks.netherrack, craftBrewery)
 				.registerStat();
-			flight = new Achievement("potionFlight", "potionFlight", 4, 1, Brewcraft.goldenFeather.getStack(), craftBrewery)
+			flight = new Achievement("potionFlight", "potionFlight", 4, 1, IngredientPlugin.goldenFeather.getStack(), craftBrewery)
 				.registerStat();
 			immunity = new Achievement("potionImmunity", "potionImmunity", -1, 2, Items.milk_bucket, craftBrewery)
 				.registerStat();
-			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0, Brewcraft.holyDust.getStack(), craftBrewery)
+			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0, IngredientPlugin.holyDust.getStack(), craftBrewery)
 				.registerStat();
 			
 			pageBrewcraft = new AchievementPage("Brewcraft", craftBrewery, explode, freeze, fireproof, flight,

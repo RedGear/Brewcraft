@@ -46,18 +46,6 @@ public class SWTPlugin implements IPlugin{
 						SimpleItem pureSand = new SimpleItem((ItemStack) items.getField("purifiedSoul").get(null));
 						SimpleItem fungus = new SimpleItem((ItemStack) items.getField("gungusSpore").get(null));
 						SimpleItem corruptEctoplasm = new SimpleItem((ItemStack) items.getField("corruptedEctoplasm").get(null));
-						
-						Brewcraft.registry.addRecipe(Brewcraft.fluidWither, Brewcraft.fluidBoom, dynamiteSnowball);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidWither, Brewcraft.fluidBoom, dynamite);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidSlowness, Brewcraft.fluidFreezing, rockSnowball);
-						Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither, ectoplasm);
-						Brewcraft.registry.addRecipe(FluidRegistry.LAVA, Brewcraft.fluidWither, corruptEctoplasm, Brewcraft.ITEM_CONSUMPTION_BASE, Brewcraft.DEFAULT_TIME - 3);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidRegen, Brewcraft.fluidHolyWater, pureSand);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidPoison, Brewcraft.fluidHarm, fungus);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidFireResist, Brewcraft.fluidSlowness, fungus);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidAwkward, Brewcraft.fluidWeakness, fungus);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidStrength, Brewcraft.fluidWeakness, fungus);
-						Brewcraft.registry.addRecipe(Brewcraft.fluidVision, Brewcraft.fluidInvisible, fungus);
 					}
 				}
 				catch(Exception e) {

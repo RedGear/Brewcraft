@@ -1,21 +1,23 @@
 package redgear.brewcraft.potions;
 
-import redgear.core.util.StringHelper;
 import net.minecraftforge.fluids.Fluid;
+import redgear.core.util.SimpleItem;
+import redgear.core.util.StringHelper;
 
 public class FluidPotion extends Fluid{
 	
-	private final int color;
+	private SimpleItem item;
 
-	public FluidPotion(String fluidName, int color) {
+	public FluidPotion(String fluidName, SimpleItem bottle, SimpleItem splash) {
 		super(fluidName);
-		this.color = color;
 		this.setUnlocalizedName(StringHelper.parseUnLocalName(fluidName));
+		this.item = bottle;
 	}
 	
-	public int getColor()
+	@Override
+    public int getColor()
     {
-        return color;
+        return item.getItem().getColorFromItemStack(item.getStack(), 0);
     }
-
+	
 }

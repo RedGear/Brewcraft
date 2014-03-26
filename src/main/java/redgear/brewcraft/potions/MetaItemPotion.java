@@ -9,12 +9,14 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
+import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 import redgear.core.util.SimpleItem;
@@ -143,10 +145,25 @@ public class MetaItemPotion extends MetaItem {
         par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
         par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
         }
-        if(potion.potionId == Brewcraft.angel.id)
+        if(potion.potionId == EffectPlugin.angel.id)
         	par3List.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
 		
 	}
+	@Override
+    public String getItemStackDisplayName(ItemStack par1ItemStack) {
+		SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
+        String s = "";
+
+         if (potion.isSplash) {
+             s = StatCollector.translateToLocal("potion.prefix.grenade").trim() + " ";
+             }
+
+        	 String s1 = "";
+             s1 = potion.getEffect().getName();
+             s1 = s1 + ".postfix";
+             
+             return s + StatCollector.translateToLocal(s1).trim();
+    }
 	
 	@Override
     @SideOnly(Side.CLIENT)

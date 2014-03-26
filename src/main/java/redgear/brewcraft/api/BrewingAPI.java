@@ -5,7 +5,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class BrewingAPI {
 
-	public static IRecipeRegistry registry;
+	public static IRecipeRegistry RECIPE_REGISTRY;
 	
 	public interface IRecipeRegistry {
 
