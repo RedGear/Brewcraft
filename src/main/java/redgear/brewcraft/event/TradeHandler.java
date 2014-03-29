@@ -35,18 +35,19 @@ public class TradeHandler implements IVillageTradeHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
-		if (villager.getProfession() == 0) {
+		if (villager.getProfession() == 2) {
 			if (Brewcraft.inst.getBoolean("World", "Blessed Powder Priest Trade", "Toggle Blessed Powder Trade", true)) {
-				recipeList.add(new MerchantRecipe(IngredientPlugin.holyDust.getStack(random.nextInt(3) + 2),
-						new ItemStack(Items.emerald, random.nextInt(3) + 2)));
+				recipeList.add(new MerchantRecipe(IngredientPlugin.holyDust.getStack(random.nextInt(1) + 2),
+						new ItemStack(Items.emerald, random.nextInt(4) + 1)));
+				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
+						IngredientPlugin.holyDust.getStack(random.nextInt(3) + 1)));
 			}
 			if (Brewcraft.inst.getBoolean("World", "Plagued Tear Priest Trade", "Toggle Plagued Tear Trade", true)) {
 				if (villager.worldObj.getWorldTime() > 14000) {
-					recipeList.add(new MerchantRecipe(IngredientPlugin.obsidianTear.getStack(random.nextInt(1) + 1),
-							new ItemStack(Items.emerald, random.nextInt(5) + 4)));
+					recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
+							IngredientPlugin.obsidianTear.getStack(random.nextInt(1) + 1)));
 				}
 			}
 		}
 	}
-
 }

@@ -18,12 +18,12 @@ public class PotionRegistry implements redgear.brewcraft.api.PotionAPI.IPotionRe
 		PotionAPI.POTION_REGISTRY = this;
 	}
 
-	public void addPotion(String name, Potion effect, int strength, int duration) {
+	public void addPotion(String name, Potion effect, int duration, int strength) {
 		addPotion(name, effect, duration, strength, false);
 	}
 
 	@Override
-	public void addPotion(String name, Potion effect, int strength, int duration, boolean hasDescription) {
+	public void addPotion(String name, Potion effect, int duration, int strength, boolean hasDescription) {
 		if (effect != null) {
 			SimpleItem bottle = PotionPlugin.potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect,
 					duration * 20, strength, hasDescription));

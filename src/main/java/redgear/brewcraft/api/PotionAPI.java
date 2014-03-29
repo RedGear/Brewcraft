@@ -27,7 +27,7 @@ public class PotionAPI {
 		 * would generate like this - 'potion.example.0.desc'
 		 */
 
-		public void addPotion(String name, Potion effect, int strength, int duration, boolean hasDescription);
+		public void addPotion(String name, Potion effect, int duration, int strength, boolean hasDescription);
 
 	}
 

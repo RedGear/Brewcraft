@@ -39,7 +39,7 @@ public class Brewcraft extends ModUtils {
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
-	@SidedProxy(clientSide = "redgear.brewcraft.common.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
+	@SidedProxy(clientSide = "redgear.brewcraft.client.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
 	public static BrewcraftCommonProxy proxy;
 
 	public static MetaTile brewing;
@@ -47,9 +47,8 @@ public class Brewcraft extends ModUtils {
 
 	public static CreativeTabs tab;
 
-	private boolean flag = Brewcraft.inst.getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
-			"Toggle the cool background for the Brewcraft creative tab.", true);
-
+	public boolean flag;
+	
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 
 	@Override
@@ -67,6 +66,9 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new SWTPlugin());
 		addPlugin(new VanillaPlugin());
+		
+		flag = getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+				"Toggle the cool background for the Brewcraft creative tab.", true);
 
 		tab = new BrewcraftTab("brewcraft", flag).setNoTitle();
 
