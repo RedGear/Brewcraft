@@ -46,6 +46,8 @@ potion.immunity.1.desc=Immunity to a few debuffs
 potion.immunity.2.desc=Immunity to most debuffs
 potion.damageBoost.2.desc=+390% Attack Damage
 potion.moveSpeed.2.desc=+60% Speed
+potion.weakness.0.desc=-0.5 Attack Damage
+potion.moveSlowdown.0.desc=-15% Speed
 potion.creeper.0.desc=Explosion (Radius = 4)
 potion.creeper.1.desc=Explosion (Radius = 7)
 potion.creeper.2.desc=Explosion (Radius = 11)

@@ -26,9 +26,9 @@ public class PotionRegistry implements redgear.brewcraft.api.PotionAPI.IPotionRe
 	public void addPotion(String name, Potion effect, int strength, int duration, boolean hasDescription) {
 		if (effect != null) {
 			SimpleItem bottle = PotionPlugin.potions.addMetaItem(new SubItemPotion("bottle" + name, false, effect,
-					duration, strength, hasDescription));
+					duration * 20, strength, hasDescription));
 			SimpleItem splash = PotionPlugin.potions.addMetaItem(new SubItemPotion("splash" + name, true, effect,
-					duration, strength, hasDescription));
+					duration * 20, strength, hasDescription));
 			Fluid potion = FluidUtil.createFluid(new FluidPotion("potion" + name, bottle), PotionPlugin.potionTexture);
 
 			FluidContainerRegistry.registerFluidContainer(potion, bottle.getStack(),
