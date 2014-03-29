@@ -17,8 +17,8 @@ public class EffectFrozen extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		if(living instanceof EntityPlayer && AchievementPlugin.freeze != null) {
-			((EntityPlayer)living).addStat(AchievementPlugin.freeze, 1);
+		if (living instanceof EntityPlayer && AchievementPlugin.freeze != null) {
+			((EntityPlayer) living).addStat(AchievementPlugin.freeze, 1);
 		}
 	}
 

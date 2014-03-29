@@ -12,7 +12,7 @@ import redgear.brewcraft.common.Brewcraft;
 import redgear.core.util.SimpleItem;
 
 public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeRegistry {
-	
+
 	public final static int DEFAULT_TIME = 4;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
 	public final static int ITEM_CONSUMPTION_BASE = 12;

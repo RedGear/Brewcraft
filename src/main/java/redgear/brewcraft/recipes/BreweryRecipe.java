@@ -10,16 +10,16 @@ public class BreweryRecipe {
 	public final SimpleItem item;
 	public final int amount;
 	public final int time;
-	
-	BreweryRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount, int time){
+
+	BreweryRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount, int time) {
 		this.input = input;
 		this.output = output;
 		this.item = item;
 		this.amount = amount;
 		this.time = time;
 	}
-	
-	BreweryRecipe(FluidStack input, FluidStack output, ItemStack item, int amount, int time){
-		 this(input, output, new SimpleItem(item), amount, time);
+
+	BreweryRecipe(FluidStack input, FluidStack output, ItemStack item, int amount, int time) {
+		this(input, output, new SimpleItem(item), amount, time);
 	}
 }

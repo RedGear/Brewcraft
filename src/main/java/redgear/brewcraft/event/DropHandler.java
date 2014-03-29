@@ -7,11 +7,11 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.plugins.common.IngredientPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class DropHandler {
-	
+
 	private static DropHandler instance;
 
 	private DropHandler() {
@@ -26,7 +26,7 @@ public class DropHandler {
 		}
 		return instance;
 	}
-	
+
 	@SubscribeEvent
 	public void editDrops(final LivingDropsEvent event) {
 		final Random rand = event.entity.worldObj.rand;
@@ -39,27 +39,26 @@ public class DropHandler {
 					&& event.source.getDamageType().equals("player")) {
 
 				skeleton.entityDropItem(
-						Brewcraft.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
+						IngredientPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
 				skeleton.worldObj.playSoundAtEntity(skeleton, "random.bowhit", 1F, 1F);
 
 			}
 		}
-			
-			if (event.entity instanceof EntityGhast) {
 
-				if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
+		if (event.entity instanceof EntityGhast) {
 
-					event.entity.entityDropItem(
-							Brewcraft.obsidianTear.getStack(1), 0.0F);
-					event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
+			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
 
-				}
+				event.entity.entityDropItem(IngredientPlugin.obsidianTear.getStack(1), 0.0F);
+				event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
+
+			}
 		}
 
 		if (event.entityLiving instanceof EntityChicken) {
 			if (rand.nextDouble() < 0.05D) {
 
-				event.entityLiving.entityDropItem(Brewcraft.goldenFeather.getStack(), 0.0F);
+				event.entityLiving.entityDropItem(IngredientPlugin.goldenFeather.getStack(), 0.0F);
 				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
 
 			}

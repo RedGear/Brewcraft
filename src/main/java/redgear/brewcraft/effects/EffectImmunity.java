@@ -14,14 +14,14 @@ public class EffectImmunity extends PotionExtension {
 	}
 
 	@Override
-	public void performEffect(EntityLivingBase living, int strength) {	
+	public void performEffect(EntityLivingBase living, int strength) {
 		living.removePotionEffect(Potion.poison.id);
-		
+
 		if (strength == 1) {
 			living.removePotionEffect(Potion.hunger.id);
 			living.removePotionEffect(Potion.weakness.id);
 		}
-		
+
 		if (strength >= 2) {
 			living.removePotionEffect(Potion.hunger.id);
 			living.removePotionEffect(Potion.weakness.id);
@@ -29,9 +29,9 @@ public class EffectImmunity extends PotionExtension {
 			living.removePotionEffect(Potion.confusion.id);
 			living.removePotionEffect(Potion.blindness.id);
 		}
-		
-		if(living instanceof EntityPlayer && AchievementPlugin.immunity != null) {
-			((EntityPlayer)living).addStat(AchievementPlugin.immunity, 1);
+
+		if (living instanceof EntityPlayer && AchievementPlugin.immunity != null) {
+			((EntityPlayer) living).addStat(AchievementPlugin.immunity, 1);
 		}
 
 	}

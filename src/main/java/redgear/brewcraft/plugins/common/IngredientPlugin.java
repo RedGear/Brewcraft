@@ -18,7 +18,7 @@ public class IngredientPlugin implements IPlugin{
 	public static SimpleItem splashBottle;
 	@Override
 	public String getName() {
-		return "Brewcraft|IngredientPlugin";
+		return "IngredientPlugin";
 	}
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
@@ -30,10 +30,6 @@ public class IngredientPlugin implements IPlugin{
 	}
 	@Override
 	public void preInit(ModUtils mod) {
-		
-	}
-	@Override
-	public void Init(ModUtils mod) {
 		ingredients = new MetaItem("RedGear.Brewcraft.Ingredients");
 		holyDust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenFeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
@@ -44,7 +40,11 @@ public class IngredientPlugin implements IPlugin{
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
 	@Override
+	public void Init(ModUtils mod) {
+
+	}
+	@Override
 	public void postInit(ModUtils mod) {
-		
+
 	}
 }

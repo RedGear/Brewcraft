@@ -19,7 +19,7 @@ public class BreweryInputTank extends AdvFluidTank {
 	 */
 	@Override
 	public boolean canAccept(int fluidId) {
-		if (Brewcraft.registry.getBreweryRecipe(fluidId, tile.getCurrItem()) != null)
+		if (Brewcraft.recipeRegistry.getBreweryRecipe(fluidId, tile.getCurrItem()) != null)
 			return true;
 		else
 			return false;

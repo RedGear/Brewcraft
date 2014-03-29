@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.utils.PotionRegistry;
@@ -15,7 +14,7 @@ import redgear.core.mod.ModUtils;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.common.LoaderState.ModState;
 
-public class PotionPlugin implements IPlugin{
+public class PotionPlugin implements IPlugin {
 
 	public static MetaItemPotion potions;
 	public static SimpleItem emptyBottle = new SimpleItem(Items.glass_bottle);
@@ -24,24 +23,28 @@ public class PotionPlugin implements IPlugin{
 
 	@Override
 	public String getName() {
-		return "Brewcraft|PotionPlugin";
+		return "PotionPlugin";
 	}
+
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
 		return true;
 	}
+
 	@Override
 	public boolean isRequired() {
 		return true;
 	}
+
 	@Override
 	public void preInit(ModUtils mod) {
-		
+
 	}
+
 	@Override
 	public void Init(ModUtils mod) {
 		potions = new MetaItemPotion("RedGear.Brewcraft.Potions");
-		
+
 		createVanillaPotion("Awkward", 16, 0);
 		createVanillaPotion("Vision", 8198, 16390);
 		createVanillaPotion("VisionLong", 8262, 16454);
@@ -89,7 +92,7 @@ public class PotionPlugin implements IPlugin{
 		registry.addPotion("BoomLong", EffectPlugin.creeper, 320, 0, true);
 		registry.addPotion("Freezing", EffectPlugin.frozen, 300, 0, true);
 		registry.addPotion("FreezingLong", EffectPlugin.frozen, 600, 0, true);
-		
+
 		registry.addPotion("RegenIII", Potion.regeneration, 20 * 8, 2);
 		registry.addPotion("FastIII", Potion.moveSpeed, 20 * 40, 2, true);
 		registry.addPotion("StrengthIII", Potion.damageBoost, 20 * 40, 2, true);
@@ -100,14 +103,15 @@ public class PotionPlugin implements IPlugin{
 		registry.addPotion("HarmIII", Potion.harm, 20, 2);
 		registry.addPotion("HealingIII", Potion.heal, 20, 2);
 	}
+
 	@Override
 	public void postInit(ModUtils mod) {
-		
+
 	}
-	
+
 	private void createVanillaPotion(String name, int metaBottle, int metaSplash) {
-		Fluid potion = FluidUtil.createFluid(
-				new FluidPotion("potion" + name, Items.potionitem.getColorFromDamage(metaBottle), new SimpleItem(Items.potionitem, metaBottle), new SimpleItem(Items.potionitem, metaSplash)), potionTexture);
+		Fluid potion = FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(Items.potionitem,
+				metaBottle)), potionTexture);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle.getStack());
 		if (metaSplash != 0)

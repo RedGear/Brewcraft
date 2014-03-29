@@ -8,7 +8,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 
 public class CraftingHandler {
-	
+
 	private static CraftingHandler instance;
 
 	private CraftingHandler() {
@@ -23,10 +23,10 @@ public class CraftingHandler {
 		}
 		return instance;
 	}
-	
+
 	@SubscribeEvent
 	public void collectBrewery(final PlayerEvent.ItemCraftedEvent event) {
-		if(event.crafting.equals(Item.getItemFromBlock(Brewcraft.brewery.getBlock())))
-				event.player.addStat(AchievementPlugin.craftBrewery, 1);
+		if (event.crafting.equals(Item.getItemFromBlock(Brewcraft.brewery.getBlock())))
+			event.player.addStat(AchievementPlugin.craftBrewery, 1);
 	}
 }

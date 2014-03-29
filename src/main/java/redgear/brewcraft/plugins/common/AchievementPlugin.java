@@ -9,8 +9,8 @@ import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import cpw.mods.fml.common.LoaderState.ModState;
 
-public class AchievementPlugin implements IPlugin{
-	
+public class AchievementPlugin implements IPlugin {
+
 	public static Achievement craftBrewery;
 	public static Achievement explode;
 	public static Achievement freeze;
@@ -18,12 +18,12 @@ public class AchievementPlugin implements IPlugin{
 	public static Achievement flight;
 	public static Achievement immunity;
 	public static Achievement holywater;
-	
+
 	public static AchievementPage pageBrewcraft;
 
 	@Override
 	public String getName() {
-		return "Brewcraft|AchievementPlugin";
+		return "AchievementPlugin";
 	}
 
 	@Override
@@ -33,42 +33,42 @@ public class AchievementPlugin implements IPlugin{
 
 	@Override
 	public boolean isRequired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public void preInit(ModUtils mod) {
-		
+
 	}
 
 	@Override
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("Plugins", "Achievement Plugin", "Toggle Achievement Plugin", true)) {
 			craftBrewery = new Achievement("craftBrewery", "craftBrewery", 0, 0, Brewcraft.brewery.getStack(), null)
-				.registerStat().setSpecial();
+					.registerStat().setSpecial();
 			explode = new Achievement("potionExplode", "potionExplode", 1, 3, Items.gunpowder, craftBrewery)
-				.registerStat();
+					.registerStat();
 			freeze = new Achievement("potionFreeze", "potionFreeze", -2, 4, Items.snowball, craftBrewery)
-				.registerStat();
+					.registerStat();
 			fireproof = new Achievement("potionFireproof", "potionFireproof", 2, -2, Blocks.netherrack, craftBrewery)
-				.registerStat();
-			flight = new Achievement("potionFlight", "potionFlight", 4, 1, IngredientPlugin.goldenFeather.getStack(), craftBrewery)
-				.registerStat();
+					.registerStat();
+			flight = new Achievement("potionFlight", "potionFlight", 4, 1, IngredientPlugin.goldenFeather.getStack(),
+					craftBrewery).registerStat();
 			immunity = new Achievement("potionImmunity", "potionImmunity", -1, 2, Items.milk_bucket, craftBrewery)
-				.registerStat();
-			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0, IngredientPlugin.holyDust.getStack(), craftBrewery)
-				.registerStat();
-			
+					.registerStat();
+			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0,
+					IngredientPlugin.holyDust.getStack(), craftBrewery).registerStat();
+
 			pageBrewcraft = new AchievementPage("Brewcraft", craftBrewery, explode, freeze, fireproof, flight,
-				immunity, holywater);
-		
+					immunity, holywater);
+
 			AchievementPage.registerAchievementPage(pageBrewcraft);
 		}
 	}
 
 	@Override
 	public void postInit(ModUtils mod) {
-		
+
 	}
 
 }

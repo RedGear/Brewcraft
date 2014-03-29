@@ -10,8 +10,8 @@ import redgear.core.mod.Mods;
 import cpw.mods.fml.common.LoaderState.ModState;
 import forestry.api.storage.BackpackManager;
 
-public class ForestryPlugin implements IPlugin{
-	
+public class ForestryPlugin implements IPlugin {
+
 	private int HUNTER = 3;
 	private int ADVENTURER = 4;
 
@@ -22,14 +22,13 @@ public class ForestryPlugin implements IPlugin{
 
 	@Override
 	public void preInit(ModUtils mod) {
-		
+
 	}
 
 	@Override
 	public void Init(ModUtils mod) {
-		if(Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin",
-				"Toggle Forestry Plugin", true)) {
-			if(Mods.Forestry.isIn()) {
+		if (Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin", "Toggle Forestry Plugin", true)) {
+			if (Mods.Forestry.isIn()) {
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.goldenFeather.getStack());
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.charredBone.getStack());
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.obsidianTear.getStack());
@@ -42,18 +41,17 @@ public class ForestryPlugin implements IPlugin{
 
 	@Override
 	public void postInit(ModUtils mod) {
-		
+
 	}
 
 	@Override
 	public String getName() {
-		return "Brewcraft|ForestryPlugin";
+		return "ForestryPlugin";
 	}
 
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
 		return true;
 	}
-	
 
 }

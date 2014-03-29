@@ -16,6 +16,7 @@ import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.SWTPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
+import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTile;
@@ -36,41 +37,20 @@ public class Brewcraft extends ModUtils {
 
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
-	
+
 	@SidedProxy(clientSide = "redgear.brewcraft.common.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
 	public static BrewcraftCommonProxy proxy;
 
 	public static MetaTile brewing;
 	public static SimpleItem brewery;
-	
+
 	public static CreativeTabs tab;
+	
+	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-		
-		if(getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab.", true))
-			tab = new BrewcraftTab("brewcraft", true).setNoTitle();
-		else
-			tab = new BrewcraftTab("brewcraft", false).setNoTitle();
 
-		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
-				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
-		
-		proxy.registerRenders();
-
-		brewing = proxy.createBrewery();
-		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class,
-				CoreGuiHandler.addGuiMap("brewery", "Brewery")));
-		brewery.getBlock().setCreativeTab(tab);
-
-
-	}
-
-	@Override
-	protected void Init(FMLInitializationEvent event) {
-		
 		PotionArrayExpander.init();
 
 		addPlugin(new EffectPlugin());
@@ -78,12 +58,34 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new IngredientPlugin());
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
-		
+
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new SWTPlugin());
 		addPlugin(new VanillaPlugin());
-		
+
+		if (getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+				"Toggle the cool background for the Brewcraft creative tab.", true))
+			tab = new BrewcraftTab("brewcraft", true).setNoTitle();
+		else
+			tab = new BrewcraftTab("brewcraft", false).setNoTitle();
+
+		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
+				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
+
+		proxy.registerRenders();
+
+		brewing = proxy.createBrewery();
+		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(
+				"brewery", "Brewery")));
+		brewery.getBlock().setCreativeTab(tab);
+
+	}
+
+	@Override
+	protected void Init(FMLInitializationEvent event) {
+
 		CraftingHandler.register();
 		DamageHandler.register();
 		DropHandler.register();

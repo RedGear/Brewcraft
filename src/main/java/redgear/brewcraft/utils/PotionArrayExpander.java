@@ -8,14 +8,14 @@ import redgear.brewcraft.common.Brewcraft;
 import net.minecraft.potion.Potion;
 
 public class PotionArrayExpander {
-	
+
 	public static void init() {
 		int targetSize = Brewcraft.inst.getInt("Potion List Expansion", "Potion List Extension Size",
 				"Will only do something if expanding the potion list is set to true.", 64);
 		boolean enabled = Brewcraft.inst.getBoolean("Potion List Expansion", "Toggle Potion List Extension",
 				"Disable if another installed mod does this.", true);
 
-		if(enabled)
+		if (enabled)
 			if (Potion.potionTypes.length != targetSize)
 				for (Field f : Potion.class.getDeclaredFields()) {
 					f.setAccessible(true);
@@ -34,6 +34,6 @@ public class PotionArrayExpander {
 						Brewcraft.inst.logDebug(e);
 					}
 				}
-		}
+	}
 
 }
