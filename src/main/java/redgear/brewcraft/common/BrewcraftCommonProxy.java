@@ -14,13 +14,5 @@ public class BrewcraftCommonProxy {
 	public MetaTile createBrewery() {
 		return new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
 				RenderingRegistry.getNextAvailableRenderId());
-		//new RenderItemBrewery(), new TileRendererBrewery()
 	}
-
-	public MetaTile createBrewery(int blockId) {
-		return new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
-				RenderingRegistry.getNextAvailableRenderId());
-		//new RenderItemBrewery(), new TileRendererBrewery()
-	}
-
 }

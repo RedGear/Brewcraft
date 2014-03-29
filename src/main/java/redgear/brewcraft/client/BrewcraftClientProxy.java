@@ -19,6 +19,7 @@ public class BrewcraftClientProxy extends BrewcraftCommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBrewery.class, new TileRendererBrewery());
 	}
 
+	@Override
 	public MetaTile createBrewery() {
 		return new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
 				new RenderItemBrewery().getRenderId());
