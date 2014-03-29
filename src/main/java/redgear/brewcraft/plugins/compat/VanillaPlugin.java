@@ -1,14 +1,11 @@
 package redgear.brewcraft.plugins.compat;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.util.CoreDungeonLoot;
 import redgear.core.util.CoreDungeonLoot.LootRarity;
-import redgear.core.util.CoreTradeHandler;
 import cpw.mods.fml.common.LoaderState.ModState;
 
 public class VanillaPlugin implements IPlugin {
@@ -38,14 +35,6 @@ public class VanillaPlugin implements IPlugin {
 		if (Brewcraft.inst.getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot",
 				"Toggle Golden Feather as Dungeon Loot", true))
 			CoreDungeonLoot.addLootToDungeons(IngredientPlugin.goldenFeather.getStack(), LootRarity.RARE);
-		if (Brewcraft.inst.getBoolean("Global", "Golden Feather Villager Trades",
-				"Toggle Golden Feather Villager Trades", true))
-			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 7, 0),
-					IngredientPlugin.goldenFeather.getStack());
-		if (Brewcraft.inst.getBoolean("Global", "Blessed Powder Villager Trades",
-				"Toggle Blessed Powder Villager Trades", true))
-			CoreTradeHandler.addTradeRecipe(2, new ItemStack(Items.emerald, 11, 0),
-					IngredientPlugin.holyDust.getStack());
 
 	}
 

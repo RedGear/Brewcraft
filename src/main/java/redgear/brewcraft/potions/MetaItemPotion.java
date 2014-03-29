@@ -113,6 +113,7 @@ public class MetaItemPotion extends MetaItem {
 		return par2 == 0 ? this.overlay : super.getIconFromDamageForRenderPass(par1, par2);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

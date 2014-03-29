@@ -7,6 +7,7 @@ import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.event.CraftingHandler;
 import redgear.brewcraft.event.DamageHandler;
 import redgear.brewcraft.event.DropHandler;
+import redgear.brewcraft.event.TradeHandler;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.plugins.common.CraftingPlugin;
 import redgear.brewcraft.plugins.common.EffectPlugin;
@@ -45,7 +46,10 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem brewery;
 
 	public static CreativeTabs tab;
-	
+
+	private boolean flag = Brewcraft.inst.getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+			"Toggle the cool background for the Brewcraft creative tab.", true);
+
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 
 	@Override
@@ -64,11 +68,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new SWTPlugin());
 		addPlugin(new VanillaPlugin());
 
-		if (getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab.", true))
-			tab = new BrewcraftTab("brewcraft", true).setNoTitle();
-		else
-			tab = new BrewcraftTab("brewcraft", false).setNoTitle();
+		tab = new BrewcraftTab("brewcraft", flag).setNoTitle();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
@@ -89,6 +89,7 @@ public class Brewcraft extends ModUtils {
 		CraftingHandler.register();
 		DamageHandler.register();
 		DropHandler.register();
+		TradeHandler.register();
 	}
 
 	@Override
