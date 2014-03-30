@@ -1,12 +1,11 @@
 package redgear.brewcraft.event;
 
-import redgear.brewcraft.common.Brewcraft;
-import redgear.brewcraft.plugins.common.EffectPlugin;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import redgear.brewcraft.plugins.common.EffectPlugin;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageHandler {
 

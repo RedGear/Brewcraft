@@ -15,6 +15,7 @@ public class IngredientPlugin implements IPlugin{
 	public static SimpleItem goldenFeather;
 	public static SimpleItem charredBone;
 	public static SimpleItem obsidianTear;
+	public static SimpleItem pureTear;
 	public static SimpleItem splashBottle;
 	@Override
 	public String getName() {
@@ -34,9 +35,12 @@ public class IngredientPlugin implements IPlugin{
 		holyDust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenFeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredBone = ingredients.addMetaItem(new SubItem("charredbone"));
-		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 		obsidianTear = ingredients.addMetaItem(new SubItem("obsidiantear"));
+		pureTear = ingredients.addMetaItem(new SubItem("puretear"));
+		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 		
+		obsidianTear.getItem().setMaxStackSize(8);
+		pureTear.getItem().setMaxStackSize(8);
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
 	@Override
