@@ -86,13 +86,13 @@ public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeR
 	}
 
 	public BreweryRecipe getBreweryRecipe(FluidStack fluid, SimpleItem item) {
-		return fluid == null || item == null ? null : getBreweryRecipe(fluid.fluidID, item);
-	}
-
-	public BreweryRecipe getBreweryRecipe(int fluidId, SimpleItem item) {
+		if(fluid == null || item == null)
+			 return null;
+		 
 		for (BreweryRecipe recipe : recipes)
-			if (recipe.input.fluidID == fluidId && recipe.item.equals(item))
+			if (recipe.input.equals(fluid) && recipe.item.equals(item))
 				return recipe;
 		return null;
+		
 	}
 }

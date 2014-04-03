@@ -1,5 +1,6 @@
 package redgear.brewcraft.blocks;
 
+import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.core.fluids.AdvFluidTank;
 
@@ -19,7 +20,7 @@ public class BreweryInputTank extends AdvFluidTank {
 	 */
 	@Override
 	public boolean canAccept(int fluidId) {
-		if (Brewcraft.recipeRegistry.getBreweryRecipe(fluidId, tile.getCurrItem()) != null)
+		if (Brewcraft.recipeRegistry.getBreweryRecipe(new FluidStack(fluidId, 1), tile.getCurrItem()) != null)
 			return true;
 		else
 			return false;
