@@ -20,10 +20,23 @@ public class BreweryInputTank extends AdvFluidTank {
 	 */
 	@Override
 	public boolean canAccept(int fluidId) {
+		//This one shouldn't be called since canFillWithMap is also being overridden, but just to be safe ...
 		if (Brewcraft.recipeRegistry.getBreweryRecipe(new FluidStack(fluidId, 1), tile.getCurrItem()) != null)
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 * @param other FluidStack to try to add
+	 * @return True if other could be FULLY added to this tank with the
+	 * fillWithMap()
+	 * method.
+	 */
+	@Override
+	public boolean canFillWithMap(FluidStack other) {
+		return other == null || Brewcraft.recipeRegistry.getBreweryRecipe(other, tile.getCurrItem()) != null
+				&& canFill(other);
 	}
 
 }

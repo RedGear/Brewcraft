@@ -8,10 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.BrewingAPI;
+import redgear.brewcraft.api.BrewingAPI.IRecipeRegistry;
 import redgear.brewcraft.common.Brewcraft;
 import redgear.core.util.SimpleItem;
 
-public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeRegistry {
+public class RecipeRegistry implements IRecipeRegistry {
 
 	public final static int DEFAULT_TIME = 4;
 	public final static int FLUID_CONSUMPTION_BASE = 100;
@@ -86,13 +87,13 @@ public class RecipeRegistry implements redgear.brewcraft.api.BrewingAPI.IRecipeR
 	}
 
 	public BreweryRecipe getBreweryRecipe(FluidStack fluid, SimpleItem item) {
-		if(fluid == null || item == null)
-			 return null;
-		 
+		if (fluid == null || item == null)
+			return null;
+
 		for (BreweryRecipe recipe : recipes)
 			if (recipe.input.equals(fluid) && recipe.item.equals(item))
 				return recipe;
 		return null;
-		
+
 	}
 }

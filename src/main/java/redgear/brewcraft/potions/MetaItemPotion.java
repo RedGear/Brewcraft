@@ -104,37 +104,34 @@ public class MetaItemPotion extends MetaItem {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int par1) {
 		SubItemPotion potion = getMetaItem(par1);
-		return potion.isSplash ? this.splash : this.bottle;
+		return potion.isSplash ? splash : bottle;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 0 ? this.overlay : super.getIconFromDamageForRenderPass(par1, par2);
+		return par2 == 0 ? overlay : super.getIconFromDamageForRenderPass(par1, par2);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
 		String s1 = StatCollector.translateToLocal(potion.getEffect().getName()).trim();
 
-		if (potion.strength > 0) {
+		if (potion.strength > 0)
 			s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potion.strength).trim();
-		}
 
-		if (!potion.getEffect().isInstant()) {
+		if (!potion.getEffect().isInstant())
 			s1 = s1 + " ("
 					+ Potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength))
 					+ ")";
-		}
 
-		if (potion.getEffect().isBadEffect()) {
+		if (potion.getEffect().isBadEffect())
 			par3List.add(EnumChatFormatting.RED + s1);
-		} else {
+		else
 			par3List.add(EnumChatFormatting.GRAY + s1);
-		}
 
 		if (potion.hasDesc) {
 			par3List.add("");
@@ -153,9 +150,8 @@ public class MetaItemPotion extends MetaItem {
 		SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
 		String s = "";
 
-		if (potion.isSplash) {
+		if (potion.isSplash)
 			s = StatCollector.translateToLocal("potion.prefix.grenade").trim() + " ";
-		}
 
 		String s1 = "";
 		s1 = potion.getEffect().getName();
@@ -168,7 +164,7 @@ public class MetaItemPotion extends MetaItem {
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		SubItemPotion potion = getMetaItem(par1ItemStack.getItemDamage());
-		return par2 > 0 ? 16777215 : potion.getEffect().getLiquidColor();
+		return par2 > 0 || potion == null ? 16777215 : potion.getEffect().getLiquidColor();
 	}
 
 	@Override
@@ -180,20 +176,20 @@ public class MetaItemPotion extends MetaItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack par1ItemStack, int pass) {
-		return (pass == 0);
+		return pass == 0;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
-		this.bottle = par1IconRegister.registerIcon("potion_bottle_drinkable");
-		this.splash = par1IconRegister.registerIcon("potion_bottle_splash");
-		this.overlay = par1IconRegister.registerIcon("potion_overlay");
+		bottle = par1IconRegister.registerIcon("potion_bottle_drinkable");
+		splash = par1IconRegister.registerIcon("potion_bottle_splash");
+		overlay = par1IconRegister.registerIcon("potion_overlay");
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static IIcon func_94589_d(String par0Str) {
-		return par0Str.equals("bottle_drinkable") ? bottle : (par0Str.equals("bottle_splash") ? splash : (par0Str
-				.equals("overlay") ? overlay : null));
+		return par0Str.equals("bottle_drinkable") ? bottle : par0Str.equals("bottle_splash") ? splash : par0Str
+				.equals("overlay") ? overlay : null;
 	}
 }

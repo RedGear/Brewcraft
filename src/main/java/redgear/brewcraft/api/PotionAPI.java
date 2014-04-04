@@ -1,6 +1,9 @@
 package redgear.brewcraft.api;
 
+import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class PotionAPI {
 
@@ -27,7 +30,13 @@ public class PotionAPI {
 		 * would generate like this - 'potion.example.0.desc'
 		 */
 
-		public void addPotion(String name, Potion effect, int duration, int strength, boolean hasDescription);
+		public FluidStack addPotion(Item potionItem, String name, Potion effect, int duration, int strength,
+				boolean hasDescription);
+
+		public FluidStack addPotion(Item potionItem, Fluid base, String name, Potion effect, int duration,
+				int strength, boolean hasDescription);
+
+		public Item createPotionItem(String itemName);
 
 	}
 

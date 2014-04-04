@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.utils.PotionRegistry;
@@ -38,13 +39,11 @@ public class PotionPlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
-
+		potions = new MetaItemPotion("RedGear.Brewcraft.Potions"); // Items MUST be created in pre init! NO exceptions!
 	}
 
 	@Override
 	public void Init(ModUtils mod) {
-		potions = new MetaItemPotion("RedGear.Brewcraft.Potions");
-
 		createVanillaPotion("Awkward", 16, 0);
 		createVanillaPotion("Vision", 8198, 16390);
 		createVanillaPotion("VisionLong", 8262, 16454);
@@ -127,13 +126,25 @@ public class PotionPlugin implements IPlugin {
 
 	}
 
-	private void createVanillaPotion(String name, int metaBottle, int metaSplash) {
-		Fluid potion = FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(Items.potionitem,
-				metaBottle)), potionTexture);
+	private FluidStack createVanillaPotion(String name, int metaBottle, int metaSplash) {
+		FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
+				Items.potionitem, metaBottle)), potionTexture), 1000);
+		createVanillaPotion(potion, metaBottle, metaSplash);
+		return potion;
+	}
+
+	private FluidStack createVanillaPotion(Fluid base, int metaBottle, int metaSplash) {
+		FluidStack potion = registry.NBTHelper(base, metaBottle, 0);
+		createVanillaPotion(potion, metaBottle, metaSplash);
+		return potion;
+	}
+
+	private FluidStack createVanillaPotion(FluidStack potion, int metaBottle, int metaSplash) {
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle.getStack());
 		if (metaSplash != 0)
 			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaSplash),
 					IngredientPlugin.splashBottle.getStack());
+		return potion;
 	}
 }
