@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
@@ -49,7 +50,7 @@ public class DropHandler {
 
 			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
 
-				event.entity.entityDropItem(IngredientPlugin.obsidianTear.getStack(1), 0.0F);
+				event.entity.entityDropItem(new ItemStack(IngredientPlugin.obsidianTear), 0.0F);
 				event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
 
 			}

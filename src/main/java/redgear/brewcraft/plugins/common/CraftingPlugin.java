@@ -40,8 +40,8 @@ public class CraftingPlugin implements IPlugin {
 					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), Items.feather });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Plagued Tear Recipe", "Toggle Plagued Tear Recipe", false))
-			GameRegistry.addShapedRecipe(IngredientPlugin.obsidianTear.getStack(), new Object[] {"!!!", "!@!", "!!!",
-					Character.valueOf('!'), Blocks.obsidian, Character.valueOf('@'), Items.ghast_tear });
+			GameRegistry.addShapedRecipe(new ItemStack(IngredientPlugin.obsidianTear), new Object[] {"!!!", "!@!",
+					"!!!", Character.valueOf('!'), Blocks.obsidian, Character.valueOf('@'), Items.ghast_tear });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Splash Bottle Recipe", "Toggle Splash Bottle Recipe", true))
 			GameRegistry.addShapedRecipe(IngredientPlugin.splashBottle.getStack(3), new Object[] {" @!", "@ @", " @ ",

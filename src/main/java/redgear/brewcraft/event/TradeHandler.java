@@ -42,10 +42,10 @@ public class TradeHandler implements IVillageTradeHandler {
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
 						IngredientPlugin.holyDust.getStack(random.nextInt(3) + 1)));
 			}
-			if (Brewcraft.inst.getBoolean("World", "Plagued Tear Priest Trade", "Toggle Plagued Tear Trade", true)) {
+			if (Brewcraft.inst.getBoolean("World", "Pure Tear Priest Trade", "Toggle Pure Tear Trade", true)) {
 				if (villager.worldObj.getWorldTime() > 14000) {
 					recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
-							IngredientPlugin.pureTear.getStack(random.nextInt(1) + 1)));
+							new ItemStack(IngredientPlugin.pureTear, villager.worldObj.rand.nextInt(1) + 1)));
 				}
 			}
 		}

@@ -31,7 +31,8 @@ public class ForestryPlugin implements IPlugin {
 			if (Mods.Forestry.isIn()) {
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.goldenFeather.getStack());
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.charredBone.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.obsidianTear.getStack());
+				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.obsidianTear));
+				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.pureTear));
 				BackpackManager.backpackItems[ADVENTURER].add(IngredientPlugin.holyDust.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(Brewcraft.brewery.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(PotionPlugin.potions));
