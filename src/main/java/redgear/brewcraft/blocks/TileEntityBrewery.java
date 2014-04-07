@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TankSlot;
@@ -59,6 +60,13 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 			ItemStack stack = getStackInSlot(itemSlot);
 			if (stack != null) {
 				currItem = new SimpleItem(stack);
+				
+				if(currItem.equals(IngredientPlugin.obsidianTear) || currItem.equals(IngredientPlugin.pureTear)){
+					IngredientPlugin.tears.onUpdate(stack, this.worldObj, this, itemSlot);
+					stack = getStackInSlot(itemSlot);
+					currItem = new SimpleItem(stack);
+				}
+				
 				if (Brewcraft.recipeRegistry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
 					decrStackSize(itemSlot, 1);
 					itemLeft = 120;

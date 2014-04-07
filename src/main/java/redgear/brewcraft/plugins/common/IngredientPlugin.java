@@ -15,9 +15,11 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem holyDust;
 	public static SimpleItem goldenFeather;
 	public static SimpleItem charredBone;
-	public static ItemTear obsidianTear;
-	public static ItemTear pureTear;
 	public static SimpleItem splashBottle;
+	
+	public static ItemTear tears;
+	public static SimpleItem obsidianTear;
+	public static SimpleItem pureTear;
 
 	@Override
 	public String getName() {
@@ -42,11 +44,12 @@ public class IngredientPlugin implements IPlugin {
 		charredBone = ingredients.addMetaItem(new SubItem("charredbone"));
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
-		obsidianTear = new ItemTear("RedGear.Brewcraft.Ingredients.obsidiantear");
-		pureTear = new ItemTear("RedGear.Brewcraft.Ingredients.puretear");
+		tears = new ItemTear("RedGear.Brewcraft.Tears");
+		obsidianTear = tears.addMetaItem(new SubItem("obsidianTear"));
+		pureTear = tears.addMetaItem(new SubItem("puretear"));
 
-		obsidianTear.setCreativeTab(Brewcraft.tab);
-		pureTear.setCreativeTab(Brewcraft.tab);
+		tears.setMaxStackSize(8);
+		tears.setCreativeTab(Brewcraft.tab);
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
 

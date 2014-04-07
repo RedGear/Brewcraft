@@ -50,7 +50,7 @@ public class DropHandler {
 
 			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
 
-				event.entity.entityDropItem(new ItemStack(IngredientPlugin.obsidianTear), 0.0F);
+				event.entity.entityDropItem(IngredientPlugin.obsidianTear.getStack(), 0.0F);
 				event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
 
 			}

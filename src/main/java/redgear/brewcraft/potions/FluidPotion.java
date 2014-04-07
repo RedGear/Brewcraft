@@ -3,7 +3,6 @@ package redgear.brewcraft.potions;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import redgear.core.util.SimpleItem;
-import redgear.core.util.StringHelper;
 
 public class FluidPotion extends Fluid {
 
@@ -15,7 +14,7 @@ public class FluidPotion extends Fluid {
 
 	public FluidPotion(String fluidName, ItemStack bottle) {
 		super(fluidName);
-		setUnlocalizedName(StringHelper.parseUnLocalName(fluidName));
+		setUnlocalizedName(bottle.getUnlocalizedName());
 		color = bottle.getItem().getColorFromItemStack(bottle, 0);
 	}
 
@@ -23,5 +22,12 @@ public class FluidPotion extends Fluid {
 	public int getColor() {
 		return color;
 	}
+	
+	/**
+     * Returns the unlocalized name of this fluid.
+     */
+    public String getUnlocalizedName(){
+        return this.unlocalizedName;
+    }
 
 }

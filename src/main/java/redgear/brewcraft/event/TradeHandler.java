@@ -25,8 +25,8 @@ public class TradeHandler implements IVillageTradeHandler {
 	public static TradeHandler register() {
 		if (instance == null) {
 			instance = new TradeHandler();
-			for (int i = 0; i < 5; ++i)
-				VillagerRegistry.instance().registerVillageTradeHandler(i, instance);
+			//for (int i = 0; i < 5; ++i) //Why loop through all of them when you only use 2?
+				VillagerRegistry.instance().registerVillageTradeHandler(2, instance);
 
 		}
 		return instance;
@@ -45,7 +45,7 @@ public class TradeHandler implements IVillageTradeHandler {
 			if (Brewcraft.inst.getBoolean("World", "Pure Tear Priest Trade", "Toggle Pure Tear Trade", true)) {
 				if (villager.worldObj.getWorldTime() > 14000) {
 					recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
-							new ItemStack(IngredientPlugin.pureTear, villager.worldObj.rand.nextInt(1) + 1)));
+							IngredientPlugin.pureTear.getStack(villager.worldObj.rand.nextInt(1) + 1)));
 				}
 			}
 		}
