@@ -45,7 +45,7 @@ public class IngredientPlugin implements IPlugin {
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
 		tears = new ItemTear("RedGear.Brewcraft.Tears");
-		obsidianTear = tears.addMetaItem(new SubItem("obsidianTear"));
+		obsidianTear = tears.addMetaItem(new SubItem("obsidiantear"));
 		pureTear = tears.addMetaItem(new SubItem("puretear"));
 
 		tears.setMaxStackSize(8);

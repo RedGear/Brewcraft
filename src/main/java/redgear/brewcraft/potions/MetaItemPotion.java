@@ -83,19 +83,18 @@ public class MetaItemPotion extends MetaItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		SubItemPotion potion = getMetaItem(stack.getItemDamage());
-		if (!world.isRemote)
-			if (potion.isSplash) {
+		//if (!world.isRemote)
+		if (potion.isSplash) {
 
-				if (!player.capabilities.isCreativeMode)
-					--stack.stackSize;
+			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			//if (!world.isRemote)
+			world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
+			if (!player.capabilities.isCreativeMode)
+				--stack.stackSize;
 
-				if (!world.isRemote)
-					world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
-
-			} else
-				player.setItemInUse(stack, getMaxItemUseDuration(stack));
+		} else
+			player.setItemInUse(stack, getMaxItemUseDuration(stack));
 
 		return stack;
 	}

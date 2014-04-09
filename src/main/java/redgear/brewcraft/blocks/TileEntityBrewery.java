@@ -60,13 +60,13 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 			ItemStack stack = getStackInSlot(itemSlot);
 			if (stack != null) {
 				currItem = new SimpleItem(stack);
-				
-				if(currItem.equals(IngredientPlugin.obsidianTear) || currItem.equals(IngredientPlugin.pureTear)){
-					IngredientPlugin.tears.onUpdate(stack, this.worldObj, this, itemSlot);
+
+				if (currItem.equals(IngredientPlugin.obsidianTear) || currItem.equals(IngredientPlugin.pureTear)) {
+					IngredientPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
 					stack = getStackInSlot(itemSlot);
 					currItem = new SimpleItem(stack);
 				}
-				
+
 				if (Brewcraft.recipeRegistry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
 					decrStackSize(itemSlot, 1);
 					itemLeft = 120;
@@ -91,7 +91,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 					inputTank.drain(currRecipe.input.amount, true);
 					output = currRecipe.output;
 					itemLeft -= currRecipe.amount;
-					addWork(currRecipe.time, 0);
+					addWork(currRecipe.time);
 				}
 		}
 	}

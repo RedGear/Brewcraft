@@ -1,8 +1,10 @@
 package redgear.brewcraft.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import redgear.brewcraft.blocks.TileEntityBrewery;
+import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.event.CraftingHandler;
 import redgear.brewcraft.event.DamageHandler;
@@ -20,14 +22,14 @@ import redgear.brewcraft.plugins.compat.VanillaPlugin;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
-import redgear.core.block.MetaTile;
+import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
 import redgear.core.network.CoreGuiHandler;
 import redgear.core.util.SimpleItem;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -39,16 +41,11 @@ public class Brewcraft extends ModUtils {
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
-	@SidedProxy(clientSide = "redgear.brewcraft.client.BrewcraftClientProxy", serverSide = "redgear.brewcraft.common.BrewcraftCommonProxy")
-	public static BrewcraftCommonProxy proxy;
-
-	public static MetaTile brewing;
+	public static MetaTileSpecialRenderer brewing;
 	public static SimpleItem brewery;
 
 	public static CreativeTabs tab;
 
-	public boolean flag;
-	
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 
 	@Override
@@ -62,22 +59,23 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
 
+		if (isClient())
+			addPlugin(new BrewcraftClientProxy());
+
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new SWTPlugin());
 		addPlugin(new VanillaPlugin());
-		
-		flag = getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab.", true);
 
-		tab = new BrewcraftTab("brewcraft", flag).setNoTitle();
+		tab = new BrewcraftTab("brewcraft", getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+				"Toggle the cool background for the Brewcraft creative tab.")).setNoTitle();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
 
-		proxy.registerRenders();
+		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
+				RenderingRegistry.getNextAvailableRenderId());
 
-		brewing = proxy.createBrewery();
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(
 				"brewery", "Brewery")));
@@ -87,11 +85,12 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void Init(FMLInitializationEvent event) {
-
 		CraftingHandler.register();
 		DamageHandler.register();
 		DropHandler.register();
 		TradeHandler.register();
+		//ParticleHandler.register();// hi guys! Mind if I join you?
+
 	}
 
 	@Override

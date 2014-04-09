@@ -22,16 +22,21 @@ public class PotionRegistry implements IPotionRegistry {
 		PotionAPI.POTION_REGISTRY = this;
 	}
 
-	public FluidStack addPotion(Item potionItem, String name, Potion effect, int duration, int strength) {
-		return addPotion(potionItem, name, effect, duration, strength, false);
-	}
-
 	public FluidStack addPotion(String name, Potion effect, int duration, int strength) {
-		return addPotion(PotionPlugin.potions, name, effect, duration, strength, false);
+		return addPotion(name, effect, duration, strength, false);
 	}
 
 	public FluidStack addPotion(String name, Potion effect, int duration, int strength, boolean hasDescription) {
 		return addPotion(PotionPlugin.potions, name, effect, duration, strength, hasDescription);
+	}
+
+	public FluidStack addPotion(Fluid base, String name, Potion effect, int duration, int strength) {
+		return addPotion(base, name, effect, duration, strength, false);
+	}
+
+	public FluidStack addPotion(Fluid base, String name, Potion effect, int duration, int strength,
+			boolean hasDescription) {
+		return addPotion(PotionPlugin.potions, base, name, effect, duration, strength, hasDescription);
 	}
 
 	@Override
@@ -79,9 +84,7 @@ public class PotionRegistry implements IPotionRegistry {
 
 	@Override
 	public Item createPotionItem(String itemName) {
-		MetaItemPotion newBottle = new MetaItemPotion(itemName);
-		newBottle.setModName("redgear.brewcraft:");
-		return newBottle;
+		return new MetaItemPotion(itemName);
 	}
 
 	public FluidStack NBTHelper(Fluid fluid, int duration, int strength) {

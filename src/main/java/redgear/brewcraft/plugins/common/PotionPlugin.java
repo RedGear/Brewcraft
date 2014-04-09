@@ -133,8 +133,8 @@ public class PotionPlugin implements IPlugin {
 		return potion;
 	}
 
-	private FluidStack createVanillaPotion(Fluid base, int metaBottle, int metaSplash) {
-		FluidStack potion = registry.NBTHelper(base, metaBottle, 0);
+	private FluidStack createVanillaPotion(Fluid base, int metaBottle, int metaSplash, int duration, int strength) {
+		FluidStack potion = registry.NBTHelper(base, duration, strength);
 		createVanillaPotion(potion, metaBottle, metaSplash);
 		return potion;
 	}

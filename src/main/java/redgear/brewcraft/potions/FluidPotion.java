@@ -2,6 +2,7 @@ package redgear.brewcraft.potions;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
+import redgear.core.asm.RedGearCore;
 import redgear.core.util.SimpleItem;
 
 public class FluidPotion extends Fluid {
@@ -15,7 +16,10 @@ public class FluidPotion extends Fluid {
 	public FluidPotion(String fluidName, ItemStack bottle) {
 		super(fluidName);
 		setUnlocalizedName(bottle.getUnlocalizedName());
-		color = bottle.getItem().getColorFromItemStack(bottle, 0);
+		if(RedGearCore.inst.isClient())
+			color = bottle.getItem().getColorFromItemStack(bottle, 0);
+		else
+			color = 0xFFFFFF;
 	}
 
 	@Override

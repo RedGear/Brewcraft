@@ -13,6 +13,10 @@ import redgear.core.render.SimpleBlockRenderingHandler;
 
 public class RenderItemBrewery extends SimpleBlockRenderingHandler {
 
+	public RenderItemBrewery(int renderId) {
+		super(renderId);
+	}
+
 	TileEntityBrewery blank = new TileEntityBrewery();
 
 	@Override

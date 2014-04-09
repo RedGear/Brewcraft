@@ -10,6 +10,7 @@ potion.flight.postfix=Potion of Ascension
 potion.immunity.postfix=Potion of Remedy
 potion.creeper.postfix=Potion of Combustion
 potion.frozen.postfix=Potion of Cryogenics
+potion.fireproof.postfix=Potion of Fire Immunity
 	
 tile.RedGear.Brewcraft.Brewery.Brewery.name=Brewery
 	
