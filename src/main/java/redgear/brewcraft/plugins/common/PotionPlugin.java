@@ -6,6 +6,7 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.common.Brewcraft;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.utils.PotionRegistry;
@@ -73,6 +74,56 @@ public class PotionPlugin implements IPlugin {
 		createVanillaPotion("HealingII", 8229, 16421);
 		createVanillaPotion("WaterBreath", 8205, 16397);
 		createVanillaPotion("WaterBreathLong", 8269, 16461);
+		
+		if (Brewcraft.inst.getBoolean("Global", "Toggle Unused Vanilla Potions", "Toggle Mojang's unused potions.",
+				true)) {
+			registry.addPotion("Haste", Potion.digSpeed, 90, 0, true);
+			registry.addPotion("HasteII", Potion.digSpeed, 45, 1, true);
+			registry.addPotion("HasteIII", Potion.digSpeed, 25, 2, true);
+			registry.addPotion("HasteLong", Potion.digSpeed, 180, 0, true);
+			registry.addPotion("HasteVeryLong", Potion.digSpeed, 360, 0, true);
+			registry.addPotion("Fatigue", Potion.digSlowdown, 90, 0, true);
+			registry.addPotion("FatigueII", Potion.digSlowdown, 45, 1, true);
+			registry.addPotion("FatigueIII", Potion.digSlowdown, 25, 2, true);
+			registry.addPotion("FatigueLong", Potion.digSlowdown, 180, 0, true);
+			registry.addPotion("FatigueVeryLong", Potion.digSlowdown, 360, 0, true);
+			registry.addPotion("Jump", Potion.jump, 60, 0, true);
+			registry.addPotion("JumpII", Potion.jump, 30, 1, true);
+			registry.addPotion("JumpIII", Potion.jump, 15, 2, true);
+			registry.addPotion("JumpLong", Potion.jump, 120, 0, true);
+			registry.addPotion("JumpVeryLong", Potion.jump, 240, 0, true);
+			registry.addPotion("Nausea", Potion.confusion, 30, 0);
+			registry.addPotion("NauseaLong", Potion.confusion, 60, 0);
+			registry.addPotion("NauseaVeryLong", Potion.confusion, 120, 0);
+			registry.addPotion("Resistance", Potion.resistance, 90, 0, true);
+			registry.addPotion("ResistanceII", Potion.resistance, 45, 1, true);
+			registry.addPotion("ResistanceIII", Potion.resistance, 20, 2, true);
+			registry.addPotion("ResistanceLong", Potion.resistance, 180, 0, true);
+			registry.addPotion("ResistanceVeryLong", Potion.resistance, 360, 0, true);
+			registry.addPotion("Blindness", Potion.blindness, 30, 0, true);
+			registry.addPotion("BlindnessLong", Potion.blindness, 60, 0, true);
+			registry.addPotion("BlindnessVeryLong", Potion.blindness, 120, 0, true);
+			registry.addPotion("Hunger", Potion.hunger, 60, 0);
+			registry.addPotion("HungerII", Potion.hunger, 30, 1);
+			registry.addPotion("HungerIII", Potion.hunger, 15, 2);
+			registry.addPotion("HungerLong", Potion.hunger, 120, 0);
+			registry.addPotion("HungerVeryLong", Potion.hunger, 240, 0);
+			registry.addPotion("HealthBoost", Potion.field_76434_w, 60, 0, true);
+			registry.addPotion("HealthBoostII", Potion.field_76434_w, 30, 1, true);
+			registry.addPotion("HealthBoostIII", Potion.field_76434_w, 15, 2, true);
+			registry.addPotion("HealthBoostLong", Potion.field_76434_w, 120, 0, true);
+			registry.addPotion("HealthBoostVeryLong", Potion.field_76434_w, 240, 0, true);
+			registry.addPotion("Absorption", Potion.field_76444_x, 60, 0);
+			registry.addPotion("AbsorptionII", Potion.field_76444_x, 30, 1);
+			registry.addPotion("AbsorptionIII", Potion.field_76444_x, 15, 2);
+			registry.addPotion("AbsorptionLong", Potion.field_76444_x, 120, 0);
+			registry.addPotion("AbsorptionVeryLong", Potion.field_76444_x, 240, 0);
+			registry.addPotion("Saturation", Potion.field_76443_y, 10, 0);
+			registry.addPotion("SaturationII", Potion.field_76443_y, 5, 1);
+			registry.addPotion("SaturationIII", Potion.field_76443_y, 3, 2);
+			registry.addPotion("SaturationLong", Potion.field_76443_y, 20, 0);
+			registry.addPotion("SaturationVeryLong", Potion.field_76443_y, 40, 0);
+		}
 
 		registry.addPotion("HolyWater", EffectPlugin.angel, 10, 0, true);
 		registry.addPotion("HolyWaterII", EffectPlugin.angel, 5, 1, true);
