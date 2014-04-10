@@ -2,6 +2,7 @@ package redgear.brewcraft.entity;
 
 import net.minecraft.potion.Potion;
 import io.netty.buffer.ByteBuf;
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class ParticleMessage implements IMessage{
@@ -18,6 +19,11 @@ public class ParticleMessage implements IMessage{
 		
 	}
 	
+	public ParticleMessage(FMLProxyPacket packet){
+		if(packet != null)
+			fromBytes(packet.payload());
+	}
+	
 	public ParticleMessage(double x, double y, double z, int color, boolean instant){
 		this.x = x;
 		this.y = y;
@@ -32,6 +38,9 @@ public class ParticleMessage implements IMessage{
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
+		if(buf == null)
+			return;
+		
 		x = buf.readDouble();
 		y = buf.readDouble();
 		z = buf.readDouble();
@@ -41,6 +50,9 @@ public class ParticleMessage implements IMessage{
 
 	@Override
 	public void toBytes(ByteBuf buf) {
+		if(buf == null)
+			return;
+		
 		buf.writeDouble(x);
 		buf.writeDouble(y);
 		buf.writeDouble(z);

@@ -1,32 +1,48 @@
 package redgear.brewcraft.entity;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
 import redgear.brewcraft.plugins.common.PotionPlugin;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.FMLEventChannel;
+import cpw.mods.fml.common.network.FMLNetworkEvent.ClientCustomPacketEvent;
+import cpw.mods.fml.common.network.FMLNetworkEvent.ServerCustomPacketEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
-public class ParticleHandler implements IMessageHandler<ParticleMessage, IMessage> {
+public class ParticleHandler {
 
-	public static SimpleNetworkWrapper net;
+	public static final String name = "Brewcraft|PotionEntity";
+	private static FMLEventChannel net;
+	public static ParticleHandler inst;
 
 	public static void register() {
-		if(net == null){
-			net = NetworkRegistry.INSTANCE.newSimpleChannel("Brewcraft|PotionEntity");
-			net.registerMessage(ParticleHandler.class, ParticleMessage.class, 0, Side.SERVER);
+		if(inst == null){
+			net = NetworkRegistry.INSTANCE.newEventDrivenChannel(name);
+			
+			inst = new ParticleHandler();
+			net.register(inst);
 		}
 	}
-
-	@Override
-	public IMessage onMessage(ParticleMessage message, MessageContext ctx) {
+	
+	@SubscribeEvent
+	public void onServerPacket(ServerCustomPacketEvent event) {
+		
+	}		
+		
+	@SubscribeEvent
+	public void onClientPacket(ClientCustomPacketEvent event) {	
+		ParticleMessage message = new ParticleMessage();
+		message.fromBytes(event.packet.payload());
+		
 		RenderGlobal renderGlobal = Minecraft.getMinecraft().renderGlobal;
 		Random random = Minecraft.getMinecraft().theWorld.rand;
 		
@@ -64,9 +80,14 @@ public class ParticleHandler implements IMessageHandler<ParticleMessage, IMessag
 				entityfx.multiplyVelocity((float) velocityMultiplier);
 			}
 		}
-
-		//No reply for this.
-		return null;
+	}
+	
+	public static void send(double x, double y, double z, Potion effect){
+		ParticleMessage message = new ParticleMessage(x, y, z, effect);
+		ByteBuf buf = Unpooled.buffer();
+		message.toBytes(buf);
+		FMLProxyPacket packet = new FMLProxyPacket(buf, name);
+		net.sendToAll(packet);
 	}
 
 }

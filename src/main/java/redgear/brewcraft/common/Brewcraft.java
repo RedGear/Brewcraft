@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
+import redgear.brewcraft.entity.ParticleHandler;
 import redgear.brewcraft.event.CraftingHandler;
 import redgear.brewcraft.event.DamageHandler;
 import redgear.brewcraft.event.DropHandler;
@@ -89,7 +90,7 @@ public class Brewcraft extends ModUtils {
 		DamageHandler.register();
 		DropHandler.register();
 		TradeHandler.register();
-		//ParticleHandler.register();// hi guys! Mind if I join you?
+		ParticleHandler.register();// hi guys! Mind if I join you?
 
 	}
 
