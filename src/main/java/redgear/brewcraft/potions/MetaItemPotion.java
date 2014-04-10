@@ -127,15 +127,12 @@ public class MetaItemPotion extends MetaItem {
 					+ Potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength))
 					+ ")";
 
-		if (potion.getEffect().isBadEffect())
-			par3List.add(EnumChatFormatting.RED + s1);
-		else
-			par3List.add(EnumChatFormatting.GRAY + s1);
+		par3List.add(potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY + s1);
 
 		if (potion.hasDesc) {
 			par3List.add("");
 			par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-			par3List.add(EnumChatFormatting.BLUE
+			par3List.add(potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.BLUE
 					+ StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
 		}
 		if (potion.potionId == EffectPlugin.angel.id)
