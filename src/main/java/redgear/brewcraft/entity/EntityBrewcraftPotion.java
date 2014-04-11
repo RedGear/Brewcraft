@@ -7,7 +7,6 @@ import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -63,17 +62,14 @@ public class EntityBrewcraftPotion extends EntityPotion {
 			//worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ),getPotionDamage());
 
 			ParticleHandler.send(posX, posY, posZ, potion.getEffect());
-			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "game.potion.smash", 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			worldObj.playSoundEffect(posX, posY, posZ, "game.potion.smash", 1.0F,
+					worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			setDead();
 
 		}
 	}
 
-	public IIcon getIcon() {
-		return getPotionItem().getIcon();
-	}
-
-	private ItemStack getPotionStack() {
+	public ItemStack getPotionStack() {
 		return getDataWatcher().getWatchableObjectItemStack(stackIndex);
 	}
 

@@ -83,13 +83,11 @@ public class MetaItemPotion extends MetaItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		SubItemPotion potion = getMetaItem(stack.getItemDamage());
-		//if (!world.isRemote)
 		if (potion.isSplash) {
 
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-			//if (!world.isRemote)
-			world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
+			if (!world.isRemote)
+				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;
 
@@ -127,12 +125,12 @@ public class MetaItemPotion extends MetaItem {
 					+ Potion.getDurationString(new PotionEffect(potion.potionId, potion.duration, potion.strength))
 					+ ")";
 
-		par3List.add(potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY + s1);
+		par3List.add((potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY) + s1);
 
 		if (potion.hasDesc) {
 			par3List.add("");
 			par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-			par3List.add(potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.BLUE
+			par3List.add((potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.BLUE)
 					+ StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
 		}
 		if (potion.potionId == EffectPlugin.angel.id)

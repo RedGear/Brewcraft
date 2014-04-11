@@ -3,9 +3,7 @@ package redgear.brewcraft.recipes;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.BrewingAPI;
 import redgear.brewcraft.api.BrewingAPI.IRecipeRegistry;
@@ -14,50 +12,25 @@ import redgear.core.util.SimpleItem;
 
 public class RecipeRegistry implements IRecipeRegistry {
 
-	public final static int DEFAULT_TIME = 4;
-	public final static int FLUID_CONSUMPTION_BASE = 100;
-	public final static int ITEM_CONSUMPTION_BASE = 12;
-
 	public Set<BreweryRecipe> recipes = new HashSet<BreweryRecipe>();
 
 	public RecipeRegistry() {
 		BrewingAPI.RECIPE_REGISTRY = this;
 	}
 
-	public void addRecipe(Fluid input, Fluid output, Item item) {
-		addRecipe(input, output, item, ITEM_CONSUMPTION_BASE);
-	}
-
-	public void addRecipe(Fluid input, Fluid output, SimpleItem item) {
-		addRecipe(input, output, item, ITEM_CONSUMPTION_BASE);
-	}
-
-	public void addRecipe(Fluid input, Fluid output, Item item, int itemAmount) {
-		addRecipe(input, output, item, itemAmount, DEFAULT_TIME);
-	}
-
-	public void addRecipe(Fluid input, Fluid output, SimpleItem item, int itemAmount) {
-		addRecipe(input, output, item, itemAmount, DEFAULT_TIME);
-	}
-
-	public void addRecipe(Fluid input, Fluid output, Item item, int itemAmount, int time) {
-		addRecipe(input, output, item == null ? null : new SimpleItem(item), itemAmount, time);
-	}
-
-	public void addRecipe(Fluid input, Fluid output, SimpleItem item, int itemAmount, int time) {
-		addRecipe(input == null ? null : new FluidStack(input, FLUID_CONSUMPTION_BASE), output == null ? null
-				: new FluidStack(output, FLUID_CONSUMPTION_BASE), item, itemAmount, time);
+	public FluidStack resizeStack(FluidStack input, int amount) {
+		input.amount = amount;
+		return input;
 	}
 
 	@Override
-	public void addRecipe(FluidStack input, FluidStack output, ItemStack item, int itemAmount, int time) {
-		addRecipe(input, output, item == null ? null : new SimpleItem(item), itemAmount, time);
+	public void addRecipe(FluidStack input, FluidStack output, ItemStack item) {
+		addRecipe(input, output, item == null ? null : new SimpleItem(item));
 	}
 
-	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int itemAmount, int time) {
-		if (input != null && input.amount > 0 && output != null && output.amount > 0 && item != null && itemAmount > 0
-				&& time > 0) {
-			if (!recipes.add(new BreweryRecipe(input, output, item, itemAmount, time)))
+	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item) {
+		if (input != null && input.amount > 0 && output != null && output.amount > 0 && item != null) {
+			if (!recipes.add(new BreweryRecipe(input, output, item)))
 				Brewcraft.inst.myLogger
 						.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
 		} else { //There is a programming bug that someone needs to fix, so let's throw it as a warning. 
@@ -75,12 +48,6 @@ public class RecipeRegistry implements IRecipeRegistry {
 
 			if (item == null)
 				message.append("Input item is null. ");
-
-			if (itemAmount <= 0)
-				message.append("Item amount is less than 1. ");
-
-			if (time <= 0)
-				message.append("Time is less than 1. ");
 
 			Brewcraft.inst.myLogger.warn(message.toString());
 		}
