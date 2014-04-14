@@ -131,10 +131,10 @@ public class PotionRegistry implements IPotionRegistry {
 		FluidStack potion;
 		if (bottle != null)
 			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, bottle),
-					PotionPlugin.potionTexture), 1000);
+					PotionPlugin.potionTexture), 100);
 		else
 			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, splash),
-					PotionPlugin.potionTexture), 1000);
+					PotionPlugin.potionTexture), 100);
 
 		registerItems(potion, bottle, splash);
 		return potion;
@@ -161,7 +161,7 @@ public class PotionRegistry implements IPotionRegistry {
 	}
 
 	public FluidStack NBTHelper(Fluid fluid, int duration, int strength) {
-		FluidStack stack = new FluidStack(fluid, 1000);
+		FluidStack stack = new FluidStack(fluid, 100);
 
 		if (duration > 0)
 			stack.tag.setInteger("duration", duration);
