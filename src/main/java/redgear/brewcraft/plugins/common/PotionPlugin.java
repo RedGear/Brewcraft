@@ -20,7 +20,7 @@ import cpw.mods.fml.common.LoaderState.ModState;
 public class PotionPlugin implements IPlugin {
 
 	public static MetaItemPotion potions;
-	public static SimpleItem emptyBottle = new SimpleItem(Items.glass_bottle);
+	public static SimpleItem emptyBottle = new SimpleItem(Items.glass_bottle, 0);
 	public static PotionRegistry registry = new PotionRegistry();
 	public static final String potionTexture = "potionWhite";
 
@@ -277,7 +277,7 @@ public class PotionPlugin implements IPlugin {
 		fluidFastVeryLong = registry.addPotion(fluidFast.getFluid(), "FastVeryLong", Potion.moveSpeed, 960, 0);
 		fluidStrengthIII = registry.addPotion(fluidStrength.getFluid(), "StrengthIII", Potion.damageBoost, 40, 2, true);
 		fluidStrengthVeryLong = registry.addPotion(fluidStrength.getFluid(), "StrengthVeryLong", Potion.damageBoost, 960, 0);
-		fluidFireImmunity = registry.addPotion(fluidFireImmunity.getFluid(), "FireImmunity", EffectPlugin.fireproof, 35, 0, true);
+		fluidFireImmunity = registry.addPotion("FireImmunity", EffectPlugin.fireproof, 35, 0, true);
 		fluidFireImmunityII = registry.addPotion(fluidFireImmunity.getFluid(), "FireImmunityII", EffectPlugin.fireproof, 15, 1, true);
 		fluidFireResistVeryLong = registry.addPotion(fluidFireResist.getFluid(), "FireResistVeryLong", Potion.fireResistance, 960, 0);
 		fluidPoisonIII = registry.addPotion(fluidPoison.getFluid(), "PoisonIII", Potion.poison, 8, 2);

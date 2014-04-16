@@ -29,14 +29,13 @@ public class BreweryInputTank extends AdvFluidTank {
 
 	/**
 	 * @param other FluidStack to try to add
-	 * @return True if other could be FULLY added to this tank with the
+	 * @return True if other could be added to this tank with the
 	 * fillWithMap()
 	 * method.
 	 */
 	@Override
-	public boolean canFillWithMap(FluidStack other) {
-		return other == null || Brewcraft.recipeRegistry.getBreweryRecipe(other, tile.getCurrItem()) != null
-				&& canFill(other);
+	public boolean canFillWithMap(FluidStack other, boolean fully) {
+		return other == null || Brewcraft.recipeRegistry.isValidFluid(other) && canFill(other, fully);
 	}
 
 }

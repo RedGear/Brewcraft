@@ -31,7 +31,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 	private FluidStack output;
 
 	public TileEntityBrewery() {
-		super(1);
+		super(0);
 
 		inFull = addSlot(new TankSlot(this, 32, 13, true, -1));
 		inEmpty = addSlot(new TankSlot(this, 32, 57, false, 1));
@@ -86,11 +86,11 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 				BreweryRecipe currRecipe = Brewcraft.recipeRegistry.getBreweryRecipe(inputTank.getFluid(), item);
 
 				if (currRecipe != null)
-					if (inputTank.canDrain(currRecipe.input) && outputTank.canFill(currRecipe.output)) {
+					if (inputTank.canDrain(currRecipe.input, true) && outputTank.canFill(currRecipe.output, true)) {
 						currItem = item;
 						decrStackSize(itemSlot, 1);
 						output = currRecipe.output;
-						addWork(currRecipe.input.amount);
+						addWork(currRecipe.input.amount + 1);
 					}
 			}
 		}

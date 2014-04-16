@@ -2,6 +2,7 @@ package redgear.brewcraft.utils;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -162,6 +163,9 @@ public class PotionRegistry implements IPotionRegistry {
 
 	public FluidStack NBTHelper(Fluid fluid, int duration, int strength) {
 		FluidStack stack = new FluidStack(fluid, 100);
+		
+		if(stack.tag == null)
+			stack.tag = new NBTTagCompound();
 
 		if (duration > 0)
 			stack.tag.setInteger("duration", duration);

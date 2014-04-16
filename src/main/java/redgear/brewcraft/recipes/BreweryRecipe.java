@@ -10,9 +10,9 @@ public class BreweryRecipe {
 	public final SimpleItem item;
 
 	BreweryRecipe(FluidStack input, FluidStack output, SimpleItem item) {
-		this.input = input;
-		this.output = output;
-		this.item = item;
+		this.input = input.copy();
+		this.output = output.copy();
+		this.item = (SimpleItem) item.copy();
 
 		this.output.amount = 1;
 	}

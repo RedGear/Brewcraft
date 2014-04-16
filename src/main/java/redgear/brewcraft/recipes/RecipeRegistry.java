@@ -52,13 +52,24 @@ public class RecipeRegistry implements IRecipeRegistry {
 			Brewcraft.inst.myLogger.warn(message.toString());
 		}
 	}
+	
+	public boolean isValidFluid(FluidStack fluid){
+		if(fluid == null)
+			return false;
+		else
+			for (BreweryRecipe recipe : recipes)
+				if(recipe.input.isFluidEqual(fluid))
+					return true;
+		
+		return false;
+	}
 
 	public BreweryRecipe getBreweryRecipe(FluidStack fluid, SimpleItem item) {
 		if (fluid == null || item == null)
 			return null;
 
 		for (BreweryRecipe recipe : recipes)
-			if (recipe.input.equals(fluid) && recipe.item.equals(item))
+			if (recipe.input.isFluidEqual(fluid) && recipe.item.equals(item))
 				return recipe;
 		return null;
 
