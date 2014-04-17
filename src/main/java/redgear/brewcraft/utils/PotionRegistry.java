@@ -32,15 +32,6 @@ public class PotionRegistry implements IPotionRegistry {
 		return addPotion(PotionPlugin.potions, name, effect, duration, strength, hasDescription);
 	}
 
-	public FluidStack addPotion(Fluid base, String name, Potion effect, int duration, int strength) {
-		return addPotion(base, name, effect, duration, strength, false);
-	}
-
-	public FluidStack addPotion(Fluid base, String name, Potion effect, int duration, int strength,
-			boolean hasDescription) {
-		return addPotion(PotionPlugin.potions, base, name, effect, duration, strength, hasDescription);
-	}
-
 	@Override
 	public FluidStack addPotion(Item item, String name, Potion effect, int duration, int strength,
 			boolean hasDescription) {
@@ -49,18 +40,6 @@ public class PotionRegistry implements IPotionRegistry {
 
 	@Override
 	public FluidStack addPotion(Item item, String name, Potion effect, int duration, int strength,
-			boolean hasDescription, boolean createSplash) {
-		return addPotion(item, null, name, effect, duration, strength, hasDescription, createSplash);
-	}
-
-	@Override
-	public FluidStack addPotion(Item item, Fluid base, String name, Potion effect, int duration, int strength,
-			boolean hasDescription) {
-		return addPotion(item, base, name, effect, duration, strength, hasDescription, true);
-	}
-
-	@Override
-	public FluidStack addPotion(Item item, Fluid base, String name, Potion effect, int duration, int strength,
 			boolean hasDescription, boolean createSplash) {
 		if (effect != null && item instanceof MetaItemPotion) {
 			MetaItemPotion metaItem = (MetaItemPotion) item;
@@ -75,11 +54,7 @@ public class PotionRegistry implements IPotionRegistry {
 
 			FluidStack potion;
 
-			if (base == null)
 				potion = addPotionFluid(bottle.getStack(), splash == null ? null : splash.getStack(), name, duration,
-						strength);
-			else
-				potion = addPotionFluid(bottle.getStack(), splash == null ? null : splash.getStack(), base, duration,
 						strength);
 
 			return potion;
@@ -141,14 +116,6 @@ public class PotionRegistry implements IPotionRegistry {
 		return potion;
 	}
 
-	@Override
-	public FluidStack addPotionFluid(ItemStack bottle, ItemStack splash, Fluid base, int duration, int strength) {
-		FluidStack potion = NBTHelper(base, duration, strength);
-		registerItems(potion, bottle, splash);
-
-		return potion;
-	}
-
 	private void registerItems(FluidStack potion, ItemStack bottle, ItemStack splash) {
 		if (bottle != null)
 			FluidContainerRegistry.registerFluidContainer(potion, bottle, PotionPlugin.emptyBottle.getStack());
@@ -160,20 +127,4 @@ public class PotionRegistry implements IPotionRegistry {
 	public Item createPotionItem(String itemName) {
 		return new MetaItemPotion(itemName);
 	}
-
-	public FluidStack NBTHelper(Fluid fluid, int duration, int strength) {
-		FluidStack stack = new FluidStack(fluid, 100);
-		
-		if(stack.tag == null)
-			stack.tag = new NBTTagCompound();
-
-		if (duration > 0)
-			stack.tag.setInteger("duration", duration);
-
-		if (strength > 0)
-			stack.tag.setInteger("strength", strength);
-
-		return stack;
-	}
-
 }

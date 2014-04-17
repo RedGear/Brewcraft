@@ -77,28 +77,6 @@ public class PotionAPI {
 		FluidStack addPotionFluid(ItemStack bottle, ItemStack splash, String name, int duration, int strength);
 
 		/**
-		 * 
-		 * @param bottleThe input bottle. Can be any item, but cannot be null.
-		 * Display name and color of potion are taken from this item's
-		 * getItemStackDisplayName() and getColorFromItemStack() methods
-		 * respectively.
-		 * @param splash The splash form of the bottle. This can be null.
-		 * @param base A fluid created by the other addPotionFluid.
-		 * This method will use the same fluid and give it's returned stack
-		 * different NBT based on the values of duration and strength.
-		 * The combination of those two values must be unique for each bottle,
-		 * otherwise recipes won't work.
-		 * @param duration The duration of this effect. Should be same as the
-		 * item, but not necessary.
-		 * @param strength The strength of this effect. Should be same as the
-		 * item, but not necessary.
-		 * @return FluidStack of the base fluid, bearing the duration and
-		 * strength as NBT. (Unless they are 0, values of 0 are not stored).
-		 * Use this stack for Brewery recipes.
-		 */
-		FluidStack addPotionFluid(ItemStack bottle, ItemStack splash, Fluid base, int duration, int strength);
-
-		/**
 		 * This is a shortcut method. It creates the bottle, splash bottle, and
 		 * fluid all at once.
 		 * 
@@ -150,52 +128,6 @@ public class PotionAPI {
 		 */
 		FluidStack addPotion(Item item, String name, Potion effect, int duration, int strength, boolean hasDescription,
 				boolean createSplash);
-
-		/**
-		 * This is a shortcut method. It creates the bottle and splash bottle.
-		 * 
-		 * @param item Potion item created with {@link createPotionItem}.
-		 * @param base A fluid created by the other addPotion.
-		 * @param name The name of these items. Only used in
-		 * CustomItemStackRegistry. (bottle or splash are appended as prefixes)
-		 * @param effect The potion effect this bottle holds.
-		 * @param duration The duration (in seconds) this effect lasts.
-		 * @param strength The strength of this effect, this will be available
-		 * to the effect when it's active and can be used by it.
-		 * @param hasDescription If this bottle will have a special description.
-		 * Descriptions are created in lang files with
-		 * "potion.name.(strength as int).desc=(descripton)". Such as
-		 * "potion.test.0.desc=+40% More Tests".
-		 * @return FluidStack of the new fluid, bearing the duration and
-		 * strength as NBT. (Unless they are 0, values of 0 are not stored).
-		 * Use this stack for Brewery recipes.
-		 */
-		FluidStack addPotion(Item item, Fluid base, String name, Potion effect, int duration, int strength,
-				boolean hasDescription);
-
-		/**
-		 * This is a shortcut method. It creates the bottle and splash bottle.
-		 * 
-		 * @param item Potion item created with {@link createPotionItem}.
-		 * @param base A fluid created by the other addPotion.
-		 * @param name The name of these items. Only used in
-		 * CustomItemStackRegistry. (bottle or splash are appended as prefixes)
-		 * @param effect The potion effect this bottle holds.
-		 * @param duration The duration (in seconds) this effect lasts.
-		 * @param strength The strength of this effect, this will be available
-		 * to the effect when it's active and can be used by it.
-		 * @param hasDescription If this bottle will have a special description.
-		 * Descriptions are created in lang files with
-		 * "potion.name.(strength as int).desc=(descripton)". Such as
-		 * "potion.test.0.desc=+40% More Tests".
-		 * @param createSplash Setting this to false will NOT create a splash
-		 * bottle. You can just omit this argument if you want splash bottles.
-		 * @return FluidStack of the new fluid, bearing the duration and
-		 * strength as NBT. (Unless they are 0, values of 0 are not stored).
-		 * Use this stack for Brewery recipes.
-		 */
-		FluidStack addPotion(Item item, Fluid base, String name, Potion effect, int duration, int strength,
-				boolean hasDescription, boolean createSplash);
 
 	}
 

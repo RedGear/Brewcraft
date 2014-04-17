@@ -3,9 +3,11 @@ package redgear.brewcraft.event;
 import java.util.Random;
 
 import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
@@ -37,32 +39,37 @@ public class DropHandler {
 			final EntitySkeleton skeleton = (EntitySkeleton) event.entity;
 
 			if (skeleton.getSkeletonType() == 1 && rand.nextDouble() < 0.6D
-					&& event.source.getDamageType().equals("player")) {
-
+					&& event.source.getDamageType().equals("player"))
 				skeleton.entityDropItem(
 						IngredientPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
-				skeleton.worldObj.playSoundAtEntity(skeleton, "random.bowhit", 1F, 1F);
-
-			}
 		}
 
 		if (event.entity instanceof EntityGhast) {
 
-			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D) {
-
+			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D)
 				event.entity.entityDropItem(IngredientPlugin.obsidianTear.getStack(), 0.0F);
-				event.entity.worldObj.playSoundAtEntity(event.entity, "random.bowhit", 1F, 1F);
-
-			}
 		}
 
 		if (event.entityLiving instanceof EntityChicken) {
-			if (rand.nextDouble() < 0.05D) {
-
+			if (rand.nextDouble() < 0.05D)
 				event.entityLiving.entityDropItem(IngredientPlugin.goldenFeather.getStack(), 0.0F);
-				event.entityLiving.worldObj.playSoundAtEntity(event.entityLiving, "random.levelup", 1F, 1F);
+		}
 
-			}
+		if (event.entityLiving instanceof EntityWitch) {
+			if (rand.nextDouble() < 0.7D)
+				event.entityLiving.entityDropItem(IngredientPlugin.tiredSpores.getStack(rand.nextInt(3)), 0.0F);
+			if (rand.nextDouble() > 0.2D)
+				event.entityLiving.entityDropItem(IngredientPlugin.remedySalve.getStack(rand.nextInt(3)), 0.0F);
+		}
+
+		if (event.entityLiving instanceof EntitySpider) {
+			if (rand.nextDouble() < 0.25D)
+				event.entityLiving.entityDropItem(IngredientPlugin.spiderFang.getStack(rand.nextInt(1) + 1), 0.0F);
+		}
+
+		if (event.entityLiving instanceof EntitySilverfish) {
+			if (rand.nextDouble() < 0.7D)
+				event.entityLiving.entityDropItem(IngredientPlugin.steelScales.getStack(rand.nextInt(3) + 1), 0.0F);
 		}
 	}
 

@@ -38,10 +38,22 @@ public class CraftingPlugin implements IPlugin {
 		if (Brewcraft.inst.getBoolean("Recipes", "Golden Feather Recipe", "Toggle Golden Feather Recipe", true))
 			GameRegistry.addShapedRecipe(IngredientPlugin.goldenFeather.getStack(), new Object[] {"!!!", "!@!", "!!!",
 					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), Items.feather });
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Heart Medallion Recipe", "Toggle Heart Medallion Recipe", true))
+			GameRegistry.addShapedRecipe(IngredientPlugin.goldenFeather.getStack(), new Object[] {"!!!", "!@!", "!!!",
+					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), Items.feather });
+
+		if (Brewcraft.inst.getBoolean("Recipes", "Tired Spores Recipe", "Toggle Tired Spores Recipe", true))
+			GameRegistry.addShapelessRecipe(IngredientPlugin.tiredSpores.getStack(3), new Object[] {Blocks.brown_mushroom,
+					Blocks.red_mushroom, Items.spider_eye });
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Medicinal Salve Recipe", "Toggle Medicinal Salve Recipe", true))
+			GameRegistry.addShapelessRecipe(IngredientPlugin.remedySalve.getStack(3), new Object[] {Items.paper,
+					Items.sugar, Items.redstone });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Plagued Tear Recipe", "Toggle Plagued Tear Recipe", false))
-			GameRegistry.addShapedRecipe(IngredientPlugin.obsidianTear.getStack(), new Object[] {"!!!", "!@!",
-					"!!!", Character.valueOf('!'), Blocks.obsidian, Character.valueOf('@'), Items.ghast_tear });
+			GameRegistry.addShapedRecipe(IngredientPlugin.obsidianTear.getStack(), new Object[] {"!!!", "!@!", "!!!",
+					Character.valueOf('!'), Blocks.obsidian, Character.valueOf('@'), Items.ghast_tear });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Splash Bottle Recipe", "Toggle Splash Bottle Recipe", true))
 			GameRegistry.addShapedRecipe(IngredientPlugin.splashBottle.getStack(3), new Object[] {" @!", "@ @", " @ ",
@@ -62,6 +74,13 @@ public class CraftingPlugin implements IPlugin {
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Charred Bone Recipe", "Toggle Charred Bone Smelting Recipe", true))
 			GameRegistry.addSmelting(Items.bone, IngredientPlugin.charredBone.getStack(), 0.1F);
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Steel Scales Recipe", "Toggle Steel Scales Smelting Recipe", true)) {
+			GameRegistry.addSmelting(Items.chainmail_boots, IngredientPlugin.steelScales.getStack(5), 0.2F);
+			GameRegistry.addSmelting(Items.chainmail_chestplate, IngredientPlugin.steelScales.getStack(8), 0.3F);
+			GameRegistry.addSmelting(Items.chainmail_helmet, IngredientPlugin.steelScales.getStack(5), 0.2F);
+			GameRegistry.addSmelting(Items.chainmail_leggings, IngredientPlugin.steelScales.getStack(7), 0.3F);
+		}
 	}
 
 	@Override

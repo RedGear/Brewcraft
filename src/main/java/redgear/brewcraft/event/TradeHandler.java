@@ -25,8 +25,8 @@ public class TradeHandler implements IVillageTradeHandler {
 	public static TradeHandler register() {
 		if (instance == null) {
 			instance = new TradeHandler();
-			//for (int i = 0; i < 5; ++i) //Why loop through all of them when you only use 2?
-				VillagerRegistry.instance().registerVillageTradeHandler(2, instance);
+			for (int i = 0; i < 5; ++i)
+				VillagerRegistry.instance().registerVillageTradeHandler(i, instance);
 
 		}
 		return instance;
@@ -47,6 +47,15 @@ public class TradeHandler implements IVillageTradeHandler {
 					recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
 							IngredientPlugin.pureTear.getStack(villager.worldObj.rand.nextInt(1) + 1)));
 				}
+			}
+		}
+
+		if (villager.getProfession() == 0) {
+			if (Brewcraft.inst.getBoolean("World", "Heart Butcher Trade", "Toggle Heart Trade", true)) {
+				recipeList.add(new MerchantRecipe(IngredientPlugin.heartSmall.getStack(1 + random.nextInt(3)),
+						new ItemStack(Items.emerald, random.nextInt(3) + 1)));
+				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 1),
+						IngredientPlugin.holyDust.getStack(1 + random.nextInt(3))));
 			}
 		}
 	}

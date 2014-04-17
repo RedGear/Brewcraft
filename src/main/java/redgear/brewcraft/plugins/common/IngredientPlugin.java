@@ -1,6 +1,7 @@
 package redgear.brewcraft.plugins.common;
 
 import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.items.ItemHeart;
 import redgear.brewcraft.items.ItemTear;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
@@ -15,11 +16,19 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem holyDust;
 	public static SimpleItem goldenFeather;
 	public static SimpleItem charredBone;
+	public static SimpleItem spiderFang;
+	public static SimpleItem tiredSpores;
+	public static SimpleItem remedySalve;
+	public static SimpleItem steelScales;
 	public static SimpleItem splashBottle;
 	
 	public static ItemTear tears;
 	public static SimpleItem obsidianTear;
 	public static SimpleItem pureTear;
+	
+	public static ItemHeart hearts;
+	public static SimpleItem heartGold;
+	public static SimpleItem heartSmall;
 
 	@Override
 	public String getName() {
@@ -42,14 +51,20 @@ public class IngredientPlugin implements IPlugin {
 		holyDust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenFeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredBone = ingredients.addMetaItem(new SubItem("charredbone"));
+		spiderFang = ingredients.addMetaItem(new SubItem("spiderfang"));
+		tiredSpores = ingredients.addMetaItem(new SubItem("tiredspores"));
+		remedySalve = ingredients.addMetaItem(new SubItem("remedysalve"));
+		steelScales = ingredients.addMetaItem(new SubItem("steelscales"));
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
 
 		tears = new ItemTear("RedGear.Brewcraft.Tears");
 		obsidianTear = tears.addMetaItem(new SubItem("obsidiantear"));
 		pureTear = tears.addMetaItem(new SubItem("puretear"));
-
-		tears.setMaxStackSize(8);
-		tears.setCreativeTab(Brewcraft.tab);
+		
+		hearts = new ItemHeart("RedGear.Brewcraft.Hearts");
+		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
+		heartSmall = hearts.addMetaItem(new SubItem("heartsmall"));
+		
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
 
