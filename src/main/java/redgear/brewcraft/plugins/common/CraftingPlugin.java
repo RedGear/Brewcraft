@@ -76,7 +76,7 @@ public class CraftingPlugin implements IPlugin {
 			GameRegistry.addSmelting(Items.bone, IngredientPlugin.charredBone.getStack(), 0.1F);
 		
 		if (Brewcraft.inst.getBoolean("Recipes", "Steel Scales Recipe", "Toggle Steel Scales Smelting Recipe", true)) {
-			GameRegistry.addSmelting(Items.chainmail_boots, IngredientPlugin.steelScales.getStack(5), 0.2F);
+			GameRegistry.addSmelting(Items.chainmail_boots, IngredientPlugin.steelScales.getStack(4), 0.1F);
 			GameRegistry.addSmelting(Items.chainmail_chestplate, IngredientPlugin.steelScales.getStack(8), 0.3F);
 			GameRegistry.addSmelting(Items.chainmail_helmet, IngredientPlugin.steelScales.getStack(5), 0.2F);
 			GameRegistry.addSmelting(Items.chainmail_leggings, IngredientPlugin.steelScales.getStack(7), 0.3F);

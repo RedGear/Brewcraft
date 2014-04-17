@@ -62,8 +62,8 @@ public class IngredientPlugin implements IPlugin {
 		pureTear = tears.addMetaItem(new SubItem("puretear"));
 		
 		hearts = new ItemHeart("RedGear.Brewcraft.Hearts");
-		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
 		heartSmall = hearts.addMetaItem(new SubItem("heartsmall"));
+		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
 		
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
