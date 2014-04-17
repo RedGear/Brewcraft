@@ -20,7 +20,6 @@ import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.SWTPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
-import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
@@ -46,8 +45,6 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem brewery;
 
 	public static CreativeTabs tab;
-
-	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {

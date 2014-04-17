@@ -16,7 +16,7 @@ public class PotionArrayExpander {
 				"Disable if another installed mod does this.", true);
 
 		if (enabled)
-			if (Potion.potionTypes.length != targetSize)
+			if (Potion.potionTypes.length < targetSize)
 				for (Field f : Potion.class.getDeclaredFields()) {
 					f.setAccessible(true);
 					try {

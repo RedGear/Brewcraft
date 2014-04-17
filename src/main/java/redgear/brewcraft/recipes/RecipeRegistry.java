@@ -3,7 +3,9 @@ package redgear.brewcraft.recipes;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.BrewingAPI;
 import redgear.brewcraft.api.BrewingAPI.IRecipeRegistry;
@@ -13,6 +15,7 @@ import redgear.core.util.SimpleItem;
 public class RecipeRegistry implements IRecipeRegistry {
 
 	public Set<BreweryRecipe> recipes = new HashSet<BreweryRecipe>();
+	public static final int defaultAmount = 300;
 
 	public RecipeRegistry() {
 		BrewingAPI.RECIPE_REGISTRY = this;
@@ -25,7 +28,32 @@ public class RecipeRegistry implements IRecipeRegistry {
 
 	@Override
 	public void addRecipe(FluidStack input, FluidStack output, ItemStack item) {
+		addRecipe(resizeStack(input.copy(), defaultAmount), output, item == null ? null : new SimpleItem(item));
+	}
+	
+	
+	public void addRecipe(FluidStack input, FluidStack output, Item item) {
 		addRecipe(input, output, item == null ? null : new SimpleItem(item));
+	}
+	
+	@Override
+	public void addRecipe(FluidStack input, FluidStack output, ItemStack item, int amount) {
+		addRecipe(resizeStack(input.copy(), amount), output, item);
+	}
+
+	@Override
+	public void addRecipe(Fluid input, Fluid output, ItemStack item) {
+		addRecipe(new FluidStack(input, defaultAmount), new FluidStack(output, defaultAmount), item);
+		
+	}
+
+	@Override
+	public void addRecipe(Fluid input, Fluid output, ItemStack item, int amount) {
+		addRecipe(new FluidStack(input, amount), new FluidStack(output, amount), item);
+	}
+	
+	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
+		addRecipe(resizeStack(input.copy(), amount), output, item);
 	}
 
 	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item) {

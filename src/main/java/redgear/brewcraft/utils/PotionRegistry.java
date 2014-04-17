@@ -2,9 +2,7 @@ package redgear.brewcraft.utils;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.PotionAPI;
@@ -54,8 +52,8 @@ public class PotionRegistry implements IPotionRegistry {
 
 			FluidStack potion;
 
-				potion = addPotionFluid(bottle.getStack(), splash == null ? null : splash.getStack(), name, duration,
-						strength);
+			potion = addPotionFluid(bottle.getStack(), splash == null ? null : splash.getStack(), name, duration,
+					strength);
 
 			return potion;
 		} else {
