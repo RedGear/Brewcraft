@@ -4,7 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TankSlot;
@@ -24,15 +25,13 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 	private final int outFull;
 	private final int itemSlot;
 
-	private final int itemBar;
 	private final int proccessBar;
 
 	private SimpleItem currItem;
-	private int itemLeft;
 	private FluidStack output;
 
 	public TileEntityBrewery() {
-		super(10);
+		super(0);
 
 		inFull = addSlot(new TankSlot(this, 32, 13, true, -1));
 		inEmpty = addSlot(new TankSlot(this, 32, 57, false, 1));
@@ -49,48 +48,58 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		addDrawSnippet(10, 13, 16, 60, 176, 0);
 		addDrawSnippet(147, 13, 16, 60, 176, 0);
 
-		itemBar = addProgressBar(69, 31, 3, 24);
+		//itemBar = addProgressBar(69, 31, 3, 24);
 		proccessBar = addProgressBar(5, 13, 3, 60);
 	}
 
 	@Override
 	protected void doPreWork() {
-		if (itemLeft <= 0) {
-			ItemStack stack = getStackInSlot(itemSlot);
-			if (stack != null) {
-				currItem = new SimpleItem(stack);
-				if(Brewcraft.registry.getBreweryRecipe(inputTank.getFluid(), currItem) != null) {
-					decrStackSize(itemSlot, 1);
-					itemLeft = 120;
-				}
+		if (work > 0) {
+			inputTank.drain(output.amount, true);
+			outputTank.fill(output, true);
+		}
+
+		ItemStack stack = getStackInSlot(itemSlot);
+		if (stack != null) {
+			SimpleItem item = new SimpleItem(stack);
+
+			if (item.equals(IngredientPlugin.obsidianTear) || item.equals(IngredientPlugin.pureTear)) {
+				IngredientPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
+				stack = getStackInSlot(itemSlot);
+				item = new SimpleItem(stack);
 			}
 		}
 
 		fillTank(inFull, inEmpty, inputTank);
 		emptyTank(outEmpty, outFull, outputTank);
-		ejectAllFluids();
+		//ejectAllFluids();
 
 	}
 
 	@Override
 	protected void checkWork() {
 		if (!inputTank.isEmpty()) {
-			BreweryRecipe currRecipe = Brewcraft.registry.getBreweryRecipe(inputTank.getFluid(), currItem);
+			ItemStack stack = getStackInSlot(itemSlot);
+			if (stack != null) {
+				SimpleItem item = new SimpleItem(stack);
 
-			if (currRecipe != null)
-				if (inputTank.canDrain(currRecipe.input) && outputTank.canFill(currRecipe.output)
-						&& itemLeft >= currRecipe.amount) {
-					inputTank.drain(currRecipe.input.amount, true);
-					output = currRecipe.output;
-					itemLeft -= currRecipe.amount;
-					addWork(currRecipe.time, 0);
-				}
+				BreweryRecipe currRecipe = PotionPlugin.recipeRegistry.getBreweryRecipe(inputTank.getFluid(), item);
+
+				if (currRecipe != null)
+					if (inputTank.canDrain(currRecipe.input, true) && outputTank.canFill(currRecipe.output, true)) {
+						currItem = item;
+						decrStackSize(itemSlot, 1);
+						output = currRecipe.output;
+						addWork(currRecipe.input.amount + 1);
+					}
+			}
 		}
 	}
 
 	@Override
 	protected void doPostWork() {
-		outputTank.fill(output, true);
+		currItem = null;
+		output = null;
 	}
 
 	@Override
@@ -98,11 +107,6 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		if (prog.id == proccessBar) {
 			prog.total = workTotal;
 			prog.value = work;
-		}
-
-		if (prog.id == itemBar) {
-			prog.total = 120;
-			prog.value = itemLeft;
 		}
 
 		return prog;
@@ -118,7 +122,6 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		writeFluidStack(tag, "output", output);
 		if (currItem != null)
 			currItem.writeToNBT(tag, "currItem");
-		tag.setInteger("itemLeft", itemLeft);
 	}
 
 	/**
@@ -130,7 +133,6 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		super.readFromNBT(tag);
 		output = readFluidStack(tag, "output");
 		currItem = new SimpleItem(tag, "currItem");
-		itemLeft = tag.getInteger("itemLeft");
 	}
 
 	public SimpleItem getCurrItem() {

@@ -27,7 +27,7 @@ public class SubItemPotion extends SubItem {
 	public void effect(EntityLivingBase entity) {
 		entity.addPotionEffect(new PotionEffect(potionId, duration, strength));
 	}
-	
+
 	public Potion getEffect() {
 		return potion;
 	}

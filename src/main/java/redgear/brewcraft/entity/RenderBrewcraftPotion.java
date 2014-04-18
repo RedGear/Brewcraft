@@ -10,22 +10,33 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.potions.MetaItemPotion;
+
 public class RenderBrewcraftPotion extends Render {
 
-	public void doRender(EntityBrewcraftPotion potion, double x, double y, double z, float f1, float f2) {
-		IIcon icon = potion.getIcon();
+	public void doRender(EntityBrewcraftPotion entity, double x, double y, double z, float f1, float f2) {
+		GL11.glPushMatrix();
+		GL11.glTranslatef((float) x, (float) y, (float) z);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glScalef(0.5F, 0.5F, 0.5F);
+		bindEntityTexture(entity);
+		Tessellator tessellator = Tessellator.instance;
 
-		if (icon != null) {
-			GL11.glPushMatrix();
-			GL11.glTranslatef((float) x, (float) y, (float) z);
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			bindEntityTexture(potion);
-			Tessellator tessellator = Tessellator.instance;
-			drawIcon(tessellator, icon);
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-			GL11.glPopMatrix();
-		}
+		int color = PotionPlugin.potions.getColorFromItemStack(entity.getPotionStack(), 0);
+		float red = (color >> 16 & 255) / 255.0F;
+		float blue = (color >> 8 & 255) / 255.0F;
+		float green = (color & 255) / 255.0F;
+		GL11.glColor3f(red, blue, green);
+		GL11.glPushMatrix();
+		drawIcon(tessellator, MetaItemPotion.overlay);
+		GL11.glPopMatrix();
+		GL11.glColor3f(1.0F, 1.0F, 1.0F);
+
+		drawIcon(tessellator, MetaItemPotion.splash);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glPopMatrix();
+
 	}
 
 	private void drawIcon(Tessellator tessellator, IIcon icon) {

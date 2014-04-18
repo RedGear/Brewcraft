@@ -1,19 +1,18 @@
 package redgear.brewcraft.plugins.compat;
 
 import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
-import redgear.core.mod.Mods;
+import redgear.core.util.CoreDungeonLoot;
+import redgear.core.util.CoreDungeonLoot.LootRarity;
 import cpw.mods.fml.common.LoaderState.ModState;
 
-public class BuildcraftPlugin implements IPlugin {
-
-	int power = 12;
-	int time = 16000;
+public class VanillaPlugin implements IPlugin {
 
 	@Override
 	public String getName() {
-		return "BuildcraftPlugin";
+		return "VanillaPlugin";
 	}
 
 	@Override
@@ -23,7 +22,7 @@ public class BuildcraftPlugin implements IPlugin {
 
 	@Override
 	public boolean isRequired() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -33,11 +32,10 @@ public class BuildcraftPlugin implements IPlugin {
 
 	@Override
 	public void Init(ModUtils mod) {
-		if (Brewcraft.inst.getBoolean("Plugins", "Buildcraft Plugin", "Toggle Buildcraft Plugin", true)) {
-			if (Mods.BCCore.isIn()) {
+		if (Brewcraft.inst.getBoolean("Dungeon Loot", "Golden Feather Dungeon Loot",
+				"Toggle Golden Feather as Dungeon Loot", true))
+			CoreDungeonLoot.addLootToDungeons(IngredientPlugin.goldenFeather.getStack(), LootRarity.RARE);
 
-			}
-		}
 	}
 
 	@Override
