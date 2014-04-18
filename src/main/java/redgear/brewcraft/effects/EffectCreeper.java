@@ -9,7 +9,7 @@ import redgear.brewcraft.plugins.common.AchievementPlugin;
 public class EffectCreeper extends PotionExtension {
 
 	public EffectCreeper(int id) {
-		super(id, true, 3064832);
+		super(id, true, 0x00CC00);
 		setPotionName("potion.creeper");
 		setIconIndex(0, 0);
 	}

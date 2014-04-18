@@ -7,7 +7,7 @@ import redgear.brewcraft.plugins.common.AchievementPlugin;
 public class EffectFrozen extends PotionExtension {
 
 	public EffectFrozen(int id) {
-		super(id, true, 13107192);
+		super(id, true, 0xCCFFFF);
 		setPotionName("potion.frozen");
 		setIconIndex(4, 0);
 	}

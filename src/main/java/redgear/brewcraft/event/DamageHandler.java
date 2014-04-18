@@ -31,7 +31,7 @@ public class DamageHandler {
 		if (event.entity instanceof EntityLivingBase) {
 			final EntityLivingBase living = (EntityLivingBase) event.entity;
 			
-			if(living.worldObj.rand.nextDouble() < 0.1D && !(living instanceof EntityPlayer))
+			if(living.worldObj.rand.nextDouble() < 0.3D && !(living instanceof EntityPlayer))
 				living.dropItem(IngredientPlugin.heartSmall.item, 1);
 			
 			if (living.getActivePotionEffect(EffectPlugin.fireproof) != null) {
