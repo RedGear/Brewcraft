@@ -26,19 +26,19 @@ public class RecipeRegistry implements IRecipeRegistry {
 		return input;
 	}
 
-	@Override
-	public void addRecipe(FluidStack input, FluidStack output, ItemStack item) {
-		addRecipe(resizeStack(input.copy(), defaultAmount), output, item == null ? null : new SimpleItem(item));
-	}
-	
-	
 	public void addRecipe(FluidStack input, FluidStack output, Item item) {
 		addRecipe(input, output, item == null ? null : new SimpleItem(item));
 	}
 	
 	@Override
+	public void addRecipe(FluidStack input, FluidStack output, ItemStack item) {
+		addRecipe(input, output, item, defaultAmount);
+	}
+	
+	
+	@Override
 	public void addRecipe(FluidStack input, FluidStack output, ItemStack item, int amount) {
-		addRecipe(resizeStack(input.copy(), amount), output, item);
+		addRecipe(input, output, item == null ? null : new SimpleItem(item), amount);
 	}
 
 	@Override
@@ -49,16 +49,16 @@ public class RecipeRegistry implements IRecipeRegistry {
 
 	@Override
 	public void addRecipe(Fluid input, Fluid output, ItemStack item, int amount) {
-		addRecipe(new FluidStack(input, amount), new FluidStack(output, amount), item);
+		addRecipe(new FluidStack(input, amount), new FluidStack(output, amount), item, amount);
 	}
 	
-	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
-		addRecipe(resizeStack(input.copy(), amount), output, item);
+	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item) {
+		addRecipe(input, output, item, defaultAmount);
 	}
 
-	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item) {
-		if (input != null && input.amount > 0 && output != null && output.amount > 0 && item != null) {
-			if (!recipes.add(new BreweryRecipe(input, output, item)))
+	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
+		if (input != null && output != null && item != null) {
+			if (!recipes.add(new BreweryRecipe(resizeStack(input.copy(), amount), output, item)))
 				Brewcraft.inst.myLogger
 						.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
 		} else { //There is a programming bug that someone needs to fix, so let's throw it as a warning. 
