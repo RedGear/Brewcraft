@@ -10,22 +10,21 @@ import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TankSlot;
 import redgear.core.inventory.TransferRule;
-import redgear.core.render.ProgressBar;
 import redgear.core.tile.TileEntityFreeMachine;
 import redgear.core.util.SimpleItem;
 
 public class TileEntityBrewery extends TileEntityFreeMachine {
 
-	private final AdvFluidTank inputTank;
-	private final AdvFluidTank outputTank;
+	public final AdvFluidTank inputTank;
+	public final AdvFluidTank outputTank;
 
-	private final int inFull;
-	private final int inEmpty;
-	private final int outEmpty;
-	private final int outFull;
-	private final int itemSlot;
+	public final int inFull;
+	public final int inEmpty;
+	public final int outEmpty;
+	public final int outFull;
+	public final int itemSlot;
 
-	private final int proccessBar;
+	//private final int proccessBar;
 
 	private SimpleItem currItem;
 	private FluidStack output;
@@ -42,14 +41,18 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 4, this);
 		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4).addFluidMap(-1, TransferRule.OUTPUT);
 
-		addTank(inputTank, 10, 13, 16, 60);
-		addTank(outputTank, 147, 13, 16, 60);
+		
+		addTank(inputTank);
+		addTank(outputTank);
+		
+		//addTank(inputTank, 10, 13, 16, 60);
+		//addTank(outputTank, 147, 13, 16, 60);
 
-		addDrawSnippet(10, 13, 16, 60, 176, 0);
-		addDrawSnippet(147, 13, 16, 60, 176, 0);
+		//addDrawSnippet(10, 13, 16, 60, 176, 0);
+		//addDrawSnippet(147, 13, 16, 60, 176, 0);
 
 		//itemBar = addProgressBar(69, 31, 3, 24);
-		proccessBar = addProgressBar(5, 13, 3, 60);
+		//proccessBar = addProgressBar(5, 13, 3, 60);
 	}
 
 	@Override
@@ -57,6 +60,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		if (work > 0) {
 			inputTank.drain(output.amount, true);
 			outputTank.fill(output, true);
+			forceSync();
 		}
 
 		ItemStack stack = getStackInSlot(itemSlot);
@@ -91,6 +95,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 						decrStackSize(itemSlot, 1);
 						output = currRecipe.output;
 						addWork(currRecipe.input.amount + 1);
+						forceSync();
 					}
 			}
 		}
@@ -100,9 +105,10 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 	protected void doPostWork() {
 		currItem = null;
 		output = null;
+		forceSync();
 	}
 
-	@Override
+	/*@Override
 	public ProgressBar updateProgressBars(ProgressBar prog) {
 		if (prog.id == proccessBar) {
 			prog.total = workTotal;
@@ -110,7 +116,7 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		}
 
 		return prog;
-	}
+	}*/
 
 	/**
 	 * Don't forget to override this function in all children if you want more

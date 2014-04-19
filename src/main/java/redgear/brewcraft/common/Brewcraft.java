@@ -3,6 +3,7 @@ package redgear.brewcraft.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import redgear.brewcraft.blocks.BreweryFactory;
 import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
@@ -75,8 +76,7 @@ public class Brewcraft extends ModUtils {
 				RenderingRegistry.getNextAvailableRenderId());
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(
-				"brewery", "Brewery")));
+		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(new BreweryFactory())));
 		brewery.getBlock().setCreativeTab(tab);
 
 	}
