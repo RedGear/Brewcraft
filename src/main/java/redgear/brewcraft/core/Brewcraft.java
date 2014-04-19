@@ -18,7 +18,6 @@ import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
-import redgear.brewcraft.plugins.compat.SWTPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
@@ -62,10 +61,9 @@ public class Brewcraft extends ModUtils {
 
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
-		addPlugin(new SWTPlugin());
 		addPlugin(new VanillaPlugin());
 
-		tab = new BrewcraftTab("brewcraft", getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+		tab = new BrewcraftTab("brewcraft", getBoolean("General", "Toggle Unconventional Creative Tab Overlay",
 				"Toggle the cool background for the Brewcraft creative tab."));
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
@@ -75,7 +73,7 @@ public class Brewcraft extends ModUtils {
 				RenderingRegistry.getNextAvailableRenderId());
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(
+		brewery = brewing.addMetaBlock(new SubTile("brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(
 				"brewery", "Brewery")));
 		brewery.getBlock().setCreativeTab(tab);
 

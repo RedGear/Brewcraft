@@ -29,6 +29,7 @@ public class IngredientPlugin implements IPlugin {
 	public static ItemHeart hearts;
 	public static SimpleItem heartGold;
 	public static SimpleItem heartSmall;
+	public static SimpleItem heartBlaze;
 
 	@Override
 	public String getName() {
@@ -64,6 +65,7 @@ public class IngredientPlugin implements IPlugin {
 		hearts = new ItemHeart("RedGear.Brewcraft.Hearts");
 		heartSmall = hearts.addMetaItem(new SubItem("heartsmall"));
 		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
+		heartBlaze = hearts.addMetaItem(new SubItem("heartblaze"));
 		
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}

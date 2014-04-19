@@ -23,6 +23,8 @@ public class ItemHeart extends MetaItem {
 			player.heal(4F);
 		else if (IngredientPlugin.heartSmall.equals(stack))
 			player.heal(2F);
+		else if (IngredientPlugin.heartBlaze.equals(stack))
+			player.heal(3F);
 		return stack;
 	}
 

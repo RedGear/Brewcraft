@@ -1,7 +1,9 @@
 package redgear.brewcraft.effects;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.core.util.SimpleItem;
 import redgear.core.world.WorldLocation;
 
@@ -9,6 +11,8 @@ public class EffectEnternalFlame extends PotionExtension {
 
 	public EffectEnternalFlame(int id) {
 		super(id, true, 0xFF9933);
+		setPotionName("potion.flame");
+		setIconIndex(7, 0);
 	}
 
 	@Override
@@ -29,6 +33,10 @@ public class EffectEnternalFlame extends PotionExtension {
 						if (loc.isAir())
 							loc.placeBlock(fire);
 					}
+		}
+		
+		if (living instanceof EntityPlayer && AchievementPlugin.flame != null) {
+			((EntityPlayer) living).addStat(AchievementPlugin.flame, 1);
 		}
 	}
 

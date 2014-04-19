@@ -1,6 +1,7 @@
 package redgear.brewcraft.event;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,10 +31,7 @@ public class DamageHandler {
 	public void cancelFireDamage(final LivingHurtEvent event) {
 		if (event.entity instanceof EntityLivingBase) {
 			final EntityLivingBase living = (EntityLivingBase) event.entity;
-			
-			if(living.worldObj.rand.nextDouble() < 0.3D && !(living instanceof EntityPlayer))
-				living.dropItem(IngredientPlugin.heartSmall.item, 1);
-			
+
 			if (living.getActivePotionEffect(EffectPlugin.fireproof) != null) {
 				if (event.source.equals(DamageSource.lava) || event.source.equals(DamageSource.inFire)
 						|| event.source.equals(DamageSource.onFire)) {

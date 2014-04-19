@@ -52,28 +52,21 @@ public class EffectPlugin implements IPlugin {
 		angel = new EffectAngel(Brewcraft.inst.getInt("Potion Effect IDs", "'Angelic' Effect ID",
 				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 40));
 
-		flight = new EffectFlight(Brewcraft.inst.getInt("Potion Effect IDs", "'Flight' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 41));
+		flight = new EffectFlight(Brewcraft.inst.getInt("Potion Effect IDs", "'Flight' Effect ID", 41));
 
-		creeper = new EffectCreeper(Brewcraft.inst.getInt("Potion Effect IDs", "'Combustion' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 42));
+		creeper = new EffectCreeper(Brewcraft.inst.getInt("Potion Effect IDs", "'Combustion' Effect ID", 42));
 
-		immunity = new EffectImmunity(Brewcraft.inst.getInt("Potion Effect IDs", "'Immunity' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 43));
+		immunity = new EffectImmunity(Brewcraft.inst.getInt("Potion Effect IDs", "'Immunity' Effect ID", 43));
 
-		frozen = new EffectFrozen(Brewcraft.inst.getInt("Potion Effect IDs", "'Frozen' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 44))
+		frozen = new EffectFrozen(Brewcraft.inst.getInt("Potion Effect IDs", "'Frozen' Effect ID", 44))
 				.func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891",
 						-0.95000000596046448D, 2);
 
-		fireproof = new EffectFireproof(Brewcraft.inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 45));
-		
-		flame = new EffectEnternalFlame(Brewcraft.inst.getInt("Potion Effect IDs", "'Eternal Flame' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 46));
-		
-		fireEater = new EffectFireEater(Brewcraft.inst.getInt("Potion Effect IDs", "'Fire Eater' Effect ID",
-				"Must be over 20. Must also be lowered if you have disabled the potion list expansion.", 47));
+		fireproof = new EffectFireproof(Brewcraft.inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID", 45));
+
+		flame = new EffectEnternalFlame(Brewcraft.inst.getInt("Potion Effect IDs", "'Eternal Flame' Effect ID", 46));
+
+		fireEater = new EffectFireEater(Brewcraft.inst.getInt("Potion Effect IDs", "'Fire Eater' Effect ID", 47));
 	}
 
 	@Override

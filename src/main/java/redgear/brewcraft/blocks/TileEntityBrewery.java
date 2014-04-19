@@ -39,8 +39,8 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		outFull = addSlot(new TankSlot(this, 124, 57, true, 1));
 		itemSlot = addSlot(79, 36);
 
-		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 4, this);
-		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4).addFluidMap(-1, TransferRule.OUTPUT);
+		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 12, this);
+		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 12).addFluidMap(-1, TransferRule.OUTPUT);
 
 		addTank(inputTank, 10, 13, 16, 60);
 		addTank(outputTank, 147, 13, 16, 60);

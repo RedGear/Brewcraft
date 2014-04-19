@@ -15,7 +15,7 @@ import redgear.core.util.SimpleItem;
 public class RecipeRegistry implements IRecipeRegistry {
 
 	public Set<BreweryRecipe> recipes = new HashSet<BreweryRecipe>();
-	public static final int defaultAmount = 300;
+	public static final int defaultAmount = 3000;
 
 	public RecipeRegistry() {
 		BrewingAPI.RECIPE_REGISTRY = this;
@@ -29,13 +29,12 @@ public class RecipeRegistry implements IRecipeRegistry {
 	public void addRecipe(FluidStack input, FluidStack output, Item item) {
 		addRecipe(input, output, item == null ? null : new SimpleItem(item));
 	}
-	
+
 	@Override
 	public void addRecipe(FluidStack input, FluidStack output, ItemStack item) {
 		addRecipe(input, output, item, defaultAmount);
 	}
-	
-	
+
 	@Override
 	public void addRecipe(FluidStack input, FluidStack output, ItemStack item, int amount) {
 		addRecipe(input, output, item == null ? null : new SimpleItem(item), amount);
@@ -44,23 +43,26 @@ public class RecipeRegistry implements IRecipeRegistry {
 	@Override
 	public void addRecipe(Fluid input, Fluid output, ItemStack item) {
 		addRecipe(new FluidStack(input, defaultAmount), new FluidStack(output, defaultAmount), item);
-		
+
 	}
 
 	@Override
 	public void addRecipe(Fluid input, Fluid output, ItemStack item, int amount) {
 		addRecipe(new FluidStack(input, amount), new FluidStack(output, amount), item, amount);
 	}
-	
+
 	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item) {
 		addRecipe(input, output, item, defaultAmount);
 	}
 
 	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
 		if (input != null && output != null && item != null) {
-			if (!recipes.add(new BreweryRecipe(resizeStack(input.copy(), amount), output, item)))
-				Brewcraft.inst.myLogger
-						.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
+			if (Brewcraft.inst.getBoolean("Brewery Recipes", "Toggle " + output.getFluid().getLocalizedName()
+					+ " Recipe", "Allow " + output.getFluid().getLocalizedName() + " Recipe?")) {
+				if (!recipes.add(new BreweryRecipe(resizeStack(input.copy(), amount), output, item)))
+					Brewcraft.inst.myLogger
+							.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");
+			}
 		} else { //There is a programming bug that someone needs to fix, so let's throw it as a warning. 
 			StringBuilder message = new StringBuilder(
 					"There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: ");
@@ -80,15 +82,15 @@ public class RecipeRegistry implements IRecipeRegistry {
 			Brewcraft.inst.myLogger.warn(message.toString());
 		}
 	}
-	
-	public boolean isValidFluid(FluidStack fluid){
-		if(fluid == null)
+
+	public boolean isValidFluid(FluidStack fluid) {
+		if (fluid == null)
 			return false;
 		else
 			for (BreweryRecipe recipe : recipes)
-				if(recipe.input.isFluidEqual(fluid))
+				if (recipe.input.isFluidEqual(fluid))
 					return true;
-		
+
 		return false;
 	}
 

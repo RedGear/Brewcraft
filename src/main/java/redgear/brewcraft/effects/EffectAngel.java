@@ -1,14 +1,19 @@
 package redgear.brewcraft.effects;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 
 public class EffectAngel extends PotionExtension {
 
 	public EffectAngel(int id) {
-		super(id, false, 0xFFFF66);
+		super(id, false, 0xFFFF33);
 		setPotionName("potion.angel");
 		setIconIndex(1, 0);
 	}
@@ -18,6 +23,14 @@ public class EffectAngel extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
+
+		if (living instanceof EntityZombie) {
+			final EntityZombie villager = (EntityZombie) living;
+			if (villager.isVillager()) {
+				convertToVillager(villager);
+				return;
+			}
+		}
 
 		if (living.isEntityUndead())
 			living.attackEntityFrom(DamageSource.magic, strength * 2 + 2F);
@@ -36,5 +49,26 @@ public class EffectAngel extends PotionExtension {
 	public boolean isReady(int duration, int amplifier) {
 		int k = 50 >> amplifier;
 		return k > 0 ? duration % k == 0 : true;
+	}
+
+	/**
+	 * Convert this zombie into a villager.
+	 * The method in EntityZombie is protected.
+	 */
+	protected void convertToVillager(EntityZombie living) {
+		EntityVillager entityvillager = new EntityVillager(living.worldObj);
+		entityvillager.copyLocationAndAnglesFrom(living);
+		entityvillager.onSpawnWithEgg((IEntityLivingData) null);
+		entityvillager.setLookingForHome();
+
+		if (living.isChild()) {
+			entityvillager.setGrowingAge(-24000);
+		}
+
+		living.worldObj.removeEntity(living);
+		living.worldObj.spawnEntityInWorld(entityvillager);
+		entityvillager.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+		living.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1017, (int) living.posX, (int) living.posY,
+				(int) living.posZ, 0);
 	}
 }

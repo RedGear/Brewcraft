@@ -41,7 +41,7 @@ public class CraftingPlugin implements IPlugin {
 		
 		if (Brewcraft.inst.getBoolean("Recipes", "Heart Medallion Recipe", "Toggle Heart Medallion Recipe", true))
 			GameRegistry.addShapedRecipe(IngredientPlugin.goldenFeather.getStack(), new Object[] {"!!!", "!@!", "!!!",
-					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), Items.feather });
+					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), IngredientPlugin.heartSmall.getItem() });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Tired Spores Recipe", "Toggle Tired Spores Recipe", true))
 			GameRegistry.addShapelessRecipe(IngredientPlugin.tiredSpores.getStack(3), new Object[] {Blocks.brown_mushroom,

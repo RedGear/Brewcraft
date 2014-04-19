@@ -177,7 +177,6 @@ public class PotionPlugin implements IPlugin {
 	@Override
 	public void Init(ModUtils mod) {
 		fluidAwkward = createVanillaPotion("Awkward", 16, 0);
-		System.out.println("Created at least one potion successfully.");
 		fluidVision = createVanillaPotion("Vision", 8198, 16390);
 		fluidVisionLong = createVanillaPotion("VisionLong", 8262, 16454);
 		fluidInvisible = createVanillaPotion("Invisible", 8206, 16398);
@@ -248,11 +247,11 @@ public class PotionPlugin implements IPlugin {
 		fluidAbsorptionIII = potionRegistry.addPotion("AbsorptionIII", Potion.field_76444_x, 15, 2);
 		fluidAbsorptionLong = potionRegistry.addPotion("AbsorptionLong", Potion.field_76444_x, 120, 0);
 		fluidAbsorptionVeryLong = potionRegistry.addPotion("AbsorptionVeryLong", Potion.field_76444_x, 240, 0);
-		fluidSaturation = potionRegistry.addPotion("Saturation", Potion.field_76443_y, 10, 0);
-		fluidSaturationII = potionRegistry.addPotion("SaturationII", Potion.field_76443_y, 5, 1);
-		fluidSaturationIII = potionRegistry.addPotion("SaturationIII", Potion.field_76443_y, 3, 2);
-		fluidSaturationLong = potionRegistry.addPotion("SaturationLong", Potion.field_76443_y, 20, 0);
-		fluidSaturationVeryLong = potionRegistry.addPotion("SaturationVeryLong", Potion.field_76443_y, 40, 0);
+		fluidSaturation = potionRegistry.addPotion("Saturation", Potion.field_76443_y, 1, 0);
+		fluidSaturationII = potionRegistry.addPotion("SaturationII", Potion.field_76443_y, 1, 1);
+		fluidSaturationIII = potionRegistry.addPotion("SaturationIII", Potion.field_76443_y, 1, 2);
+		fluidSaturationLong = potionRegistry.addPotion("SaturationLong", Potion.field_76443_y, 1, 0);
+		fluidSaturationVeryLong = potionRegistry.addPotion("SaturationVeryLong", Potion.field_76443_y, 1, 0);
 		fluidWither = potionRegistry.addPotion("Wither", Potion.wither, 20, 0);
 		fluidWitherII = potionRegistry.addPotion("WitherII", Potion.wither, 10, 1);
 		fluidWitherIII = potionRegistry.addPotion("WitherIII", Potion.wither, 5, 2);
@@ -281,9 +280,9 @@ public class PotionPlugin implements IPlugin {
 		fluidCryo = potionRegistry.addPotion("Cryo", EffectPlugin.frozen, 8, 0, true);
 		fluidCryoLong = potionRegistry.addPotion("CryoLong", EffectPlugin.frozen, 16, 0, true);
 		fluidCryoVeryLong = potionRegistry.addPotion("CryoVeryLong", EffectPlugin.frozen, 30, 0, true);
-		fluidEternalFlame = potionRegistry.addPotion("EternalFlame", EffectPlugin.flame, 30, 0, true);
-		fluidEternalFlameLong = potionRegistry.addPotion("EternalFlameLong", EffectPlugin.flame, 60, 0, true);
-		fluidEternalFlameVeryLong = potionRegistry.addPotion("EternalFlameVeryLong", EffectPlugin.flame, 120, 0, true);
+		fluidEternalFlame = potionRegistry.addPotion("EternalFlame", EffectPlugin.flame, 30, 0);
+		fluidEternalFlameLong = potionRegistry.addPotion("EternalFlameLong", EffectPlugin.flame, 60, 0);
+		fluidEternalFlameVeryLong = potionRegistry.addPotion("EternalFlameVeryLong", EffectPlugin.flame, 120, 0);
 		fluidFireEater = potionRegistry.addPotion("FireEater", EffectPlugin.fireEater, 45, 0, true);
 		fluidFireEaterII = potionRegistry.addPotion("FireEaterII", EffectPlugin.fireEater, 30, 1, true);
 		fluidFireEaterIII = potionRegistry.addPotion("FireEaterIII", EffectPlugin.fireEater, 15, 2, true);
@@ -314,8 +313,6 @@ public class PotionPlugin implements IPlugin {
 		fluidFastVeryLong = potionRegistry.addPotion("FastVeryLong", Potion.moveSpeed, 960, 0);
 		fluidStrengthIII = potionRegistry.addPotion("StrengthIII", Potion.damageBoost, 40, 2, true);
 		fluidStrengthVeryLong = potionRegistry.addPotion("StrengthVeryLong", Potion.damageBoost, 960, 0);
-		fluidFireImmunity = potionRegistry.addPotion("FireImmunity", EffectPlugin.fireproof, 35, 0, true);
-		fluidFireImmunityII = potionRegistry.addPotion("FireImmunityII", EffectPlugin.fireproof, 15, 1, true);
 		fluidFireResistVeryLong = potionRegistry.addPotion("FireResistVeryLong", Potion.fireResistance, 960, 0);
 		fluidPoisonIII = potionRegistry.addPotion("PoisonIII", Potion.poison, 8, 2);
 		fluidPoisonVeryLong = potionRegistry.addPotion("PoisonVeryLong", Potion.poison, 240, 0);
@@ -427,6 +424,17 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidSlownessVeryLong, fluidCryoVeryLong, Items.snowball);
 		recipeRegistry.addRecipe(fluidSlowness, fluidSlownessLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidSlownessLong, fluidSlownessVeryLong, IngredientPlugin.pureTear);
+		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidEternalFlame, new ItemStack(Items.fire_charge));
+		recipeRegistry.addRecipe(fluidEternalFlame, fluidEternalFlameLong, new ItemStack(Items.redstone));
+		recipeRegistry.addRecipe(fluidEternalFlameLong, fluidEternalFlame, new ItemStack(Items.glowstone_dust));
+		recipeRegistry.addRecipe(fluidEternalFlameLong, fluidEternalFlameVeryLong, IngredientPlugin.pureTear.getStack());
+		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidFireEater, IngredientPlugin.heartBlaze.getStack());
+		recipeRegistry.addRecipe(fluidFireEater, fluidFireEaterII, new ItemStack(Items.glowstone_dust));
+		recipeRegistry.addRecipe(fluidFireEaterII, fluidFireEater, new ItemStack(Items.redstone));
+		recipeRegistry.addRecipe(fluidFireEaterII, fluidFireEaterIII, IngredientPlugin.obsidianTear.getStack());
+		recipeRegistry.addRecipe(fluidFireEater, fluidFireEaterLong, new ItemStack(Items.redstone));
+		recipeRegistry.addRecipe(fluidFireEaterLong, fluidFireEater, new ItemStack(Items.glowstone_dust));
+		recipeRegistry.addRecipe(fluidFireEaterLong, fluidFireEaterVeryLong, IngredientPlugin.pureTear.getStack());
 		
 		recipeRegistry.addRecipe(fluidAwkward, fluidNausea, Items.poisonous_potato);
 		recipeRegistry.addRecipe(fluidNausea, fluidNauseaLong, Items.redstone);
@@ -519,7 +527,7 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidJump, fluidJumpLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidJumpLong, fluidJump, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidJumpLong, fluidJumpVeryLong, IngredientPlugin.pureTear);
-		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 100), fluidWither, IngredientPlugin.charredBone);
+		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidWither, IngredientPlugin.charredBone);
 		recipeRegistry.addRecipe(fluidWither, fluidWitherII, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidWitherII, fluidWitherIII, IngredientPlugin.obsidianTear);
 		recipeRegistry.addRecipe(fluidWither, fluidWitherLong, Items.redstone);
