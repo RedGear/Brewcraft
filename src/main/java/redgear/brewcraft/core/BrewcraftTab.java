@@ -1,4 +1,4 @@
-package redgear.brewcraft.common;
+package redgear.brewcraft.core;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +13,8 @@ public class BrewcraftTab extends CreativeTabs {
 		super(lable);
 
 		this.hasBackground = background;
+		if(hasBackground)
+			setNoTitle();
 	}
 
 	@Override

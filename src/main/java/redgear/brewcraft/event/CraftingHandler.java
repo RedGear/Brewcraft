@@ -1,7 +1,7 @@
 package redgear.brewcraft.event;
 
 import net.minecraft.item.Item;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

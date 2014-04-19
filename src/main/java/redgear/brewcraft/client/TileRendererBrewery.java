@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import redgear.brewcraft.blocks.ModelBrewery;
 import redgear.brewcraft.blocks.TileEntityBrewery;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.core.util.StringHelper;
 
 public class TileRendererBrewery extends TileEntitySpecialRenderer {

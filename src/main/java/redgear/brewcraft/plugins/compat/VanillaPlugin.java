@@ -1,6 +1,6 @@
 package redgear.brewcraft.plugins.compat;
 
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
