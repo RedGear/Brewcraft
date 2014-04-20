@@ -1,6 +1,6 @@
 package redgear.brewcraft.plugins.common;
 
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.items.ItemHeart;
 import redgear.brewcraft.items.ItemTear;
 import redgear.core.item.MetaItem;

@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import cpw.mods.fml.common.LoaderState.ModState;

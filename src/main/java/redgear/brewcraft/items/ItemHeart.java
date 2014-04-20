@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.item.MetaItem;
 

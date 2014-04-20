@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.BrewingAPI;
 import redgear.brewcraft.api.BrewingAPI.IRecipeRegistry;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.core.util.SimpleItem;
 
 public class RecipeRegistry implements IRecipeRegistry {

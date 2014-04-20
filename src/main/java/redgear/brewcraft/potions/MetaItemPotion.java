@@ -13,7 +13,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.core.item.MetaItem;

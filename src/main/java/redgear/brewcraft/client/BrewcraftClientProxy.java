@@ -1,7 +1,7 @@
 package redgear.brewcraft.client;
 
 import redgear.brewcraft.blocks.TileEntityBrewery;
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.RenderBrewcraftPotion;
 import redgear.core.mod.IPlugin;

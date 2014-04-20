@@ -3,7 +3,7 @@ package redgear.brewcraft.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import redgear.brewcraft.common.Brewcraft;
+import redgear.brewcraft.core.Brewcraft;
 
 import net.minecraft.potion.Potion;
 

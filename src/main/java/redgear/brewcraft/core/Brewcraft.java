@@ -1,4 +1,4 @@
-package redgear.brewcraft.common;
+package redgear.brewcraft.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -67,7 +67,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new VanillaPlugin());
 
 		tab = new BrewcraftTab("brewcraft", getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab.")).setNoTitle();
+				"Toggle the cool background for the Brewcraft creative tab."));
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
