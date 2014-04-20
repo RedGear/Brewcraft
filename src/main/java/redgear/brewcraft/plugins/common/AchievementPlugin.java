@@ -2,6 +2,7 @@ package redgear.brewcraft.plugins.common;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import redgear.brewcraft.core.Brewcraft;
@@ -18,6 +19,8 @@ public class AchievementPlugin implements IPlugin {
 	public static Achievement flight;
 	public static Achievement immunity;
 	public static Achievement holywater;
+	public static Achievement flame;
+	public static Achievement fireEater;
 
 	public static AchievementPage pageBrewcraft;
 
@@ -58,9 +61,13 @@ public class AchievementPlugin implements IPlugin {
 					.registerStat();
 			holywater = new Achievement("potionHolyWater", "potionHolyWater", -4, 0,
 					IngredientPlugin.holyDust.getStack(), craftBrewery).registerStat();
+			flame = new Achievement("potionFlame", "potionFlame", 6, 2,
+					new ItemStack(Items.fire_charge), craftBrewery).registerStat();
+			fireEater = new Achievement("potionFireEater", "potionFireEater", 5, -3,
+					IngredientPlugin.heartBlaze.getStack(), craftBrewery).registerStat();
 
 			pageBrewcraft = new AchievementPage("Brewcraft", craftBrewery, explode, freeze, fireproof, flight,
-					immunity, holywater);
+					immunity, holywater, flame, fireEater);
 
 			AchievementPage.registerAchievementPage(pageBrewcraft);
 		}

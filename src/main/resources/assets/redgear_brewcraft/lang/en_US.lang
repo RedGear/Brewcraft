@@ -10,6 +10,7 @@ item.RedGear.Brewcraft.Tears.obsidiantear.name=Plagued Tear
 item.RedGear.Brewcraft.Tears.puretear.name=Pure Tear
 item.RedGear.Brewcraft.Hearts.heartsmall.name=Heart
 item.RedGear.Brewcraft.Hearts.heartgold.name=Heart Medallion
+item.RedGear.Brewcraft.Hearts.heartblaze.name=Blazing Heart
 
 potion.angel.postfix=Potion of Holy Water
 potion.flight.postfix=Potion of Ascension
@@ -17,8 +18,10 @@ potion.immunity.postfix=Potion of Remedy
 potion.creeper.postfix=Potion of Combustion
 potion.frozen.postfix=Potion of Cryogenics
 potion.fireproof.postfix=Potion of Fire Immunity
+potion.flame.postfix=Potion of Eternal Flame
+potion.fireEater.postfix=Potion of Fire Eaters
 	
-tile.RedGear.Brewcraft.Brewery.Brewery.name=Brewery
+tile.RedGear.Brewcraft.Brewery.brewery.name=Brewery
 	
 potion.creeper=Combustion
 potion.angel=Blessed
@@ -26,6 +29,8 @@ potion.flight=Flight
 potion.immunity=Immunity
 potion.frozen=Frozen
 potion.fireproof=Fireproof
+potion.flame=Eternal Flame
+potion.fireEater=Fire Eater
 
 achievement.craftBrewery=Now You're Brewing
 achievement.craftBrewery.desc=Obtain a brewery
@@ -41,6 +46,10 @@ achievement.potionImmunity=First Aid
 achievement.potionImmunity.desc=Immunize against debuffs
 achievement.potionHolyWater=Guardian Angel
 achievement.potionHolyWater.desc=Be affected by a Potion of Holy Water
+achievement.potionFlame=Third Degree
+achievement.potionFlame.desc=You're on fire!
+achievement.potionFireEater=Hot Tempered
+achievement.potionFireEater.desc=Become a Fire Eater
 
 itemGroup.brewcraft=Brewcraft
 
@@ -76,3 +85,6 @@ potion.resistance.2.desc=-60% Damage Taken
 potion.healthBoost.0.desc=+20% Max Health
 potion.healthBoost.1.desc=+40% Max Health
 potion.healthBoost.2.desc=+60% Max Health
+potion.fireEater.0.desc=Fire heals you, air hurts you
+potion.fireEater.1.desc=Fire heals you, air hurts you
+potion.fireEater.2.desc=Fire heals you, air hurts you

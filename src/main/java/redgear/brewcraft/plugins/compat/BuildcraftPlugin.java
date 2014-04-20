@@ -1,6 +1,8 @@
 package redgear.brewcraft.plugins.compat;
 
+import buildcraft.api.fuels.IronEngineFuel;
 import redgear.brewcraft.core.Brewcraft;
+import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.mod.Mods;
@@ -35,7 +37,11 @@ public class BuildcraftPlugin implements IPlugin {
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("Plugins", "Buildcraft Plugin", "Toggle Buildcraft Plugin", true)) {
 			if (Mods.BCCore.isIn()) {
-
+				IronEngineFuel.addFuel(PotionPlugin.fluidBoom.getFluid(), power, time);
+				IronEngineFuel.addFuel(PotionPlugin.fluidBoomII.getFluid(), power * 2, time / 2);
+				IronEngineFuel.addFuel(PotionPlugin.fluidBoomIII.getFluid(), power * 3, time / 3);
+				IronEngineFuel.addFuel(PotionPlugin.fluidBoomLong.getFluid(), power / 2, time * 2);
+				IronEngineFuel.addFuel(PotionPlugin.fluidBoomVeryLong.getFluid(), power / 3, time * 3);
 			}
 		}
 	}
