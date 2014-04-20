@@ -40,7 +40,7 @@ public class CraftingPlugin implements IPlugin {
 					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), Items.feather });
 		
 		if (Brewcraft.inst.getBoolean("Recipes", "Heart Medallion Recipe", "Toggle Heart Medallion Recipe", true))
-			GameRegistry.addShapedRecipe(IngredientPlugin.goldenFeather.getStack(), new Object[] {"!!!", "!@!", "!!!",
+			GameRegistry.addShapedRecipe(IngredientPlugin.heartGold.getStack(), new Object[] {"!!!", "!@!", "!!!",
 					Character.valueOf('!'), Items.gold_nugget, Character.valueOf('@'), IngredientPlugin.heartSmall.getItem() });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Tired Spores Recipe", "Toggle Tired Spores Recipe", true))
@@ -50,10 +50,6 @@ public class CraftingPlugin implements IPlugin {
 		if (Brewcraft.inst.getBoolean("Recipes", "Medicinal Salve Recipe", "Toggle Medicinal Salve Recipe", true))
 			GameRegistry.addShapelessRecipe(IngredientPlugin.remedySalve.getStack(3), new Object[] {Items.paper,
 					Items.sugar, Items.redstone });
-
-		if (Brewcraft.inst.getBoolean("Recipes", "Plagued Tear Recipe", "Toggle Plagued Tear Recipe", false))
-			GameRegistry.addShapedRecipe(IngredientPlugin.obsidianTear.getStack(), new Object[] {"!!!", "!@!", "!!!",
-					Character.valueOf('!'), Blocks.obsidian, Character.valueOf('@'), Items.ghast_tear });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Splash Bottle Recipe", "Toggle Splash Bottle Recipe", true))
 			GameRegistry.addShapedRecipe(IngredientPlugin.splashBottle.getStack(3), new Object[] {" @!", "@ @", " @ ",

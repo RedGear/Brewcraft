@@ -1,9 +1,11 @@
 package redgear.brewcraft.blocks;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import redgear.core.render.GuiBase;
 import redgear.core.render.gui.element.ElementDualScaled;
-import redgear.core.render.gui.element.ElementFluidTank;
+import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 
 public class GuiBrewery extends GuiBase<ContainerBrewery> {
 
@@ -20,8 +22,8 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 		super.initGui();
 		TileEntityBrewery tile = myContainer.myTile;
 
-		addElement(new ElementFluidTank(this, 10, 13, tile.inputTank).setGauge(1));
-		addElement(new ElementFluidTank(this, 147, 13, tile.outputTank).setGauge(1));
+		addElement(new ElementFluidTankWithGlass(this, 10, 13, tile.inputTank).setGauge(0));
+		addElement(new ElementFluidTankWithGlass(this, 147, 13, tile.outputTank).setGauge(0));
 
 		work = (ElementDualScaled) addElement(new ElementDualScaled(this, 62, 30).setSize(12, 29).setTexture(
 				"redgear_brewcraft:textures/gui/brewoverlay.png", 24, 29));
@@ -32,6 +34,20 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 		TileEntityBrewery tile = myContainer.myTile;
 
 		work.setQuantity(tile.getScaledWork(29));
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) {
+
+		//fontRendererObj.drawString(StatCollector.translateToLocal(name), 8, 4, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal(name), this.xSize / 2 - this.fontRendererObj.getStringWidth("Brewery") / 2, 4, 0x404040);
+		if (drawInventory) {
+			fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 0x404040);
+		}
+		if (!Loader.isModLoaded("NotEnoughItems") && mc.thePlayer.inventory.getItemStack() == null) {
+			addTooltips(tooltip);
+			drawTooltip(tooltip);
+		}
 	}
 
 }
