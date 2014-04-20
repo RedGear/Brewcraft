@@ -177,33 +177,33 @@ public class PotionPlugin implements IPlugin {
 	@Override
 	public void Init(ModUtils mod) {
 		fluidAwkward = createVanillaPotion("Awkward", 16, 0);
-		fluidVision = createVanillaPotion("Vision", 8198, 16390);
+		fluidVision = createVanillaPotion("Vision", 8230, 16422);
 		fluidVisionLong = createVanillaPotion("VisionLong", 8262, 16454);
-		fluidInvisible = createVanillaPotion("Invisible", 8206, 16398);
+		fluidInvisible = createVanillaPotion("Invisible", 8238, 16430);
 		fluidInvisibleLong = createVanillaPotion("InvisibleLong", 8270, 16462);
 		fluidRegen = createVanillaPotion("Regen", 8193, 16385);
-		fluidRegenII = createVanillaPotion("RegenII", 8289, 16481);
+		fluidRegenII = createVanillaPotion("RegenII", 8225, 16417);
 		fluidRegenLong = createVanillaPotion("RegenLong", 8257, 16449);
 		fluidFast = createVanillaPotion("Fast", 8194, 16386);
-		fluidFastLong = createVanillaPotion("FastLong", 8290, 164500);
-		fluidFastII = createVanillaPotion("FastII", 8258, 16418);
-		fluidWeakness = createVanillaPotion("Weakness", 8200, 16392);
+		fluidFastLong = createVanillaPotion("FastLong", 8258, 16450);
+		fluidFastII = createVanillaPotion("FastII", 8226, 16418);
+		fluidWeakness = createVanillaPotion("Weakness", 8232, 16424);
 		fluidWeaknessLong = createVanillaPotion("WeaknessLong", 8264, 16456);
 		fluidStrength = createVanillaPotion("Strength", 8201, 16393);
 		fluidStrengthLong = createVanillaPotion("StrengthLong", 8265, 16457);
-		fluidStrengthII = createVanillaPotion("StrengthII", 8297, 16425);
-		fluidFireResist = createVanillaPotion("FireResist", 8195, 16387);
+		fluidStrengthII = createVanillaPotion("StrengthII", 8233, 16425);
+		fluidFireResist = createVanillaPotion("FireResist", 8227, 16419);
 		fluidFireResistLong = createVanillaPotion("FireResistLong", 8259, 16451);
-		fluidSlowness = createVanillaPotion("Slowness", 8202, 16394);
+		fluidSlowness = createVanillaPotion("Slowness", 8234, 16426);
 		fluidSlownessLong = createVanillaPotion("SlownessLong", 8266, 16458);
 		fluidPoison = createVanillaPotion("Poison", 8196, 16388);
-		fluidPoisonII = createVanillaPotion("PoisonII", 8260, 16420);
-		fluidPoisonLong = createVanillaPotion("PoisonLong", 8228, 16452);
-		fluidHarm = createVanillaPotion("Harm", 8204, 16396);
+		fluidPoisonII = createVanillaPotion("PoisonII", 8228, 16420);
+		fluidPoisonLong = createVanillaPotion("PoisonLong", 8260, 16452);
+		fluidHarm = createVanillaPotion("Harm", 8268, 16460);
 		fluidHarmII = createVanillaPotion("HarmII", 8236, 16428);
-		fluidHeal = createVanillaPotion("Heal", 8196, 16389);
+		fluidHeal = createVanillaPotion("Heal", 8261, 16453);
 		fluidHealII = createVanillaPotion("HealII", 8229, 16421);
-		fluidWaterBreathe = createVanillaPotion("WaterBreathe", 8205, 16397);
+		fluidWaterBreathe = createVanillaPotion("WaterBreathe", 8237, 16429);
 		fluidWaterBreatheLong = createVanillaPotion("WaterBreatheLong", 8269, 16461);
 
 		fluidHaste = potionRegistry.addPotion("Haste", Potion.digSpeed, 90, 0, true);
@@ -544,7 +544,7 @@ public class PotionPlugin implements IPlugin {
 
 	private FluidStack createVanillaPotion(String name, int metaBottle, int metaSplash) {
 		FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
-				Items.potionitem, metaBottle)), potionTexture), 100);
+				Items.potionitem, metaBottle)), potionTexture), 1000);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle.getStack());
 		if (metaSplash != 0)
