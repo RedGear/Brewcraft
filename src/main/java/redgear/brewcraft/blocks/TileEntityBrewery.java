@@ -10,10 +10,10 @@ import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TankSlot;
 import redgear.core.inventory.TransferRule;
-import redgear.core.tile.TileEntityFreeMachine;
+import redgear.core.tile.TileEntityTank;
 import redgear.core.util.SimpleItem;
 
-public class TileEntityBrewery extends TileEntityFreeMachine {
+public class TileEntityBrewery extends TileEntityTank {
 
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;
@@ -24,13 +24,11 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 	public final int outFull;
 	public final int itemSlot;
 
-	//private final int proccessBar;
-
 	private SimpleItem currItem;
 	private FluidStack output;
 
 	public TileEntityBrewery() {
-		super(0);
+		super(10);
 
 		inFull = addSlot(new TankSlot(this, 32, 13, true, -1));
 		inEmpty = addSlot(new TankSlot(this, 32, 57, false, 1));
@@ -44,25 +42,12 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 		
 		addTank(inputTank);
 		addTank(outputTank);
-		
-		//addTank(inputTank, 10, 13, 16, 60);
-		//addTank(outputTank, 147, 13, 16, 60);
-
-		//addDrawSnippet(10, 13, 16, 60, 176, 0);
-		//addDrawSnippet(147, 13, 16, 60, 176, 0);
-
-		//itemBar = addProgressBar(69, 31, 3, 24);
-		//proccessBar = addProgressBar(5, 13, 3, 60);
 	}
 
 	@Override
-	protected void doPreWork() {
-		if (work > 0) {
-			inputTank.drain(output.amount, true);
-			outputTank.fill(output, true);
-			forceSync();
-		}
-
+	protected boolean doPreWork() {
+		boolean check = false;
+		
 		ItemStack stack = getStackInSlot(itemSlot);
 		if (stack != null) {
 			SimpleItem item = new SimpleItem(stack);
@@ -71,17 +56,21 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 				IngredientPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
 				stack = getStackInSlot(itemSlot);
 				item = new SimpleItem(stack);
+				check = true;
 			}
 		}
 
-		fillTank(inFull, inEmpty, inputTank);
-		emptyTank(outEmpty, outFull, outputTank);
+		check |= fillTank(inFull, inEmpty, inputTank);
+		check |= emptyTank(outEmpty, outFull, outputTank);
 		//ejectAllFluids();
-
+		
+		return check;
 	}
+	
+	
 
 	@Override
-	protected void checkWork() {
+	protected int checkWork() {
 		if (!inputTank.isEmpty()) {
 			ItemStack stack = getStackInSlot(itemSlot);
 			if (stack != null) {
@@ -94,29 +83,28 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 						currItem = item;
 						decrStackSize(itemSlot, 1);
 						output = currRecipe.output;
-						addWork(currRecipe.input.amount + 1);
-						forceSync();
+						return currRecipe.input.amount + 1;
 					}
 			}
 		}
+		
+		return 0;
+	}
+	
+	@Override
+	protected boolean doWork(){
+		inputTank.drain(output.amount, true);
+		outputTank.fill(output, true);
+		
+		return this.getIdle() % 5 == 0;
 	}
 
 	@Override
-	protected void doPostWork() {
+	protected boolean doPostWork() {
 		currItem = null;
 		output = null;
-		forceSync();
+		return true;
 	}
-
-	/*@Override
-	public ProgressBar updateProgressBars(ProgressBar prog) {
-		if (prog.id == proccessBar) {
-			prog.total = workTotal;
-			prog.value = work;
-		}
-
-		return prog;
-	}*/
 
 	/**
 	 * Don't forget to override this function in all children if you want more
@@ -143,5 +131,17 @@ public class TileEntityBrewery extends TileEntityFreeMachine {
 
 	public SimpleItem getCurrItem() {
 		return currItem;
+	}
+
+	@Override
+	protected boolean tryUseEnergy(int energy) {
+		return true;
+	}
+
+	public int getScaledWork(int total) {
+		if (work == 0 || workTotal == 0)
+			return 0;
+		else
+			return (int) ((float) work / (float) workTotal * total);
 	}
 }

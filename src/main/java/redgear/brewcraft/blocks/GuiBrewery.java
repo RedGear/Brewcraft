@@ -1,12 +1,14 @@
 package redgear.brewcraft.blocks;
 
 import net.minecraft.util.ResourceLocation;
+import redgear.cofh.gui.element.ElementDualScaled;
 import redgear.cofh.gui.element.ElementFluidTank;
 import redgear.core.render.GuiBase;
 
 public class GuiBrewery extends GuiBase<ContainerBrewery>{
 	
 	public static final ResourceLocation texture = new ResourceLocation("redgear_brewcraft:textures/gui/brewery.png");
+	ElementDualScaled work;
 	
 	public GuiBrewery(ContainerBrewery container) {
 		super(container, texture);
@@ -22,15 +24,14 @@ public class GuiBrewery extends GuiBase<ContainerBrewery>{
 		addElement(new ElementFluidTank(this, 10, 13, tile.inputTank, overlay));
 		addElement(new ElementFluidTank(this, 147, 13, tile.outputTank, overlay));
 		
-		//outputTank = (ElementFluid) addElement(new ElementFluid(this, 147, 13).setFluid(tile.outputTank.getFluid()).setSize(16, 60));
+		work = (ElementDualScaled)addElement( new ElementDualScaled(this, 62, 30).setSize(12, 29).setTexture("redgear_brewcraft:textures/gui/brewoverlay.png", 24, 29));
 	}
 	
 	@Override
 	protected void updateElements() {
-		//TileEntityBrewery tile = this.myContainer.myTile;
+		TileEntityBrewery tile = this.myContainer.myTile;
 		
-		//inputTank.setFluid(tile.inputTank.getFluid()).setSize(16, 60);
-		//outputTank.setFluid(tile.outputTank.getFluid()).setSize(16, 60);
+		work.setQuantity(tile.getScaledWork(29));
 	}
 
 }
