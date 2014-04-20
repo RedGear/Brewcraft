@@ -2,15 +2,35 @@ package redgear.brewcraft.blocks;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
+import redgear.core.network.CoreGuiHandler;
 import redgear.core.tile.ITileFactory;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BreweryFactory implements ITileFactory{
+public class BreweryFactory implements ITileFactory {
+	static int guiId = -1;
+
+	public BreweryFactory() {
+		if (guiId == -1) {
+			guiId = CoreGuiHandler.addGuiMap(this);
+			GameRegistry.registerTileEntity(TileEntityBrewery.class, "TileEntityBrewery");
+		}
+	}
 
 	@Override
 	public TileEntityBrewery createTile() {
 		return new TileEntityBrewery();
+	}
+
+	@Override
+	public boolean hasGui() {
+		return true;
+	}
+
+	@Override
+	public int guiId() {
+		return guiId;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -29,5 +49,4 @@ public class BreweryFactory implements ITileFactory{
 		else
 			return null;
 	}
-
 }

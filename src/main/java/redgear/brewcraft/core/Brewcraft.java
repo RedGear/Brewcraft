@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import redgear.brewcraft.blocks.BreweryFactory;
-import redgear.brewcraft.blocks.TileEntityBrewery;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.ParticleHandler;
@@ -25,7 +24,6 @@ import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
-import redgear.core.network.CoreGuiHandler;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -73,9 +71,9 @@ public class Brewcraft extends ModUtils {
 		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
 				RenderingRegistry.getNextAvailableRenderId());
 
-		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		brewery = brewing.addMetaBlock(new SubTile("brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(new BreweryFactory())));
-		brewery.getBlock().setCreativeTab(tab);
+		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
+				.setHarvestLevel("pickaxe", 0);
+		brewery = brewing.addMetaBlock(new SubTile("brewery", new BreweryFactory()));
 
 	}
 
