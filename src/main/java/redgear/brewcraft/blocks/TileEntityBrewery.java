@@ -83,7 +83,8 @@ public class TileEntityBrewery extends TileEntityTank {
 						currItem = item;
 						decrStackSize(itemSlot, 1);
 						output = currRecipe.output;
-						return currRecipe.input.amount + 1;
+						output.amount = 10;
+						return currRecipe.input.amount / 10;
 					}
 			}
 		}

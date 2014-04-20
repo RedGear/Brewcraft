@@ -74,7 +74,7 @@ public class Brewcraft extends ModUtils {
 				RenderingRegistry.getNextAvailableRenderId());
 
 		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		brewery = brewing.addMetaBlock(new SubTile("Brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(new BreweryFactory())));
+		brewery = brewing.addMetaBlock(new SubTile("brewery", TileEntityBrewery.class, CoreGuiHandler.addGuiMap(new BreweryFactory())));
 		brewery.getBlock().setCreativeTab(tab);
 
 	}

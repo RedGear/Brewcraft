@@ -14,7 +14,7 @@ public class BreweryRecipe {
 		this.output = output.copy();
 		this.item = (SimpleItem) item.copy();
 
-		this.output.amount = 1;
+		this.output.amount = this.input.amount;
 	}
 
 	BreweryRecipe(FluidStack input, FluidStack output, ItemStack item) {
