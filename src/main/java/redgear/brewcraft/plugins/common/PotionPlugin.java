@@ -334,6 +334,16 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidAwkward, fluidRegen, Items.ghast_tear);
 		recipeRegistry.addRecipe(fluidAwkward, fluidStrength, Items.blaze_powder);
 		recipeRegistry.addRecipe(fluidAwkward, fluidWeakness, Items.fermented_spider_eye);
+		recipeRegistry.addRecipe(fluidAwkward, fluidResistance, IngredientPlugin.steelScales.getStack());
+		recipeRegistry.addRecipe(fluidResistance, fluidResistanceII, Items.glowstone_dust);
+		recipeRegistry.addRecipe(fluidResistanceII, fluidResistance, Items.redstone);
+		recipeRegistry.addRecipe(fluidResistance, fluidResistanceLong, Items.redstone);
+		recipeRegistry.addRecipe(fluidResistanceLong, fluidResistance, Items.glowstone_dust);
+		recipeRegistry.addRecipe(fluidResistanceII, fluidResistanceIII, IngredientPlugin.obsidianTear.getStack());
+		recipeRegistry.addRecipe(fluidResistanceLong, fluidResistanceVeryLong, IngredientPlugin.pureTear.getStack());
+		recipeRegistry.addRecipe(fluidWeakness, fluidWeaknessLong, new ItemStack(Items.redstone));
+		recipeRegistry.addRecipe(fluidWeaknessLong, fluidWeakness, new ItemStack(Items.glowstone_dust));
+		recipeRegistry.addRecipe(fluidWeaknessLong, fluidWeaknessVeryLong, IngredientPlugin.pureTear.getStack());
 		recipeRegistry.addRecipe(fluidAwkward, fluidVision, Items.golden_carrot);
 		recipeRegistry.addRecipe(fluidAwkward, fluidWaterBreathe, new ItemStack(Items.fish, 1, 3));
 		recipeRegistry.addRecipe(fluidFireResist, fluidFireResistLong, Items.redstone);
@@ -405,6 +415,10 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidWeaknessLong, fluidWeakness, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidWaterBreatheLong, fluidWaterBreathe, Items.glowstone_dust);
 		
+		recipeRegistry.addRecipe(fluidAwkward, fluidFlight, IngredientPlugin.goldenFeather);
+		recipeRegistry.addRecipe(fluidFlight, fluidFlightLong, Items.redstone);
+		recipeRegistry.addRecipe(fluidFlightLong, fluidFlight, Items.glowstone_dust);
+		recipeRegistry.addRecipe(fluidFlightLong, fluidFlightVeryLong, IngredientPlugin.pureTear.getStack());
 		recipeRegistry.addRecipe(fluidRegen, fluidHolyWater, IngredientPlugin.holyDust);
 		recipeRegistry.addRecipe(fluidRegenII, fluidHolyWaterII, IngredientPlugin.holyDust);
 		recipeRegistry.addRecipe(fluidRegenIII, fluidHolyWaterIII, IngredientPlugin.holyDust);

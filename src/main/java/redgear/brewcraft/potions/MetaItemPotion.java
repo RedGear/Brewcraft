@@ -133,9 +133,12 @@ public class MetaItemPotion extends MetaItem {
 			par3List.add((potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.BLUE)
 					+ StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
 		}
-		if (potion.potionId == EffectPlugin.angel.id)
+		if (potion.potionId == EffectPlugin.angel.id) {
 			par3List.add(EnumChatFormatting.BLUE
 					+ StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
+			par3List.add(EnumChatFormatting.BLUE
+					+ StatCollector.translateToLocal(potion.getEffect().getName() + ".desc3"));
+		}
 
 	}
 
