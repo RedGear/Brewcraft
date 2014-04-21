@@ -45,12 +45,10 @@ public class FluidPotion extends Fluid {
 	public String getLocalizedName() {
 		String s = localName;
 
-		//So far, this gets the time even if the potoin isn't extended.
-		//I need to fix this. . .
-		//if (extension > 0)
-			//s = s + " (" + Potion.getDurationString(new PotionEffect(Potion.confusion.id, extension, 0)) + ")";
 		if (strength > 0)
 			s = s + " " + StatCollector.translateToLocal("potion.potency." + strength);
+		if (extension > 1)
+			s = s + " (" + Potion.getDurationString(new PotionEffect(Potion.confusion.id, extension, 0)) + ")";
 
 		return s;
 	}

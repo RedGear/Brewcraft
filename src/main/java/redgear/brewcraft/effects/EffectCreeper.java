@@ -31,7 +31,7 @@ public class EffectCreeper extends PotionExtension {
 					return;//Don't explode if target is player in creative. 
 
 				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, strength * 3 + 4, flag);
-				living.attackEntityFrom(DamageSourcePlugin.combustion, 30F);
+				living.attackEntityFrom(DamageSourcePlugin.combustion, 100F);
 			}
 			if (living instanceof EntityPlayer && AchievementPlugin.explode != null) {
 				((EntityPlayer) living).addStat(AchievementPlugin.explode, 1);
