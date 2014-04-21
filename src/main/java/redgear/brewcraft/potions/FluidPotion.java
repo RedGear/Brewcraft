@@ -12,8 +12,6 @@ public class FluidPotion extends Fluid {
 
 	private final int color;
 	private final String localName;
-	public final int extension;
-	public final int strength;
 
 	public FluidPotion(String fluidName, SimpleItem bottle, int duration, int potency) {
 		this(fluidName, bottle.getStack(), duration, potency);
@@ -22,15 +20,20 @@ public class FluidPotion extends Fluid {
 	public FluidPotion(String fluidName, ItemStack bottle, int duration, int potency) {
 		super(fluidName);
 
-		localName = bottle.getDisplayName();
+		String s = bottle.getDisplayName();
+
+		if (potency > 0)
+			s = s + " " + StatCollector.translateToLocal("potion.potency." + potency);
+		if (duration > 1)
+			s = s + " (" + Potion.getDurationString(new PotionEffect(Potion.confusion.id, duration, 0)) + ")";
+
+		localName = s;
 
 		if (RedGearCore.inst.isClient())
 			color = bottle.getItem().getColorFromItemStack(bottle, 0);
 		else
 			color = 0xFFFFFF;
 
-		extension = duration;
-		strength = potency;
 	}
 
 	@Override
@@ -43,14 +46,7 @@ public class FluidPotion extends Fluid {
 	 */
 	@Override
 	public String getLocalizedName() {
-		String s = localName;
-
-		if (strength > 0)
-			s = s + " " + StatCollector.translateToLocal("potion.potency." + strength);
-		if (extension > 1)
-			s = s + " (" + Potion.getDurationString(new PotionEffect(Potion.confusion.id, extension, 0)) + ")";
-
-		return s;
+		return localName;
 	}
 
 }
