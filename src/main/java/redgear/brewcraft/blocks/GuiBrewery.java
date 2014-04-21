@@ -14,7 +14,7 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 
 	public GuiBrewery(ContainerBrewery container) {
 		super(container, texture);
-		name = "Brewery";
+		name = "container.brewery";
 	}
 
 	@Override

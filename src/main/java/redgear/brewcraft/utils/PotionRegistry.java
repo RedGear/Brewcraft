@@ -104,10 +104,10 @@ public class PotionRegistry implements IPotionRegistry {
 	public FluidStack addPotionFluid(ItemStack bottle, ItemStack splash, String name, int duration, int strength) {
 		FluidStack potion;
 		if (bottle != null)
-			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, bottle),
+			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, bottle, duration * 20, strength),
 					PotionPlugin.potionTexture), 1000);
 		else
-			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, splash),
+			potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, splash, duration * 20, strength),
 					PotionPlugin.potionTexture), 1000);
 
 		registerItems(potion, bottle, splash);

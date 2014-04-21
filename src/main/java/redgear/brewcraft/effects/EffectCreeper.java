@@ -5,6 +5,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.common.DamageSourcePlugin;
 
 public class EffectCreeper extends PotionExtension {
 
@@ -30,7 +31,7 @@ public class EffectCreeper extends PotionExtension {
 					return;//Don't explode if target is player in creative. 
 
 				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, strength * 3 + 4, flag);
-				living.attackEntityFrom(DamageSource.generic, 30F);
+				living.attackEntityFrom(DamageSourcePlugin.combustion, 30F);
 			}
 			if (living instanceof EntityPlayer && AchievementPlugin.explode != null) {
 				((EntityPlayer) living).addStat(AchievementPlugin.explode, 1);

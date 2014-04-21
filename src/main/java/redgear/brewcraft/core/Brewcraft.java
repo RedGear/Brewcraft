@@ -13,6 +13,7 @@ import redgear.brewcraft.event.DropHandler;
 import redgear.brewcraft.event.TradeHandler;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.brewcraft.plugins.common.CraftingPlugin;
+import redgear.brewcraft.plugins.common.DamageSourcePlugin;
 import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
@@ -49,6 +50,7 @@ public class Brewcraft extends ModUtils {
 
 		PotionArrayExpander.init();
 
+		addPlugin(new DamageSourcePlugin());
 		addPlugin(new EffectPlugin());
 		addPlugin(new PotionPlugin());
 		addPlugin(new IngredientPlugin());
