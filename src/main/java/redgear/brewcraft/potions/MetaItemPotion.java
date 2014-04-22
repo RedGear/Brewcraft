@@ -17,12 +17,11 @@ import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.core.item.MetaItem;
-import redgear.core.item.SubItem;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MetaItemPotion extends MetaItem {
+public class MetaItemPotion extends MetaItem<SubItemPotion> {
 
 	@SideOnly(Side.CLIENT)
 	public static IIcon splash;
@@ -39,22 +38,6 @@ public class MetaItemPotion extends MetaItem {
 
 	public SimpleItem addMetaItem(SubItemPotion newItem) {
 		return super.addMetaItem(newItem);
-	}
-
-	@Override
-	@Deprecated
-	/**
-	 * MetaItemPotion can only except SubItemPotion!
-	 */
-	public SimpleItem addMetaItem(SubItem newItem) {
-		if (!(newItem instanceof SubItemPotion))
-			throw new ClassCastException("MetaItemPotion can only except SubItemPotion!");
-		return addMetaItem((SubItemPotion) newItem);
-	}
-
-	@Override
-	public SubItemPotion getMetaItem(int meta) {
-		return (SubItemPotion) super.getMetaItem(meta);
 	}
 
 	@Override

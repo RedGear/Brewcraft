@@ -8,8 +8,9 @@ import net.minecraft.world.World;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.item.MetaItem;
+import redgear.core.item.SubItem;
 
-public class ItemTear extends MetaItem {
+public class ItemTear extends MetaItem<SubItem> {
 
 	public ItemTear(String name) {
 		super(name);

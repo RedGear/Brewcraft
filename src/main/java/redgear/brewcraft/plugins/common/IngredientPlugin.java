@@ -12,7 +12,7 @@ import cpw.mods.fml.common.LoaderState.ModState;
 
 public class IngredientPlugin implements IPlugin {
 
-	public static MetaItem ingredients;
+	public static MetaItem<SubItem> ingredients;
 	public static SimpleItem holyDust;
 	public static SimpleItem goldenFeather;
 	public static SimpleItem charredBone;
@@ -48,7 +48,7 @@ public class IngredientPlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
-		ingredients = new MetaItem("RedGear.Brewcraft.Ingredients");
+		ingredients = new MetaItem<SubItem>("RedGear.Brewcraft.Ingredients");
 		holyDust = ingredients.addMetaItem(new SubItem("holydust"));
 		goldenFeather = ingredients.addMetaItem(new SubItem("goldenfeather"));
 		charredBone = ingredients.addMetaItem(new SubItem("charredbone"));
