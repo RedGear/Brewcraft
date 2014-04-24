@@ -1,5 +1,6 @@
-package redgear.brewcraft.core;
+package redgear.brewcraft.utils;
 
+import redgear.brewcraft.core.Brewcraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;

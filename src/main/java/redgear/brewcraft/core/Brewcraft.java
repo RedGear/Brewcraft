@@ -20,6 +20,7 @@ import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
+import redgear.brewcraft.utils.BrewcraftTab;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
@@ -64,7 +65,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
 
-		tab = new BrewcraftTab("brewcraft", getBoolean("Global", "Toggle Unconventional Creative Tab Overlay",
+		tab = new BrewcraftTab("brewcraft", getBoolean("General", "Toggle Unconventional Creative Tab Overlay",
 				"Toggle the cool background for the Brewcraft creative tab."));
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
