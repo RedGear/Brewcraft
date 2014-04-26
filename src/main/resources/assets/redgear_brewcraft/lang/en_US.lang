@@ -24,8 +24,7 @@ potion.fireEater.postfix=Potion of Fire Eaters
 tile.RedGear.Brewcraft.Brewery.brewery.name=Brewery
 container.brewery=Brewery
 
-death.attack.combustion=%s was torn apart by combustion
-death.attack.fireEater=%s was consumed by lack of flames
+death.attack.fireEater=%s was consumed by the Fire Eaters
 	
 potion.creeper=Combustion
 potion.angel=Blessed

@@ -7,7 +7,6 @@ import cpw.mods.fml.common.LoaderState.ModState;
 
 public class DamageSourcePlugin implements IPlugin {
 	
-	public static DamageSource combustion;
 	public static DamageSource fireEater;
 
 	@Override
@@ -32,8 +31,6 @@ public class DamageSourcePlugin implements IPlugin {
 
 	@Override
 	public void Init(ModUtils mod) {
-		combustion = new DamageSource("combustion").setDamageIsAbsolute();
-		
 		fireEater = new DamageSource("fireEater").setDamageBypassesArmor().setFireDamage();
 	}
 
