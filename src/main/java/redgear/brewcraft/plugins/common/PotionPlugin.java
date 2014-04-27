@@ -260,8 +260,8 @@ public class PotionPlugin implements IPlugin {
 
 		fluidHolyWater = potionRegistry.addPotion("HolyWater", EffectPlugin.angel, 10, 0, true);
 		fluidHolyWaterII = potionRegistry.addPotion("HolyWaterII", EffectPlugin.angel, 5, 1, true);
-		fluidHolyWaterLong = potionRegistry.addPotion("HolyWaterLong", EffectPlugin.angel, 10, 0, true);
-		fluidHolyWaterVeryLong = potionRegistry.addPotion("HolyWaterVeryLong", EffectPlugin.angel, 20, 0, true);
+		fluidHolyWaterLong = potionRegistry.addPotion("HolyWaterLong", EffectPlugin.angel, 20, 0, true);
+		fluidHolyWaterVeryLong = potionRegistry.addPotion("HolyWaterVeryLong", EffectPlugin.angel, 40, 0, true);
 		fluidHolyWaterIII = potionRegistry.addPotion("HolyWaterIII", EffectPlugin.angel, 3, 2, true);
 		fluidFlight = potionRegistry.addPotion("Flight", EffectPlugin.flight, 15, 0);
 		fluidFlightLong = potionRegistry.addPotion("FlightLong", EffectPlugin.flight, 30, 0);
@@ -434,10 +434,6 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidHolyWaterII, fluidHolyWaterIII, IngredientPlugin.obsidianTear);
 		recipeRegistry.addRecipe(fluidHolyWaterLong, fluidHolyWaterVeryLong, IngredientPlugin.pureTear);
 		recipeRegistry.addRecipe(fluidAwkward, fluidFlight, IngredientPlugin.goldenFeather);
-		recipeRegistry.addRecipe(fluidAntidote, fluidAntidoteII, Items.glowstone_dust);
-		recipeRegistry.addRecipe(fluidAntidoteII, fluidAntidote, Items.redstone);
-		recipeRegistry.addRecipe(fluidAntidote, fluidAntidoteLong, Items.redstone);
-		recipeRegistry.addRecipe(fluidAntidoteLong, fluidAntidote, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidAntidoteII, fluidAntidoteIII, IngredientPlugin.obsidianTear);
 		recipeRegistry.addRecipe(fluidAntidoteLong, fluidAntidoteVeryLong, IngredientPlugin.pureTear);
 		recipeRegistry.addRecipe(fluidWither, fluidBoom, Items.gunpowder);

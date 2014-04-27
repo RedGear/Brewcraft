@@ -5,7 +5,6 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
-import redgear.brewcraft.plugins.common.DamageSourcePlugin;
 
 public class EffectCreeper extends PotionExtension {
 
