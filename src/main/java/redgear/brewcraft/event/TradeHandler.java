@@ -55,7 +55,7 @@ public class TradeHandler implements IVillageTradeHandler {
 				recipeList.add(new MerchantRecipe(IngredientPlugin.heartSmall.getStack(1 + random.nextInt(3)),
 						new ItemStack(Items.emerald, random.nextInt(3) + 1)));
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 1),
-						IngredientPlugin.holyDust.getStack(1 + random.nextInt(3))));
+						IngredientPlugin.heartSmall.getStack(1 + random.nextInt(3))));
 			}
 		}
 	}

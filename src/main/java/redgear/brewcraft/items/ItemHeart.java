@@ -5,7 +5,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 
@@ -20,12 +19,18 @@ public class ItemHeart extends MetaItem<SubItem> {
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode)
 			--stack.stackSize;
-		if (IngredientPlugin.heartGold.equals(stack))
-			player.heal(4F);
-		else if (IngredientPlugin.heartSmall.equals(stack))
+
+		switch (stack.getItemDamage()) {
+
+		case 0:
 			player.heal(2F);
-		else if (IngredientPlugin.heartBlaze.equals(stack))
+
+		case 1:
+			player.heal(4F);
+
+		case 2:
 			player.heal(3F);
+		}
 		return stack;
 	}
 

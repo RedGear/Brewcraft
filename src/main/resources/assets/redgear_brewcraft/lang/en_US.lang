@@ -23,6 +23,7 @@ potion.fireEater.postfix=Potion of Fire Eaters
 	
 tile.RedGear.Brewcraft.Brewery.brewery.name=Brewery
 container.brewery=Brewery
+itemGroup.brewcraft=Brewcraft
 
 death.attack.fireEater=%s was consumed by the Fire Eaters
 	
@@ -53,8 +54,6 @@ achievement.potionFlame=Third Degree
 achievement.potionFlame.desc=You're on fire!
 achievement.potionFireEater=Hot Tempered
 achievement.potionFireEater.desc=Become a Fire Eater
-
-itemGroup.brewcraft=Brewcraft
 
 potion.angel.0.desc=Rapid Healing (+0.5 Heart/Second)
 potion.angel.1.desc=Rapid Healing (+1 Heart/Second)

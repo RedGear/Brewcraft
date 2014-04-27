@@ -21,11 +21,11 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem remedySalve;
 	public static SimpleItem steelScales;
 	public static SimpleItem splashBottle;
-	
+
 	public static ItemTear tears;
 	public static SimpleItem obsidianTear;
 	public static SimpleItem pureTear;
-	
+
 	public static ItemHeart hearts;
 	public static SimpleItem heartGold;
 	public static SimpleItem heartSmall;
@@ -61,12 +61,12 @@ public class IngredientPlugin implements IPlugin {
 		tears = new ItemTear("RedGear.Brewcraft.Tears");
 		obsidianTear = tears.addMetaItem(new SubItem("obsidiantear"));
 		pureTear = tears.addMetaItem(new SubItem("puretear"));
-		
+
 		hearts = new ItemHeart("RedGear.Brewcraft.Hearts");
 		heartSmall = hearts.addMetaItem(new SubItem("heartsmall"));
 		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
 		heartBlaze = hearts.addMetaItem(new SubItem("heartblaze"));
-		
+
 		ingredients.setCreativeTab(Brewcraft.tab);
 	}
 
