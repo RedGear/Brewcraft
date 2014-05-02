@@ -37,9 +37,8 @@ public class EffectAngel extends PotionExtension {
 		else
 			living.heal(strength + 1 * 1F);
 
-		if (living instanceof EntityPlayer && AchievementPlugin.holywater != null) {
+		if (living instanceof EntityPlayer && AchievementPlugin.holywater != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.holywater, 1);
-		}
 	}
 
 	/**

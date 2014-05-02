@@ -31,21 +31,23 @@ public class EffectImmunity extends PotionExtension {
 			living.removePotionEffect(Potion.blindness.id);
 		}
 
-		/*if (strength >= 3) {
-			Collection<PotionEffect> map = living.getActivePotionEffects();
-			int id = 0;
+		/*
+		 * if (strength >= 3) {
+		 * Collection<PotionEffect> map = living.getActivePotionEffects();
+		 * int id = 0;
+		 * 
+		 * for (PotionEffect effect : map) {
+		 * id = effect.getPotionID();
+		 * 
+		 * if (id < Potion.potionTypes.length &&
+		 * Potion.potionTypes[id].isBadEffect())
+		 * living.removePotionEffect(id);
+		 * }
+		 * }
+		 */
 
-					for (PotionEffect effect : map) {
-						id = effect.getPotionID();
-
-						if (id < Potion.potionTypes.length && Potion.potionTypes[id].isBadEffect())
-							living.removePotionEffect(id);
-					}
-				}
-
-		if (living instanceof EntityPlayer && AchievementPlugin.immunity != null) {
+		if (living instanceof EntityPlayer && AchievementPlugin.immunity != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.immunity, 1);
-		}*/
 
 	}
 

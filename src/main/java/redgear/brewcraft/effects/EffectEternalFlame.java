@@ -7,9 +7,9 @@ import redgear.brewcraft.plugins.common.AchievementPlugin;
 import redgear.core.util.SimpleItem;
 import redgear.core.world.WorldLocation;
 
-public class EffectEnternalFlame extends PotionExtension {
+public class EffectEternalFlame extends PotionExtension {
 
-	public EffectEnternalFlame(int id) {
+	public EffectEternalFlame(int id) {
 		super(id, true, 0xFF9933);
 		setPotionName("potion.flame");
 		setIconIndex(7, 0);
@@ -34,10 +34,9 @@ public class EffectEnternalFlame extends PotionExtension {
 							loc.placeBlock(fire);
 					}
 		}
-		
-		if (living instanceof EntityPlayer && AchievementPlugin.flame != null) {
+
+		if (living instanceof EntityPlayer && AchievementPlugin.flame != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.flame, 1);
-		}
 	}
 
 }

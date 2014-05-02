@@ -20,9 +20,8 @@ public class EffectFireEater extends PotionExtension {
 		else
 			living.attackEntityFrom(DamageSourcePlugin.fireEater, 2 * strength + 1);
 		
-		if (living instanceof EntityPlayer && AchievementPlugin.fireEater != null) {
+		if (living instanceof EntityPlayer && AchievementPlugin.fireEater != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.fireEater, 1);
-		}
 	}
 	
 	/**

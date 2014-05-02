@@ -5,7 +5,7 @@ import net.minecraft.potion.Potion;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.effects.EffectAngel;
 import redgear.brewcraft.effects.EffectCreeper;
-import redgear.brewcraft.effects.EffectEnternalFlame;
+import redgear.brewcraft.effects.EffectEternalFlame;
 import redgear.brewcraft.effects.EffectFireEater;
 import redgear.brewcraft.effects.EffectFireproof;
 import redgear.brewcraft.effects.EffectFlight;
@@ -64,7 +64,7 @@ public class EffectPlugin implements IPlugin {
 
 		fireproof = new EffectFireproof(Brewcraft.inst.getInt("Potion Effect IDs", "'Fireproof' Effect ID", 45));
 
-		flame = new EffectEnternalFlame(Brewcraft.inst.getInt("Potion Effect IDs", "'Eternal Flame' Effect ID", 46));
+		flame = new EffectEternalFlame(Brewcraft.inst.getInt("Potion Effect IDs", "'Eternal Flame' Effect ID", 46));
 
 		fireEater = new EffectFireEater(Brewcraft.inst.getInt("Potion Effect IDs", "'Fire Eater' Effect ID", 47));
 	}

@@ -27,9 +27,8 @@ public class EffectFlight extends PotionExtension {
 				player.capabilities.allowFlying = true;
 			if (!player.worldObj.isRemote)
 				player.sendPlayerAbilities();
-			if (AchievementPlugin.flight != null) {
+			if (AchievementPlugin.flight != null)
 				player.addStat(AchievementPlugin.flight, 1);
-			}
 		}
 	}
 }

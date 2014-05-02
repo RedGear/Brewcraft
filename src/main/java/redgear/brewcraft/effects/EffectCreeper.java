@@ -32,9 +32,8 @@ public class EffectCreeper extends PotionExtension {
 				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, strength * 3 + 4, flag);
 				living.attackEntityFrom(DamageSource.generic, 100F);
 			}
-			if (living instanceof EntityPlayer && AchievementPlugin.explode != null) {
+			if (living instanceof EntityPlayer && AchievementPlugin.explode != null)
 				((EntityPlayer) living).addStat(AchievementPlugin.explode, 1);
-			}
 		}
 	}
 }

@@ -18,9 +18,8 @@ public class EffectFireproof extends PotionExtension {
 
 		living.extinguish();
 
-		if (living instanceof EntityPlayer && AchievementPlugin.fireproof != null) {
+		if (living instanceof EntityPlayer && AchievementPlugin.fireproof != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.fireproof, 1);
-		}
 
 	}
 

@@ -17,6 +17,7 @@ import redgear.brewcraft.plugins.common.DamageSourcePlugin;
 import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.common.VillagePlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
@@ -57,6 +58,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new IngredientPlugin());
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
+		addPlugin(new VillagePlugin());
 
 		if (isClient())
 			addPlugin(new BrewcraftClientProxy());
