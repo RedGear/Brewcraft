@@ -1,15 +1,12 @@
 package redgear.brewcraft.plugins.common;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import redgear.brewcraft.core.Brewcraft;
+import redgear.brewcraft.village.ComponentWitchHut;
+import redgear.brewcraft.village.VillageWitchHutHandler;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
-import redgear.core.util.ItemStackUtil;
 import cpw.mods.fml.common.LoaderState.ModState;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class VillagePlugin implements IPlugin {
@@ -31,12 +28,19 @@ public class VillagePlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
+		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Villager Profession ID", 15));
 
+		VillagerRegistry.instance().registerVillageCreationHandler(new VillageWitchHutHandler());
+		try {
+			MapGenStructureIO.func_143031_a(ComponentWitchHut.class, "redgear_brewcraft:VillagerWitchHutStructure");
+		} catch (Throwable e) {
+			Brewcraft.inst.myLogger.error("Error registering witch hut: " + e.getStackTrace());
+		}
 	}
 
 	@Override
 	public void Init(ModUtils mod) {
-		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Villager Profession ID", 15));
+
 	}
 
 	@Override
