@@ -19,26 +19,29 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 	public boolean hasTable;
 	public boolean hasFlowerPot;
 	public boolean hasFences;
+	public boolean isInDesert;
 
 	public ComponentWitchHut() {
 	}
-	
-    @Override
+
+	@Override
 	protected void func_143012_a(NBTTagCompound par1NBTTagCompound) {
 		super.func_143012_a(par1NBTTagCompound);
 		par1NBTTagCompound.setBoolean("Cauldron", this.hasCauldron);
 		par1NBTTagCompound.setBoolean("Crafting Table", this.hasTable);
 		par1NBTTagCompound.setBoolean("Flower Pots", this.hasFlowerPot);
 		par1NBTTagCompound.setBoolean("Fences", this.hasFences);
+		par1NBTTagCompound.setBoolean("Desert", this.isInDesert);
 	}
 
-    @Override
+	@Override
 	protected void func_143011_b(NBTTagCompound par1NBTTagCompound) {
 		super.func_143011_b(par1NBTTagCompound);
 		this.hasCauldron = par1NBTTagCompound.getBoolean("Cauldron");
 		this.hasTable = par1NBTTagCompound.getBoolean("Crafting Table");
 		this.hasFlowerPot = par1NBTTagCompound.getBoolean("Flower Pots");
 		this.hasFences = par1NBTTagCompound.getBoolean("Fences");
+		this.isInDesert = par1NBTTagCompound.getBoolean("Desert");
 	}
 
 	public ComponentWitchHut(StructureVillagePieces.Start par1ComponentVillageStartPiece, int par2, Random par3Random,
@@ -50,6 +53,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasTable = par3Random.nextBoolean();
 		this.hasFlowerPot = par3Random.nextBoolean();
 		this.hasFences = par3Random.nextBoolean();
+		this.isInDesert = par1ComponentVillageStartPiece.inDesert;
 	}
 
 	public static ComponentWitchHut func_74898_a(StructureVillagePieces.Start par0ComponentVillageStartPiece,
@@ -63,6 +67,16 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 
 	@Override
 	public boolean addComponentParts(World w, Random par2Random, StructureBoundingBox sbb) {
+
+		if (this.field_143015_k < 0) {
+			this.field_143015_k = this.getAverageGroundLevel(w, sbb);
+
+			if (this.field_143015_k < 0) {
+				return true;
+			}
+
+			this.boundingBox.offset(0, this.field_143015_k - this.boundingBox.maxY + 4, 0);
+		}
 
 		//The walls, floor, posts that hold it upright.
 		this.fillWithBlocks(w, sbb, 1, 1, 1, 5, 1, 7, Blocks.planks, Blocks.planks, false);
@@ -84,7 +98,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 1, 2, 1, sbb);
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 5, 2, 1, sbb);
 		}
-		
+
 		//Clearing out space somewhere?
 		this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 1, 3, 4, sbb);
 		this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 5, 3, 4, sbb);
@@ -100,11 +114,20 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		if (this.hasCauldron)
 			this.placeBlockAtCurrentPosition(w, Blocks.cauldron, 0, 4, 2, 6, sbb);
 
-		//The roof.
-		this.fillWithBlocks(w, sbb, 0, 4, 1, 6, 4, 1, Blocks.oak_stairs, Blocks.oak_stairs, false);
-		this.fillWithBlocks(w, sbb, 0, 4, 2, 0, 4, 7, Blocks.oak_stairs, Blocks.oak_stairs, false);
-		this.fillWithBlocks(w, sbb, 6, 4, 2, 6, 4, 7, Blocks.oak_stairs, Blocks.oak_stairs, false);
-		this.fillWithBlocks(w, sbb, 0, 4, 8, 6, 4, 8, Blocks.oak_stairs, Blocks.oak_stairs, false);
+		//The roof sides, done with slabs instead of stairs because of directional issues.
+        //Sensitive to whether or not the village is in the desert. Forge automatically
+		//replaces everything else, but not slabs because vanilla doesn't use them.
+		if (!this.isInDesert) {
+			this.fillWithBlocks(w, sbb, 0, 4, 1, 6, 4, 1, Blocks.wooden_slab, Blocks.wooden_slab, false);
+			this.fillWithBlocks(w, sbb, 0, 4, 2, 0, 4, 7, Blocks.wooden_slab, Blocks.wooden_slab, false);
+			this.fillWithBlocks(w, sbb, 6, 4, 2, 6, 4, 7, Blocks.wooden_slab, Blocks.wooden_slab, false);
+			this.fillWithBlocks(w, sbb, 0, 4, 8, 6, 4, 8, Blocks.wooden_slab, Blocks.wooden_slab, false);
+		} else {
+			this.fillWithMetadataBlocks(w, sbb, 0, 4, 1, 6, 4, 1, Blocks.stone_slab, 1, Blocks.stone_slab, 1, false);
+			this.fillWithMetadataBlocks(w, sbb, 0, 4, 2, 0, 4, 7, Blocks.stone_slab, 1, Blocks.stone_slab, 1, false);
+			this.fillWithMetadataBlocks(w, sbb, 6, 4, 2, 6, 4, 7, Blocks.stone_slab, 1, Blocks.stone_slab, 1, false);
+			this.fillWithMetadataBlocks(w, sbb, 0, 4, 8, 6, 4, 8, Blocks.stone_slab, 1, Blocks.stone_slab, 1, false);
+		}
 		int i1;
 		int j1;
 
