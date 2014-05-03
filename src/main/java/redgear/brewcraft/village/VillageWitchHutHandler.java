@@ -13,7 +13,7 @@ public class VillageWitchHutHandler implements IVillageCreationHandler {
 	public Object buildComponent(PieceWeight villagePiece, Start startPiece, List pieces, Random random, int p1,
 			int p2, int p3, int p4, int p5) {
 
-		return ComponentWitchHut.func_74898_a(startPiece, pieces, random, p1, p2, p3, p4, p5);
+		return ComponentWitchHut.buildComponent(startPiece, pieces, random, p1, p2, p3, p4, p5);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class VillageWitchHutHandler implements IVillageCreationHandler {
 	@Override
 	public PieceWeight getVillagePieceWeight(Random random, int i) {
 
-		return new PieceWeight(ComponentWitchHut.class, 15, i + random.nextInt(1));
+		return new PieceWeight(ComponentWitchHut.class, 12, 1);
 	}
 
 }

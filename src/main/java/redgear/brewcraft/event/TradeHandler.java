@@ -57,90 +57,90 @@ public class TradeHandler implements IVillageTradeHandler {
 
 			//All base level potions.
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1))));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1))));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 10)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 10)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 20)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 20)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 30)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 30)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 36)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 36)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 46)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 46)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 52)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 52)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 62)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 62)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 72)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 72)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 82)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 82)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 92)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 92)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 102)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 102)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 112)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 112)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 118)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 118)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 130)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 130)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 140)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 140)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 146)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 146)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(PotionPlugin.potions, random.nextInt(1) + 1, random.nextInt(1) + 152)));
+					new ItemStack(PotionPlugin.potions, 1, random.nextInt(1) + 152)));
 
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8193)));
+					new ItemStack(Items.potionitem, 1, 8193)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16385)));
+					new ItemStack(Items.potionitem, 1, 16385)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8194)));
+					new ItemStack(Items.potionitem, 1, 8194)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16386)));
+					new ItemStack(Items.potionitem, 1, 16386)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8227)));
+					new ItemStack(Items.potionitem, 1, 8227)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16419)));
+					new ItemStack(Items.potionitem, 1, 16419)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8196)));
+					new ItemStack(Items.potionitem, 1, 8196)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16388)));
+					new ItemStack(Items.potionitem, 1, 16388)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8261)));
+					new ItemStack(Items.potionitem, 1, 8261)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16453)));
+					new ItemStack(Items.potionitem, 1, 16453)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8230)));
+					new ItemStack(Items.potionitem, 1, 8230)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16422)));
+					new ItemStack(Items.potionitem, 1, 16422)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8232)));
+					new ItemStack(Items.potionitem, 1, 8232)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16424)));
+					new ItemStack(Items.potionitem, 1, 16424)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8201)));
+					new ItemStack(Items.potionitem, 1, 8201)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16393)));
+					new ItemStack(Items.potionitem, 1, 16393)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8234)));
+					new ItemStack(Items.potionitem, 1, 8234)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16426)));
+					new ItemStack(Items.potionitem, 1, 16426)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8268)));
+					new ItemStack(Items.potionitem, 1, 8268)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16460)));
+					new ItemStack(Items.potionitem, 1, 16460)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8237)));
+					new ItemStack(Items.potionitem, 1, 8237)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16429)));
+					new ItemStack(Items.potionitem, 1, 16429)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 8238)));
+					new ItemStack(Items.potionitem, 1, 8238)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
-					new ItemStack(Items.potionitem, random.nextInt(1) + 1, 16430)));
+					new ItemStack(Items.potionitem, 1, 16430)));
 
 		}
 	}

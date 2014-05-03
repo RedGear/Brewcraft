@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
+import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import redgear.brewcraft.core.Brewcraft;
 
 public class ComponentWitchHut extends StructureVillagePieces.House1 {
@@ -56,13 +57,11 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.isInDesert = par1ComponentVillageStartPiece.inDesert;
 	}
 
-	public static ComponentWitchHut func_74898_a(StructureVillagePieces.Start par0ComponentVillageStartPiece,
-			List par1List, Random par2Random, int par3, int par4, int par5, int par6, int par7) {
-		StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(par3, par4, par5,
-				0, 0, 0, 7, 5, 9, par6);
-		return canVillageGoDeeper(structureboundingbox)
-				&& StructureComponent.findIntersecting(par1List, structureboundingbox) == null ? new ComponentWitchHut(
-				par0ComponentVillageStartPiece, par7, par2Random, structureboundingbox, par6) : null;
+	public static ComponentWitchHut buildComponent(Start start, List list, Random rand, int p3, int p4, int p5, int p6,
+			int p7) {
+		StructureBoundingBox sbb = StructureBoundingBox.getComponentToAddBoundingBox(p3, p4, p5, 0, 0, 0, 7, 5, 9, p6);
+		return canVillageGoDeeper(sbb) && StructureComponent.findIntersecting(list, sbb) == null ? new ComponentWitchHut(
+				start, p7, rand, sbb, p6) : null;
 	}
 
 	@Override
@@ -114,9 +113,6 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		if (this.hasCauldron)
 			this.placeBlockAtCurrentPosition(w, Blocks.cauldron, 0, 4, 2, 6, sbb);
 
-		//The roof sides, done with slabs instead of stairs because of directional issues.
-        //Sensitive to whether or not the village is in the desert. Forge automatically
-		//replaces everything else, but not slabs because vanilla doesn't use them.
 		if (!this.isInDesert) {
 			this.fillWithBlocks(w, sbb, 0, 4, 1, 6, 4, 1, Blocks.wooden_slab, Blocks.wooden_slab, false);
 			this.fillWithBlocks(w, sbb, 0, 4, 2, 0, 4, 7, Blocks.wooden_slab, Blocks.wooden_slab, false);
@@ -130,14 +126,14 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		}
 		int i1;
 		int j1;
-
+		
 		for (i1 = 2; i1 <= 7; i1 += 5) {
 			for (j1 = 1; j1 <= 5; j1 += 4) {
 				this.func_151554_b(w, Blocks.log, 0, j1, -1, i1, sbb);
 			}
 		}
 
-		this.spawnVillagers(w, sbb, 2, 1, 2, 1);
+		this.spawnVillagers(w, sbb, 3, 1, 3, 1);
 		return true;
 	}
 
