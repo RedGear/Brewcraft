@@ -6,6 +6,7 @@ minecraft {
 
 jar{
 	destinationDir rootProject.libsDir
+	manifest attributes 'FMLCorePlugin': 'codechicken.core.launch.DepLoader'
 }
 
 dependencies {
@@ -26,9 +27,7 @@ group= config.mod_group // http://maven.apache.org/guides/mini/guide-naming-conv
 archivesBaseName = config.mod_name
 
 minecraft{
-		assetDir = "eclipse/assets"
-
-		replaceIn config.mod_main + '.java'
+		assetDir = "run/assets"
 		replace "@ModVersion@", project.version
 }
 
