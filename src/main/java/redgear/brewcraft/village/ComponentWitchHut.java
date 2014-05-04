@@ -154,6 +154,6 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 
 	@Override
 	protected int getVillagerType(int par1) {
-		return Brewcraft.inst.getInt("General", "Villager Profession ID", 15);
+		return Brewcraft.inst.getInt("Village", "Witch Profession ID", 15);
 	}
 }

@@ -28,13 +28,15 @@ public class VillagePlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
-		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Villager Profession ID", 15));
+		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("Village", "Witch Profession ID", 15));
 
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillageWitchHutHandler());
-		try {
-			MapGenStructureIO.func_143031_a(ComponentWitchHut.class, "redgear_brewcraft:VillagerWitchHutStructure");
-		} catch (Throwable e) {
-			Brewcraft.inst.myLogger.error("Error registering witch hut: " + e.getStackTrace());
+		if (Brewcraft.inst.getBoolean("Village", "Witch Hut Generation", true)) {
+			try {
+				MapGenStructureIO.func_143031_a(ComponentWitchHut.class, "redgear_brewcraft:VillagerWitchHutStructure");
+			} catch (Throwable e) {
+				Brewcraft.inst.myLogger.error("Error registering witch hut: " + e.getStackTrace());
+			}
 		}
 	}
 

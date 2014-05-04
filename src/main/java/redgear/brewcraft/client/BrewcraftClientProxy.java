@@ -36,7 +36,7 @@ public class BrewcraftClientProxy implements IPlugin {
 		new RenderItemBrewery(Brewcraft.brewing.renderId);
 
 		VillagerRegistry.instance().registerVillagerSkin(
-				Brewcraft.inst.getInt("General", "Villager Profession ID", 15),
+				Brewcraft.inst.getInt("Village", "Witch Profession ID", 15),
 				new ResourceLocation("redgear_brewcraft", "textures/entity/villagerwitch.png"));
 	}
 

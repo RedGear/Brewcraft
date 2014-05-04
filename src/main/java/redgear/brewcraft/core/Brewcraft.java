@@ -89,7 +89,7 @@ public class Brewcraft extends ModUtils {
 		DropHandler.register();
 		TradeHandler.register();
 		ParticleHandler.register();// hi guys! Mind if I join you?
-
+		
 	}
 
 	@Override
