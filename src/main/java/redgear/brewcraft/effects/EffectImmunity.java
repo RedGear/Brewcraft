@@ -1,11 +1,8 @@
 package redgear.brewcraft.effects;
 
-import java.util.Collection;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
 
 public class EffectImmunity extends PotionExtension {

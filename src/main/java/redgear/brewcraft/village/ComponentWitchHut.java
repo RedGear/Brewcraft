@@ -21,6 +21,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 	public boolean hasFlowerPot;
 	public boolean hasFences;
 	public boolean isInDesert;
+	public boolean hasGlass;
 
 	public ComponentWitchHut() {
 	}
@@ -33,6 +34,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		par1NBTTagCompound.setBoolean("Flower Pots", this.hasFlowerPot);
 		par1NBTTagCompound.setBoolean("Fences", this.hasFences);
 		par1NBTTagCompound.setBoolean("Desert", this.isInDesert);
+		par1NBTTagCompound.setBoolean("Glass", this.hasGlass);
 	}
 
 	@Override
@@ -43,6 +45,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasFlowerPot = par1NBTTagCompound.getBoolean("Flower Pots");
 		this.hasFences = par1NBTTagCompound.getBoolean("Fences");
 		this.isInDesert = par1NBTTagCompound.getBoolean("Desert");
+		this.hasGlass = par1NBTTagCompound.getBoolean("Glass");
 	}
 
 	public ComponentWitchHut(StructureVillagePieces.Start par1ComponentVillageStartPiece, int par2, Random par3Random,
@@ -55,6 +58,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasFlowerPot = par3Random.nextBoolean();
 		this.hasFences = par3Random.nextBoolean();
 		this.isInDesert = par1ComponentVillageStartPiece.inDesert;
+		this.hasGlass = par3Random.nextBoolean();
 	}
 
 	public static ComponentWitchHut buildComponent(Start start, List list, Random rand, int p3, int p4, int p5, int p6,
@@ -90,23 +94,34 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.fillWithBlocks(w, sbb, 1, 0, 7, 1, 3, 7, Blocks.log, Blocks.log, false);
 		this.fillWithBlocks(w, sbb, 5, 0, 7, 5, 3, 7, Blocks.log, Blocks.log, false);
 
-		//Rails on front of house.
+		//Rails on front of house and in the windows.
 		if (this.hasFences) {
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 2, 3, 2, sbb);
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 3, 3, 7, sbb);
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 1, 2, 1, sbb);
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 5, 2, 1, sbb);
 		}
-
-		//Clearing out space somewhere?
-		this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 1, 3, 4, sbb);
-		this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 5, 3, 4, sbb);
-		this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 5, 3, 5, sbb);
-
-		//Miscellaneous things that are randomly included/excluded.
-		if (this.hasFlowerPot)
+		
+		if (this.hasFlowerPot && !this.hasGlass)
 			this.placeBlockAtCurrentPosition(w, Blocks.flower_pot, 7, 1, 3, 5, sbb);
 
+		if (this.hasGlass) {
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 0, 2, 3, 2, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 0, 3, 3, 7, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 0, 1, 3, 4, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 0, 5, 3, 4, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 0, 5, 3, 5, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.glass_pane, 7, 1, 3, 5, sbb);
+		}
+
+		//Creating holes for the windows.
+		if (!this.hasGlass) {
+			this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 1, 3, 4, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 5, 3, 4, sbb);
+			this.placeBlockAtCurrentPosition(w, Blocks.air, 0, 5, 3, 5, sbb);
+		}
+
+		//Miscellaneous things that are randomly included/excluded.
 		if (this.hasTable)
 			this.placeBlockAtCurrentPosition(w, Blocks.crafting_table, 0, 3, 2, 6, sbb);
 
@@ -126,7 +141,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		}
 		int i1;
 		int j1;
-		
+
 		for (i1 = 2; i1 <= 7; i1 += 5) {
 			for (j1 = 1; j1 <= 5; j1 += 4) {
 				this.func_151554_b(w, Blocks.log, 0, j1, -1, i1, sbb);
