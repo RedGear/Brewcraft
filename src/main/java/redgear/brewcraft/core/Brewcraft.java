@@ -3,7 +3,8 @@ package redgear.brewcraft.core;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import redgear.brewcraft.blocks.BreweryFactory;
+import redgear.brewcraft.blocks.brewery.BreweryFactory;
+import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.ParticleHandler;
@@ -24,6 +25,7 @@ import redgear.brewcraft.plugins.compat.VanillaPlugin;
 import redgear.brewcraft.utils.BrewcraftTab;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
+import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
@@ -44,6 +46,9 @@ public class Brewcraft extends ModUtils {
 
 	public static MetaTileSpecialRenderer brewing;
 	public static SimpleItem brewery;
+
+	public static MetaTile machine;
+	public static SimpleItem sprayer;
 
 	public static CreativeTabs tab;
 
@@ -80,6 +85,12 @@ public class Brewcraft extends ModUtils {
 				.setHarvestLevel("pickaxe", 0);
 		brewery = brewing.addMetaBlock(new SubTile("brewery", new BreweryFactory()));
 
+		machine = new MetaTile(Material.iron, "RedGear.Brewcraft.Machine");
+
+		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
+				.setHarvestLevel("pickaxe", 0);
+		sprayer = machine.addMetaBlock(new SubTile("sprayer", new SprayerFactory()));
+
 	}
 
 	@Override
@@ -89,7 +100,7 @@ public class Brewcraft extends ModUtils {
 		DropHandler.register();
 		TradeHandler.register();
 		ParticleHandler.register();// hi guys! Mind if I join you?
-		
+
 	}
 
 	@Override

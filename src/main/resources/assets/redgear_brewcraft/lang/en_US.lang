@@ -23,6 +23,10 @@ potion.fireEater.postfix=Potion of Fire Eaters
 	
 tile.RedGear.Brewcraft.Brewery.brewery.name=Brewery
 container.brewery=Brewery
+
+tile.RedGear.Brewcraft.Machine.sprayer.name=Sprayer
+container.sprayer=Sprayer
+
 itemGroup.brewcraft=Brewcraft
 
 death.attack.fireEater=%s was consumed by the Fire Eaters

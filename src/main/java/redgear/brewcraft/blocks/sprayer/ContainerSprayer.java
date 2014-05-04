@@ -1,19 +1,16 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.blocks.sprayer;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import redgear.core.render.ContainerBase;
 
-public class ContainerBrewery extends ContainerBase<TileEntityBrewery>{
+public class ContainerSprayer extends ContainerBase<TileEntitySprayer>{
 
-	public ContainerBrewery(InventoryPlayer inventoryPlayer, TileEntityBrewery tile) {
+	public ContainerSprayer(InventoryPlayer inventoryPlayer, TileEntitySprayer tile) {
 		super(inventoryPlayer, tile);
 		bindPlayerInventory(inventoryPlayer);
 		
 		for(Slot s : tile.getSlots())
 			this.addSlotToContainer(s);
-		
-		
 	}
-
 }

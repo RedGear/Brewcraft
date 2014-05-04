@@ -8,7 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import redgear.brewcraft.blocks.TileEntityBrewery;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.core.render.SimpleBlockRenderingHandler;
 
 public class RenderItemBrewery extends SimpleBlockRenderingHandler {

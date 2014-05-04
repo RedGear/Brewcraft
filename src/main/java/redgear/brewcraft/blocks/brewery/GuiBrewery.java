@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.blocks.brewery;
 
 import cpw.mods.fml.common.Loader;
 import net.minecraft.util.ResourceLocation;
@@ -39,14 +39,15 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 
-		//fontRendererObj.drawString(StatCollector.translateToLocal(name), 8, 4, 0x404040);
-		fontRendererObj.drawString(StatCollector.translateToLocal(name),
-				this.xSize / 2 - this.fontRendererObj.getStringWidth("Brewery") / 2 - 1, 4, 0x404040);
+		fontRendererObj.drawString(
+				StatCollector.translateToLocal(name),
+				this.xSize / 2
+						- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.brewery")) / 2
+						- 1, 4, 0x404040);
 		if (drawInventory) {
-			//fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 0x404040);
 			fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), this.xSize / 2
-					- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.inventory")) / 2 - 1,
-					ySize - 96 + 3, 0x404040);
+					- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.inventory")) / 2
+					- 1, ySize - 96 + 3, 0x404040);
 		}
 		if (!Loader.isModLoaded("NotEnoughItems") && mc.thePlayer.inventory.getItemStack() == null) {
 			addTooltips(tooltip);

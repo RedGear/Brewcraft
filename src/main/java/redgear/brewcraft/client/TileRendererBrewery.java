@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import redgear.brewcraft.blocks.ModelBrewery;
-import redgear.brewcraft.blocks.TileEntityBrewery;
+import redgear.brewcraft.blocks.brewery.ModelBrewery;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.core.util.StringHelper;
 

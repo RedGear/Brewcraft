@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.blocks.brewery;
 
 import net.minecraft.entity.*;
 

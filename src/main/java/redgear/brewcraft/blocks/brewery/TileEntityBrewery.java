@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.blocks.brewery;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,10 +10,11 @@ import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TankSlot;
 import redgear.core.inventory.TransferRule;
+import redgear.core.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;
 import redgear.core.util.SimpleItem;
 
-public class TileEntityBrewery extends TileEntityTank {
+public class TileEntityBrewery extends TileEntityTank implements IBucketableTank{
 
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;

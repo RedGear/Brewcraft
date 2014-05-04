@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks;
+package redgear.brewcraft.blocks.brewery;
 
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.plugins.common.PotionPlugin;
