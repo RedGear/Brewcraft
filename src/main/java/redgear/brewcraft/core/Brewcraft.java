@@ -25,7 +25,6 @@ import redgear.brewcraft.plugins.compat.VanillaPlugin;
 import redgear.brewcraft.utils.BrewcraftTab;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
-import redgear.core.block.MetaTile;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
@@ -47,7 +46,7 @@ public class Brewcraft extends ModUtils {
 	public static MetaTileSpecialRenderer brewing;
 	public static SimpleItem brewery;
 
-	public static MetaTile machine;
+	public static MetaTileSpecialRenderer machine;
 	public static SimpleItem sprayer;
 
 	public static CreativeTabs tab;
@@ -85,7 +84,8 @@ public class Brewcraft extends ModUtils {
 				.setHarvestLevel("pickaxe", 0);
 		brewery = brewing.addMetaBlock(new SubTile("brewery", new BreweryFactory()));
 
-		machine = new MetaTile(Material.iron, "RedGear.Brewcraft.Machine");
+		machine = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Machine",
+				RenderingRegistry.getNextAvailableRenderId());
 
 		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
 				.setHarvestLevel("pickaxe", 0);

@@ -2,6 +2,7 @@ package redgear.brewcraft.client;
 
 import net.minecraft.util.ResourceLocation;
 import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
+import redgear.brewcraft.blocks.sprayer.TileEntitySprayer;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.RenderBrewcraftPotion;
@@ -32,6 +33,8 @@ public class BrewcraftClientProxy implements IPlugin {
 	@Override
 	public void preInit(ModUtils mod) {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrewcraftPotion.class, new RenderBrewcraftPotion());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySprayer.class, new TileRendererSprayer());
+		new RenderItemSprayer(Brewcraft.machine.renderId);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBrewery.class, new TileRendererBrewery());
 		new RenderItemBrewery(Brewcraft.brewing.renderId);
 

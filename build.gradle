@@ -6,7 +6,9 @@ minecraft {
 
 jar{
 	destinationDir rootProject.libsDir
-	manifest attributes 'FMLCorePlugin': 'codechicken.core.launch.DepLoader'
+	manifest { 
+                attributes 'FMLCorePlugin': 'codechicken.core.launch.DepLoader'
+        }
 }
 
 dependencies {
