@@ -1,18 +1,17 @@
-![](https://dl.dropbox.com/s/x73grbcgkalt15l/brewcraft.png)
+![](https://dl.dropbox.com/s/2xqf8fxaa1t36yy/0VdaU8M.png)
 
 This is the official GitHub repository for Brewcraft!
 
+##Overview##
+Brewcraft is an expansive project that has its sights set on making some major changes to the brewing system in place in Minecraft. It aims to not replace the vanilla mechanics, but rather add and run alongside this system. To accomplish this, we have added in a wonderful machine we like to call the Brewery. This machine unlocks an entirely new process of brewing, which allows the creation of not only all of the vanilla potions, but also an array of potions we have added for ourselves.
 
-NOTE: This mod requires RedGear Core! Please read the Installation section!
+We haven’t taken to brewing by the bottle, but rather in raw fluid form. The Brewery uses fluids (not fluids that can be placed in the world, but fluids nonetheless) to brew. However, enough of that; all detailed information on the Brewery is located on our wiki.
 
-Brewcraft is a brewing overhaul for Minecraft. It does not replace vanilla mechanics, but rather adds in a new brewing system that accompanies the vanilla brewing stand. It produces liquid potions which can, in turn, be bottled for quick use. 
+Not only have we expanded the potion array, we have also created the capability for amplified and elongated potions, going far beyond the reaches of the vanilla brewing system, and creating a more in-depth element to game-play. 
 
-## License ##
-Brewcraft, by Project Red Gear Modding, is licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License. Modpacks are encouraged, feel free to do what you will so long as it does not violate terms of our license. Public packs are allowed, but I'd sure like to know about any publicly available packs before they are released, thank you! Our licence will be enforced, and we will be on the lookout for any infringement of any part of our license. This mod can also be viewed and eventually downloaded from the official page on CurseForge here.
+Now, I’m not going to spoil all of the surprises, you’re going to have to try the mod out for yourself! If you must read about everything before you try the mod, please visit our wiki. That can be found [here.](http://www.the-redgear-project.wikia.com/wiki/The_RedGear_Project_Wiki)
 
 ## Installation & Reporting Issues ##
-A prerequisite to this mod is Minecraft Forge. This is required for the mod to run correctly. Aside from this, you'll need our core class library, RedGear Core. Brewcraft must be inside the mods folder in your .minecraft directory.
-
-If you find any bugs or issues with Brewcraft or RedGear Core, please do not hesitate to report them in full description by submitting an issue on either the Brewcraft GitHub repository or the RedGear Core GitHub repository. You can report any issue you have by directing to one of those page and clicking the 'new issue' button. Then, describe the issue and we'll get on fixing it as soon as possible!
+A prerequisite to this mod is Minecraft Forge. This is required for the mod to run correctly. Aside from this, you will need our core class library, RedGear Core. This is required for the mod to run. Brewcraft and RedGear Core must be inside the mods folder in your .minecraft directory. 
 
 
