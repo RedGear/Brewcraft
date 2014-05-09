@@ -22,8 +22,8 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 		super.initGui();
 		TileEntityBrewery tile = myContainer.myTile;
 
-		addElement(new ElementFluidTankWithGlass(this, 10, 13, tile.inputTank).setGauge(0));
-		addElement(new ElementFluidTankWithGlass(this, 147, 13, tile.outputTank).setGauge(0));
+		addElement(new ElementFluidTankWithGlass(this, 26, 13, tile.inputTank).setGauge(0));
+		addElement(new ElementFluidTankWithGlass(this, 134, 13, tile.outputTank).setGauge(0));
 
 		work = (ElementDualScaled) addElement(new ElementDualScaled(this, 62, 30).setSize(12, 29).setTexture(
 				"redgear_brewcraft:textures/gui/brewoverlay.png", 24, 29));

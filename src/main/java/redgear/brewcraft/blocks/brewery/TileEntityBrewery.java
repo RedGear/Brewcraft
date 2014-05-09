@@ -19,10 +19,6 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;
 
-	public final int inFull;
-	public final int inEmpty;
-	public final int outEmpty;
-	public final int outFull;
 	public final int itemSlot;
 
 	private SimpleItem currItem;
@@ -31,10 +27,6 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	public TileEntityBrewery() {
 		super(10);
 
-		inFull = addSlot(new TankSlot(this, 32, 13, true, -1));
-		inEmpty = addSlot(new TankSlot(this, 32, 57, false, 1));
-		outEmpty = addSlot(new TankSlot(this, 124, 13, false, -1));
-		outFull = addSlot(new TankSlot(this, 124, 57, true, 1));
 		itemSlot = addSlot(79, 36);
 
 		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 12, this);
@@ -60,11 +52,6 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 				check = true;
 			}
 		}
-
-		check |= fillTank(inFull, inEmpty, inputTank);
-		check |= emptyTank(outEmpty, outFull, outputTank);
-		//ejectAllFluids();
-		
 		return check;
 	}
 	
