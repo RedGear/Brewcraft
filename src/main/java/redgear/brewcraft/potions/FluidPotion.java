@@ -5,13 +5,17 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
+import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.core.asm.RedGearCore;
 import redgear.core.util.SimpleItem;
 
 public class FluidPotion extends Fluid {
 
-	private final int color;
-	private final String localName;
+	public final int color;
+	public final String localName;
+	public final int elongation;
+	public final int amplifier;
+	public final ItemStack item;
 
 	public FluidPotion(String fluidName, SimpleItem bottle, int duration, int potency) {
 		this(fluidName, bottle.getStack(), duration, potency);
@@ -33,6 +37,10 @@ public class FluidPotion extends Fluid {
 			color = bottle.getItem().getColorFromItemStack(bottle, 0);
 		else
 			color = 0xFFFFFF;
+		
+		elongation = duration;
+		amplifier = potency;
+		item = bottle;
 
 	}
 
@@ -40,7 +48,15 @@ public class FluidPotion extends Fluid {
 	public int getColor() {
 		return color;
 	}
-
+	
+	public int getDuration() {
+		return elongation;
+	}
+	
+	public int getStrength() {
+		return amplifier;
+	}
+	
 	/**
 	 * Returns the localized name of this fluid.
 	 */
@@ -48,5 +64,4 @@ public class FluidPotion extends Fluid {
 	public String getLocalizedName() {
 		return localName;
 	}
-
 }

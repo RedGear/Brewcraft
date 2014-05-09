@@ -14,7 +14,7 @@ import redgear.brewcraft.core.Brewcraft;
 
 public class ComponentWitchHut extends StructureVillagePieces.House1 {
 
-	private static final String __OBFID = "CL_00000517";
+	private static final String __OBFID = "CL_00000555";
 
 	public boolean hasCauldron;
 	public boolean hasTable;
@@ -58,7 +58,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasFlowerPot = par3Random.nextBoolean();
 		this.hasFences = par3Random.nextBoolean();
 		this.isInDesert = par1ComponentVillageStartPiece.inDesert;
-		this.hasGlass = par3Random.nextBoolean();
+		this.hasGlass = par3Random.nextBoolean() && !this.hasFlowerPot;
 	}
 
 	public static ComponentWitchHut buildComponent(Start start, List list, Random rand, int p3, int p4, int p5, int p6,
@@ -102,7 +102,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 5, 2, 1, sbb);
 		}
 		
-		if (this.hasFlowerPot && !this.hasGlass)
+		if (this.hasFlowerPot)
 			this.placeBlockAtCurrentPosition(w, Blocks.flower_pot, 7, 1, 3, 5, sbb);
 
 		if (this.hasGlass) {

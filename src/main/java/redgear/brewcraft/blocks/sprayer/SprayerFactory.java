@@ -2,9 +2,6 @@ package redgear.brewcraft.blocks.sprayer;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
-import redgear.brewcraft.blocks.brewery.ContainerBrewery;
-import redgear.brewcraft.blocks.brewery.GuiBrewery;
-import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.core.network.CoreGuiHandler;
 import redgear.core.tile.ITileFactory;
 import cpw.mods.fml.common.registry.GameRegistry;
