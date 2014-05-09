@@ -34,11 +34,11 @@ public class GuiSprayer extends GuiBase<ContainerSprayer> {
 				StatCollector.translateToLocal(name),
 				this.xSize / 2
 						- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.sprayer")) / 2,
-				4, 0x404040);
+				3, 0x404040);
 		if (drawInventory) {
 			fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), this.xSize / 2
 					- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.inventory")) / 2,
-					ySize - 96 + 3, 0x404040);
+					ySize - 96 + 4, 0x404040);
 		}
 		if (!Loader.isModLoaded("NotEnoughItems") && mc.thePlayer.inventory.getItemStack() == null) {
 			addTooltips(tooltip);
