@@ -3,8 +3,9 @@ package redgear.brewcraft.core;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import redgear.brewcraft.blocks.barrel.BarrelFactory;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
+import redgear.brewcraft.blocks.keg.KegFactory;
+import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
@@ -106,12 +107,12 @@ public class Brewcraft extends ModUtils {
 		barrels.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(tab)
 				.setHarvestLevel("axe", 0);
 		
-		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new BarrelFactory(0)));
-		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new BarrelFactory(1)));
-		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new BarrelFactory(2)));
-		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new BarrelFactory(3)));
-		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new BarrelFactory(4)));
-		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new BarrelFactory(5)));
+		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new KegFactory(0)));
+		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new KegFactory(1)));
+		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new KegFactory(2)));
+		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new KegFactory(3)));
+		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory(4)));
+		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory(5)));
 
 	}
 

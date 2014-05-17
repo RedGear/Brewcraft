@@ -6,18 +6,18 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import redgear.brewcraft.blocks.barrel.ModelBarrel;
-import redgear.brewcraft.blocks.barrel.TileEntityBarrel;
+import redgear.brewcraft.blocks.keg.ModelKeg;
+import redgear.brewcraft.blocks.keg.TileEntityKeg;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.core.util.StringHelper;
 
 public class TileRendererBarrel extends TileEntitySpecialRenderer {
 
-	ModelBarrel model = new ModelBarrel();
+	ModelKeg model = new ModelKeg();
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f) {  //I think f is the shadow or something?
-		TileEntityBarrel tile = (TileEntityBarrel) tileentity;
+		TileEntityKeg tile = (TileEntityKeg) tileentity;
 		ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "barrel_" + tile.woodType);
 		
 		bindTexture(texture);

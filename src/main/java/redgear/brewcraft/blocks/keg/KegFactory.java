@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks.barrel;
+package redgear.brewcraft.blocks.keg;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -8,22 +8,22 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BarrelFactory implements ITileFactory{
+public class KegFactory implements ITileFactory{
 
 	static int guiId = -1;
 	public final int woodType;
 
-	public BarrelFactory(int type) {
+	public KegFactory(int type) {
 		if (guiId == -1) {
 			guiId = CoreGuiHandler.addGuiMap(this);
-			GameRegistry.registerTileEntity(TileEntityBarrel.class, "TileEntityBarrel");
+			GameRegistry.registerTileEntity(TileEntityKeg.class, "TileEntityBarrel");
 		}
 		this.woodType = type;
 	}
 	
 	@Override
-	public TileEntityBarrel createTile() {
-		return new TileEntityBarrel(woodType);
+	public TileEntityKeg createTile() {
+		return new TileEntityKeg(woodType);
 	}
 
 	@Override
@@ -39,16 +39,16 @@ public class BarrelFactory implements ITileFactory{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Object createGui(InventoryPlayer inventoryPlayer, TileEntity tile) {
-		if (tile instanceof TileEntityBarrel)
-			return new GuiBarrel(new ContainerBarrel(inventoryPlayer, (TileEntityBarrel) tile));
+		if (tile instanceof TileEntityKeg)
+			return new GuiKeg(new ContainerKeg(inventoryPlayer, (TileEntityKeg) tile));
 		else
 			return null;
 	}
 
 	@Override
 	public Object createContainer(InventoryPlayer inventoryPlayer, TileEntity tile) {
-		if (tile instanceof TileEntityBarrel)
-			return new ContainerBarrel(inventoryPlayer, (TileEntityBarrel) tile);
+		if (tile instanceof TileEntityKeg)
+			return new ContainerKeg(inventoryPlayer, (TileEntityKeg) tile);
 		else
 			return null;
 	}

@@ -1,19 +1,19 @@
-package redgear.brewcraft.blocks.barrel;
+package redgear.brewcraft.blocks.keg;
 
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;
 
-public class TileEntityBarrel extends TileEntityTank implements IBucketableTank {
+public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 
 	public final AdvFluidTank tank;
 	public final int woodType;
 
-	public TileEntityBarrel(int metadata) {
+	public TileEntityKeg(int metadata) {
 		super(10);
 
-		tank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 12);
+		tank = new KegTank(FluidContainerRegistry.BUCKET_VOLUME * 12);
 		this.woodType = metadata;
 
 		addTank(tank);

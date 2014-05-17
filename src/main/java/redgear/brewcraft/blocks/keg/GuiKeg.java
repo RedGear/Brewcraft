@@ -1,4 +1,4 @@
-package redgear.brewcraft.blocks.barrel;
+package redgear.brewcraft.blocks.keg;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -6,11 +6,11 @@ import redgear.core.render.GuiBase;
 import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 import cpw.mods.fml.common.Loader;
 
-public class GuiBarrel extends GuiBase<ContainerBarrel> {
+public class GuiKeg extends GuiBase<ContainerKeg> {
 
 	public static final ResourceLocation texture = new ResourceLocation("redgear_brewcraft:textures/gui/sprayer.png");
 
-	public GuiBarrel(ContainerBarrel container) {
+	public GuiKeg(ContainerKeg container) {
 		super(container, texture);
 		name = "container.barrel";
 	}
@@ -18,7 +18,7 @@ public class GuiBarrel extends GuiBase<ContainerBarrel> {
 	@Override
 	public void initGui() {
 		super.initGui();
-		TileEntityBarrel tile = myContainer.myTile;
+		TileEntityKeg tile = myContainer.myTile;
 		
 		addElement(new ElementFluidTankWithGlass(this, 80, 13, tile.tank).setGauge(0));
 	}

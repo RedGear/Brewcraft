@@ -1,10 +1,10 @@
-package redgear.brewcraft.blocks.barrel;
+package redgear.brewcraft.blocks.keg;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelBarrel extends ModelBase {
+public class ModelKeg extends ModelBase {
 	//fields
 	ModelRenderer BarrelRing1;
 	ModelRenderer BarrelWall;
@@ -15,7 +15,7 @@ public class ModelBarrel extends ModelBase {
 	ModelRenderer BarrelRing3;
 	ModelRenderer BarrelRing4;
 
-	public ModelBarrel() {
+	public ModelKeg() {
 		textureWidth = 128;
 		textureHeight = 128;
 

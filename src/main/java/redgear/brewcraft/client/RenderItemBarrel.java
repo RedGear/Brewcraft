@@ -8,7 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import redgear.brewcraft.blocks.barrel.TileEntityBarrel;
+import redgear.brewcraft.blocks.keg.TileEntityKeg;
 import redgear.core.render.SimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -24,7 +24,7 @@ public class RenderItemBarrel extends SimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		TileEntityBarrel blank = new TileEntityBarrel(metadata);
+		TileEntityKeg blank = new TileEntityKeg(metadata);
 
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);

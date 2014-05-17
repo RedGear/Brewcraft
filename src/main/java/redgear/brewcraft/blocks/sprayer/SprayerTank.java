@@ -13,9 +13,7 @@ public class SprayerTank extends AdvFluidTank {
 
 	@Override
 	public boolean canAccept(int fluidId) {
-		if (FluidRegistry.getFluid(fluidId) instanceof FluidPotion
-				|| FluidRegistry.getFluid(fluidId).equals(FluidRegistry.WATER)
-				|| FluidRegistry.getFluid(fluidId).equals(FluidRegistry.LAVA))
+		if (FluidRegistry.getFluid(fluidId) instanceof FluidPotion)
 			return true;
 		else
 			return false;
@@ -23,9 +21,7 @@ public class SprayerTank extends AdvFluidTank {
 
 	@Override
 	public boolean canFillWithMap(FluidStack other, boolean fully) {
-		return FluidRegistry.getFluid(other.getFluid().getID()) instanceof FluidPotion
-				|| FluidRegistry.getFluid(other.getFluid().getID()).equals(FluidRegistry.WATER)
-				|| FluidRegistry.getFluid(other.getFluid().getID()).equals(FluidRegistry.LAVA);
+		return FluidRegistry.getFluid(other.getFluid().getID()) instanceof FluidPotion;
 	}
 
 }
