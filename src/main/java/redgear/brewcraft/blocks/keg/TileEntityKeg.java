@@ -13,7 +13,7 @@ public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 	public TileEntityKeg(int metadata) {
 		super(10);
 
-		tank = new KegTank(FluidContainerRegistry.BUCKET_VOLUME * 12);
+		tank = new KegTank(this, FluidContainerRegistry.BUCKET_VOLUME * 12);
 		this.woodType = metadata;
 
 		addTank(tank);

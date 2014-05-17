@@ -5,7 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
 import redgear.brewcraft.blocks.keg.KegFactory;
-import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
@@ -58,6 +57,7 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem barrelSpruce;
 	public static SimpleItem barrelDark;
 	public static SimpleItem barrelAcacia;
+	public static SimpleItem barrelIron;
 
 	public static CreativeTabs tab;
 
@@ -113,6 +113,7 @@ public class Brewcraft extends ModUtils {
 		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new KegFactory(3)));
 		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory(4)));
 		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory(5)));
+		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory(6)));
 
 	}
 
