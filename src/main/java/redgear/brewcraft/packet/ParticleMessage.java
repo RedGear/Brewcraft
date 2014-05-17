@@ -13,7 +13,6 @@ public class ParticleMessage implements IMessage {
 	public int color;
 	public boolean instant;
 	public int particle;
-	public double velocity;
 
 	public ParticleMessage() {
 
@@ -24,18 +23,19 @@ public class ParticleMessage implements IMessage {
 			fromBytes(packet.payload());
 	}
 
-	public ParticleMessage(double x, double y, double z, int color, boolean instant, int particle, double velocity) {
+	public ParticleMessage(double x, double y, double z, int color, boolean instant, int particle) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.color = color;
-		this.instant = instant;
+		if (color > 0) {
+			this.color = color;
+			this.instant = instant;
+		}
 		this.particle = particle;
-		this.velocity = velocity;
 	}
 
-	public ParticleMessage(double x, double y, double z, Potion effect, int particle, double velocity) {
-		this(x, y, z, effect.getLiquidColor(), effect.isInstant(), particle, velocity);
+	public ParticleMessage(double x, double y, double z, Potion effect, int particle) {
+		this(x, y, z, effect == null ? 0 : effect.getLiquidColor(), effect == null ? false : effect.isInstant(), particle);
 	}
 
 	@Override
@@ -49,7 +49,6 @@ public class ParticleMessage implements IMessage {
 		color = buf.readInt();
 		instant = buf.readBoolean();
 		particle = buf.readInt();
-		velocity = buf.readDouble();
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class ParticleMessage implements IMessage {
 		buf.writeInt(color);
 		buf.writeBoolean(instant);
 		buf.writeInt(particle);
-		buf.writeDouble(velocity);
 	}
 
 }

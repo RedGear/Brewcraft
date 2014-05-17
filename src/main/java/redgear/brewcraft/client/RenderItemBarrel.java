@@ -8,25 +8,24 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
+import redgear.brewcraft.blocks.barrel.TileEntityBarrel;
 import redgear.core.render.SimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class RenderItemBrewery extends SimpleBlockRenderingHandler {
+public class RenderItemBarrel extends SimpleBlockRenderingHandler {
 
 	public final int renderId;
-	
-	public RenderItemBrewery(int renderId) {
+
+	public RenderItemBarrel(int renderId) {
 		super(renderId);
 		this.renderId = renderId;
 		RenderingRegistry.registerBlockHandler(renderId, this);
 	}
 
-	TileEntityBrewery blank = new TileEntityBrewery();
-
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+		TileEntityBarrel blank = new TileEntityBarrel(metadata);
+
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(blank, 0.0D, 0.0D, 0.0D, 0.0F);
@@ -43,5 +42,4 @@ public class RenderItemBrewery extends SimpleBlockRenderingHandler {
 	public boolean shouldRender3DInInventory(int i) {
 		return true;
 	}
-
 }

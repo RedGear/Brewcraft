@@ -27,6 +27,14 @@ container.brewery=Brewery
 tile.RedGear.Brewcraft.Machine.sprayer.name=Sprayer
 container.sprayer=Sprayer
 
+tile.RedGear.Brewcraft.Barrel.barrelOak.name=Oak Keg
+tile.RedGear.Brewcraft.Barrel.barrelBirch.name=Birch Keg
+tile.RedGear.Brewcraft.Barrel.barrelJungle.name=Jungle Keg
+tile.RedGear.Brewcraft.Barrel.barrelSpruce.name=Spruce Keg
+tile.RedGear.Brewcraft.Barrel.barrelDark.name=Dark Oak Keg
+tile.RedGear.Brewcraft.Barrel.barrelAcacia.name=Acacia Keg
+container.barrel=Keg
+
 itemGroup.brewcraft=Brewcraft
 
 death.attack.fireEater=%s was consumed by the Fire Eaters

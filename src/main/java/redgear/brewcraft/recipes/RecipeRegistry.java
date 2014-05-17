@@ -58,7 +58,7 @@ public class RecipeRegistry implements IRecipeRegistry {
 	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
 		if (input != null && output != null && item != null) {
 			if (Brewcraft.inst.getBoolean("Brewery Recipes", "Toggle " + output.getFluid().getLocalizedName()
-					+ " Recipes")) {
+					+ " Recipe")) {
 				if (!recipes.add(new BreweryRecipe(resizeStack(input.copy(), amount), output, item)))
 					Brewcraft.inst.myLogger
 							.warn("There were issues trying to add recipe to Brewcraft Brewery block. Issues found are: Recipe already exists. ");

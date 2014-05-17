@@ -12,6 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -65,12 +66,13 @@ public class TileEntitySprayer extends TileEntityTank implements IBucketableTank
 				final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
 				final SubItemPotion bot = (SubItemPotion) bottle.getMetaItem(bottle.getDamage(potion));
 
-				ParticleHandler.send(xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(), 1, 0.5D);
+				ParticleHandler.send(xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(), ParticleHandler.MIST);
 				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 						worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
 				if (bot != null)
-					entity.addPotionEffect(new PotionEffect(bot.getEffect().id, bot.getEffect().isInstant() ? 1 : bot.duration / 2, bot.strength));
+					entity.addPotionEffect(new PotionEffect(bot.getEffect().id, bot.getEffect().isInstant() ? 1
+							: bot.duration / 2, bot.strength));
 
 			} else if (potion != null && potion.getItem() instanceof ItemPotion) {
 				final List<PotionEffect> list = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
@@ -80,7 +82,8 @@ public class TileEntitySprayer extends TileEntityTank implements IBucketableTank
 					final PotionEffect effect = iterator.next();
 
 					if (effect != null) {
-						ParticleHandler.send(xCoord + 0.5, yCoord + 1, zCoord + 0.5, Potion.potionTypes[effect.getPotionID()], 1, 0.5D);
+						ParticleHandler.send(xCoord + 0.5, yCoord + 1, zCoord + 0.5,
+								Potion.potionTypes[effect.getPotionID()], ParticleHandler.MIST);
 						worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 								worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
@@ -90,7 +93,6 @@ public class TileEntitySprayer extends TileEntityTank implements IBucketableTank
 				}
 			}
 		}
-
 		tank.drain(50, true);
 
 		return false;
