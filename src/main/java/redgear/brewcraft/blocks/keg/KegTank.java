@@ -16,12 +16,12 @@ public class KegTank extends AdvFluidTank {
 
 	@Override
 	public boolean canAccept(int fluidId) {
-			return FluidRegistry.getFluid(fluidId).getTemperature() < 1300 ? keg.type == "iron" : false;
+			return FluidRegistry.getFluid(fluidId).getTemperature() < 1300 ? keg.type == "iron" : true;
 	}
 
 	@Override
 	public boolean canFillWithMap(FluidStack other, boolean fully) {
-		return FluidRegistry.getFluid(other.fluidID).getTemperature() < 1300 ? keg.type == "iron" : false;
+		return FluidRegistry.getFluid(other.fluidID).getTemperature() < 1300 ? keg.type == "iron" : true;
 	}
 	
 	@Override

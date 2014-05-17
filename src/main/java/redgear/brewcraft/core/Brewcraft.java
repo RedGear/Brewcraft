@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
 import redgear.brewcraft.blocks.keg.KegFactory;
+import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
@@ -50,7 +51,7 @@ public class Brewcraft extends ModUtils {
 	public static MetaTileSpecialRenderer machine;
 	public static SimpleItem sprayer;
 	
-	public static MetaTileSpecialRenderer barrels;
+	public static MetaTileKeg barrels;
 	public static SimpleItem barrelOak;
 	public static SimpleItem barrelBirch;
 	public static SimpleItem barrelJungle;
@@ -101,7 +102,7 @@ public class Brewcraft extends ModUtils {
 				.setHarvestLevel("pickaxe", 0);
 		sprayer = machine.addMetaBlock(new SubTile("sprayer", new SprayerFactory()));
 		
-		barrels = new MetaTileSpecialRenderer(Material.wood, "RedGear.Brewcraft.Barrel",
+		barrels = new MetaTileKeg(Material.wood, "RedGear.Brewcraft.Barrel",
 				RenderingRegistry.getNextAvailableRenderId());
 
 		barrels.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(tab)
