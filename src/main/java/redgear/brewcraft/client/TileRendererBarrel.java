@@ -18,7 +18,7 @@ public class TileRendererBarrel extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f) {  //I think f is the shadow or something?
 		TileEntityKeg tile = (TileEntityKeg) tileentity;
-		ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "barrel_" + tile.woodType);
+		ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "barrel_" + tile.type);
 		
 		bindTexture(texture);
 

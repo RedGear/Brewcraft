@@ -24,7 +24,8 @@ public class RenderItemBarrel extends SimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		TileEntityKeg blank = new TileEntityKeg(metadata);
+		String type = getStringFromMeta(metadata);
+		TileEntityKeg blank = new TileEntityKeg(type);
 
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -41,5 +42,18 @@ public class RenderItemBarrel extends SimpleBlockRenderingHandler {
 	@Override
 	public boolean shouldRender3DInInventory(int i) {
 		return true;
+	}
+
+	public String getStringFromMeta(int metadata) {
+		switch (metadata) {
+		case 0: return "oak";
+		case 1: return "birch";
+		case 2: return "jungle";
+		case 3: return "spruce";
+		case 4: return "dark";
+		case 5: return "acacia";
+		case 6: return "iron";
+		default: return "";
+		}
 	}
 }

@@ -8,13 +8,13 @@ import redgear.core.tile.TileEntityTank;
 public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 
 	public final AdvFluidTank tank;
-	public final int woodType;
+	public final String type;
 
-	public TileEntityKeg(int metadata) {
+	public TileEntityKeg(String type) {
 		super(10);
 
 		tank = new KegTank(this, FluidContainerRegistry.BUCKET_VOLUME * 12);
-		this.woodType = metadata;
+		this.type = type;
 
 		addTank(tank);
 	}

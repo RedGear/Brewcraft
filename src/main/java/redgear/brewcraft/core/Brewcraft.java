@@ -107,13 +107,13 @@ public class Brewcraft extends ModUtils {
 		barrels.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(tab)
 				.setHarvestLevel("axe", 0);
 		
-		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new KegFactory(0)));
-		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new KegFactory(1)));
-		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new KegFactory(2)));
-		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new KegFactory(3)));
-		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory(4)));
-		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory(5)));
-		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory(6)));
+		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new KegFactory("oak")));
+		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new KegFactory("birch")));
+		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new KegFactory("jungle")));
+		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new KegFactory("spruce")));
+		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory("dark")));
+		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory("acacia")));
+		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory("iron")));
 
 	}
 
