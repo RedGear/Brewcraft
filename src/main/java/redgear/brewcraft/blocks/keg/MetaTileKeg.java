@@ -1,14 +1,9 @@
 package redgear.brewcraft.blocks.keg;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import redgear.core.block.MetaTileSpecialRenderer;
 import cpw.mods.fml.relauncher.Side;
@@ -45,6 +40,11 @@ public class MetaTileKeg extends MetaTileSpecialRenderer {
             //Adds break particles based on the meta.
             }
         }
-        return null;
+        return Blocks.iron_block.getIcon(side, 0);
     }
+
+	@Override
+	public int getDamageValue(World par1World, int par2, int par3, int par4) {
+		return par1World.getBlockMetadata(par2, par3, par4);
+	}
 }
