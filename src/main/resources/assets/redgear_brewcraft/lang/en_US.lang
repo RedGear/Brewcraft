@@ -34,7 +34,14 @@ tile.RedGear.Brewcraft.Barrel.barrelSpruce.name=Spruce Keg
 tile.RedGear.Brewcraft.Barrel.barrelDark.name=Dark Oak Keg
 tile.RedGear.Brewcraft.Barrel.barrelAcacia.name=Acacia Keg
 tile.RedGear.Brewcraft.Barrel.barrelIron.name=Iron Keg
-tile.RedGear.Brewcraft.Barrel.barrelSlime.name=Airtight Keg
+tile.RedGear.Brewcraft.Barrel.barrelSlime.name=Slime-Sealed Keg
+tile.RedGear.Brewcraft.Barrel.barrel.ingotSteel.name=Steel Keg
+tile.RedGear.Brewcraft.Barrel.barrel.ingotCopper.name=Copper Keg
+tile.RedGear.Brewcraft.Barrel.barrel.ingotSilver.name=Silver Keg
+tile.RedGear.Brewcraft.Barrel.barrel.ingotTungsten.name=Tungsten Keg
+tile.RedGear.Brewcraft.Barrel.barrel.ingotBrass.name=Brass Keg
+tile.RedGear.Brewcraft.Barrel.barrel.materialRubber.name=Rubber-Sealed Keg
+tile.RedGear.Brewcraft.Barrel.barrel.blockRubber.name=Rubber-Sealed Keg
 container.barrel=Keg
 
 itemGroup.brewcraft=Brewcraft

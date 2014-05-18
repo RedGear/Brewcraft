@@ -1,8 +1,12 @@
 package redgear.brewcraft.core;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
 import redgear.brewcraft.blocks.keg.KegFactory;
 import redgear.brewcraft.blocks.keg.MetaTileKeg;
@@ -30,6 +34,7 @@ import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
+import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -39,7 +44,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
-@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:redgear_core;")
+@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:redgear_core;after:TConstruct;")
 public class Brewcraft extends ModUtils {
 
 	@Instance("redgear_brewcraft")
@@ -50,7 +55,7 @@ public class Brewcraft extends ModUtils {
 
 	public static MetaTileSpecialRenderer machine;
 	public static SimpleItem sprayer;
-	
+
 	public static MetaTileKeg barrels;
 	public static SimpleItem barrelOak;
 	public static SimpleItem barrelBirch;
@@ -102,13 +107,13 @@ public class Brewcraft extends ModUtils {
 		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
 				.setHarvestLevel("pickaxe", 0);
 		sprayer = machine.addMetaBlock(new SubTile("sprayer", new SprayerFactory()));
-		
+
 		barrels = new MetaTileKeg(Material.wood, "RedGear.Brewcraft.Barrel",
 				RenderingRegistry.getNextAvailableRenderId());
 
 		barrels.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(tab)
 				.setHarvestLevel("axe", 0);
-		
+
 		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new KegFactory("oak")));
 		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new KegFactory("birch")));
 		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new KegFactory("jungle")));
@@ -117,6 +122,14 @@ public class Brewcraft extends ModUtils {
 		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory("acacia")));
 		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory("iron")));
 		barrelSlime = barrels.addMetaBlock(new SubTile("barrelSlime", new KegFactory("slime")));
+		kegCheck("ingotSteel");
+		kegCheck("ingotCopper");
+		kegCheck("ingotSilver");
+		kegCheck("ingotTungsten");
+		kegCheck("ingotBrass");
+
+		if (!kegCheck("materialRubber"))
+			kegCheck("blockRubber");
 
 	}
 
@@ -133,6 +146,16 @@ public class Brewcraft extends ModUtils {
 	@Override
 	protected void PostInit(FMLPostInitializationEvent event) {
 
+	}
+
+	private boolean kegCheck(String ingot) {
+		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
+		if (metal != null) {
+			SimpleItem barrel = barrels.addMetaBlock(new SubTile("barrel." + ingot, new KegFactory(ingot)));
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
