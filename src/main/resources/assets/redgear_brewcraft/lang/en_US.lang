@@ -34,6 +34,7 @@ tile.RedGear.Brewcraft.Barrel.barrelSpruce.name=Spruce Keg
 tile.RedGear.Brewcraft.Barrel.barrelDark.name=Dark Oak Keg
 tile.RedGear.Brewcraft.Barrel.barrelAcacia.name=Acacia Keg
 tile.RedGear.Brewcraft.Barrel.barrelIron.name=Iron Keg
+tile.RedGear.Brewcraft.Barrel.barrelSlime.name=Airtight Keg
 container.barrel=Keg
 
 itemGroup.brewcraft=Brewcraft

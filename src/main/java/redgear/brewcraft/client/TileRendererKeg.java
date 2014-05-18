@@ -11,7 +11,7 @@ import redgear.brewcraft.blocks.keg.TileEntityKeg;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.core.util.StringHelper;
 
-public class TileRendererBarrel extends TileEntitySpecialRenderer {
+public class TileRendererKeg extends TileEntitySpecialRenderer {
 
 	ModelKeg model = new ModelKeg();
 

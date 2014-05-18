@@ -12,11 +12,11 @@ import redgear.brewcraft.blocks.keg.TileEntityKeg;
 import redgear.core.render.SimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class RenderItemBarrel extends SimpleBlockRenderingHandler {
+public class RenderItemKeg extends SimpleBlockRenderingHandler {
 
 	public final int renderId;
 
-	public RenderItemBarrel(int renderId) {
+	public RenderItemKeg(int renderId) {
 		super(renderId);
 		this.renderId = renderId;
 		RenderingRegistry.registerBlockHandler(renderId, this);
@@ -53,6 +53,7 @@ public class RenderItemBarrel extends SimpleBlockRenderingHandler {
 		case 4: return "dark";
 		case 5: return "acacia";
 		case 6: return "iron";
+		case 7: return "slime";
 		default: return "";
 		}
 	}
