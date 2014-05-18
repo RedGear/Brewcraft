@@ -59,6 +59,7 @@ public class Brewcraft extends ModUtils {
 	public static SimpleItem barrelDark;
 	public static SimpleItem barrelAcacia;
 	public static SimpleItem barrelIron;
+	public static SimpleItem barrelSlime;
 
 	public static CreativeTabs tab;
 
@@ -115,6 +116,7 @@ public class Brewcraft extends ModUtils {
 		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory("dark")));
 		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory("acacia")));
 		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory("iron")));
+		barrelSlime = barrels.addMetaBlock(new SubTile("barrelSlime", new KegFactory("slime")));
 
 	}
 

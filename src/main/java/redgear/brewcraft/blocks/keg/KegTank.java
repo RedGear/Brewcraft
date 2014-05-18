@@ -8,7 +8,7 @@ import redgear.core.inventory.TransferRule;
 public class KegTank extends AdvFluidTank {
 
 	public final TileEntityKeg keg;
-	
+
 	public KegTank(TileEntityKeg keg, int capacity) {
 		super(capacity);
 		this.keg = keg;
@@ -16,19 +16,21 @@ public class KegTank extends AdvFluidTank {
 
 	@Override
 	public boolean canAccept(int fluidId) {
-			return FluidRegistry.getFluid(fluidId).getTemperature() < 1300 ? keg.type == "iron" : true;
+		return FluidRegistry.getFluid(fluidId).getTemperature() >= 1300 ? keg.type == "iron" : FluidRegistry.getFluid(
+				fluidId).isGaseous() ? keg.type == "slime" : true;
 	}
 
 	@Override
 	public boolean canFillWithMap(FluidStack other, boolean fully) {
-		return FluidRegistry.getFluid(other.fluidID).getTemperature() < 1300 ? keg.type == "iron" : true;
+		return FluidRegistry.getFluid(other.fluidID).getTemperature() >= 1300 ? keg.type == "iron" : FluidRegistry
+				.getFluid(other.fluidID).isGaseous() ? keg.type == "slime" : true;
 	}
-	
+
 	@Override
 	public boolean canEject(int fluidId) {
 		return true;
 	}
-	
+
 	private TransferRule getRule(int fluidId) {
 		return TransferRule.BOTH;
 	}
