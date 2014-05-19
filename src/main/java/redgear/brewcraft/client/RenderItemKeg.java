@@ -53,7 +53,8 @@ public class RenderItemKeg extends SimpleBlockRenderingHandler {
 		case 4: return "dark";
 		case 5: return "acacia";
 		case 6: return "iron";
-		case 7: return "slime";
+		case 7: return "sealed";
+		case 8: return "plated";
 		default: return "";
 		}
 	}

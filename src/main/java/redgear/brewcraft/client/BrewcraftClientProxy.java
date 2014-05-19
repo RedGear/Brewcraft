@@ -7,6 +7,7 @@ import redgear.brewcraft.blocks.sprayer.TileEntitySprayer;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.entity.RenderBrewcraftPotion;
+import redgear.brewcraft.plugins.common.KegPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -39,7 +40,7 @@ public class BrewcraftClientProxy implements IPlugin {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBrewery.class, new TileRendererBrewery());
 		new RenderItemBrewery(Brewcraft.brewing.renderId);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityKeg.class, new TileRendererKeg());
-		new RenderItemKeg(Brewcraft.barrels.renderId);
+		new RenderItemKeg(KegPlugin.kegs.renderId);
 
 		VillagerRegistry.instance().registerVillagerSkin(Brewcraft.inst.getInt("Village", "Witch Profession ID", 15),
 				new ResourceLocation("redgear_brewcraft", "textures/entity/villagerwitch.png"));

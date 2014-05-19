@@ -1,21 +1,17 @@
 package redgear.brewcraft.core;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.util.EnumChatFormatting;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
-import redgear.brewcraft.blocks.keg.KegFactory;
-import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.event.CraftingHandler;
 import redgear.brewcraft.event.DamageHandler;
 import redgear.brewcraft.event.DropHandler;
+import redgear.brewcraft.event.TipHandler;
 import redgear.brewcraft.event.TradeHandler;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.plugins.common.AchievementPlugin;
@@ -23,6 +19,7 @@ import redgear.brewcraft.plugins.common.CraftingPlugin;
 import redgear.brewcraft.plugins.common.DamageSourcePlugin;
 import redgear.brewcraft.plugins.common.EffectPlugin;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.common.KegPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.plugins.common.VillagePlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
@@ -34,7 +31,6 @@ import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
-import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -56,26 +52,19 @@ public class Brewcraft extends ModUtils {
 	public static MetaTileSpecialRenderer machine;
 	public static SimpleItem sprayer;
 
-	public static MetaTileKeg barrels;
-	public static SimpleItem barrelOak;
-	public static SimpleItem barrelBirch;
-	public static SimpleItem barrelJungle;
-	public static SimpleItem barrelSpruce;
-	public static SimpleItem barrelDark;
-	public static SimpleItem barrelAcacia;
-	public static SimpleItem barrelIron;
-	public static SimpleItem barrelSlime;
-
 	public static CreativeTabs tab;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
+		
+		//event.getModMetadata().name = EnumChatFormatting.DARK_AQUA + "Brewcraft";
 
 		PotionArrayExpander.init();
 
 		addPlugin(new DamageSourcePlugin());
 		addPlugin(new EffectPlugin());
 		addPlugin(new PotionPlugin());
+		addPlugin(new KegPlugin());
 		addPlugin(new IngredientPlugin());
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
@@ -107,30 +96,6 @@ public class Brewcraft extends ModUtils {
 		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
 				.setHarvestLevel("pickaxe", 0);
 		sprayer = machine.addMetaBlock(new SubTile("sprayer", new SprayerFactory()));
-
-		barrels = new MetaTileKeg(Material.wood, "RedGear.Brewcraft.Barrel",
-				RenderingRegistry.getNextAvailableRenderId());
-
-		barrels.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(tab)
-				.setHarvestLevel("axe", 0);
-
-		barrelOak = barrels.addMetaBlock(new SubTile("barrelOak", new KegFactory("oak")));
-		barrelBirch = barrels.addMetaBlock(new SubTile("barrelBirch", new KegFactory("birch")));
-		barrelJungle = barrels.addMetaBlock(new SubTile("barrelJungle", new KegFactory("jungle")));
-		barrelSpruce = barrels.addMetaBlock(new SubTile("barrelSpruce", new KegFactory("spruce")));
-		barrelDark = barrels.addMetaBlock(new SubTile("barrelDark", new KegFactory("dark")));
-		barrelAcacia = barrels.addMetaBlock(new SubTile("barrelAcacia", new KegFactory("acacia")));
-		barrelIron = barrels.addMetaBlock(new SubTile("barrelIron", new KegFactory("iron")));
-		barrelSlime = barrels.addMetaBlock(new SubTile("barrelSlime", new KegFactory("slime")));
-		kegCheck("ingotSteel");
-		kegCheck("ingotCopper");
-		kegCheck("ingotSilver");
-		kegCheck("ingotTungsten");
-		kegCheck("ingotBrass");
-
-		if (!kegCheck("materialRubber"))
-			kegCheck("blockRubber");
-
 	}
 
 	@Override
@@ -140,22 +105,13 @@ public class Brewcraft extends ModUtils {
 		DropHandler.register();
 		TradeHandler.register();
 		ParticleHandler.register();// hi guys! Mind if I join you?
+		TipHandler.register();
 
 	}
 
 	@Override
 	protected void PostInit(FMLPostInitializationEvent event) {
 
-	}
-
-	private boolean kegCheck(String ingot) {
-		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
-		if (metal != null) {
-			SimpleItem barrel = barrels.addMetaBlock(new SubTile("barrel." + ingot, new KegFactory(ingot)));
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
