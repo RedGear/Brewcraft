@@ -16,7 +16,7 @@ public class KegFactory implements ITileFactory{
 	public KegFactory(String type) {
 		if (guiId == -1) {
 			guiId = CoreGuiHandler.addGuiMap(this);
-			GameRegistry.registerTileEntity(TileEntityKeg.class, "TileEntityBarrel");
+			GameRegistry.registerTileEntity(TileEntityKeg.class, "TileEntityBrewKeg");
 		}
 		this.woodType = type;
 	}
