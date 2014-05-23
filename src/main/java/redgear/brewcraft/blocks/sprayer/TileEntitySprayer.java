@@ -10,9 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -30,7 +31,7 @@ public class TileEntitySprayer extends TileEntityTank implements IBucketableTank
 	public TileEntitySprayer() {
 		super(10);
 
-		tank = new SprayerTank(FluidContainerRegistry.BUCKET_VOLUME * 12);
+		tank = new SprayerTank(FluidContainerRegistry.BUCKET_VOLUME * 8);
 
 		addTank(tank);
 	}

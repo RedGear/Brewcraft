@@ -29,17 +29,18 @@ public class TradeHandler implements IVillageTradeHandler {
 		return instance;
 	}
 
-	public boolean powderTrade = Brewcraft.inst.getBoolean("World", "Blessed Powder Priest Trade",
-			"Toggle Blessed Powder Trade", true);
+	public boolean powderTrade = Brewcraft.inst.getBoolean("General", "Blessed Powder Priest Trade", true);
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
 		if (villager.getProfession() == 2) {
-			recipeList.add(new MerchantRecipe(IngredientPlugin.holyDust.getStack(random.nextInt(1) + 2), new ItemStack(
-					Items.emerald, random.nextInt(4) + 1)));
-			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
-					IngredientPlugin.holyDust.getStack(random.nextInt(3) + 1)));
+			if (powderTrade) {
+				recipeList.add(new MerchantRecipe(IngredientPlugin.holyDust.getStack(random.nextInt(1) + 2),
+						new ItemStack(Items.emerald, random.nextInt(4) + 1)));
+				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
+						IngredientPlugin.holyDust.getStack(random.nextInt(3) + 1)));
+			}
 
 			if (villager.worldObj.getWorldTime() > 13000)
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
@@ -141,7 +142,7 @@ public class TradeHandler implements IVillageTradeHandler {
 					new ItemStack(Items.potionitem, 1, 8238)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 4)),
 					new ItemStack(Items.potionitem, 1, 16430)));
-			
+
 			//Most ingredients.
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 1)),
 					new ItemStack(Items.spider_eye, random.nextInt(2) + 1)));

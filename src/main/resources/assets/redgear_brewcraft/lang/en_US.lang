@@ -116,9 +116,9 @@ potion.fireEater.1.desc=Fire heals you, air hurts you
 potion.fireEater.2.desc=Fire heals you, air hurts you
 
 tooltip.keg=Aesthetically pleasing fluid storage
-tooltip.keg.basic=basic
-tooltip.keg.molten=molten
-tooltip.keg.gaseous=gaseous
+tooltip.keg.basic=Basic
+tooltip.keg.molten=Molten
+tooltip.keg.gaseous=Gaseous
 tooltip.keg.prefix=Can store
 tooltip.keg.postfix=fluids
 tooltip.brewery=Advanced brewing machine

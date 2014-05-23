@@ -65,16 +65,15 @@ public class KegPlugin implements IPlugin {
 		kegIron = kegs.addMetaBlock(new SubTile("kegIron", new KegFactory("iron")));
 		kegSealed = kegs.addMetaBlock(new SubTile("kegSealed", new KegFactory("sealed")));
 		kegPlated = kegs.addMetaBlock(new SubTile("kegPlated", new KegFactory("plated")));
-		//kegSteel = kegCheck("ingotSteel");
-		//kegCopper = kegCheck("ingotCopper");
-		//kegSilver = kegCheck("ingotSilver");
-		//kegTungsten = kegCheck("ingotTungsten");
-		//kegBrass = kegCheck("ingotBrass");
+		//kegSteel = kegs.addMetaBlock(new SubTile("kegSteel", new KegFactory("steel")));
+		//kegCopper = kegs.addMetaBlock(new SubTile("kegCopper", new KegFactory("copper")));
+		//kegSilver = kegs.addMetaBlock(new SubTile("kegSilver", new KegFactory("silver")));
+		//kegTungsten = kegs.addMetaBlock(new SubTile("kegTungsten", new KegFactory("tungsten")));
+		//kegBrass = kegs.addMetaBlock(new SubTile("kegBrass", new KegFactory("brass")));
 
-		//if (ItemStackUtil.getOreWithName("materialRubber") != null)
-		//kegRubber = kegCheck("materialRubber");
-		//else if (ItemStackUtil.getOreWithName("blockRubber") != null)
-		//kegRubber = kegCheck("blockRubber");
+		//if (ItemStackUtil.getOreWithName("materialRubber") != null || ItemStackUtil.getOreWithName("blockRubber") != null)
+		//kegRubber = kegs.addMetaBlock(new SubTile("kegRubber", new KegFactory("rubber")));
+		
 	}
 
 	@Override
@@ -85,15 +84,5 @@ public class KegPlugin implements IPlugin {
 	@Override
 	public void postInit(ModUtils mod) {
 
-	}
-
-	private SimpleItem kegCheck(String ingot) {
-		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
-		if (metal != null) {
-			SimpleItem barrel = kegs.addMetaBlock(new SubTile("barrel." + ingot, new KegFactory(ingot)));
-			return barrel;
-		} else {
-			return null;
-		}
 	}
 }

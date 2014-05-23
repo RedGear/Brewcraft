@@ -5,7 +5,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
-import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.core.asm.RedGearCore;
 import redgear.core.util.SimpleItem;
 

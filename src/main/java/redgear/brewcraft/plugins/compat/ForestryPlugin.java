@@ -27,7 +27,7 @@ public class ForestryPlugin implements IPlugin {
 
 	@Override
 	public void Init(ModUtils mod) {
-		if (Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin", "Toggle Forestry Plugin", true)) {
+		if (Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin", true)) {
 			if (Mods.Forestry.isIn()) {
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.goldenFeather.getStack());
 				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.charredBone.getStack());

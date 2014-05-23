@@ -10,7 +10,6 @@ import org.lwjgl.opengl.GL12;
 
 import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.core.render.SimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class RenderItemBrewery extends SimpleBlockRenderingHandler {

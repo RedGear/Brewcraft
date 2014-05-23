@@ -3,7 +3,6 @@ package redgear.brewcraft.core;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.EnumChatFormatting;
 import redgear.brewcraft.blocks.brewery.BreweryFactory;
 import redgear.brewcraft.blocks.sprayer.SprayerFactory;
 import redgear.brewcraft.client.BrewcraftClientProxy;
@@ -56,7 +55,7 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-		
+
 		//event.getModMetadata().name = EnumChatFormatting.DARK_AQUA + "Brewcraft";
 
 		PotionArrayExpander.init();
@@ -77,10 +76,9 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
 
-		tab = new BrewcraftTab("brewcraft", getBoolean("General", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab."));
+		tab = new BrewcraftTab("brewcraft", getBoolean("General", "Toggle Unconventional Creative Tab Overlay"));
 
-		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
+		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Brewcraft:Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
 
 		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",

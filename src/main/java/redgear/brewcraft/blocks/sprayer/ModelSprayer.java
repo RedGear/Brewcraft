@@ -6,26 +6,54 @@ import net.minecraft.entity.Entity;
 
 public class ModelSprayer extends ModelBase {
 
-	ModelRenderer Base;
-	ModelRenderer Top;
+	ModelRenderer Base3;
+	ModelRenderer Spout;
+	ModelRenderer Base2;
+	ModelRenderer Base1;
+	ModelRenderer Nozzle;
 
 	public ModelSprayer() {
-		textureWidth = 64;
-		textureHeight = 64;
+		textureWidth = 128;
+		textureHeight = 128;
 
-		Base = new ModelRenderer(this, 0, 0);
-		Base.addBox(0F, 0F, 0F, 16, 8, 16).setTextureSize(64, 64).setRotationPoint(-8F, 16F, -8F);
-		Base.mirror = true;
-		setRotation(Base, 0F, 0F, 0F);
-		Top = new ModelRenderer(this, 0, 40);
-		Top.addBox(0F, 0F, 0F, 8, 8, 8).setTextureSize(64, 64).setRotationPoint(-4F, 8F, -4F);
-		Top.mirror = true;
-		setRotation(Top, 0F, 0F, 0F);
+		Base3 = new ModelRenderer(this, 0, 0);
+		Base3.addBox(0F, 0F, 0F, 11, 5, 11);
+		Base3.setRotationPoint(-5.5F, 15F, -5.5F);
+		Base3.setTextureSize(128, 128);
+		Base3.mirror = true;
+		setRotation(Base3, 0F, 0F, 0F);
+		Spout = new ModelRenderer(this, 0, 20);
+		Spout.addBox(0F, 0F, 0F, 5, 5, 5);
+		Spout.setRotationPoint(-2.5F, 10F, -2.5F);
+		Spout.setTextureSize(128, 128);
+		Spout.mirror = true;
+		setRotation(Spout, 0F, 0F, 0F);
+		Base2 = new ModelRenderer(this, 55, 0);
+		Base2.addBox(0F, 0F, 0F, 13, 2, 13);
+		Base2.setRotationPoint(-6.5F, 20F, -6.5F);
+		Base2.setTextureSize(128, 128);
+		Base2.mirror = true;
+		setRotation(Base2, 0F, 0F, 0F);
+		Base1 = new ModelRenderer(this, 40, 20);
+		Base1.addBox(0F, 0F, 0F, 16, 2, 16);
+		Base1.setRotationPoint(-8F, 22F, -8F);
+		Base1.setTextureSize(128, 128);
+		Base1.mirror = true;
+		setRotation(Base1, 0F, 0F, 0F);
+		Nozzle = new ModelRenderer(this, 0, 40);
+		Nozzle.addBox(0F, 0F, 0F, 6, 2, 6);
+		Nozzle.setRotationPoint(-3F, 8F, -3F);
+		Nozzle.setTextureSize(128, 128);
+		Nozzle.mirror = true;
+		setRotation(Nozzle, 0F, 0F, 0F);
 	}
 
 	public void render(float f5) {
-		Base.render(f5);
-		Top.render(f5);
+		Base3.render(f5);
+		Spout.render(f5);
+		Base2.render(f5);
+		Base1.render(f5);
+		Nozzle.render(f5);
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {

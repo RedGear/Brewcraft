@@ -8,7 +8,6 @@ import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.fluids.AdvFluidTank;
-import redgear.core.inventory.TankSlot;
 import redgear.core.inventory.TransferRule;
 import redgear.core.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;

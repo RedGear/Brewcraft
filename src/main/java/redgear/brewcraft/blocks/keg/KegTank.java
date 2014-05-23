@@ -31,6 +31,7 @@ public class KegTank extends AdvFluidTank {
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	private TransferRule getRule(int fluidId) {
 		return TransferRule.BOTH;
 	}
