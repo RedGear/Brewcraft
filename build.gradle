@@ -96,7 +96,7 @@ jar{
 	version = "${project.minecraft.version}-${project.version}"
 
 	manifest {
-		attributes 'FMLCorePlugin': 'codechicken.core.launch.DepLoader'
+		attributes 'FMLCorePlugin': "${group}.codechicken.DepLoader"
 		attributes 'FMLCorePluginContainsFMLMod': 'true'
 	}
 }
