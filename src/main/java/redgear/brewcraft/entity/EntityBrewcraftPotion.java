@@ -62,7 +62,7 @@ public class EntityBrewcraftPotion extends EntityPotion {
 			//TODO: Replace this with the stuff that will create particles with the right color. 
 			//worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ),getPotionDamage());
 
-			ParticleHandler.send(posX, posY, posZ, potion.getEffect(), ParticleHandler.POTION);
+			ParticleHandler.send(worldObj, posX, posY, posZ, potion.getEffect(), ParticleHandler.POTION);
 			worldObj.playSoundEffect(posX, posY, posZ, "game.potion.smash", 1.0F,
 					worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			setDead();
