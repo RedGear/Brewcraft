@@ -2,7 +2,7 @@ package redgear.brewcraft.blocks.keg;
 
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import redgear.core.fluids.AdvFluidTank;
-import redgear.core.tile.IBucketableTank;
+import redgear.core.api.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;
 
 public class TileEntityKeg extends TileEntityTank implements IBucketableTank {

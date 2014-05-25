@@ -10,16 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
+import redgear.core.api.tile.IBucketableTank;
 import redgear.core.fluids.AdvFluidTank;
-import redgear.core.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;
 
 public class TileEntitySprayer extends TileEntityTank implements IBucketableTank {

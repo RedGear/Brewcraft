@@ -1,20 +1,27 @@
 package redgear.brewcraft.blocks.brewery;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.PotionPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
+import redgear.core.api.tile.IBucketableTank;
+import redgear.core.api.tile.IFacedTile;
+import redgear.core.api.util.FacedTileHelper;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.inventory.TransferRule;
-import redgear.core.tile.IBucketableTank;
 import redgear.core.tile.TileEntityTank;
 import redgear.core.util.SimpleItem;
 
-public class TileEntityBrewery extends TileEntityTank implements IBucketableTank{
+public class TileEntityBrewery extends TileEntityTank implements IBucketableTank, IFacedTile {
 
+	ForgeDirection face;
+	
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;
 
@@ -31,7 +38,6 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 12, this);
 		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 12).addFluidMap(-1, TransferRule.OUTPUT);
 
-		
 		addTank(inputTank);
 		addTank(outputTank);
 	}
@@ -39,7 +45,7 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	@Override
 	protected boolean doPreWork() {
 		boolean check = false;
-		
+
 		ItemStack stack = getStackInSlot(itemSlot);
 		if (stack != null) {
 			SimpleItem item = new SimpleItem(stack);
@@ -53,8 +59,6 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		}
 		return check;
 	}
-	
-	
 
 	@Override
 	protected int checkWork() {
@@ -75,15 +79,15 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 					}
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	@Override
-	protected boolean doWork(){
+	protected boolean doWork() {
 		inputTank.drain(output.amount, true);
 		outputTank.fill(output, true);
-		
+
 		return this.getIdle() % 5 == 0;
 	}
 
@@ -104,6 +108,7 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		writeFluidStack(tag, "output", output);
 		if (currItem != null)
 			currItem.writeToNBT(tag, "currItem");
+		tag.setByte("face", (byte) face.ordinal());
 	}
 
 	/**
@@ -115,6 +120,7 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		super.readFromNBT(tag);
 		output = readFluidStack(tag, "output");
 		currItem = new SimpleItem(tag, "currItem");
+		face = ForgeDirection.getOrientation(tag.getByte("face"));
 	}
 
 	public SimpleItem getCurrItem() {
@@ -131,5 +137,35 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 			return 0;
 		else
 			return (int) ((float) work / (float) workTotal * total);
+	}
+	
+	@Override
+	public int getDirectionId() {
+		return face.ordinal();
+	}
+
+	@Override
+	public ForgeDirection getDirection() {
+		return face;
+	}
+
+	@Override
+	public boolean setDirection(int id) {
+		if (id >= 0 && id < 6) {
+			face = ForgeDirection.getOrientation(id);
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public boolean setDirection(ForgeDirection side) {
+		face = side;
+		return true;
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		face = FacedTileHelper.facePlayerFlat(entity);
 	}
 }
