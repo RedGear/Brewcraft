@@ -23,7 +23,7 @@ public class TradeHandler implements IVillageTradeHandler {
 			for (int i = 0; i < 5; ++i)
 				VillagerRegistry.instance().registerVillageTradeHandler(i, instance);
 			VillagerRegistry.instance().registerVillageTradeHandler(
-					Brewcraft.inst.getInt("General", "Villager Profession ID", 15), instance);
+					Brewcraft.inst.getInt("General", "Witch Profession ID", 15), instance);
 
 		}
 		return instance;

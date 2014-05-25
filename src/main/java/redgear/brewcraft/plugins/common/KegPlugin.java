@@ -26,6 +26,7 @@ public class KegPlugin implements IPlugin {
 	public static SimpleItem kegIron;
 	public static SimpleItem kegSealed;
 	public static SimpleItem kegPlated;
+	
 	public static SimpleItem kegSteel;
 	public static SimpleItem kegCopper;
 	public static SimpleItem kegSilver;
@@ -56,24 +57,23 @@ public class KegPlugin implements IPlugin {
 		kegs.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(Brewcraft.tab)
 				.setHarvestLevel("axe", 0);
 
-		kegOak = kegs.addMetaBlock(new SubTile("kegOak", new KegFactory("oak")));
-		kegBirch = kegs.addMetaBlock(new SubTile("kegBirch", new KegFactory("birch")));
-		kegJungle = kegs.addMetaBlock(new SubTile("kegJungle", new KegFactory("jungle")));
-		kegSpruce = kegs.addMetaBlock(new SubTile("kegSpruce", new KegFactory("spruce")));
-		kegDark = kegs.addMetaBlock(new SubTile("kegDark", new KegFactory("dark")));
-		kegAcacia = kegs.addMetaBlock(new SubTile("kegAcacia", new KegFactory("acacia")));
-		kegIron = kegs.addMetaBlock(new SubTile("kegIron", new KegFactory("iron")));
-		kegSealed = kegs.addMetaBlock(new SubTile("kegSealed", new KegFactory("sealed")));
-		kegPlated = kegs.addMetaBlock(new SubTile("kegPlated", new KegFactory("plated")));
-		//kegSteel = kegs.addMetaBlock(new SubTile("kegSteel", new KegFactory("steel")));
-		//kegCopper = kegs.addMetaBlock(new SubTile("kegCopper", new KegFactory("copper")));
-		//kegSilver = kegs.addMetaBlock(new SubTile("kegSilver", new KegFactory("silver")));
-		//kegTungsten = kegs.addMetaBlock(new SubTile("kegTungsten", new KegFactory("tungsten")));
-		//kegBrass = kegs.addMetaBlock(new SubTile("kegBrass", new KegFactory("brass")));
+		kegOak = kegs.addMetaBlock(new SubTile("kegOak", new KegFactory("Oak")));
+		kegBirch = kegs.addMetaBlock(new SubTile("kegBirch", new KegFactory("Birch")));
+		kegJungle = kegs.addMetaBlock(new SubTile("kegJungle", new KegFactory("Jungle")));
+		kegSpruce = kegs.addMetaBlock(new SubTile("kegSpruce", new KegFactory("Spruce")));
+		kegDark = kegs.addMetaBlock(new SubTile("kegDark", new KegFactory("Dark")));
+		kegAcacia = kegs.addMetaBlock(new SubTile("kegAcacia", new KegFactory("Acacia")));
+		kegIron = kegs.addMetaBlock(new SubTile("kegIron", new KegFactory("Iron")));
+		kegSealed = kegs.addMetaBlock(new SubTile("kegSealed", new KegFactory("Sealed")));
+		kegPlated = kegs.addMetaBlock(new SubTile("kegPlated", new KegFactory("Plated")));
 
-		//if (ItemStackUtil.getOreWithName("materialRubber") != null || ItemStackUtil.getOreWithName("blockRubber") != null)
-		//kegRubber = kegs.addMetaBlock(new SubTile("kegRubber", new KegFactory("rubber")));
-		
+		kegSteel = kegs.addMetaBlock(new SubTile("kegSteel", new KegFactory("Steel")));
+		kegCopper = kegs.addMetaBlock(new SubTile("kegCopper", new KegFactory("Copper")));
+		kegSilver = kegs.addMetaBlock(new SubTile("kegSilver", new KegFactory("Silver")));
+		kegTungsten = kegs.addMetaBlock(new SubTile("kegTungsten", new KegFactory("Tungsten")));
+		kegBrass = kegs.addMetaBlock(new SubTile("kegBrass", new KegFactory("Brass")));
+		kegRubber = kegs.addMetaBlock(new SubTile("kegRubber", new KegFactory("Rubber")));
+
 	}
 
 	@Override

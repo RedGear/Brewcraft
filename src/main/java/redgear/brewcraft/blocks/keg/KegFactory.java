@@ -11,19 +11,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class KegFactory implements ITileFactory{
 
 	static int guiId = -1;
-	public final String woodType;
+	public final String type;
 
 	public KegFactory(String type) {
 		if (guiId == -1) {
 			guiId = CoreGuiHandler.addGuiMap(this);
 			GameRegistry.registerTileEntity(TileEntityKeg.class, "TileEntityBrewKeg");
 		}
-		this.woodType = type;
+		this.type = type;
 	}
 	
 	@Override
 	public TileEntityKeg createTile() {
-		return new TileEntityKeg(woodType);
+		return new TileEntityKeg(type);
 	}
 
 	@Override

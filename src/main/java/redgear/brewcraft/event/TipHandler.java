@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.common.IngredientPlugin;
 import redgear.brewcraft.plugins.common.KegPlugin;
+import redgear.core.util.ItemStackUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TipHandler {
@@ -39,14 +40,24 @@ public class TipHandler {
 			event.toolTip.add(StatCollector.translateToLocal("tooltip.keg.prefix") + " " + EnumChatFormatting.BLUE
 					+ StatCollector.translateToLocal("tooltip.keg.basic") + " " + EnumChatFormatting.GRAY
 					+ StatCollector.translateToLocal("tooltip.keg.postfix"));
-			if (event.itemStack.getItemDamage() == 6 || event.itemStack.getItemDamage() == 8)
+			if (event.itemStack.getItemDamage() == 6 || event.itemStack.getItemDamage() == 8
+					|| event.itemStack.getItemDamage() >= 9 && event.itemStack.getItemDamage() <= 13)
 				event.toolTip.add(StatCollector.translateToLocal("tooltip.keg.prefix") + " " + EnumChatFormatting.RED
 						+ StatCollector.translateToLocal("tooltip.keg.molten") + " " + EnumChatFormatting.GRAY
 						+ StatCollector.translateToLocal("tooltip.keg.postfix"));
-			if (event.itemStack.getItemDamage() == 7 || event.itemStack.getItemDamage() == 8)
+			if (event.itemStack.getItemDamage() == 7 || event.itemStack.getItemDamage() == 8
+					|| event.itemStack.getItemDamage() == 14)
 				event.toolTip.add(StatCollector.translateToLocal("tooltip.keg.prefix") + " " + EnumChatFormatting.GREEN
 						+ StatCollector.translateToLocal("tooltip.keg.gaseous") + " " + EnumChatFormatting.GRAY
 						+ StatCollector.translateToLocal("tooltip.keg.postfix"));
+			if (event.itemStack.getItemDamage() == 9 && ItemStackUtil.getOreWithName("ingotSteel") == null
+					|| event.itemStack.getItemDamage() == 10 && ItemStackUtil.getOreWithName("ingotCopper") == null
+					|| event.itemStack.getItemDamage() == 11 && ItemStackUtil.getOreWithName("ingotSilver") == null
+					|| event.itemStack.getItemDamage() == 12 && ItemStackUtil.getOreWithName("ingotTungsten") == null
+					|| event.itemStack.getItemDamage() == 13 && ItemStackUtil.getOreWithName("ingotBrass") == null
+					|| event.itemStack.getItemDamage() == 14 && ItemStackUtil.getOreWithName("materialRubber") == null
+					&& ItemStackUtil.getOreWithName("blockRubber") == null)
+				event.toolTip.add(EnumChatFormatting.RED + StatCollector.translateToLocal("tooltip.keg.invalid"));
 		}
 		if (event.itemStack.getItem() == IngredientPlugin.ingredients && event.itemStack.getItemDamage() != 7
 				|| event.itemStack.getItem() == IngredientPlugin.hearts

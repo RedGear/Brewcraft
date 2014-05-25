@@ -46,15 +46,21 @@ public class RenderItemKeg extends SimpleBlockRenderingHandler {
 
 	public String getStringFromMeta(int metadata) {
 		switch (metadata) {
-		case 0: return "oak";
-		case 1: return "birch";
-		case 2: return "jungle";
-		case 3: return "spruce";
-		case 4: return "dark";
-		case 5: return "acacia";
-		case 6: return "iron";
-		case 7: return "sealed";
-		case 8: return "plated";
+		case 0: return "Oak";
+		case 1: return "Birch";
+		case 2: return "Jungle";
+		case 3: return "Spruce";
+		case 4: return "Dark";
+		case 5: return "Acacia";
+		case 6: return "Iron";
+		case 7: return "Sealed";
+		case 8: return "Plated";
+		case 9: return "Steel";
+		case 10: return "Copper";
+		case 11: return "Silver";
+		case 12: return "Tungsten";
+		case 13: return "Brass";
+		case 14: return "Rubber";
 		default: return "";
 		}
 	}
