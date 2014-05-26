@@ -18,12 +18,12 @@ public class TileRendererKeg extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f) {  //I think f is the shadow or something?
 		TileEntityKeg tile = (TileEntityKeg) tileentity;
-		ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "keg" + tile.type);
+		ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "keg" + tile.type.toString());
 		
-		bindTexture(texture);
-
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+		
+		bindTexture(texture);
 
 		GL11.glScalef(1.0F, -1F, -1F); //Uh, not sure what this does
 		model.render(0.0625F);//I don't know what that number is. 

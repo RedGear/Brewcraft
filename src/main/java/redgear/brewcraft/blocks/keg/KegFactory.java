@@ -11,9 +11,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class KegFactory implements ITileFactory{
 
 	static int guiId = -1;
-	public final String type;
+	public final EnumKegType type;
 
-	public KegFactory(String type) {
+	public KegFactory(EnumKegType type) {
 		if (guiId == -1) {
 			guiId = CoreGuiHandler.addGuiMap(this);
 			GameRegistry.registerTileEntity(TileEntityKeg.class, "TileEntityBrewKeg");

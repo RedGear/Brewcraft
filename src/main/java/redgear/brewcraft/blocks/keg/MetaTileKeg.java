@@ -1,10 +1,12 @@
 package redgear.brewcraft.blocks.keg;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.core.block.MetaTileSpecialRenderer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +15,13 @@ public class MetaTileKeg extends MetaTileSpecialRenderer {
 
 	public MetaTileKeg(Material par2Material, String name, int renderId) {
 		super(par2Material, name, renderId);
+		
+		setHardness(2.0F);
+		setResistance(5.0F);
+		setStepSound(Block.soundTypeWood);
+		setCreativeTab(Brewcraft.tab);
+		setHarvestLevel("axe", 0);
+		setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 1.0F, 0.875F);
 	}
 
 	@SideOnly(Side.CLIENT)

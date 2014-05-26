@@ -8,9 +8,9 @@ import redgear.core.tile.TileEntityTank;
 public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 
 	public final AdvFluidTank tank;
-	public final String type;
+	public final EnumKegType type;
 
-	public TileEntityKeg(String type) {
+	public TileEntityKeg(EnumKegType type) {
 		super(10);
 
 		tank = new KegTank(this, FluidContainerRegistry.BUCKET_VOLUME * 8);

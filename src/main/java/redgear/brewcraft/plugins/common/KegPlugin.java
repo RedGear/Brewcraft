@@ -3,6 +3,7 @@ package redgear.brewcraft.plugins.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
+import redgear.brewcraft.blocks.keg.EnumKegType;
 import redgear.brewcraft.blocks.keg.KegFactory;
 import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.core.Brewcraft;
@@ -54,25 +55,22 @@ public class KegPlugin implements IPlugin {
 
 		kegs = new MetaTileKeg(Material.wood, "RedGear.Brewcraft.Kegs", RenderingRegistry.getNextAvailableRenderId());
 
-		kegs.setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundTypeWood).setCreativeTab(Brewcraft.tab)
-				.setHarvestLevel("axe", 0);
+		kegOak = kegs.addMetaBlock(new SubTile("kegOak", new KegFactory(EnumKegType.OAK)));
+		kegBirch = kegs.addMetaBlock(new SubTile("kegBirch", new KegFactory(EnumKegType.BIRCH)));
+		kegJungle = kegs.addMetaBlock(new SubTile("kegJungle", new KegFactory(EnumKegType.JUNGLE)));
+		kegSpruce = kegs.addMetaBlock(new SubTile("kegSpruce", new KegFactory(EnumKegType.SPRUCE)));
+		kegDark = kegs.addMetaBlock(new SubTile("kegDark", new KegFactory(EnumKegType.DARK)));
+		kegAcacia = kegs.addMetaBlock(new SubTile("kegAcacia", new KegFactory(EnumKegType.ACACIA)));
+		kegIron = kegs.addMetaBlock(new SubTile("kegIron", new KegFactory(EnumKegType.IRON)));
+		kegSealed = kegs.addMetaBlock(new SubTile("kegSealed", new KegFactory(EnumKegType.SEALED)));
+		kegPlated = kegs.addMetaBlock(new SubTile("kegPlated", new KegFactory(EnumKegType.PLATED)));
 
-		kegOak = kegs.addMetaBlock(new SubTile("kegOak", new KegFactory("Oak")));
-		kegBirch = kegs.addMetaBlock(new SubTile("kegBirch", new KegFactory("Birch")));
-		kegJungle = kegs.addMetaBlock(new SubTile("kegJungle", new KegFactory("Jungle")));
-		kegSpruce = kegs.addMetaBlock(new SubTile("kegSpruce", new KegFactory("Spruce")));
-		kegDark = kegs.addMetaBlock(new SubTile("kegDark", new KegFactory("Dark")));
-		kegAcacia = kegs.addMetaBlock(new SubTile("kegAcacia", new KegFactory("Acacia")));
-		kegIron = kegs.addMetaBlock(new SubTile("kegIron", new KegFactory("Iron")));
-		kegSealed = kegs.addMetaBlock(new SubTile("kegSealed", new KegFactory("Sealed")));
-		kegPlated = kegs.addMetaBlock(new SubTile("kegPlated", new KegFactory("Plated")));
-
-		kegSteel = kegs.addMetaBlock(new SubTile("kegSteel", new KegFactory("Steel")));
-		kegCopper = kegs.addMetaBlock(new SubTile("kegCopper", new KegFactory("Copper")));
-		kegSilver = kegs.addMetaBlock(new SubTile("kegSilver", new KegFactory("Silver")));
-		kegTungsten = kegs.addMetaBlock(new SubTile("kegTungsten", new KegFactory("Tungsten")));
-		kegBrass = kegs.addMetaBlock(new SubTile("kegBrass", new KegFactory("Brass")));
-		kegRubber = kegs.addMetaBlock(new SubTile("kegRubber", new KegFactory("Rubber")));
+		kegSteel = kegs.addMetaBlock(new SubTile("kegSteel", new KegFactory(EnumKegType.STEEL)));
+		kegCopper = kegs.addMetaBlock(new SubTile("kegCopper", new KegFactory(EnumKegType.COPPER)));
+		kegSilver = kegs.addMetaBlock(new SubTile("kegSilver", new KegFactory(EnumKegType.SILVER)));
+		kegTungsten = kegs.addMetaBlock(new SubTile("kegTungsten", new KegFactory(EnumKegType.TUNGSTEN)));
+		kegBrass = kegs.addMetaBlock(new SubTile("kegBrass", new KegFactory(EnumKegType.BRASS)));
+		kegRubber = kegs.addMetaBlock(new SubTile("kegRubber", new KegFactory(EnumKegType.RUBBER)));
 
 	}
 

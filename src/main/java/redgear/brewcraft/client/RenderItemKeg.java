@@ -8,7 +8,10 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import redgear.brewcraft.blocks.keg.KegFactory;
+import redgear.brewcraft.blocks.keg.MetaTileKeg;
 import redgear.brewcraft.blocks.keg.TileEntityKeg;
+import redgear.core.block.SubTile;
 import redgear.core.render.SimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -24,8 +27,9 @@ public class RenderItemKeg extends SimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		String type = getStringFromMeta(metadata);
-		TileEntityKeg blank = new TileEntityKeg(type);
+		SubTile tile = ((MetaTileKeg)block).getMetaBlock(metadata);
+		KegFactory factory = (KegFactory)tile.factory;
+		TileEntityKeg blank = new TileEntityKeg(factory.type);
 
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -42,26 +46,5 @@ public class RenderItemKeg extends SimpleBlockRenderingHandler {
 	@Override
 	public boolean shouldRender3DInInventory(int i) {
 		return true;
-	}
-
-	public String getStringFromMeta(int metadata) {
-		switch (metadata) {
-		case 0: return "Oak";
-		case 1: return "Birch";
-		case 2: return "Jungle";
-		case 3: return "Spruce";
-		case 4: return "Dark";
-		case 5: return "Acacia";
-		case 6: return "Iron";
-		case 7: return "Sealed";
-		case 8: return "Plated";
-		case 9: return "Steel";
-		case 10: return "Copper";
-		case 11: return "Silver";
-		case 12: return "Tungsten";
-		case 13: return "Brass";
-		case 14: return "Rubber";
-		default: return "";
-		}
 	}
 }
