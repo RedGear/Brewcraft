@@ -1,16 +1,12 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import redgear.brewcraft.blocks.keg.EnumKegType;
 import redgear.brewcraft.blocks.keg.KegFactory;
 import redgear.brewcraft.blocks.keg.MetaTileKeg;
-import redgear.brewcraft.core.Brewcraft;
 import redgear.core.block.SubTile;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
-import redgear.core.util.ItemStackUtil;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.LoaderState.ModState;

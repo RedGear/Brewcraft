@@ -3,13 +3,13 @@ package redgear.brewcraft.effects;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectImmunity extends PotionExtension {
 
 	public EffectImmunity(int id) {
 		super(id, false, 0x9933CC);
-		setPotionName("potion.immunity");
+		setPotionName("potion.brewcraft.immunity");
 		setIconIndex(3, 0);
 	}
 

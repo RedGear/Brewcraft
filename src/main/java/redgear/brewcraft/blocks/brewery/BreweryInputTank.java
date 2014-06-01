@@ -1,7 +1,7 @@
 package redgear.brewcraft.blocks.brewery;
 
 import net.minecraftforge.fluids.FluidStack;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.core.fluids.AdvFluidTank;
 
 public class BreweryInputTank extends AdvFluidTank {

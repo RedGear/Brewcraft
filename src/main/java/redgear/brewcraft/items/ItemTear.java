@@ -6,7 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 

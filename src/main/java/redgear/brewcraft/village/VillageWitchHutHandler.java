@@ -9,6 +9,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageWitchHutHandler implements IVillageCreationHandler {
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object buildComponent(PieceWeight villagePiece, Start startPiece, List pieces, Random random, int p1,
 			int p2, int p3, int p4, int p5) {

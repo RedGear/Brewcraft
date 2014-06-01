@@ -1,4 +1,4 @@
-package redgear.brewcraft.client;
+package redgear.brewcraft.client.render.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

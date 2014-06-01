@@ -2,7 +2,7 @@ package redgear.brewcraft.plugins.compat;
 
 import buildcraft.api.fuels.IronEngineFuel;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.mod.Mods;

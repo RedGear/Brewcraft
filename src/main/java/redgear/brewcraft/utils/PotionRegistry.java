@@ -8,8 +8,8 @@ import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.api.PotionAPI;
 import redgear.brewcraft.api.PotionAPI.IPotionRegistry;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
@@ -116,7 +116,7 @@ public class PotionRegistry implements IPotionRegistry {
 
 	private void registerItems(FluidStack potion, ItemStack bottle, ItemStack splash) {
 		if (bottle != null)
-			FluidContainerRegistry.registerFluidContainer(potion, bottle, PotionPlugin.emptyBottle.getStack());
+			FluidContainerRegistry.registerFluidContainer(potion, bottle, PotionPlugin.emptyBottle);
 		if (splash != null)
 			FluidContainerRegistry.registerFluidContainer(potion, splash, IngredientPlugin.splashBottle.getStack());
 	}

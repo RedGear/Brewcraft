@@ -2,13 +2,13 @@ package redgear.brewcraft.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectFlight extends PotionExtension {
 
 	public EffectFlight(int id) {
 		super(id, false, 0xFFFFFF);
-		setPotionName("potion.flight");
+		setPotionName("potion.brewcraft.flight");
 		setIconIndex(2, 0);
 	}
 

@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.core;
 
 import net.minecraft.util.DamageSource;
 import redgear.core.mod.IPlugin;

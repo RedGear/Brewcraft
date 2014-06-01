@@ -1,4 +1,4 @@
-package redgear.brewcraft.client;
+package redgear.brewcraft.client.render.tile;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

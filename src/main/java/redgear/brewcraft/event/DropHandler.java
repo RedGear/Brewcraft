@@ -13,7 +13,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class DropHandler {
@@ -43,10 +43,11 @@ public class DropHandler {
 
 			if (skeleton.getSkeletonType() == 1 || skeleton.isBurning())
 				if (rand.nextDouble() < 0.6D && event.source.getDamageType().equals("player"))
-				skeleton.entityDropItem(
-						IngredientPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1), 0.0F);
+					skeleton.entityDropItem(
+							IngredientPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1),
+							0.0F);
 		}
-		
+
 		if (event.entity.worldObj.rand.nextInt(200) == 0 && !(event.entity instanceof EntityPlayer)
 				&& event.entity instanceof IMob && event.source.getDamageType().equals("player"))
 			event.entity.dropItem(IngredientPlugin.heartSmall.item, 1);
@@ -78,7 +79,7 @@ public class DropHandler {
 			if (rand.nextDouble() < 0.7D)
 				event.entityLiving.entityDropItem(IngredientPlugin.steelScales.getStack(rand.nextInt(3) + 1), 0.0F);
 		}
-		
+
 		if (event.entityLiving instanceof EntityBlaze) {
 			if (rand.nextDouble() < 0.5D)
 				event.entityLiving.entityDropItem(IngredientPlugin.heartBlaze.getStack(), 0.0F);

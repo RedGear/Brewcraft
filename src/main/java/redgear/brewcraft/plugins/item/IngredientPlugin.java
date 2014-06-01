@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.item;
 
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.items.ItemHeart;
@@ -30,6 +30,10 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem heartGold;
 	public static SimpleItem heartSmall;
 	public static SimpleItem heartBlaze;
+
+	public static MetaItem<SubItem> bones;
+	public static SimpleItem giantBone;
+	public static SimpleItem witheredBone;
 
 	@Override
 	public String getName() {

@@ -292,7 +292,8 @@ public class DepLoader implements IFMLLoadingPlugin, IFMLCallHook {
             }
         }
 
-        private void deleteMod(File mod) {
+        @SuppressWarnings("unchecked")
+		private void deleteMod(File mod) {
             if (mod.delete())
                 return;
 

@@ -8,13 +8,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectAngel extends PotionExtension {
 
 	public EffectAngel(int id) {
 		super(id, false, 0xFFFF33);
-		setPotionName("potion.angel");
+		setPotionName("potion.brewcraft.angel");
 		setIconIndex(1, 0);
 	}
 

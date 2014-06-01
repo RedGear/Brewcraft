@@ -1,10 +1,13 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.core;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import redgear.brewcraft.core.Brewcraft;
+import redgear.brewcraft.plugins.block.KegPlugin;
+import redgear.brewcraft.plugins.block.MachinePlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.util.ItemStackUtil;
@@ -100,7 +103,7 @@ public class CraftingPlugin implements IPlugin {
 		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
 
 		if (metal != null) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(Brewcraft.brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
+			GameRegistry.addRecipe(new ShapedOreRecipe(MachinePlugin.brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
 					Character.valueOf('!'), ingot, Character.valueOf('@'), Items.brewing_stand, Character.valueOf('#'),
 					Items.cauldron }));
 			return true;

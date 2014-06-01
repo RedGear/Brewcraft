@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 

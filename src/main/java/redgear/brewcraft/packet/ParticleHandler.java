@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.FMLEventChannel;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ClientCustomPacketEvent;

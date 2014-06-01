@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.world;
 
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import redgear.brewcraft.core.Brewcraft;

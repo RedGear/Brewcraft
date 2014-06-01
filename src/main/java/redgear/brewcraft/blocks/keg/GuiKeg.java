@@ -12,7 +12,7 @@ public class GuiKeg extends GuiBase<ContainerKeg> {
 
 	public GuiKeg(ContainerKeg container) {
 		super(container, texture);
-		name = "container.barrel";
+		name = "container.keg";
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class GuiKeg extends GuiBase<ContainerKeg> {
 		fontRendererObj.drawString(
 				StatCollector.translateToLocal(name),
 				this.xSize / 2
-						- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.barrel")) / 2,
+						- this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("container.keg")) / 2,
 				3, 0x404040);
 		if (drawInventory) {
 			fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), this.xSize / 2

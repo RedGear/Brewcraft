@@ -13,9 +13,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import redgear.brewcraft.core.Brewcraft;
 
 public class ComponentWitchHut extends StructureVillagePieces.House1 {
-
-	private static final String __OBFID = "CL_00000555";
-
+	
 	public boolean hasCauldron;
 	public boolean hasTable;
 	public boolean hasFlowerPot;
@@ -61,6 +59,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasGlass = par3Random.nextBoolean() && !this.hasFlowerPot;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static ComponentWitchHut buildComponent(Start start, List list, Random rand, int p3, int p4, int p5, int p6,
 			int p7) {
 		StructureBoundingBox sbb = StructureBoundingBox.getComponentToAddBoundingBox(p3, p4, p5, 0, 0, 0, 7, 5, 9, p6);

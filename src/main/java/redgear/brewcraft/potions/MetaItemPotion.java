@@ -15,7 +15,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
-import redgear.brewcraft.plugins.common.EffectPlugin;
+import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.core.item.MetaItem;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.relauncher.Side;
@@ -114,13 +114,16 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 			par3List.add("");
 			par3List.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
 			par3List.add((potion.getEffect().isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.BLUE)
-					+ StatCollector.translateToLocal(potion.getEffect().getName() + "." + potion.strength + ".desc"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName()
+							+ potion.strength));
 		}
 		if (potion.potionId == EffectPlugin.angel.id) {
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal(potion.getEffect().getName() + ".desc2"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName()
+							+ ".desc2"));
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal(potion.getEffect().getName() + ".desc3"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName()
+							+ ".desc3"));
 		}
 
 	}

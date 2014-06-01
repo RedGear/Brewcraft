@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 
 public class RenderBrewcraftPotion extends Render {

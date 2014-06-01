@@ -2,9 +2,10 @@ package redgear.brewcraft.plugins.compat;
 
 import net.minecraft.item.ItemStack;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
-import redgear.brewcraft.plugins.common.KegPlugin;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.plugins.block.KegPlugin;
+import redgear.brewcraft.plugins.block.MachinePlugin;
+import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.mod.Mods;
@@ -39,8 +40,8 @@ public class ForestryPlugin implements IPlugin {
 				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.tears));
 				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.hearts));
 				BackpackManager.backpackItems[ADVENTURER].add(IngredientPlugin.holyDust.getStack());
-				BackpackManager.backpackItems[ADVENTURER].add(Brewcraft.brewery.getStack());
-				BackpackManager.backpackItems[ADVENTURER].add(Brewcraft.sprayer.getStack());
+				BackpackManager.backpackItems[ADVENTURER].add(MachinePlugin.brewery.getStack());
+				BackpackManager.backpackItems[ADVENTURER].add(MachinePlugin.sprayer.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(KegPlugin.kegs));
 				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(PotionPlugin.potions));
 			}

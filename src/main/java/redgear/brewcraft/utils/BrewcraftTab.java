@@ -1,33 +1,33 @@
 package redgear.brewcraft.utils;
 
-import redgear.brewcraft.core.Brewcraft;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import redgear.brewcraft.plugins.block.MachinePlugin;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BrewcraftTab extends CreativeTabs {
 
-	private boolean hasBackground;
+	private final boolean background;
 
-	public BrewcraftTab(String lable, boolean background) {
-		super(lable);
+	public BrewcraftTab(boolean background) {
+		super("brewcraft");
 
-		this.hasBackground = background;
-		if(hasBackground)
+		this.background = background;
+		if(background)
 			setNoTitle();
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getTabIconItem() {
-		return Brewcraft.brewery.getItem();
+		return MachinePlugin.brewery.getItem();
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getBackgroundImageName() {
-		return hasBackground ? "background.png" : "items.png";
+		return background ? "background.png" : "items.png";
 	}
 
 }

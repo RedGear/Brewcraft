@@ -4,13 +4,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectCreeper extends PotionExtension {
 
 	public EffectCreeper(int id) {
 		super(id, true, 0x00CC00);
-		setPotionName("potion.creeper");
+		setPotionName("potion.brewcraft.creeper");
 		setIconIndex(0, 0);
 	}
 

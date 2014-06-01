@@ -1,4 +1,4 @@
-package redgear.brewcraft.plugins.common;
+package redgear.brewcraft.plugins.core;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.Potion;

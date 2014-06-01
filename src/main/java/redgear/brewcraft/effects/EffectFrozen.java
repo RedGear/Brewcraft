@@ -2,13 +2,13 @@ package redgear.brewcraft.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectFrozen extends PotionExtension {
 
 	public EffectFrozen(int id) {
 		super(id, true, 0xCCFFFF);
-		setPotionName("potion.frozen");
+		setPotionName("potion.brewcraft.frozen");
 		setIconIndex(4, 0);
 	}
 
