@@ -61,8 +61,7 @@ public class TipHandler {
 		}
 		if (event.itemStack.getItem() == IngredientPlugin.ingredients && event.itemStack.getItemDamage() != 7
 				|| event.itemStack.getItem() == IngredientPlugin.hearts
-				|| event.itemStack.getItem() == IngredientPlugin.tears
-				|| event.itemStack.getItem() == IngredientPlugin.bones)
+				|| event.itemStack.getItem() == IngredientPlugin.tears)
 			event.toolTip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tooltip.brewcraft.ingredient"));
 		if (event.itemStack.getItem() == IngredientPlugin.hearts)
 			event.toolTip.add(StatCollector.translateToLocal("tooltip.brewcraft.food"));

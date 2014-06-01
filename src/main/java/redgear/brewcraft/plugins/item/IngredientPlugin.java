@@ -31,10 +31,6 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem heartSmall;
 	public static SimpleItem heartBlaze;
 
-	public static MetaItem<SubItem> bones;
-	public static SimpleItem giantBone;
-	public static SimpleItem witheredBone;
-
 	@Override
 	public String getName() {
 		return "IngredientPlugin";
