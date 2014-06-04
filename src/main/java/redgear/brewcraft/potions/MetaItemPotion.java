@@ -119,11 +119,11 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 		}
 		if (potion.potionId == EffectPlugin.angel.id) {
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName()
-							+ ".desc2"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft."
+							+ potion.getEffect().getName()+ ".desc2"));
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName()
-							+ ".desc3"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft."
+							+ potion.getEffect().getName() + ".desc3"));
 		}
 
 	}

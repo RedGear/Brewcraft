@@ -31,7 +31,7 @@ public class VillagePlugin implements IPlugin {
 		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Witch Profession ID", 15));
 
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillageWitchHutHandler());
-		if (Brewcraft.inst.getBoolean("General", "Witch Hut Generation", true)) {
+		if (Brewcraft.inst.getBoolean("General", "Witch Hut Village Generation", true)) {
 			try {
 				MapGenStructureIO.func_143031_a(ComponentWitchHut.class, "redgear_brewcraft:VillagerWitchHutStructure");
 			} catch (Throwable e) {

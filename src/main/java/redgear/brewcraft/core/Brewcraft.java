@@ -42,9 +42,7 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-
-		//event.getModMetadata().name = EnumChatFormatting.DARK_AQUA + "Brewcraft";
-
+		
 		PotionArrayExpander.init();
 
 		addPlugin(new DamageSourcePlugin());

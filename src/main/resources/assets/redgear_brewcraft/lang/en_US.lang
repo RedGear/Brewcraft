@@ -75,25 +75,25 @@ achievement.brewcraft.flame.desc=You're on fire!
 achievement.brewcraft.fireEater=Blaze of Glory
 achievement.brewcraft.fireEater.desc=Have a hot temper
 
-tooltip.brewcraft.potion.angel0=Rapid Healing (+0.5 Heart/Second)
-tooltip.brewcraft.potion.angel1=Rapid Healing (+1 Heart/Second)
-tooltip.brewcraft.potion.angel2=Rapid Healing (+2 Hearts/Second)
-tooltip.brewcraft.potion.angel.desc2=Huge damage to undead
-tooltip.brewcraft.potion.angel.desc3=Cures zombie villagers
-tooltip.brewcraft.potion.immunity0=Immunity to poison
-tooltip.brewcraft.potion.immunity1=Immunity to a few debuffs
-tooltip.brewcraft.potion.immunity2=Immunity to most debuffs
-tooltip.brewcraft.potion.immunity3=Immunity to all debuffs
+tooltip.brewcraft.potion.brewcraft.angel0=Rapid Healing (+0.5 Heart/Second)
+tooltip.brewcraft.potion.brewcraft.angel1=Rapid Healing (+1 Heart/Second)
+tooltip.brewcraft.potion.brewcraft.angel2=Rapid Healing (+2 Hearts/Second)
+tooltip.brewcraft.potion.brewcraft.angel.desc2=Huge damage to undead
+tooltip.brewcraft.potion.brewcraft.angel.desc3=Cures zombie villagers
+tooltip.brewcraft.potion.brewcraft.immunity0=Immunity to poison
+tooltip.brewcraft.potion.brewcraft.immunity1=Immunity to a few debuffs
+tooltip.brewcraft.potion.brewcraft.immunity2=Immunity to most debuffs
+tooltip.brewcraft.potion.brewcraft.immunity3=Immunity to all debuffs
 tooltip.brewcraft.potion.damageBoost2=+390% Attack Damage
 tooltip.brewcraft.potion.moveSpeed2=+60% Speed
 tooltip.brewcraft.potion.weakness0=-0.5 Attack Damage
 tooltip.brewcraft.potion.moveSlowdown0=-15% Speed
-tooltip.brewcraft.potion.creeper0=Explosion (Radius = 4)
-tooltip.brewcraft.potion.creeper1=Explosion (Radius = 7)
-tooltip.brewcraft.potion.creeper2=Explosion (Radius = 11)
-tooltip.brewcraft.potion.frozen0=-99% Movement Speed
-tooltip.brewcraft.potion.fireproof0=-100% Fire Damage
-tooltip.brewcraft.potion.fireproof1=You are healed by fire
+tooltip.brewcraft.potion.brewcraft.creeper0=Explosion (Radius = 4)
+tooltip.brewcraft.potion.brewcraft.creeper1=Explosion (Radius = 7)
+tooltip.brewcraft.potion.brewcraft.creeper2=Explosion (Radius = 11)
+tooltip.brewcraft.potion.brewcraft.frozen0=-99% Movement Speed
+tooltip.brewcraft.potion.brewcraft.fireproof0=-100% Fire Damage
+tooltip.brewcraft.potion.brewcraft.fireproof1=You are healed by fire
 tooltip.brewcraft.potion.digSpeed0=+20% Mining Speed
 tooltip.brewcraft.potion.digSpeed1=+40% Mining Speed
 tooltip.brewcraft.potion.digSpeed2=+60% Mining Speed
@@ -106,12 +106,12 @@ tooltip.brewcraft.potion.jump2=+150% Jump Height
 tooltip.brewcraft.potion.resistance0=-20% Damage Taken
 tooltip.brewcraft.potion.resistance1=-40% Damage Taken
 tooltip.brewcraft.potion.resistance2=-60% Damage Taken
-tooltip.brewcraft.potion.healthBoost0=+20% Max Health
-tooltip.brewcraft.potion.healthBoost1=+40% Max Health
-tooltip.brewcraft.potion.healthBoost2=+60% Max Health
-tooltip.brewcraft.potion.fireEater0=Fire heals you, air hurts you
-tooltip.brewcraft.potion.fireEater1=Fire heals you, air hurts you
-tooltip.brewcraft.potion.fireEater2=Fire heals you, air hurts you
+tooltip.brewcraft.potion.brewcraft.healthBoost0=+20% Max Health
+tooltip.brewcraft.potion.brewcraft.healthBoost1=+40% Max Health
+tooltip.brewcraft.potion.brewcraft.healthBoost2=+60% Max Health
+tooltip.brewcraft.potion.brewcraft.fireEater0=Fire heals you, air hurts you
+tooltip.brewcraft.potion.brewcraft.fireEater1=Fire heals you, air hurts you
+tooltip.brewcraft.potion.brewcraft.fireEater2=Fire heals you, air hurts you
 tooltip.brewcraft.keg=Aesthetically pleasing fluid storage
 tooltip.brewcraft.keg.basic=Basic
 tooltip.brewcraft.keg.molten=Molten
