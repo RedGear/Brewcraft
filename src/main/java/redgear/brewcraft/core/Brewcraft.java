@@ -42,7 +42,7 @@ public class Brewcraft extends ModUtils {
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
-		
+
 		PotionArrayExpander.init();
 
 		addPlugin(new DamageSourcePlugin());
@@ -55,8 +55,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new CraftingPlugin());
 		addPlugin(new VillagePlugin());
 
-		if (isClient())
-			addPlugin(new BrewcraftClientProxy());
+		addPlugin(new BrewcraftClientProxy());
 
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
@@ -74,7 +73,7 @@ public class Brewcraft extends ModUtils {
 		DamageHandler.register();
 		DropHandler.register();
 		TradeHandler.register();
-		ParticleHandler.register();// hi guys! Mind if I join you?
+		ParticleHandler.register();
 		TipHandler.register();
 	}
 
