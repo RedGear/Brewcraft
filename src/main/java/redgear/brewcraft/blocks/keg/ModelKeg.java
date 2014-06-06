@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelKeg extends ModelBase {
-	//fields
+
 	ModelRenderer BarrelRing1;
 	ModelRenderer BarrelWall;
 	ModelRenderer BarrelRing;

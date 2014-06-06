@@ -21,31 +21,26 @@ public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 
 	@Override
 	protected boolean doPreWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected int checkWork() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	protected boolean doWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean tryUseEnergy(int energy) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean doPostWork() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

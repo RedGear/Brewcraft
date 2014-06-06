@@ -16,7 +16,7 @@ public class MetaTileKeg extends MetaTileSpecialRenderer {
 	public MetaTileKeg(Material par2Material, String name, int renderId) {
 		super(par2Material, name, renderId);
 		
-		setHardness(2.0F);
+		setHardness(1.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
 		setCreativeTab(Brewcraft.tab);
