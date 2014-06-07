@@ -73,6 +73,16 @@ public class CraftingPlugin implements IPlugin {
 				"Toggle crafting the Brewery with Iron. (Can only be disabled if Lead or Brass is available)")))
 			breweryRecipe("ingotIron"); //Dat boolean expression!
 
+		if (Brewcraft.inst.getBoolean("Recipes", "Sprayer Crafting Recipe", true))
+			GameRegistry.addShapedRecipe(MachinePlugin.sprayer.getStack(), new Object[] {" @ ", "!@!", "!#!",
+					Character.valueOf('@'), Blocks.stone, Character.valueOf('!'), Items.iron_ingot,
+					Character.valueOf('#'), Items.redstone});
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Sprayer Crafting Recipe", true))
+			GameRegistry.addShapedRecipe(MachinePlugin.sprayer.getStack(), new Object[] {" @ ", "!@!", "!#!",
+					Character.valueOf('@'), Blocks.cobblestone, Character.valueOf('!'), Items.iron_ingot,
+					Character.valueOf('#'), Items.redstone});
+
 		if (Brewcraft.inst.getBoolean("Recipes", "Charred Bone Crafting Recipe", true))
 			GameRegistry.addSmelting(Items.bone, IngredientPlugin.charredBone.getStack(), 0.1F);
 
@@ -103,9 +113,9 @@ public class CraftingPlugin implements IPlugin {
 		ItemStack metal = ItemStackUtil.getOreWithName(ingot);
 
 		if (metal != null) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(MachinePlugin.brewery.getStack(), new Object[] {"! !", "!@!", "#!#",
-					Character.valueOf('!'), ingot, Character.valueOf('@'), Items.brewing_stand, Character.valueOf('#'),
-					Items.cauldron }));
+			GameRegistry.addRecipe(new ShapedOreRecipe(MachinePlugin.brewery.getStack(), new Object[] {"! !", "!@!",
+					"#!#", Character.valueOf('!'), ingot, Character.valueOf('@'), Items.brewing_stand,
+					Character.valueOf('#'), Items.cauldron }));
 			return true;
 		} else
 			return false;
@@ -113,7 +123,13 @@ public class CraftingPlugin implements IPlugin {
 
 	private void addKegRecipe(ItemStack output, ItemStack material) {
 		if (Brewcraft.inst.getBoolean("Recipes", output.getDisplayName() + " Recipe", true))
+			GameRegistry.addShapedRecipe(output, new Object[] {"!!!", "!!!", "!!!", Character.valueOf('!'), material,
+					Character.valueOf('@'), material });
+	}
+
+	private void addKegRecipe(ItemStack output, ItemStack material, ItemStack material2) {
+		if (Brewcraft.inst.getBoolean("Recipes", output.getDisplayName() + " Recipe", true))
 			GameRegistry.addShapedRecipe(output, new Object[] {"!!!", "@@@", "!!!", Character.valueOf('!'), material,
-					Character.valueOf('@'), Items.iron_ingot });
+					Character.valueOf('@'), material2 });
 	}
 }

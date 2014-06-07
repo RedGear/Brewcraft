@@ -1,7 +1,6 @@
 package redgear.brewcraft.blocks.keg;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import redgear.core.render.GuiBase;
 import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 import cpw.mods.fml.common.Loader;

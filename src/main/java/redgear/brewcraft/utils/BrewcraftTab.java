@@ -1,8 +1,8 @@
 package redgear.brewcraft.utils;
 
-import redgear.brewcraft.plugins.block.MachinePlugin;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import redgear.brewcraft.plugins.block.MachinePlugin;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -14,8 +14,6 @@ public class BrewcraftTab extends CreativeTabs {
 		super("brewcraft");
 
 		this.background = background;
-		if(background)
-			setNoTitle();
 	}
 
 	@Override
