@@ -19,7 +19,7 @@ public class MetaTileKeg extends MetaTileSpecialRenderer {
 		setHardness(1.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
-		setCreativeTab(Brewcraft.tab);
+		setCreativeTab(Brewcraft.tabMisc);
 		setHarvestLevel("axe", 0);
 		setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 1.0F, 0.875F);
 	}

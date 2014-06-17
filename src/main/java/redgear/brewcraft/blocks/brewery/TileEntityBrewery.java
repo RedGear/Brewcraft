@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.core.api.tile.IBucketableTank;
@@ -50,8 +50,8 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		if (stack != null) {
 			SimpleItem item = new SimpleItem(stack);
 
-			if (item.equals(IngredientPlugin.obsidianTear) || item.equals(IngredientPlugin.pureTear)) {
-				IngredientPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
+			if (item.equals(ItemPlugin.obsidianTear) || item.equals(ItemPlugin.pureTear)) {
+				ItemPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
 				stack = getStackInSlot(itemSlot);
 				item = new SimpleItem(stack);
 				check = true;

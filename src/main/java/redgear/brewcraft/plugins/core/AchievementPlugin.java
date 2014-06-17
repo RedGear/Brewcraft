@@ -7,7 +7,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.block.MachinePlugin;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import cpw.mods.fml.common.LoaderState.ModState;
@@ -58,15 +58,15 @@ public class AchievementPlugin implements IPlugin {
 			fireproof = new Achievement("PotionFireproof", "brewcraft.fireproof", 2, -2,
 					Blocks.netherrack, craftBrewery).registerStat();
 			flight = new Achievement("PotionFlight", "brewcraft.flight", 4, 1,
-					IngredientPlugin.goldenFeather.getStack(), craftBrewery).registerStat();
+					ItemPlugin.goldenFeather.getStack(), craftBrewery).registerStat();
 			immunity = new Achievement("PotionImmunity", "brewcraft.immunity", -1, 2,
 					Items.milk_bucket, craftBrewery).registerStat();
 			holywater = new Achievement("PotionHolyWater", "brewcraft.holyWater", -4, 0,
-					IngredientPlugin.holyDust.getStack(), craftBrewery).registerStat();
+					ItemPlugin.holyDust.getStack(), craftBrewery).registerStat();
 			flame = new Achievement("PotionFlame", "brewcraft.flame", 6, 2, new ItemStack(
 					Items.fire_charge), craftBrewery).registerStat();
 			fireEater = new Achievement("PotionFireEater", "brewcraft.fireEater", 5, -3,
-					IngredientPlugin.heartBlaze.getStack(), craftBrewery).registerStat();
+					ItemPlugin.heartBlaze.getStack(), craftBrewery).registerStat();
 
 			pageBrewcraft = new AchievementPage("Brewcraft", craftBrewery, explode, freeze, fireproof, flight,
 					immunity, holywater, flame, fireEater);

@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.block.KegPlugin;
 import redgear.brewcraft.plugins.block.MachinePlugin;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
@@ -31,15 +31,15 @@ public class ForestryPlugin implements IPlugin {
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("Plugins", "Forestry Plugin", "Toggle Forestry Plugin", true)) {
 			if (Mods.Forestry.isIn()) {
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.goldenFeather.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.charredBone.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.remedySalve.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.spiderFang.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.steelScales.getStack());
-				BackpackManager.backpackItems[HUNTER].add(IngredientPlugin.tiredSpores.getStack());
-				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.tears));
-				BackpackManager.backpackItems[HUNTER].add(new ItemStack(IngredientPlugin.hearts));
-				BackpackManager.backpackItems[ADVENTURER].add(IngredientPlugin.holyDust.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.goldenFeather.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.charredBone.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.remedySalve.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.spiderFang.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.steelScales.getStack());
+				BackpackManager.backpackItems[HUNTER].add(ItemPlugin.tiredSpores.getStack());
+				BackpackManager.backpackItems[HUNTER].add(new ItemStack(ItemPlugin.tears));
+				BackpackManager.backpackItems[HUNTER].add(new ItemStack(ItemPlugin.hearts));
+				BackpackManager.backpackItems[ADVENTURER].add(ItemPlugin.holyDust.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(MachinePlugin.brewery.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(MachinePlugin.sprayer.getStack());
 				BackpackManager.backpackItems[ADVENTURER].add(new ItemStack(KegPlugin.kegs));

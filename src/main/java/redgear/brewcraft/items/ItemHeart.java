@@ -12,7 +12,7 @@ public class ItemHeart extends MetaItem<SubItem> {
 
 	public ItemHeart(String name) {
 		super(name);
-		setCreativeTab(Brewcraft.tab);
+		setCreativeTab(Brewcraft.tabMisc);
 	}
 
 	@Override

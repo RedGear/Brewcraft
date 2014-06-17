@@ -10,7 +10,7 @@ import redgear.core.mod.ModUtils;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.common.LoaderState.ModState;
 
-public class IngredientPlugin implements IPlugin {
+public class ItemPlugin implements IPlugin {
 
 	public static MetaItem<SubItem> ingredients;
 	public static SimpleItem holyDust;
@@ -21,6 +21,7 @@ public class IngredientPlugin implements IPlugin {
 	public static SimpleItem remedySalve;
 	public static SimpleItem steelScales;
 	public static SimpleItem splashBottle;
+	public static SimpleItem metalRing;
 
 	public static ItemTear tears;
 	public static SimpleItem obsidianTear;
@@ -33,7 +34,7 @@ public class IngredientPlugin implements IPlugin {
 
 	@Override
 	public String getName() {
-		return "IngredientPlugin";
+		return "ItemPlugin";
 	}
 
 	@Override
@@ -57,6 +58,7 @@ public class IngredientPlugin implements IPlugin {
 		remedySalve = ingredients.addMetaItem(new SubItem("remedysalve"));
 		steelScales = ingredients.addMetaItem(new SubItem("steelscales"));
 		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
+		metalRing = ingredients.addMetaItem(new SubItem("metalring"));
 
 		tears = new ItemTear("RedGear.Brewcraft.Tears");
 		obsidianTear = tears.addMetaItem(new SubItem("obsidiantear"));
@@ -67,7 +69,7 @@ public class IngredientPlugin implements IPlugin {
 		heartGold = hearts.addMetaItem(new SubItem("heartgold"));
 		heartBlaze = hearts.addMetaItem(new SubItem("heartblaze"));
 
-		ingredients.setCreativeTab(Brewcraft.tab);
+		ingredients.setCreativeTab(Brewcraft.tabMisc);
 	}
 
 	@Override

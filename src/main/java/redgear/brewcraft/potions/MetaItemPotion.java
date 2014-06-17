@@ -32,7 +32,7 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 
 	public MetaItemPotion(String name) {
 		super(name);
-		setCreativeTab(Brewcraft.tab);
+		setCreativeTab(Brewcraft.tabMisc);
 		setMaxStackSize(1);
 	}
 

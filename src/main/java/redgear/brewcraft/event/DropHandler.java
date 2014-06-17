@@ -13,7 +13,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class DropHandler {
@@ -44,45 +44,45 @@ public class DropHandler {
 			if (skeleton.getSkeletonType() == 1 || skeleton.isBurning())
 				if (rand.nextDouble() < 0.6D && event.source.getDamageType().equals("player"))
 					skeleton.entityDropItem(
-							IngredientPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1),
+							ItemPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1),
 							0.0F);
 		}
 
 		if (event.entity.worldObj.rand.nextInt(200) == 0 && !(event.entity instanceof EntityPlayer)
 				&& event.entity instanceof IMob && event.source.getDamageType().equals("player"))
-			event.entity.dropItem(IngredientPlugin.heartSmall.item, 1);
+			event.entity.dropItem(ItemPlugin.heartSmall.item, 1);
 
 		if (event.entity instanceof EntityGhast) {
 
 			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D)
-				event.entity.entityDropItem(IngredientPlugin.obsidianTear.getStack(), 0.0F);
+				event.entity.entityDropItem(ItemPlugin.obsidianTear.getStack(), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityChicken) {
 			if (rand.nextDouble() < 0.05D)
-				event.entityLiving.entityDropItem(IngredientPlugin.goldenFeather.getStack(), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.goldenFeather.getStack(), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityWitch) {
 			if (rand.nextDouble() < 0.7D)
-				event.entityLiving.entityDropItem(IngredientPlugin.tiredSpores.getStack(rand.nextInt(3)), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.tiredSpores.getStack(rand.nextInt(3)), 0.0F);
 			if (rand.nextDouble() > 0.2D)
-				event.entityLiving.entityDropItem(IngredientPlugin.remedySalve.getStack(rand.nextInt(3)), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.remedySalve.getStack(rand.nextInt(3)), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntitySpider) {
 			if (rand.nextDouble() < 0.25D)
-				event.entityLiving.entityDropItem(IngredientPlugin.spiderFang.getStack(rand.nextInt(1) + 1), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.spiderFang.getStack(rand.nextInt(1) + 1), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntitySilverfish) {
 			if (rand.nextDouble() < 0.7D)
-				event.entityLiving.entityDropItem(IngredientPlugin.steelScales.getStack(rand.nextInt(3) + 1), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.steelScales.getStack(rand.nextInt(3) + 1), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityBlaze) {
 			if (rand.nextDouble() < 0.5D)
-				event.entityLiving.entityDropItem(IngredientPlugin.heartBlaze.getStack(), 0.0F);
+				event.entityLiving.entityDropItem(ItemPlugin.heartBlaze.getStack(), 0.0F);
 		}
 	}
 

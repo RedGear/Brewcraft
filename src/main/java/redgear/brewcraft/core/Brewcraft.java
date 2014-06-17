@@ -18,7 +18,7 @@ import redgear.brewcraft.plugins.core.AchievementPlugin;
 import redgear.brewcraft.plugins.core.CraftingPlugin;
 import redgear.brewcraft.plugins.core.DamageSourcePlugin;
 import redgear.brewcraft.plugins.core.EffectPlugin;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.plugins.world.VillagePlugin;
 import redgear.brewcraft.utils.BrewcraftTab;
@@ -38,7 +38,7 @@ public class Brewcraft extends ModUtils {
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
-	public static CreativeTabs tab;
+	public static CreativeTabs tabMisc;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
@@ -47,10 +47,10 @@ public class Brewcraft extends ModUtils {
 
 		addPlugin(new DamageSourcePlugin());
 		addPlugin(new EffectPlugin());
+		addPlugin(new ItemPlugin());
 		addPlugin(new PotionPlugin());
 		addPlugin(new MachinePlugin());
 		addPlugin(new KegPlugin());
-		addPlugin(new IngredientPlugin());
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
 		addPlugin(new VillagePlugin());
@@ -60,8 +60,8 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
-
-		tab = new BrewcraftTab(getBoolean("General", "Toggle Unconventional Creative Tab Overlays"));
+		
+		tabMisc = new BrewcraftTab();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Brewcraft:Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);

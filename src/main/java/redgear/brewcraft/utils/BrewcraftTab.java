@@ -2,24 +2,25 @@ package redgear.brewcraft.utils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.block.MachinePlugin;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BrewcraftTab extends CreativeTabs {
 
-	private final boolean background;
+	private boolean background;
 
-	public BrewcraftTab(boolean background) {
+	public BrewcraftTab() {
 		super("brewcraft");
 
-		this.background = background;
+		this.background = Brewcraft.inst.getBoolean("General", "Toggle Unconventional Creative Tab Overlays");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getTabIconItem() {
-		return MachinePlugin.brewery.getItem();
+			return MachinePlugin.brewery.getItem();
 	}
 
 	@Override

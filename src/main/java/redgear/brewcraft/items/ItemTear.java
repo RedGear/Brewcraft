@@ -6,7 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.core.item.MetaItem;
 import redgear.core.item.SubItem;
 
@@ -15,7 +15,7 @@ public class ItemTear extends MetaItem<SubItem> {
 	public ItemTear(String name) {
 		super(name);
 		setUnlocalizedName(name);
-		setCreativeTab(Brewcraft.tab);
+		setCreativeTab(Brewcraft.tabMisc);
 		setMaxStackSize(8);
 	}
 
@@ -31,9 +31,9 @@ public class ItemTear extends MetaItem<SubItem> {
 	public void onUpdate(ItemStack stack, World world, IInventory tile, int slot) {
 		if (stack != null)
 			if (world.provider.dimensionId == -1) {
-				if (IngredientPlugin.pureTear.equals(stack))
-					tile.setInventorySlotContents(slot, IngredientPlugin.obsidianTear.getStack(stack.stackSize));
-			} else if (IngredientPlugin.obsidianTear.equals(stack))
-				tile.setInventorySlotContents(slot, IngredientPlugin.pureTear.getStack(stack.stackSize));
+				if (ItemPlugin.pureTear.equals(stack))
+					tile.setInventorySlotContents(slot, ItemPlugin.obsidianTear.getStack(stack.stackSize));
+			} else if (ItemPlugin.obsidianTear.equals(stack))
+				tile.setInventorySlotContents(slot, ItemPlugin.pureTear.getStack(stack.stackSize));
 	}
 }

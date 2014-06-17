@@ -41,13 +41,13 @@ public class MachinePlugin implements IPlugin {
 
 		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
 				RenderingRegistry.getNextAvailableRenderId());
-		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(Brewcraft.tab)
+		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(Brewcraft.tabMisc)
 				.setHarvestLevel("pickaxe", 0);
 		brewery = brewing.addMetaBlock(new SubTile("brewery", new BreweryFactory()));
 
 		machine = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Machine",
 				RenderingRegistry.getNextAvailableRenderId());
-		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(Brewcraft.tab)
+		machine.setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(Brewcraft.tabMisc)
 				.setHarvestLevel("pickaxe", 0);
 		sprayer = machine.addMetaBlock(new SubTile("sprayer", new SprayerFactory()));
 

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.item.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
@@ -36,22 +36,22 @@ public class TradeHandler implements IVillageTradeHandler {
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
 		if (villager.getProfession() == 2) {
 			if (powderTrade) {
-				recipeList.add(new MerchantRecipe(IngredientPlugin.holyDust.getStack(random.nextInt(1) + 2),
+				recipeList.add(new MerchantRecipe(ItemPlugin.holyDust.getStack(random.nextInt(1) + 2),
 						new ItemStack(Items.emerald, random.nextInt(4) + 1)));
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
-						IngredientPlugin.holyDust.getStack(random.nextInt(3) + 1)));
+						ItemPlugin.holyDust.getStack(random.nextInt(3) + 1)));
 			}
 
 			if (villager.worldObj.getWorldTime() > 13000)
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 4),
-						IngredientPlugin.pureTear.getStack(random.nextInt(1) + 1)));
+						ItemPlugin.pureTear.getStack(random.nextInt(1) + 1)));
 		}
 
 		if (villager.getProfession() == 0) {
-			recipeList.add(new MerchantRecipe(IngredientPlugin.heartSmall.getStack(random.nextInt(3) + 1),
+			recipeList.add(new MerchantRecipe(ItemPlugin.heartSmall.getStack(random.nextInt(3) + 1),
 					new ItemStack(Items.emerald, random.nextInt(5) + 3)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 1),
-					IngredientPlugin.heartSmall.getStack(random.nextInt(3) + 1)));
+					ItemPlugin.heartSmall.getStack(random.nextInt(3) + 1)));
 		}
 
 		if (villager.getProfession() == Brewcraft.inst.getInt("General", "Villager Profession ID", 15)) {
@@ -167,21 +167,21 @@ public class TradeHandler implements IVillageTradeHandler {
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
 					new ItemStack(Items.nether_wart, random.nextInt(2) + 2)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 2)),
-					IngredientPlugin.goldenFeather.getStack(random.nextInt(2) + 1)));
+					ItemPlugin.goldenFeather.getStack(random.nextInt(2) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(3) + 1)),
-					IngredientPlugin.charredBone.getStack(random.nextInt(4) + 1)));
+					ItemPlugin.charredBone.getStack(random.nextInt(4) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 2)),
-					IngredientPlugin.spiderFang.getStack()));
+					ItemPlugin.spiderFang.getStack()));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 4)),
-					IngredientPlugin.tiredSpores.getStack(random.nextInt(2) + 1)));
+					ItemPlugin.tiredSpores.getStack(random.nextInt(2) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 3)),
-					IngredientPlugin.remedySalve.getStack(random.nextInt(2) + 1)));
+					ItemPlugin.remedySalve.getStack(random.nextInt(2) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 2)),
-					IngredientPlugin.splashBottle.getStack(3)));
+					ItemPlugin.splashBottle.getStack(3)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 6)),
-					IngredientPlugin.heartGold.getStack()));
+					ItemPlugin.heartGold.getStack()));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 4)),
-					IngredientPlugin.steelScales.getStack(random.nextInt(2) + 3)));
+					ItemPlugin.steelScales.getStack(random.nextInt(2) + 3)));
 
 		}
 	}
