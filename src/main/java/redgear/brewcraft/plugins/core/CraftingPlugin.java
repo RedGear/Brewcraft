@@ -79,14 +79,9 @@ public class CraftingPlugin implements IPlugin {
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Sprayer Crafting Recipe", true))
 			GameRegistry.addShapedRecipe(MachinePlugin.sprayer.getStack(),
-					new Object[] {" @ ", "!@!", "!#!", Character.valueOf('@'), Blocks.stone, Character.valueOf('!'),
-							Items.iron_ingot, Character.valueOf('#'), Items.redstone });
-
-		if (Brewcraft.inst.getBoolean("Recipes", "Sprayer Crafting Recipe", true))
-			GameRegistry.addShapedRecipe(
-					MachinePlugin.sprayer.getStack(),
-					new Object[] {" @ ", "!@!", "!#!", Character.valueOf('@'), Blocks.cobblestone,
-							Character.valueOf('!'), Items.iron_ingot, Character.valueOf('#'), Items.redstone });
+					new Object[] {" @ ", "!#!", "!$!", Character.valueOf('@'), Blocks.dispenser,
+							Character.valueOf('!'), Blocks.cobblestone, Character.valueOf('#'), KegPlugin.kegs,
+							Character.valueOf('$'), Items.redstone });
 
 		if (Brewcraft.inst.getBoolean("Recipes", "Charred Bone Crafting Recipe", true))
 			GameRegistry.addSmelting(Items.bone, ItemPlugin.charredBone.getStack(), 0.1F);

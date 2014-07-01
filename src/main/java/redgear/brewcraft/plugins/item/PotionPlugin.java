@@ -21,139 +21,40 @@ public class PotionPlugin implements IPlugin {
 
 	public static MetaItemPotion potions;
 	public static ItemStack emptyBottle = new ItemStack(Items.glass_bottle, 1, 0);
+	public static FluidStack water = new FluidStack(FluidRegistry.WATER, 1000);
+	public static FluidStack lava = new FluidStack(FluidRegistry.LAVA, 1000);
 	public static PotionRegistry potionRegistry = new PotionRegistry();
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 	public static final String potionTexture = "potionWhite";
 
-	public static FluidStack fluidAwkward;
-	public static FluidStack fluidVision;
-	public static FluidStack fluidVisionLong;
-	public static FluidStack fluidVisionVeryLong;
-	public static FluidStack fluidInvisible;
-	public static FluidStack fluidInvisibleLong;
-	public static FluidStack fluidInvisibleVeryLong;
-	public static FluidStack fluidWeakness;
-	public static FluidStack fluidWeaknessLong;
-	public static FluidStack fluidWeaknessVeryLong;
-	public static FluidStack fluidFireResist;
-	public static FluidStack fluidFireResistLong;
-	public static FluidStack fluidFireResistVeryLong;
-	public static FluidStack fluidSlowness;
-	public static FluidStack fluidSlownessLong;
-	public static FluidStack fluidSlownessVeryLong;
-	public static FluidStack fluidRegen;
-	public static FluidStack fluidRegenII;
-	public static FluidStack fluidRegenIII;
-	public static FluidStack fluidRegenLong;
-	public static FluidStack fluidRegenVeryLong;
-	public static FluidStack fluidFast;
-	public static FluidStack fluidFastII;
-	public static FluidStack fluidFastIII;
-	public static FluidStack fluidFastLong;
-	public static FluidStack fluidFastVeryLong;
-	public static FluidStack fluidStrength;
-	public static FluidStack fluidStrengthII;
-	public static FluidStack fluidStrengthIII;
-	public static FluidStack fluidStrengthLong;
-	public static FluidStack fluidStrengthVeryLong;
-	public static FluidStack fluidPoison;
-	public static FluidStack fluidPoisonII;
-	public static FluidStack fluidPoisonIII;
-	public static FluidStack fluidPoisonLong;
-	public static FluidStack fluidPoisonVeryLong;
-	public static FluidStack fluidHaste;
-	public static FluidStack fluidHasteII;
-	public static FluidStack fluidHasteIII;
-	public static FluidStack fluidHasteLong;
-	public static FluidStack fluidHasteVeryLong;
-	public static FluidStack fluidFatigue;
-	public static FluidStack fluidFatigueII;
-	public static FluidStack fluidFatigueIII;
-	public static FluidStack fluidFatigueLong;
-	public static FluidStack fluidFatigueVeryLong;
-	public static FluidStack fluidJump;
-	public static FluidStack fluidJumpII;
-	public static FluidStack fluidJumpIII;
-	public static FluidStack fluidJumpLong;
-	public static FluidStack fluidJumpVeryLong;
-	public static FluidStack fluidResistance;
-	public static FluidStack fluidResistanceII;
-	public static FluidStack fluidResistanceIII;
-	public static FluidStack fluidResistanceLong;
-	public static FluidStack fluidResistanceVeryLong;
-	public static FluidStack fluidHunger;
-	public static FluidStack fluidHungerII;
-	public static FluidStack fluidHungerIII;
-	public static FluidStack fluidHungerLong;
-	public static FluidStack fluidHungerVeryLong;
-	public static FluidStack fluidHealthBoost;
-	public static FluidStack fluidHealthBoostII;
-	public static FluidStack fluidHealthBoostIII;
-	public static FluidStack fluidHealthBoostLong;
-	public static FluidStack fluidHealthBoostVeryLong;
-	public static FluidStack fluidAbsorption;
-	public static FluidStack fluidAbsorptionII;
-	public static FluidStack fluidAbsorptionIII;
-	public static FluidStack fluidAbsorptionLong;
-	public static FluidStack fluidAbsorptionVeryLong;
-	public static FluidStack fluidSaturation;
-	public static FluidStack fluidSaturationII;
-	public static FluidStack fluidSaturationIII;
-	public static FluidStack fluidSaturationLong;
-	public static FluidStack fluidSaturationVeryLong;
-	public static FluidStack fluidWither;
-	public static FluidStack fluidWitherII;
-	public static FluidStack fluidWitherIII;
-	public static FluidStack fluidWitherLong;
-	public static FluidStack fluidWitherVeryLong;
-	public static FluidStack fluidHarm;
-	public static FluidStack fluidHarmII;
-	public static FluidStack fluidHarmIII;
-	public static FluidStack fluidHeal;
-	public static FluidStack fluidHealII;
-	public static FluidStack fluidHealIII;
-	public static FluidStack fluidWaterBreathe;
-	public static FluidStack fluidWaterBreatheLong;
-	public static FluidStack fluidWaterBreatheVeryLong;
-	public static FluidStack fluidNausea;
-	public static FluidStack fluidNauseaLong;
-	public static FluidStack fluidNauseaVeryLong;
-	public static FluidStack fluidBlindness;
-	public static FluidStack fluidBlindnessLong;
-	public static FluidStack fluidBlindnessVeryLong;
-	public static FluidStack fluidFireImmunity;
-	public static FluidStack fluidFireImmunityII;
+	//Vanilla potions.
+	public static FluidStack fluidAwkward, fluidVision, fluidVisionLong, fluidVisionVeryLong, fluidInvisible,
+			fluidInvisibleLong, fluidInvisibleVeryLong, fluidWeakness, fluidWeaknessLong, fluidWeaknessVeryLong,
+			fluidFireResist, fluidFireResistLong, fluidFireResistVeryLong, fluidSlowness, fluidSlownessLong,
+			fluidSlownessVeryLong, fluidRegen, fluidRegenII, fluidRegenIII, fluidRegenLong, fluidRegenVeryLong,
+			fluidFast, fluidFastII, fluidFastIII, fluidFastLong, fluidFastVeryLong, fluidStrength, fluidStrengthII,
+			fluidStrengthIII, fluidStrengthLong, fluidStrengthVeryLong, fluidPoison, fluidPoisonII, fluidPoisonIII,
+			fluidPoisonLong, fluidPoisonVeryLong, fluidHaste, fluidHasteII, fluidHasteIII, fluidHasteLong,
+			fluidHasteVeryLong, fluidFatigue, fluidFatigueII, fluidFatigueIII, fluidFatigueLong, fluidFatigueVeryLong,
+			fluidJump, fluidJumpII, fluidJumpIII, fluidJumpLong, fluidJumpVeryLong, fluidResistance, fluidResistanceII,
+			fluidResistanceIII, fluidResistanceLong, fluidResistanceVeryLong, fluidHunger, fluidHungerII,
+			fluidHungerIII, fluidHungerLong, fluidHungerVeryLong, fluidHealthBoost, fluidHealthBoostII,
+			fluidHealthBoostIII, fluidHealthBoostLong, fluidHealthBoostVeryLong, fluidAbsorption, fluidAbsorptionII,
+			fluidAbsorptionIII, fluidAbsorptionLong, fluidAbsorptionVeryLong, fluidSaturation, fluidSaturationII,
+			fluidSaturationIII, fluidSaturationLong, fluidSaturationVeryLong, fluidWither, fluidWitherII,
+			fluidWitherIII, fluidWitherLong, fluidWitherVeryLong, fluidHarm, fluidHarmII, fluidHarmIII, fluidHeal,
+			fluidHealII, fluidHealIII, fluidWaterBreathe, fluidWaterBreatheLong, fluidWaterBreatheVeryLong,
+			fluidNausea, fluidNauseaLong, fluidNauseaVeryLong, fluidBlindness, fluidBlindnessLong,
+			fluidBlindnessVeryLong;
 
-	public static FluidStack fluidHolyWater;
-	public static FluidStack fluidHolyWaterII;
-	public static FluidStack fluidHolyWaterIII;
-	public static FluidStack fluidHolyWaterLong;
-	public static FluidStack fluidHolyWaterVeryLong;
-	public static FluidStack fluidAntidote;
-	public static FluidStack fluidAntidoteII;
-	public static FluidStack fluidAntidoteIII;
-	public static FluidStack fluidAntidoteIIII;
-	public static FluidStack fluidAntidoteLong;
-	public static FluidStack fluidAntidoteVeryLong;
-	public static FluidStack fluidFlight;
-	public static FluidStack fluidFlightLong;
-	public static FluidStack fluidFlightVeryLong;
-	public static FluidStack fluidCryo;
-	public static FluidStack fluidCryoLong;
-	public static FluidStack fluidCryoVeryLong;
-	public static FluidStack fluidBoom;
-	public static FluidStack fluidBoomII;
-	public static FluidStack fluidBoomIII;
-	public static FluidStack fluidBoomLong;
-	public static FluidStack fluidBoomVeryLong;
-	public static FluidStack fluidEternalFlame;
-	public static FluidStack fluidEternalFlameLong;
-	public static FluidStack fluidEternalFlameVeryLong;
-	public static FluidStack fluidFireEater;
-	public static FluidStack fluidFireEaterII;
-	public static FluidStack fluidFireEaterIII;
-	public static FluidStack fluidFireEaterLong;
-	public static FluidStack fluidFireEaterVeryLong;
+	//Brewcraft potions.
+	public static FluidStack fluidFireImmunity, fluidFireImmunityII, fluidHolyWater, fluidHolyWaterII,
+			fluidHolyWaterIII, fluidHolyWaterLong, fluidHolyWaterVeryLong, fluidAntidote, fluidAntidoteII,
+			fluidAntidoteIII, fluidAntidoteIIII, fluidAntidoteLong, fluidAntidoteVeryLong, fluidFlight,
+			fluidFlightLong, fluidFlightVeryLong, fluidCryo, fluidCryoLong, fluidCryoVeryLong, fluidBoom, fluidBoomII,
+			fluidBoomIII, fluidBoomLong, fluidBoomVeryLong, fluidEternalFlame, fluidEternalFlameLong,
+			fluidEternalFlameVeryLong, fluidFireEater, fluidFireEaterII, fluidFireEaterIII, fluidFireEaterLong,
+			fluidFireEaterVeryLong;
 
 	@Override
 	public String getName() {
@@ -172,7 +73,7 @@ public class PotionPlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
-		potions = new MetaItemPotion("RedGear.Brewcraft.Potions"); // Items MUST be created in pre init! NO exceptions!
+		potions = new MetaItemPotion("RedGear.Brewcraft.Potions");
 	}
 
 	@Override
@@ -327,7 +228,7 @@ public class PotionPlugin implements IPlugin {
 
 	@Override
 	public void postInit(ModUtils mod) {
-		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.WATER, 100), fluidAwkward, Items.nether_wart);
+		recipeRegistry.addRecipe(water, fluidAwkward, Items.nether_wart);
 		recipeRegistry.addRecipe(fluidAwkward, fluidFireResist, Items.magma_cream);
 		recipeRegistry.addRecipe(fluidAwkward, fluidFast, Items.sugar);
 		recipeRegistry.addRecipe(fluidAwkward, fluidHeal, Items.speckled_melon);
@@ -457,14 +358,11 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidSlowness, fluidSlownessLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidSlownessLong, fluidSlowness, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidSlownessLong, fluidSlownessVeryLong, ItemPlugin.pureTear);
-		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidEternalFlame, new ItemStack(
-				Items.fire_charge));
+		recipeRegistry.addRecipe(lava, fluidEternalFlame, new ItemStack(Items.fire_charge));
 		recipeRegistry.addRecipe(fluidEternalFlame, fluidEternalFlameLong, new ItemStack(Items.redstone));
 		recipeRegistry.addRecipe(fluidEternalFlameLong, fluidEternalFlame, new ItemStack(Items.glowstone_dust));
-		recipeRegistry
-				.addRecipe(fluidEternalFlameLong, fluidEternalFlameVeryLong, ItemPlugin.pureTear.getStack());
-		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidFireEater,
-				ItemPlugin.heartBlaze.getStack());
+		recipeRegistry.addRecipe(fluidEternalFlameLong, fluidEternalFlameVeryLong, ItemPlugin.pureTear.getStack());
+		recipeRegistry.addRecipe(lava, fluidFireEater, ItemPlugin.heartBlaze.getStack());
 		recipeRegistry.addRecipe(fluidFireEater, fluidFireEaterII, new ItemStack(Items.glowstone_dust));
 		recipeRegistry.addRecipe(fluidFireEaterII, fluidFireEater, new ItemStack(Items.redstone));
 		recipeRegistry.addRecipe(fluidFireEaterII, fluidFireEaterIII, ItemPlugin.obsidianTear.getStack());
@@ -563,7 +461,7 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidJump, fluidJumpLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidJumpLong, fluidJump, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidJumpLong, fluidJumpVeryLong, ItemPlugin.pureTear);
-		recipeRegistry.addRecipe(new FluidStack(FluidRegistry.LAVA, 1000), fluidWither, ItemPlugin.charredBone);
+		recipeRegistry.addRecipe(lava, fluidWither, ItemPlugin.charredBone);
 		recipeRegistry.addRecipe(fluidWither, fluidWitherII, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidWitherII, fluidWitherIII, ItemPlugin.obsidianTear);
 		recipeRegistry.addRecipe(fluidWither, fluidWitherLong, Items.redstone);

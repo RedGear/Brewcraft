@@ -54,7 +54,6 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
 		addPlugin(new VillagePlugin());
-
 		addPlugin(new BrewcraftClientProxy());
 
 		addPlugin(new ForestryPlugin());
