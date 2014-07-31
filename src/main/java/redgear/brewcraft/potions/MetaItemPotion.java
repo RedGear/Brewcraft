@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -13,7 +12,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.core.item.MetaItem;
@@ -24,15 +22,26 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MetaItemPotion extends MetaItem<SubItemPotion> {
 
 	@SideOnly(Side.CLIENT)
-	public static IIcon splash;
+	public IIcon splash;
 	@SideOnly(Side.CLIENT)
-	public static IIcon bottle;
+	public IIcon bottle;
 	@SideOnly(Side.CLIENT)
-	public static IIcon overlay;
+	public IIcon overlay;
 
-	public MetaItemPotion(String name) {
+	public final String bottleIcon;
+	public final String overlayIcon;
+	public final String splashIcon;
+
+	public ItemStack potionBottle;
+	public ItemStack potionSplash;
+
+	public int capacity = 1000;
+
+	public MetaItemPotion(String name, String bottle, String overlay, String splash) {
 		super(name);
-		setCreativeTab(Brewcraft.tabMisc);
+		this.bottleIcon = bottle;
+		this.overlayIcon = overlay;
+		this.splashIcon = splash;
 		setMaxStackSize(1);
 	}
 
@@ -44,7 +53,7 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {
 			--stack.stackSize;
-			player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle, 1, 0));
+			player.inventory.addItemStackToInventory(potionBottle);
 		}
 
 		if (!world.isRemote)
@@ -119,11 +128,9 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 		}
 		if (potion.potionId == EffectPlugin.angel.id) {
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal("tooltip.brewcraft."
-							+ potion.getEffect().getName()+ ".desc2"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName() + ".desc2"));
 			par3List.add(EnumChatFormatting.BLUE
-					+ StatCollector.translateToLocal("tooltip.brewcraft."
-							+ potion.getEffect().getName() + ".desc3"));
+					+ StatCollector.translateToLocal("tooltip.brewcraft." + potion.getEffect().getName() + ".desc3"));
 		}
 
 	}
@@ -138,7 +145,7 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 
 		String s1 = "";
 		s1 = potion.getEffect().getName();
-		s1 = s1 + ".postfix";
+		s1 = s1 + (".postfix");
 
 		return s + StatCollector.translateToLocal(s1).trim();
 	}
@@ -165,14 +172,27 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
-		bottle = par1IconRegister.registerIcon("potion_bottle_drinkable");
-		splash = par1IconRegister.registerIcon("potion_bottle_splash");
-		overlay = par1IconRegister.registerIcon("potion_overlay");
+		bottle = par1IconRegister.registerIcon(bottleIcon);
+		splash = par1IconRegister.registerIcon(splashIcon);
+		overlay = par1IconRegister.registerIcon(overlayIcon);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static IIcon func_94589_d(String par0Str) {
-		return par0Str.equals("bottle_drinkable") ? bottle : par0Str.equals("bottle_splash") ? splash : par0Str
-				.equals("overlay") ? overlay : null;
+	public IIcon func_94589_d(String par0Str) {
+		return par0Str.equals(bottleIcon) ? bottle : par0Str.equals(splashIcon) ? splash
+				: par0Str.equals(overlayIcon) ? overlay : null;
+	}
+
+	public void setEmptyItems(ItemStack bottle, ItemStack splash) {
+		this.potionBottle = bottle;
+		this.potionSplash = splash;
+	}
+
+	public void setFluidCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public int getFluidCapacity() {
+		return this.capacity;
 	}
 }

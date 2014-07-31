@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 
 public class RenderBrewcraftPotion extends Render {
@@ -23,17 +22,18 @@ public class RenderBrewcraftPotion extends Render {
 		bindEntityTexture(entity);
 		Tessellator tessellator = Tessellator.instance;
 
-		int color = PotionPlugin.potions.getColorFromItemStack(entity.getPotionStack(), 0);
+		MetaItemPotion item = (MetaItemPotion)entity.getPotionStack().getItem();
+		int color = item.getColorFromItemStack(entity.getPotionStack(), 0);
 		float red = (color >> 16 & 255) / 255.0F;
 		float blue = (color >> 8 & 255) / 255.0F;
 		float green = (color & 255) / 255.0F;
 		GL11.glColor3f(red, blue, green);
 		GL11.glPushMatrix();
-		drawIcon(tessellator, MetaItemPotion.overlay);
+		drawIcon(tessellator, item.overlay);
 		GL11.glPopMatrix();
 		GL11.glColor3f(1.0F, 1.0F, 1.0F);
 
-		drawIcon(tessellator, MetaItemPotion.splash);
+		drawIcon(tessellator, item.splash);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 

@@ -49,22 +49,22 @@ public class AchievementPlugin implements IPlugin {
 	@Override
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("General", "Toggle Achievements", true)) {
-			craftBrewery = new Achievement("CraftBrewery", "brewcraft.brewery", 0, 0,
-					MachinePlugin.brewery.getStack(), null).registerStat().setSpecial();
-			explode = new Achievement("PotionExplode", "brewcraft.explode", 1, 3, Items.gunpowder,
+			craftBrewery = new Achievement("CraftBrewery", "brewcraft.brewery", 0, 0, MachinePlugin.brewery.getStack(),
+					null).registerStat().setSpecial();
+			explode = new Achievement("PotionExplode", "brewcraft.explode", 1, 3, Items.gunpowder, craftBrewery)
+					.registerStat();
+			freeze = new Achievement("PotionFreeze", "brewcraft.freeze", -2, 4, Items.snowball, craftBrewery)
+					.registerStat();
+			fireproof = new Achievement("PotionFireproof", "brewcraft.fireproof", 2, -2, Blocks.netherrack,
 					craftBrewery).registerStat();
-			freeze = new Achievement("PotionFreeze", "brewcraft.freeze", -2, 4, Items.snowball,
+			flight = new Achievement("PotionFlight", "brewcraft.flight", 4, 1, ItemPlugin.goldenFeather.getStack(),
 					craftBrewery).registerStat();
-			fireproof = new Achievement("PotionFireproof", "brewcraft.fireproof", 2, -2,
-					Blocks.netherrack, craftBrewery).registerStat();
-			flight = new Achievement("PotionFlight", "brewcraft.flight", 4, 1,
-					ItemPlugin.goldenFeather.getStack(), craftBrewery).registerStat();
-			immunity = new Achievement("PotionImmunity", "brewcraft.immunity", -1, 2,
-					Items.milk_bucket, craftBrewery).registerStat();
+			immunity = new Achievement("PotionImmunity", "brewcraft.immunity", -1, 2, Items.milk_bucket, craftBrewery)
+					.registerStat();
 			holywater = new Achievement("PotionHolyWater", "brewcraft.holyWater", -4, 0,
 					ItemPlugin.holyDust.getStack(), craftBrewery).registerStat();
-			flame = new Achievement("PotionFlame", "brewcraft.flame", 6, 2, new ItemStack(
-					Items.fire_charge), craftBrewery).registerStat();
+			flame = new Achievement("PotionFlame", "brewcraft.flame", 6, 2, new ItemStack(Items.fire_charge),
+					craftBrewery).registerStat();
 			fireEater = new Achievement("PotionFireEater", "brewcraft.fireEater", 5, -3,
 					ItemPlugin.heartBlaze.getStack(), craftBrewery).registerStat();
 

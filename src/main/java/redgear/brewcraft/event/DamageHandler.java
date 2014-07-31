@@ -32,9 +32,14 @@ public class DamageHandler {
 			if (living.getActivePotionEffect(EffectPlugin.fireproof) != null) {
 				if (event.source.equals(DamageSource.lava) || event.source.equals(DamageSource.inFire)
 						|| event.source.equals(DamageSource.onFire)) {
-					event.ammount = 0;
+					if (living.getActivePotionEffect(EffectPlugin.fireproof).getAmplifier() == 0) {
+						event.ammount = 0;
+						return;
+					}
 					if (living.getActivePotionEffect(EffectPlugin.fireproof).getAmplifier() >= 1) {
-						living.heal(1F);
+						int strength = living.getActivePotionEffect(EffectPlugin.fireproof).getAmplifier();
+						living.heal(strength + 1 + 4F);
+						return;
 					}
 				}
 			}

@@ -1,6 +1,7 @@
 package redgear.brewcraft.core;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.event.CraftingHandler;
@@ -32,18 +33,26 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
-@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:redgear_core;after:TConstruct;")
+@Mod(modid = "redgear_brewcraft", name = "Brewcraft", version = "@ModVersion@", dependencies = "required-after:redgear_core;")
 public class Brewcraft extends ModUtils {
 
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
 	public static CreativeTabs tabMisc;
+	public static CreativeTabs tabPotions;
+	public static CreativeTabs tabVials;
+	public static CreativeTabs tabBig;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
 
 		PotionArrayExpander.init();
+		
+		tabMisc = new BrewcraftTab("misc");
+		tabPotions = new BrewcraftTab("potions");
+		tabVials = new BrewcraftTab("vials");
+		tabBig = new BrewcraftTab("big");
 
 		addPlugin(new DamageSourcePlugin());
 		addPlugin(new EffectPlugin());
@@ -59,8 +68,6 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
-		
-		tabMisc = new BrewcraftTab();
 
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Brewcraft:Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
@@ -74,6 +81,11 @@ public class Brewcraft extends ModUtils {
 		TradeHandler.register();
 		ParticleHandler.register();
 		TipHandler.register();
+		
+		((BrewcraftTab) tabMisc).setTabIcon(MachinePlugin.brewery.getItem());
+		((BrewcraftTab) tabPotions).setTabIcon(new ItemStack(PotionPlugin.potions).getItem());
+		((BrewcraftTab) tabVials).setTabIcon(new ItemStack(PotionPlugin.vials).getItem());
+		((BrewcraftTab) tabBig).setTabIcon(new ItemStack(PotionPlugin.big).getItem());
 	}
 
 	@Override

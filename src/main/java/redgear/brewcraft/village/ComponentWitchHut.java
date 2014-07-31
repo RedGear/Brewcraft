@@ -13,13 +13,14 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import redgear.brewcraft.core.Brewcraft;
 
 public class ComponentWitchHut extends StructureVillagePieces.House1 {
-	
+
 	public boolean hasCauldron;
 	public boolean hasTable;
 	public boolean hasFlowerPot;
 	public boolean hasFences;
 	public boolean isInDesert;
 	public boolean hasGlass;
+	public boolean hasWitch;
 
 	public ComponentWitchHut() {
 	}
@@ -33,6 +34,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		par1NBTTagCompound.setBoolean("Fences", this.hasFences);
 		par1NBTTagCompound.setBoolean("Desert", this.isInDesert);
 		par1NBTTagCompound.setBoolean("Glass", this.hasGlass);
+		par1NBTTagCompound.setBoolean("Witch", this.hasWitch);
 	}
 
 	@Override
@@ -44,6 +46,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasFences = par1NBTTagCompound.getBoolean("Fences");
 		this.isInDesert = par1NBTTagCompound.getBoolean("Desert");
 		this.hasGlass = par1NBTTagCompound.getBoolean("Glass");
+		this.hasWitch = par1NBTTagCompound.getBoolean("Witch");
 	}
 
 	public ComponentWitchHut(StructureVillagePieces.Start par1ComponentVillageStartPiece, int par2, Random par3Random,
@@ -57,6 +60,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 		this.hasFences = par3Random.nextBoolean();
 		this.isInDesert = par1ComponentVillageStartPiece.inDesert;
 		this.hasGlass = par3Random.nextBoolean() && !this.hasFlowerPot;
+		this.hasWitch = par3Random.nextBoolean();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -100,7 +104,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 1, 2, 1, sbb);
 			this.placeBlockAtCurrentPosition(w, Blocks.fence, 0, 5, 2, 1, sbb);
 		}
-		
+
 		if (this.hasFlowerPot)
 			this.placeBlockAtCurrentPosition(w, Blocks.flower_pot, 7, 1, 3, 5, sbb);
 
@@ -153,6 +157,7 @@ public class ComponentWitchHut extends StructureVillagePieces.House1 {
 
 	@Override
 	protected int getVillagerType(int par1) {
-		return Brewcraft.inst.getInt("General", "Witch Profession ID", 15);
+		return this.hasWitch ? Brewcraft.inst.getInt("General", "Witch Profession ID", 15) : Brewcraft.inst.getInt(
+				"General", "Warlock Profession ID", 16);
 	}
 }

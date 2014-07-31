@@ -6,6 +6,7 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -20,6 +21,8 @@ import cpw.mods.fml.common.LoaderState.ModState;
 public class PotionPlugin implements IPlugin {
 
 	public static MetaItemPotion potions;
+	public static MetaItemPotion vials;
+	public static MetaItemPotion big;
 	public static ItemStack emptyBottle = new ItemStack(Items.glass_bottle, 1, 0);
 	public static FluidStack water = new FluidStack(FluidRegistry.WATER, 1000);
 	public static FluidStack lava = new FluidStack(FluidRegistry.LAVA, 1000);
@@ -27,7 +30,7 @@ public class PotionPlugin implements IPlugin {
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
 	public static final String potionTexture = "potionWhite";
 
-	//Vanilla potions.
+	//Vanilla potions. (and III-level/Very Long for vanilla bases)
 	public static FluidStack fluidAwkward, fluidVision, fluidVisionLong, fluidVisionVeryLong, fluidInvisible,
 			fluidInvisibleLong, fluidInvisibleVeryLong, fluidWeakness, fluidWeaknessLong, fluidWeaknessVeryLong,
 			fluidFireResist, fluidFireResistLong, fluidFireResistVeryLong, fluidSlowness, fluidSlownessLong,
@@ -41,20 +44,19 @@ public class PotionPlugin implements IPlugin {
 			fluidHungerIII, fluidHungerLong, fluidHungerVeryLong, fluidHealthBoost, fluidHealthBoostII,
 			fluidHealthBoostIII, fluidHealthBoostLong, fluidHealthBoostVeryLong, fluidAbsorption, fluidAbsorptionII,
 			fluidAbsorptionIII, fluidAbsorptionLong, fluidAbsorptionVeryLong, fluidSaturation, fluidSaturationII,
-			fluidSaturationIII, fluidSaturationLong, fluidSaturationVeryLong, fluidWither, fluidWitherII,
-			fluidWitherIII, fluidWitherLong, fluidWitherVeryLong, fluidHarm, fluidHarmII, fluidHarmIII, fluidHeal,
-			fluidHealII, fluidHealIII, fluidWaterBreathe, fluidWaterBreatheLong, fluidWaterBreatheVeryLong,
-			fluidNausea, fluidNauseaLong, fluidNauseaVeryLong, fluidBlindness, fluidBlindnessLong,
-			fluidBlindnessVeryLong;
+			fluidSaturationIII, fluidWither, fluidWitherII, fluidWitherIII, fluidWitherLong, fluidWitherVeryLong,
+			fluidHarm, fluidHarmII, fluidHarmIII, fluidHeal, fluidHealII, fluidHealIII, fluidWaterBreathe,
+			fluidWaterBreatheLong, fluidWaterBreatheVeryLong, fluidNausea, fluidNauseaLong, fluidNauseaVeryLong,
+			fluidBlindness, fluidBlindnessLong, fluidBlindnessVeryLong;
 
 	//Brewcraft potions.
-	public static FluidStack fluidFireImmunity, fluidFireImmunityII, fluidHolyWater, fluidHolyWaterII,
-			fluidHolyWaterIII, fluidHolyWaterLong, fluidHolyWaterVeryLong, fluidAntidote, fluidAntidoteII,
-			fluidAntidoteIII, fluidAntidoteIIII, fluidAntidoteLong, fluidAntidoteVeryLong, fluidFlight,
-			fluidFlightLong, fluidFlightVeryLong, fluidCryo, fluidCryoLong, fluidCryoVeryLong, fluidBoom, fluidBoomII,
-			fluidBoomIII, fluidBoomLong, fluidBoomVeryLong, fluidEternalFlame, fluidEternalFlameLong,
-			fluidEternalFlameVeryLong, fluidFireEater, fluidFireEaterII, fluidFireEaterIII, fluidFireEaterLong,
-			fluidFireEaterVeryLong;
+	public static FluidStack fluidFireImmunity, fluidFireImmunityLong, fluidFireImmunityVeryLong, fluidFireImmunityII,
+			fluidFireImmunityIII, fluidFireImmunityIIII, fluidHolyWater, fluidHolyWaterII, fluidHolyWaterIII,
+			fluidHolyWaterLong, fluidHolyWaterVeryLong, fluidAntidote, fluidAntidoteII, fluidAntidoteIII,
+			fluidAntidoteIIII, fluidAntidoteLong, fluidAntidoteVeryLong, fluidFlight, fluidFlightLong,
+			fluidFlightVeryLong, fluidCryo, fluidCryoLong, fluidCryoVeryLong, fluidBoom, fluidBoomII, fluidBoomIII,
+			fluidBoomLong, fluidBoomVeryLong, fluidEternalFlame, fluidEternalFlameLong, fluidEternalFlameVeryLong,
+			fluidFireEater, fluidFireEaterII, fluidFireEaterIII, fluidFireEaterLong, fluidFireEaterVeryLong;
 
 	@Override
 	public String getName() {
@@ -73,11 +75,27 @@ public class PotionPlugin implements IPlugin {
 
 	@Override
 	public void preInit(ModUtils mod) {
-		potions = new MetaItemPotion("RedGear.Brewcraft.Potions");
+		potions = new MetaItemPotion("RedGear.Brewcraft.Potions", "potion_bottle_drinkable", "potion_overlay",
+				"potion_bottle_splash");
+		vials = new MetaItemPotion("RedGear.Brewcraft.Vials", "redgear_brewcraft:vial",
+				"redgear_brewcraft:vialoverlay", "redgear_brewcraft:vialsplash");
+		big = new MetaItemPotion("RedGear.Brewcraft.BigPotions", "redgear_brewcraft:bigbottle",
+				"redgear_brewcraft:bigoverlay", "redgear_brewcraft:bigsplash");
+
+		potions.setEmptyItems(new ItemStack(Items.glass_bottle, 1, 0), new ItemStack(Items.potionitem, 1, 0));
+		potions.setCreativeTab(Brewcraft.tabPotions);
+		vials.setEmptyItems(ItemPlugin.emptyVial.getStack(), ItemPlugin.splashVial.getStack());
+		vials.setFluidCapacity(250);
+		vials.setCreativeTab(Brewcraft.tabVials);
+		big.setEmptyItems(ItemPlugin.emptyBigBottle.getStack(), ItemPlugin.splashBigBottle.getStack());
+		big.setFluidCapacity(2000);
+		big.setCreativeTab(Brewcraft.tabBig);
 	}
 
 	@Override
 	public void Init(ModUtils mod) {
+
+		//Vanilla potions. (and III-level/Very Long for vanilla bases)
 		fluidAwkward = createVanillaPotion("Awkward", 16, 0, 0, 0);
 		fluidVision = createVanillaPotion("Vision", 8230, 16422, 180, 0);
 		fluidVisionLong = createVanillaPotion("VisionLong", 8262, 16454, 480, 0);
@@ -107,123 +125,370 @@ public class PotionPlugin implements IPlugin {
 		fluidHealII = createVanillaPotion("HealII", 8229, 16421, 0, 1);
 		fluidWaterBreathe = createVanillaPotion("WaterBreathe", 8237, 16429, 180, 0);
 		fluidWaterBreatheLong = createVanillaPotion("WaterBreatheLong", 8269, 16461, 480, 0);
+		fluidHaste = potionRegistry.addPotion(null, "Haste", Potion.digSpeed, 90, 0, true);
+		fluidHasteII = potionRegistry.addPotion(null, "HasteII", Potion.digSpeed, 45, 1, true);
+		fluidHasteIII = potionRegistry.addPotion(null, "HasteIII", Potion.digSpeed, 25, 2, true);
+		fluidHasteLong = potionRegistry.addPotion(null, "HasteLong", Potion.digSpeed, 180, 0, true);
+		fluidHasteVeryLong = potionRegistry.addPotion(null, "HasteVeryLong", Potion.digSpeed, 360, 0, true);
+		fluidFatigue = potionRegistry.addPotion(null, "Fatigue", Potion.digSlowdown, 90, 0, true);
+		fluidFatigueII = potionRegistry.addPotion(null, "FatigueII", Potion.digSlowdown, 45, 1, true);
+		fluidFatigueIII = potionRegistry.addPotion(null, "FatigueIII", Potion.digSlowdown, 25, 2, true);
+		fluidFatigueLong = potionRegistry.addPotion(null, "FatigueLong", Potion.digSlowdown, 180, 0, true);
+		fluidFatigueVeryLong = potionRegistry.addPotion(null, "FatigueVeryLong", Potion.digSlowdown, 360, 0, true);
+		fluidJump = potionRegistry.addPotion(null, "Jump", Potion.jump, 60, 0, true);
+		fluidJumpII = potionRegistry.addPotion(null, "JumpII", Potion.jump, 30, 1, true);
+		fluidJumpIII = potionRegistry.addPotion(null, "JumpIII", Potion.jump, 15, 2, true);
+		fluidJumpLong = potionRegistry.addPotion(null, "JumpLong", Potion.jump, 120, 0, true);
+		fluidJumpVeryLong = potionRegistry.addPotion(null, "JumpVeryLong", Potion.jump, 240, 0, true);
+		fluidNausea = potionRegistry.addPotion(null, "Nausea", Potion.confusion, 30, 0);
+		fluidNauseaLong = potionRegistry.addPotion(null, "NauseaLong", Potion.confusion, 60, 0);
+		fluidNauseaVeryLong = potionRegistry.addPotion(null, "NauseaVeryLong", Potion.confusion, 120, 0);
+		fluidResistance = potionRegistry.addPotion(null, "Resistance", Potion.resistance, 90, 0, true);
+		fluidResistanceII = potionRegistry.addPotion(null, "ResistanceII", Potion.resistance, 45, 1, true);
+		fluidResistanceIII = potionRegistry.addPotion(null, "ResistanceIII", Potion.resistance, 20, 2, true);
+		fluidResistanceLong = potionRegistry.addPotion(null, "ResistanceLong", Potion.resistance, 180, 0, true);
+		fluidResistanceVeryLong = potionRegistry.addPotion(null, "ResistanceVeryLong", Potion.resistance, 360, 0, true);
+		fluidBlindness = potionRegistry.addPotion(null, "Blindness", Potion.blindness, 30, 0);
+		fluidBlindnessLong = potionRegistry.addPotion(null, "BlindnessLong", Potion.blindness, 60, 0);
+		fluidBlindnessVeryLong = potionRegistry.addPotion(null, "BlindnessVeryLong", Potion.blindness, 120, 0);
+		fluidHunger = potionRegistry.addPotion(null, "Hunger", Potion.hunger, 60, 0);
+		fluidHungerII = potionRegistry.addPotion(null, "HungerII", Potion.hunger, 30, 1);
+		fluidHungerIII = potionRegistry.addPotion(null, "HungerIII", Potion.hunger, 15, 2);
+		fluidHungerLong = potionRegistry.addPotion(null, "HungerLong", Potion.hunger, 120, 0);
+		fluidHungerVeryLong = potionRegistry.addPotion(null, "HungerVeryLong", Potion.hunger, 240, 0);
+		fluidHealthBoost = potionRegistry.addPotion(null, "HealthBoost", Potion.field_76434_w, 120, 0, true);
+		fluidHealthBoostII = potionRegistry.addPotion(null, "HealthBoostII", Potion.field_76434_w, 60, 1, true);
+		fluidHealthBoostIII = potionRegistry.addPotion(null, "HealthBoostIII", Potion.field_76434_w, 30, 2, true);
+		fluidHealthBoostLong = potionRegistry.addPotion(null, "HealthBoostLong", Potion.field_76434_w, 240, 0, true);
+		fluidHealthBoostVeryLong = potionRegistry.addPotion(null, "HealthBoostVeryLong", Potion.field_76434_w, 480, 0, true);
+		fluidAbsorption = potionRegistry.addPotion(null, "Absorption", Potion.field_76444_x, 60, 0);
+		fluidAbsorptionII = potionRegistry.addPotion(null, "AbsorptionII", Potion.field_76444_x, 30, 1);
+		fluidAbsorptionIII = potionRegistry.addPotion(null, "AbsorptionIII", Potion.field_76444_x, 15, 2);
+		fluidAbsorptionLong = potionRegistry.addPotion(null, "AbsorptionLong", Potion.field_76444_x, 120, 0);
+		fluidAbsorptionVeryLong = potionRegistry.addPotion(null, "AbsorptionVeryLong", Potion.field_76444_x, 240, 0);
+		fluidSaturation = potionRegistry.addPotion(null, "Saturation", Potion.field_76443_y, 1, 0);
+		fluidSaturationII = potionRegistry.addPotion(null, "SaturationII", Potion.field_76443_y, 1, 1);
+		fluidSaturationIII = potionRegistry.addPotion(null, "SaturationIII", Potion.field_76443_y, 1, 2);
+		fluidWither = potionRegistry.addPotion(null, "Wither", Potion.wither, 20, 0);
+		fluidWitherII = potionRegistry.addPotion(null, "WitherII", Potion.wither, 10, 1);
+		fluidWitherIII = potionRegistry.addPotion(null, "WitherIII", EffectPlugin.wither, 5, 2);
+		fluidWitherLong = potionRegistry.addPotion(null, "WitherLong", Potion.wither, 40, 0);
+		fluidWitherVeryLong = potionRegistry.addPotion(null, "WitherVeryLong", Potion.wither, 80, 0);
+		fluidRegenIII = potionRegistry.addPotion(null, "RegenIII", EffectPlugin.regeneration, 8, 2);
+		fluidRegenVeryLong = potionRegistry.addPotion(null, "RegenVeryLong", Potion.regeneration, 180, 0);
+		fluidFastIII = potionRegistry.addPotion(null, "FastIII", Potion.moveSpeed, 8, 2, true);
+		fluidFastVeryLong = potionRegistry.addPotion(null, "FastVeryLong", Potion.moveSpeed, 960, 0);
+		fluidStrengthIII = potionRegistry.addPotion(null, "StrengthIII", Potion.damageBoost, 40, 2, true);
+		fluidStrengthVeryLong = potionRegistry.addPotion(null, "StrengthVeryLong", Potion.damageBoost, 960, 0);
+		fluidFireResistVeryLong = potionRegistry.addPotion(null, "FireResistVeryLong", Potion.fireResistance, 960, 0);
+		fluidPoisonIII = potionRegistry.addPotion(null, "PoisonIII", EffectPlugin.poison, 8, 2);
+		fluidPoisonVeryLong = potionRegistry.addPotion(null, "PoisonVeryLong", Potion.poison, 240, 0);
+		fluidHarmIII = potionRegistry.addPotion(null, "HarmIII", Potion.harm, 1, 2);
+		fluidHealIII = potionRegistry.addPotion(null, "HealIII", Potion.heal, 1, 2);
+		fluidVisionVeryLong = potionRegistry.addPotion(null, "VisionVeryLong", Potion.nightVision, 960, 0);
+		fluidWeaknessVeryLong = potionRegistry.addPotion(null, "WeaknessVeryLong", Potion.weakness, 480, 0, true);
+		fluidSlownessVeryLong = potionRegistry.addPotion(null, "SlownessVeryLong", Potion.moveSlowdown, 480, 0, true);
+		fluidWaterBreatheVeryLong = potionRegistry.addPotion(null, "WaterBreatheVeryLong", Potion.waterBreathing, 960, 0);
 
-		fluidHaste = potionRegistry.addPotion("Haste", Potion.digSpeed, 90, 0, true);
-		fluidHasteII = potionRegistry.addPotion("HasteII", Potion.digSpeed, 45, 1, true);
-		fluidHasteIII = potionRegistry.addPotion("HasteIII", Potion.digSpeed, 25, 2, true);
-		fluidHasteLong = potionRegistry.addPotion("HasteLong", Potion.digSpeed, 180, 0, true);
-		fluidHasteVeryLong = potionRegistry.addPotion("HasteVeryLong", Potion.digSpeed, 360, 0, true);
-		fluidFatigue = potionRegistry.addPotion("Fatigue", Potion.digSlowdown, 90, 0, true);
-		fluidFatigueII = potionRegistry.addPotion("FatigueII", Potion.digSlowdown, 45, 1, true);
-		fluidFatigueIII = potionRegistry.addPotion("FatigueIII", Potion.digSlowdown, 25, 2, true);
-		fluidFatigueLong = potionRegistry.addPotion("FatigueLong", Potion.digSlowdown, 180, 0, true);
-		fluidFatigueVeryLong = potionRegistry.addPotion("FatigueVeryLong", Potion.digSlowdown, 360, 0, true);
-		fluidJump = potionRegistry.addPotion("Jump", Potion.jump, 60, 0, true);
-		fluidJumpII = potionRegistry.addPotion("JumpII", Potion.jump, 30, 1, true);
-		fluidJumpIII = potionRegistry.addPotion("JumpIII", Potion.jump, 15, 2, true);
-		fluidJumpLong = potionRegistry.addPotion("JumpLong", Potion.jump, 120, 0, true);
-		fluidJumpVeryLong = potionRegistry.addPotion("JumpVeryLong", Potion.jump, 240, 0, true);
-		fluidNausea = potionRegistry.addPotion("Nausea", Potion.confusion, 30, 0);
-		fluidNauseaLong = potionRegistry.addPotion("NauseaLong", Potion.confusion, 60, 0);
-		fluidNauseaVeryLong = potionRegistry.addPotion("NauseaVeryLong", Potion.confusion, 120, 0);
-		fluidResistance = potionRegistry.addPotion("Resistance", Potion.resistance, 90, 0, true);
-		fluidResistanceII = potionRegistry.addPotion("ResistanceII", Potion.resistance, 45, 1, true);
-		fluidResistanceIII = potionRegistry.addPotion("ResistanceIII", Potion.resistance, 20, 2, true);
-		fluidResistanceLong = potionRegistry.addPotion("ResistanceLong", Potion.resistance, 180, 0, true);
-		fluidResistanceVeryLong = potionRegistry.addPotion("ResistanceVeryLong", Potion.resistance, 360, 0, true);
-		fluidBlindness = potionRegistry.addPotion("Blindness", Potion.blindness, 30, 0);
-		fluidBlindnessLong = potionRegistry.addPotion("BlindnessLong", Potion.blindness, 60, 0);
-		fluidBlindnessVeryLong = potionRegistry.addPotion("BlindnessVeryLong", Potion.blindness, 120, 0);
-		fluidHunger = potionRegistry.addPotion("Hunger", Potion.hunger, 60, 0);
-		fluidHungerII = potionRegistry.addPotion("HungerII", Potion.hunger, 30, 1);
-		fluidHungerIII = potionRegistry.addPotion("HungerIII", Potion.hunger, 15, 2);
-		fluidHungerLong = potionRegistry.addPotion("HungerLong", Potion.hunger, 120, 0);
-		fluidHungerVeryLong = potionRegistry.addPotion("HungerVeryLong", Potion.hunger, 240, 0);
-		fluidHealthBoost = potionRegistry.addPotion("HealthBoost", Potion.field_76434_w, 120, 0, true);
-		fluidHealthBoostII = potionRegistry.addPotion("HealthBoostII", Potion.field_76434_w, 60, 1, true);
-		fluidHealthBoostIII = potionRegistry.addPotion("HealthBoostIII", Potion.field_76434_w, 30, 2, true);
-		fluidHealthBoostLong = potionRegistry.addPotion("HealthBoostLong", Potion.field_76434_w, 240, 0, true);
-		fluidHealthBoostVeryLong = potionRegistry.addPotion("HealthBoostVeryLong", Potion.field_76434_w, 480, 0, true);
-		fluidAbsorption = potionRegistry.addPotion("Absorption", Potion.field_76444_x, 60, 0);
-		fluidAbsorptionII = potionRegistry.addPotion("AbsorptionII", Potion.field_76444_x, 30, 1);
-		fluidAbsorptionIII = potionRegistry.addPotion("AbsorptionIII", Potion.field_76444_x, 15, 2);
-		fluidAbsorptionLong = potionRegistry.addPotion("AbsorptionLong", Potion.field_76444_x, 120, 0);
-		fluidAbsorptionVeryLong = potionRegistry.addPotion("AbsorptionVeryLong", Potion.field_76444_x, 240, 0);
-		fluidSaturation = potionRegistry.addPotion("Saturation", Potion.field_76443_y, 1, 0);
-		fluidSaturationII = potionRegistry.addPotion("SaturationII", Potion.field_76443_y, 1, 1);
-		fluidSaturationIII = potionRegistry.addPotion("SaturationIII", Potion.field_76443_y, 1, 2);
-		fluidSaturationLong = potionRegistry.addPotion("SaturationLong", Potion.field_76443_y, 1, 0);
-		fluidSaturationVeryLong = potionRegistry.addPotion("SaturationVeryLong", Potion.field_76443_y, 1, 0);
-		fluidWither = potionRegistry.addPotion("Wither", Potion.wither, 20, 0);
-		fluidWitherII = potionRegistry.addPotion("WitherII", Potion.wither, 10, 1);
-		fluidWitherIII = potionRegistry.addPotion("WitherIII", Potion.wither, 5, 2);
-		fluidWitherLong = potionRegistry.addPotion("WitherLong", Potion.wither, 40, 0);
-		fluidWitherVeryLong = potionRegistry.addPotion("WitherVeryLong", Potion.wither, 80, 0);
+		//Brewcraft potions.
+		fluidHolyWater = potionRegistry.addPotion(null, "HolyWater", EffectPlugin.angel, 10, 0, true);
+		fluidHolyWaterII = potionRegistry.addPotion(null, "HolyWaterII", EffectPlugin.angel, 5, 1, true);
+		fluidHolyWaterLong = potionRegistry.addPotion(null, "HolyWaterLong", EffectPlugin.angel, 20, 0, true);
+		fluidHolyWaterVeryLong = potionRegistry.addPotion(null, "HolyWaterVeryLong", EffectPlugin.angel, 40, 0, true);
+		fluidHolyWaterIII = potionRegistry.addPotion(null, "HolyWaterIII", EffectPlugin.angel, 3, 2, true);
+		fluidFlight = potionRegistry.addPotion(null, "Flight", EffectPlugin.flight, 15, 0);
+		fluidFlightLong = potionRegistry.addPotion(null, "FlightLong", EffectPlugin.flight, 30, 0);
+		fluidFlightVeryLong = potionRegistry.addPotion(null, "FlightVeryLong", EffectPlugin.flight, 60, 0);
+		fluidAntidote = potionRegistry.addPotion(null, "Antidote", EffectPlugin.immunity, 60, 0, true);
+		fluidAntidoteII = potionRegistry.addPotion(null, "AntidoteII", EffectPlugin.immunity, 45, 1, true);
+		fluidAntidoteIII = potionRegistry.addPotion(null, "AntidoteIII", EffectPlugin.immunity, 30, 2, true);
+		//fluidAntidoteIIII = potionRegistry.addPotion(null, "AntidoteIIII", EffectPlugin.immunity, 20, 3, true);
+		fluidAntidoteLong = potionRegistry.addPotion(null, "AntidoteLong", EffectPlugin.immunity, 120, 0, true);
+		fluidAntidoteVeryLong = potionRegistry.addPotion(null, "AntidoteVeryLong", EffectPlugin.immunity, 240, 0, true);
+		fluidBoom = potionRegistry.addPotion(null, "Boom", EffectPlugin.creeper, 8, 0, true);
+		fluidBoomII = potionRegistry.addPotion(null, "BoomII", EffectPlugin.creeper, 4, 1, true);
+		fluidBoomIII = potionRegistry.addPotion(null, "BoomIII", EffectPlugin.creeper, 4, 2, true);
+		fluidBoomLong = potionRegistry.addPotion(null, "BoomLong", EffectPlugin.creeper, 16, 0, true);
+		fluidBoomVeryLong = potionRegistry.addPotion(null, "BoomVeryLong", EffectPlugin.creeper, 32, 0, true);
+		fluidCryo = potionRegistry.addPotion(null, "Cryo", EffectPlugin.frozen, 8, 0, true);
+		fluidCryoLong = potionRegistry.addPotion(null, "CryoLong", EffectPlugin.frozen, 16, 0, true);
+		fluidCryoVeryLong = potionRegistry.addPotion(null, "CryoVeryLong", EffectPlugin.frozen, 30, 0, true);
+		fluidEternalFlame = potionRegistry.addPotion(null, "EternalFlame", EffectPlugin.flame, 30, 0);
+		fluidEternalFlameLong = potionRegistry.addPotion(null, "EternalFlameLong", EffectPlugin.flame, 60, 0);
+		fluidEternalFlameVeryLong = potionRegistry.addPotion(null, "EternalFlameVeryLong", EffectPlugin.flame, 120, 0);
+		fluidFireImmunity = potionRegistry.addPotion(null, "FireImmunity", EffectPlugin.fireproof, 35, 0, true);
+		fluidFireImmunityLong = potionRegistry.addPotion(null, "FireImmunityLong", EffectPlugin.fireproof, 70, 0, true);
+		fluidFireImmunityVeryLong = potionRegistry.addPotion(null, "FireImmunityVeryLong", EffectPlugin.fireproof, 140, 0, true);
+		fluidFireImmunityII = potionRegistry.addPotion(null, "FireImmunityII", EffectPlugin.fireproof, 15, 1, true);
+		fluidFireImmunityIII = potionRegistry.addPotion(null, "FireImmunityIII", EffectPlugin.fireproof, 10, 2, true);
+		fluidFireImmunityIIII = potionRegistry.addPotion(null, "FireImmunityIIII", EffectPlugin.fireproof, 5, 3, true);
+		fluidFireEater = potionRegistry.addPotion(null, "FireEater", EffectPlugin.fireEater, 45, 0, true);
+		fluidFireEaterII = potionRegistry.addPotion(null, "FireEaterII", EffectPlugin.fireEater, 30, 1, true);
+		fluidFireEaterIII = potionRegistry.addPotion(null, "FireEaterIII", EffectPlugin.fireEater, 15, 2, true);
+		fluidFireEaterLong = potionRegistry.addPotion(null, "FireEaterLong", EffectPlugin.fireEater, 90, 0, true);
+		fluidFireEaterVeryLong = potionRegistry.addPotion(null, "FireEaterVeryLong", EffectPlugin.fireEater, 180, 0, true);
 
-		fluidHolyWater = potionRegistry.addPotion("HolyWater", EffectPlugin.angel, 10, 0, true);
-		fluidHolyWaterII = potionRegistry.addPotion("HolyWaterII", EffectPlugin.angel, 5, 1, true);
-		fluidHolyWaterLong = potionRegistry.addPotion("HolyWaterLong", EffectPlugin.angel, 20, 0, true);
-		fluidHolyWaterVeryLong = potionRegistry.addPotion("HolyWaterVeryLong", EffectPlugin.angel, 40, 0, true);
-		fluidHolyWaterIII = potionRegistry.addPotion("HolyWaterIII", EffectPlugin.angel, 3, 2, true);
-		fluidFlight = potionRegistry.addPotion("Flight", EffectPlugin.flight, 15, 0);
-		fluidFlightLong = potionRegistry.addPotion("FlightLong", EffectPlugin.flight, 30, 0);
-		fluidFlightVeryLong = potionRegistry.addPotion("FlightVeryLong", EffectPlugin.flight, 60, 0);
-		fluidAntidote = potionRegistry.addPotion("Antidote", EffectPlugin.immunity, 60, 0, true);
-		fluidAntidoteII = potionRegistry.addPotion("AntidoteII", EffectPlugin.immunity, 45, 1, true);
-		fluidAntidoteIII = potionRegistry.addPotion("AntidoteIII", EffectPlugin.immunity, 30, 2, true);
-		fluidAntidoteIIII = potionRegistry.addPotion("AntidoteIIII", EffectPlugin.immunity, 20, 3, true);
-		fluidAntidoteLong = potionRegistry.addPotion("AntidoteLong", EffectPlugin.immunity, 120, 0, true);
-		fluidAntidoteVeryLong = potionRegistry.addPotion("AntidoteVeryLong", EffectPlugin.immunity, 240, 0, true);
-		fluidBoom = potionRegistry.addPotion("Boom", EffectPlugin.creeper, 8, 0, true);
-		fluidBoomII = potionRegistry.addPotion("BoomII", EffectPlugin.creeper, 4, 1, true);
-		fluidBoomIII = potionRegistry.addPotion("BoomIII", EffectPlugin.creeper, 4, 2, true);
-		fluidBoomLong = potionRegistry.addPotion("BoomLong", EffectPlugin.creeper, 16, 0, true);
-		fluidBoomVeryLong = potionRegistry.addPotion("BoomVeryLong", EffectPlugin.creeper, 32, 0, true);
-		fluidCryo = potionRegistry.addPotion("Cryo", EffectPlugin.frozen, 8, 0, true);
-		fluidCryoLong = potionRegistry.addPotion("CryoLong", EffectPlugin.frozen, 16, 0, true);
-		fluidCryoVeryLong = potionRegistry.addPotion("CryoVeryLong", EffectPlugin.frozen, 30, 0, true);
-		fluidEternalFlame = potionRegistry.addPotion("EternalFlame", EffectPlugin.flame, 30, 0);
-		fluidEternalFlameLong = potionRegistry.addPotion("EternalFlameLong", EffectPlugin.flame, 60, 0);
-		fluidEternalFlameVeryLong = potionRegistry.addPotion("EternalFlameVeryLong", EffectPlugin.flame, 120, 0);
-		fluidFireEater = potionRegistry.addPotion("FireEater", EffectPlugin.fireEater, 45, 0, true);
-		fluidFireEaterII = potionRegistry.addPotion("FireEaterII", EffectPlugin.fireEater, 30, 1, true);
-		fluidFireEaterIII = potionRegistry.addPotion("FireEaterIII", EffectPlugin.fireEater, 15, 2, true);
-		fluidFireEaterLong = potionRegistry.addPotion("FireEaterLong", EffectPlugin.fireEater, 90, 0, true);
-		fluidFireEaterVeryLong = potionRegistry.addPotion("FireEaterVeryLong", EffectPlugin.fireEater, 180, 0, true);
+		//Vials
+		//potionRegistry.addPotion(fluidAwkward, "Awkward", null, 0, 0, 250);
+		potionRegistry.addPotion(fluidVision, vials, "Vision", Potion.nightVision, 45, 0);
+		potionRegistry.addPotion(fluidVisionLong, vials, "VisionLong", Potion.nightVision, 90, 0);
+		potionRegistry.addPotion(fluidVisionVeryLong, vials, "VisionVeryLong", Potion.nightVision, 480, 0);
+		potionRegistry.addPotion(fluidInvisible, vials, "Invisible", Potion.invisibility, 45, 0);
+		potionRegistry.addPotion(fluidInvisibleLong, vials, "InvisibleLong", Potion.invisibility, 90, 0);
+		potionRegistry.addPotion(fluidRegen, vials, "Regen", Potion.regeneration, 15, 0);
+		potionRegistry.addPotion(fluidRegenII, vials, "RegenII", Potion.regeneration, 7, 1);
+		potionRegistry.addPotion(fluidRegenLong, vials, "RegenLong", Potion.regeneration, 45, 0);
+		potionRegistry.addPotion(fluidRegenIII, vials, "RegenIII", EffectPlugin.regeneration, 3, 2);
+		potionRegistry.addPotion(fluidRegenVeryLong, vials, "RegenVeryLong", Potion.regeneration, 90, 0);
+		potionRegistry.addPotion(fluidFast, vials, "Fast", Potion.moveSpeed, 20, 0, true);
+		potionRegistry.addPotion(fluidFastLong, vials, "FastLong", Potion.moveSpeed, 40, 0, true);
+		potionRegistry.addPotion(fluidFastII, vials, "FastII", Potion.moveSpeed, 10, 1, true);
+		potionRegistry.addPotion(fluidFastIII, vials, "FastIII", Potion.moveSpeed, 3, 2, true);
+		potionRegistry.addPotion(fluidFastVeryLong, vials, "FastVeryLong", Potion.moveSpeed, 480, 0);
+		potionRegistry.addPotion(fluidWeakness, vials, "Weakness", Potion.weakness, 20, 0, true);
+		potionRegistry.addPotion(fluidWeaknessLong, vials, "WeaknessLong", Potion.weakness, 40, 0, true);
+		potionRegistry.addPotion(fluidWeaknessVeryLong, vials, "WeaknessVeryLong", Potion.weakness, 240, 0, true);
+		potionRegistry.addPotion(fluidStrength, vials, "Strength", Potion.damageBoost, 45, 0, true);
+		potionRegistry.addPotion(fluidStrengthLong, vials, "StrengthLong", Potion.damageBoost, 90, 0, true);
+		potionRegistry.addPotion(fluidStrengthII, vials, "StrengthII", Potion.damageBoost, 20, 1, true);
+		potionRegistry.addPotion(fluidStrengthIII, vials, "StrengthIII", Potion.damageBoost, 10, 2, true);
+		potionRegistry.addPotion(fluidStrengthVeryLong, vials, "StrengthVeryLong", Potion.damageBoost, 480, 0);
+		potionRegistry.addPotion(fluidFireResist, vials, "FireResist", Potion.fireResistance, 45, 0);
+		potionRegistry.addPotion(fluidFireResistLong, vials, "FireResistLong", Potion.fireResistance, 90, 0);
+		potionRegistry.addPotion(fluidFireResistVeryLong, vials, "FireResistVeryLong", Potion.fireResistance, 480, 0);
+		potionRegistry.addPotion(fluidSlowness, vials, "Slowness", Potion.moveSlowdown, 23, 0, true);
+		potionRegistry.addPotion(fluidSlownessLong, vials, "SlownessLong", Potion.moveSlowdown, 45, 0, true);
+		potionRegistry.addPotion(fluidSlownessVeryLong, vials, "SlownessVeryLong", Potion.moveSlowdown, 240, 0, true);
+		potionRegistry.addPotion(fluidPoison, vials, "Poison", Potion.poison, 7, 0);
+		potionRegistry.addPotion(fluidPoisonII, vials, "PoisonII", Potion.poison, 4, 1);
+		potionRegistry.addPotion(fluidPoisonLong, vials, "PoisonLong", Potion.poison, 15, 0);
+		potionRegistry.addPotion(fluidPoisonIII, vials, "PoisonIII", EffectPlugin.poison, 3, 2);
+		potionRegistry.addPotion(fluidPoisonVeryLong, vials, "PoisonVeryLong", Potion.poison, 120, 0);
+		potionRegistry.addPotion(fluidHarm, vials, "Harm", Potion.harm, 1, 0);
+		potionRegistry.addPotion(fluidHarmII, vials, "HarmII", Potion.harm, 1, 1);
+		potionRegistry.addPotion(fluidHarmIII, vials, "HarmIII", Potion.harm, 1, 2);
+		potionRegistry.addPotion(fluidHeal, vials, "Heal", Potion.heal, 1, 0);
+		potionRegistry.addPotion(fluidHealII, vials, "HealII", Potion.heal, 1, 1);
+		potionRegistry.addPotion(fluidHealIII, vials, "HealIII", Potion.heal, 1, 2);
+		potionRegistry.addPotion(fluidWaterBreathe, vials, "WaterBreathe", Potion.waterBreathing, 45, 0);
+		potionRegistry.addPotion(fluidWaterBreatheLong, vials, "WaterBreatheLong", Potion.waterBreathing, 120, 0);
+		potionRegistry.addPotion(fluidWaterBreatheVeryLong, vials, "WaterBreatheVeryLong", Potion.waterBreathing, 480, 0);
+		potionRegistry.addPotion(fluidHaste, vials, "Haste", Potion.digSpeed, 25, 0, true);
+		potionRegistry.addPotion(fluidHasteII, vials, "HasteII", Potion.digSpeed, 15, 1, true);
+		potionRegistry.addPotion(fluidHasteIII, vials, "HasteIII", Potion.digSpeed, 5, 2, true);
+		potionRegistry.addPotion(fluidHasteLong, vials, "HasteLong", Potion.digSpeed, 90, 0, true);
+		potionRegistry.addPotion(fluidHasteVeryLong, vials, "HasteVeryLong", Potion.digSpeed, 180, 0, true);
+		potionRegistry.addPotion(fluidFatigue, vials, "Fatigue", Potion.digSlowdown, 25, 0, true);
+		potionRegistry.addPotion(fluidFatigueII, vials, "FatigueII", Potion.digSlowdown, 14, 1, true);
+		potionRegistry.addPotion(fluidFatigueIII, vials, "FatigueIII", Potion.digSlowdown, 5, 2, true);
+		potionRegistry.addPotion(fluidFatigueLong, vials, "FatigueLong", Potion.digSlowdown, 90, 0, true);
+		potionRegistry.addPotion(fluidFatigueVeryLong, vials, "FatigueVeryLong", Potion.digSlowdown, 180, 0, true);
+		potionRegistry.addPotion(fluidJump, vials, "Jump", Potion.jump, 15, 0, true);
+		potionRegistry.addPotion(fluidJumpII, vials, "JumpII", Potion.jump, 10, 1, true);
+		potionRegistry.addPotion(fluidJumpIII, vials, "JumpIII", Potion.jump, 5, 2, true);
+		potionRegistry.addPotion(fluidJumpLong, vials, "JumpLong", Potion.jump, 60, 0, true);
+		potionRegistry.addPotion(fluidJumpVeryLong, vials, "JumpVeryLong", Potion.jump, 120, 0, true);
+		potionRegistry.addPotion(fluidNausea, vials, "Nausea", Potion.confusion, 10, 0);
+		potionRegistry.addPotion(fluidNauseaLong, vials, "NauseaLong", Potion.confusion, 30, 0);
+		potionRegistry.addPotion(fluidNauseaVeryLong, vials, "NauseaVeryLong", Potion.confusion, 60, 0);
+		potionRegistry.addPotion(fluidResistance, vials, "Resistance", Potion.resistance, 25, 0, true);
+		potionRegistry.addPotion(fluidResistanceII, vials, "ResistanceII", Potion.resistance, 15, 1, true);
+		potionRegistry.addPotion(fluidResistanceIII, vials, "ResistanceIII", Potion.resistance, 5, 2, true);
+		potionRegistry.addPotion(fluidResistanceLong, vials, "ResistanceLong", Potion.resistance, 90, 0, true);
+		potionRegistry.addPotion(fluidResistanceVeryLong, vials, "ResistanceVeryLong", Potion.resistance, 180, 0, true);
+		potionRegistry.addPotion(fluidBlindness, vials, "Blindness", Potion.blindness, 10, 0);
+		potionRegistry.addPotion(fluidBlindnessLong, vials, "BlindnessLong", Potion.blindness, 30, 0);
+		potionRegistry.addPotion(fluidBlindnessVeryLong, vials, "BlindnessVeryLong", Potion.blindness, 60, 0);
+		potionRegistry.addPotion(fluidHunger, vials, "Hunger", Potion.hunger, 15, 0);
+		potionRegistry.addPotion(fluidHungerII, vials, "HungerII", Potion.hunger, 10, 1);
+		potionRegistry.addPotion(fluidHungerIII, vials, "HungerIII", Potion.hunger, 5, 2);
+		potionRegistry.addPotion(fluidHungerLong, vials, "HungerLong", Potion.hunger, 60, 0);
+		potionRegistry.addPotion(fluidHungerVeryLong, vials, "HungerVeryLong", Potion.hunger, 120, 0);
+		potionRegistry.addPotion(fluidHealthBoost, vials, "HealthBoost", Potion.field_76434_w, 30, 0, true);
+		potionRegistry.addPotion(fluidHealthBoostII, vials, "HealthBoostII", Potion.field_76434_w, 15, 1, true);
+		potionRegistry.addPotion(fluidHealthBoostIII, vials, "HealthBoostIII", Potion.field_76434_w, 10, 2, true);
+		potionRegistry.addPotion(fluidHealthBoostLong, vials, "HealthBoostLong", Potion.field_76434_w, 120, 0, true);
+		potionRegistry.addPotion(fluidHealthBoostVeryLong, vials, "HealthBoostVeryLong", Potion.field_76434_w, 240, 0, true);
+		potionRegistry.addPotion(fluidAbsorption, vials, "Absorption", Potion.field_76444_x, 15, 0);
+		potionRegistry.addPotion(fluidAbsorptionII, vials, "AbsorptionII", Potion.field_76444_x, 10, 1);
+		potionRegistry.addPotion(fluidAbsorptionIII, vials, "AbsorptionIII", Potion.field_76444_x, 5, 2);
+		potionRegistry.addPotion(fluidAbsorptionLong, vials, "AbsorptionLong", Potion.field_76444_x, 60, 0);
+		potionRegistry.addPotion(fluidAbsorptionVeryLong, vials, "AbsorptionVeryLong", Potion.field_76444_x, 120, 0);
+		potionRegistry.addPotion(fluidSaturation, vials, "Saturation", Potion.field_76443_y, 1, 0);
+		potionRegistry.addPotion(fluidSaturationII, vials, "SaturationII", Potion.field_76443_y, 1, 1);
+		potionRegistry.addPotion(fluidSaturationIII, vials, "SaturationIII", Potion.field_76443_y, 1, 2);
+		potionRegistry.addPotion(fluidWither, vials, "Wither", Potion.wither, 5, 0);
+		potionRegistry.addPotion(fluidWitherII, vials, "WitherII", Potion.wither, 3, 1);
+		potionRegistry.addPotion(fluidWitherIII, vials, "WitherIII", EffectPlugin.wither, 3, 2);
+		potionRegistry.addPotion(fluidWitherLong, vials, "WitherLong", Potion.wither, 20, 0);
+		potionRegistry.addPotion(fluidWitherVeryLong, vials, "WitherVeryLong", Potion.wither, 40, 0);
+		potionRegistry.addPotion(fluidHolyWater, vials, "HolyWater", EffectPlugin.angel, 5, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterII, vials, "HolyWaterII", EffectPlugin.angel, 5, 1, true);
+		potionRegistry.addPotion(fluidHolyWaterLong, vials, "HolyWaterLong", EffectPlugin.angel, 10, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterVeryLong, vials, "HolyWaterVeryLong", EffectPlugin.angel, 20, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterIII, vials, "HolyWaterIII", EffectPlugin.angel, 3, 2, true);
+		potionRegistry.addPotion(fluidFlight, vials, "Flight", EffectPlugin.flight, 5, 0);
+		potionRegistry.addPotion(fluidFlightLong, vials, "FlightLong", EffectPlugin.flight, 20, 0);
+		potionRegistry.addPotion(fluidFlightVeryLong, vials, "FlightVeryLong", EffectPlugin.flight, 30, 0);
+		potionRegistry.addPotion(fluidAntidote, vials, "Antidote", EffectPlugin.immunity, 15, 0, true);
+		potionRegistry.addPotion(fluidAntidoteII, vials, "AntidoteII", EffectPlugin.immunity, 10, 1, true);
+		potionRegistry.addPotion(fluidAntidoteIII, vials, "AntidoteIII", EffectPlugin.immunity, 10, 2, true);
+		//potionRegistry.addPotion(fluidAntidoteIIII, vials, "AntidoteIIII", EffectPlugin.immunity, 5, 3, true);
+		potionRegistry.addPotion(fluidAntidoteLong, vials, "AntidoteLong", EffectPlugin.immunity, 60, 0, true);
+		potionRegistry.addPotion(fluidAntidoteVeryLong, vials, "AntidoteVeryLong", EffectPlugin.immunity, 120, 0, true);
+		potionRegistry.addPotion(fluidBoom, vials, "Boom", EffectPlugin.creeper, 4, 0, true);
+		potionRegistry.addPotion(fluidBoomII, vials, "BoomII", EffectPlugin.creeper, 4, 1, true);
+		potionRegistry.addPotion(fluidBoomIII, vials, "BoomIII", EffectPlugin.creeper, 4, 2, true);
+		potionRegistry.addPotion(fluidBoomLong, vials, "BoomLong", EffectPlugin.creeper, 8, 0, true);
+		potionRegistry.addPotion(fluidBoomVeryLong, vials, "BoomVeryLong", EffectPlugin.creeper, 16, 0, true);
+		potionRegistry.addPotion(fluidCryo, vials, "Cryo", EffectPlugin.frozen, 2, 0, true);
+		potionRegistry.addPotion(fluidCryoLong, vials, "CryoLong", EffectPlugin.frozen, 8, 0, true);
+		potionRegistry.addPotion(fluidCryoVeryLong, vials, "CryoVeryLong", EffectPlugin.frozen, 20, 0, true);
+		potionRegistry.addPotion(fluidEternalFlame, vials, "EternalFlame", EffectPlugin.flame, 10, 0);
+		potionRegistry.addPotion(fluidEternalFlameLong, vials, "EternalFlameLong", EffectPlugin.flame, 30, 0);
+		potionRegistry.addPotion(fluidEternalFlameVeryLong, vials, "EternalFlameVeryLong", EffectPlugin.flame, 60, 0);
+		potionRegistry.addPotion(fluidFireImmunity, vials, "FireImmunity", EffectPlugin.fireproof, 10, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityLong, vials, "FireImmunityLong", EffectPlugin.fireproof, 70, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityVeryLong, vials, "FireImmunityVeryLong", EffectPlugin.fireproof, 140, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityII, vials, "FireImmunityII", EffectPlugin.fireproof, 15, 1, true);
+		potionRegistry.addPotion(fluidFireImmunityIII, vials, "FireImmunityIII", EffectPlugin.fireproof, 10, 2, true);
+		potionRegistry.addPotion(fluidFireImmunityIIII, vials, "FireImmunityIIII", EffectPlugin.fireproof, 5, 3, true);
+		potionRegistry.addPotion(fluidFireEater, vials, "FireEater", EffectPlugin.fireEater, 15, 0, true);
+		potionRegistry.addPotion(fluidFireEaterII, vials, "FireEaterII", EffectPlugin.fireEater, 10, 1, true);
+		potionRegistry.addPotion(fluidFireEaterIII, vials, "FireEaterIII", EffectPlugin.fireEater, 5, 2, true);
+		potionRegistry.addPotion(fluidFireEaterLong, vials, "FireEaterLong", EffectPlugin.fireEater, 45, 0, true);
+		potionRegistry.addPotion(fluidFireEaterVeryLong, vials, "FireEaterVeryLong", EffectPlugin.fireEater, 90, 0,  true);
 
-		fluidRegenIII = potionRegistry.addPotion("RegenIII", Potion.regeneration, 8, 2);
-		fluidRegenVeryLong = potionRegistry.addPotion("RegenVeryLong", Potion.regeneration, 180, 0);
-		fluidFastIII = potionRegistry.addPotion("FastIII", Potion.moveSpeed, 8, 2, true);
-		fluidFastVeryLong = potionRegistry.addPotion("FastVeryLong", Potion.moveSpeed, 960, 0);
-		fluidStrengthIII = potionRegistry.addPotion("StrengthIII", Potion.damageBoost, 40, 2, true);
-		fluidStrengthVeryLong = potionRegistry.addPotion("StrengthVeryLong", Potion.damageBoost, 960, 0);
-		fluidFireImmunity = potionRegistry.addPotion("FireImmunity", EffectPlugin.fireproof, 35, 0, true);
-		fluidFireImmunityII = potionRegistry.addPotion("FireImmunityII", EffectPlugin.fireproof, 15, 1, true);
-		fluidFireResistVeryLong = potionRegistry.addPotion("FireResistVeryLong", Potion.fireResistance, 960, 0);
-		fluidPoisonIII = potionRegistry.addPotion("PoisonIII", Potion.poison, 8, 2);
-		fluidPoisonVeryLong = potionRegistry.addPotion("PoisonVeryLong", Potion.poison, 240, 0);
-		fluidHarmIII = potionRegistry.addPotion("HarmIII", Potion.harm, 1, 2);
-		fluidHealIII = potionRegistry.addPotion("HealIII", Potion.heal, 1, 2);
-		fluidVisionVeryLong = potionRegistry.addPotion("VisionVeryLong", Potion.nightVision, 960, 0);
-		fluidWeaknessVeryLong = potionRegistry.addPotion("WeaknessVeryLong", Potion.weakness, 480, 0, true);
-		fluidSlownessVeryLong = potionRegistry.addPotion("SlownessVeryLong", Potion.moveSlowdown, 480, 0, true);
-		fluidWaterBreatheVeryLong = potionRegistry.addPotion("WaterBreatheVeryLong", Potion.waterBreathing, 960, 0);
-
-		fluidRegenIII = potionRegistry.addPotion("RegenIII", Potion.regeneration, 8, 2);
-		fluidRegenVeryLong = potionRegistry.addPotion("RegenVeryLong", Potion.regeneration, 180, 0);
-		fluidFastIII = potionRegistry.addPotion("FastIII", Potion.moveSpeed, 8, 2, true);
-		fluidFastVeryLong = potionRegistry.addPotion("FastVeryLong", Potion.moveSpeed, 960, 0);
-		fluidStrengthIII = potionRegistry.addPotion("StrengthIII", Potion.damageBoost, 40, 2, true);
-		fluidStrengthVeryLong = potionRegistry.addPotion("StrengthVeryLong", Potion.damageBoost, 960, 0);
-		fluidFireResistVeryLong = potionRegistry.addPotion("FireResistVeryLong", Potion.fireResistance, 960, 0);
-		fluidPoisonIII = potionRegistry.addPotion("PoisonIII", Potion.poison, 8, 2);
-		fluidPoisonVeryLong = potionRegistry.addPotion("PoisonVeryLong", Potion.poison, 240, 0);
-		fluidHarmIII = potionRegistry.addPotion("HarmIII", Potion.harm, 1, 2);
-		fluidHealIII = potionRegistry.addPotion("HealIII", Potion.heal, 1, 2);
-		fluidVisionVeryLong = potionRegistry.addPotion("VisionVeryLong", Potion.nightVision, 960, 0);
-		fluidWeaknessVeryLong = potionRegistry.addPotion("WeaknessVeryLong", Potion.weakness, 480, 0, true);
-		fluidSlownessVeryLong = potionRegistry.addPotion("SlownessVeryLong", Potion.moveSlowdown, 480, 0, true);
-		fluidWaterBreatheVeryLong = potionRegistry.addPotion("WaterBreatheVeryLong", Potion.waterBreathing, 960, 0);
+		//Big Potions
+		//potionRegistry.addPotion(fluidAwkward, "Awkward", null, 0, 0);
+		potionRegistry.addPotion(fluidVision, big, "Vision", Potion.nightVision, 360, 0);
+		potionRegistry.addPotion(fluidVisionLong, big, "VisionLong", Potion.nightVision, 720, 0);
+		potionRegistry.addPotion(fluidVisionVeryLong, big, "VisionVeryLong", Potion.nightVision, 1440, 0);
+		potionRegistry.addPotion(fluidInvisible, big, "Invisible", Potion.invisibility, 360, 0);
+		potionRegistry.addPotion(fluidInvisibleLong, big, "InvisibleLong", Potion.invisibility, 720, 0);
+		potionRegistry.addPotion(fluidRegen, big, "Regen", Potion.regeneration, 90, 0);
+		potionRegistry.addPotion(fluidRegenII, big, "RegenII", Potion.regeneration, 45, 1);
+		potionRegistry.addPotion(fluidRegenLong, big, "RegenLong", Potion.regeneration, 180, 0);
+		potionRegistry.addPotion(fluidRegenIII, big, "RegenIII", EffectPlugin.regeneration, 23, 2);
+		potionRegistry.addPotion(fluidRegenVeryLong, big, "RegenVeryLong", Potion.regeneration, 360, 0);
+		potionRegistry.addPotion(fluidFast, big, "Fast", Potion.moveSpeed, 360, 0, true);
+		potionRegistry.addPotion(fluidFastLong, big, "FastLong", Potion.moveSpeed, 720, 0, true);
+		potionRegistry.addPotion(fluidFastII, big, "FastII", Potion.moveSpeed, 180, 1, true);
+		potionRegistry.addPotion(fluidFastIII, big, "FastIII", Potion.moveSpeed, 90, 2, true);
+		potionRegistry.addPotion(fluidFastVeryLong, big, "FastVeryLong", Potion.moveSpeed, 1440, 0);
+		potionRegistry.addPotion(fluidWeakness, big, "Weakness", Potion.weakness, 180, 0, true);
+		potionRegistry.addPotion(fluidWeaknessLong, big, "WeaknessLong", Potion.weakness, 360, 0, true);
+		potionRegistry.addPotion(fluidWeaknessVeryLong, big, "WeaknessVeryLong", Potion.weakness, 720, 0, true);
+		potionRegistry.addPotion(fluidStrength, big, "Strength", Potion.damageBoost, 360, 0, true);
+		potionRegistry.addPotion(fluidStrengthLong, big, "StrengthLong", Potion.damageBoost, 720, 0, true);
+		potionRegistry.addPotion(fluidStrengthII, big, "StrengthII", Potion.damageBoost, 180, 1, true);
+		potionRegistry.addPotion(fluidStrengthIII, big, "StrengthIII", Potion.damageBoost, 90, 2, true);
+		potionRegistry.addPotion(fluidStrengthVeryLong, big, "StrengthVeryLong", Potion.damageBoost, 1440, 0);
+		potionRegistry.addPotion(fluidFireResist, big, "FireResist", Potion.fireResistance, 360, 0);
+		potionRegistry.addPotion(fluidFireResistLong, big, "FireResistLong", Potion.fireResistance, 720, 0);
+		potionRegistry.addPotion(fluidFireResistVeryLong, big, "FireResistVeryLong", Potion.fireResistance, 1440, 0);
+		potionRegistry.addPotion(fluidSlowness, big, "Slowness", Potion.moveSlowdown, 180, 0, true);
+		potionRegistry.addPotion(fluidSlownessLong, big, "SlownessLong", Potion.moveSlowdown, 360, 0, true);
+		potionRegistry.addPotion(fluidSlownessVeryLong, big, "SlownessVeryLong", Potion.moveSlowdown, 720, 0, true);
+		potionRegistry.addPotion(fluidPoison, big, "Poison", Potion.poison, 90, 0);
+		potionRegistry.addPotion(fluidPoisonII, big, "PoisonII", Potion.poison, 45, 1);
+		potionRegistry.addPotion(fluidPoisonLong, big, "PoisonLong", Potion.poison, 180, 0);
+		potionRegistry.addPotion(fluidPoisonIII, big, "PoisonIII", EffectPlugin.poison, 23, 2);
+		potionRegistry.addPotion(fluidPoisonVeryLong, vials, "PoisonVeryLong", Potion.poison, 360, 0);
+		potionRegistry.addPotion(fluidHarm, big, "Harm", Potion.harm, 1, 0);
+		potionRegistry.addPotion(fluidHarmII, big, "HarmII", Potion.harm, 1, 1);
+		potionRegistry.addPotion(fluidHarmIII, big, "HarmIII", Potion.harm, 1, 2);
+		potionRegistry.addPotion(fluidHeal, big, "Heal", Potion.heal, 1, 0);
+		potionRegistry.addPotion(fluidHealII, big, "HealII", Potion.heal, 1, 1);
+		potionRegistry.addPotion(fluidHealIII, big, "HealIII", Potion.heal, 1, 2);
+		potionRegistry.addPotion(fluidWaterBreathe, big, "WaterBreathe", Potion.waterBreathing, 180, 0);
+		potionRegistry.addPotion(fluidWaterBreatheLong, big, "WaterBreatheLong", Potion.waterBreathing, 360, 0);
+		potionRegistry.addPotion(fluidWaterBreatheVeryLong, big, "WaterBreatheVeryLong", Potion.waterBreathing, 720, 0);
+		potionRegistry.addPotion(fluidHaste, big, "Haste", Potion.digSpeed, 180, 0, true);
+		potionRegistry.addPotion(fluidHasteII, big, "HasteII", Potion.digSpeed, 90, 1, true);
+		potionRegistry.addPotion(fluidHasteIII, big, "HasteIII", Potion.digSpeed, 45, 2, true);
+		potionRegistry.addPotion(fluidHasteLong, big, "HasteLong", Potion.digSpeed, 360, 0, true);
+		potionRegistry.addPotion(fluidHasteVeryLong, big, "HasteVeryLong", Potion.digSpeed, 720, 0, true);
+		potionRegistry.addPotion(fluidFatigue, big, "Fatigue", Potion.digSlowdown, 180, 0, true);
+		potionRegistry.addPotion(fluidFatigueII, big, "FatigueII", Potion.digSlowdown, 90, 1, true);
+		potionRegistry.addPotion(fluidFatigueIII, big, "FatigueIII", Potion.digSlowdown, 45, 2, true);
+		potionRegistry.addPotion(fluidFatigueLong, big, "FatigueLong", Potion.digSlowdown, 360, 0, true);
+		potionRegistry.addPotion(fluidFatigueVeryLong, big, "FatigueVeryLong", Potion.digSlowdown, 720, 0, true);
+		potionRegistry.addPotion(fluidJump, big, "Jump", Potion.jump, 120, 0, true);
+		potionRegistry.addPotion(fluidJumpII, big, "JumpII", Potion.jump, 60, 1, true);
+		potionRegistry.addPotion(fluidJumpIII, big, "JumpIII", Potion.jump, 30, 2, true);
+		potionRegistry.addPotion(fluidJumpLong, big, "JumpLong", Potion.jump, 240, 0, true);
+		potionRegistry.addPotion(fluidJumpVeryLong, big, "JumpVeryLong", Potion.jump, 480, 0, true);
+		potionRegistry.addPotion(fluidNausea, big, "Nausea", Potion.confusion, 60, 0);
+		potionRegistry.addPotion(fluidNauseaLong, big, "NauseaLong", Potion.confusion, 120, 0);
+		potionRegistry.addPotion(fluidNauseaVeryLong, big, "NauseaVeryLong", Potion.confusion, 240, 0);
+		potionRegistry.addPotion(fluidResistance, big, "Resistance", Potion.resistance, 180, 0, true);
+		potionRegistry.addPotion(fluidResistanceII, big, "ResistanceII", Potion.resistance, 90, 1, true);
+		potionRegistry.addPotion(fluidResistanceIII, big, "ResistanceIII", Potion.resistance, 45, 2, true);
+		potionRegistry.addPotion(fluidResistanceLong, big, "ResistanceLong", Potion.resistance, 360, 0, true);
+		potionRegistry.addPotion(fluidResistanceVeryLong, big, "ResistanceVeryLong", Potion.resistance, 720, 0, true);
+		potionRegistry.addPotion(fluidBlindness, big, "Blindness", Potion.blindness, 60, 0);
+		potionRegistry.addPotion(fluidBlindnessLong, big, "BlindnessLong", Potion.blindness, 120, 0);
+		potionRegistry.addPotion(fluidBlindnessVeryLong, big, "BlindnessVeryLong", Potion.blindness, 240, 0);
+		potionRegistry.addPotion(fluidHunger, big, "Hunger", Potion.hunger, 240, 0);
+		potionRegistry.addPotion(fluidHungerII, big, "HungerII", Potion.hunger, 120, 1);
+		potionRegistry.addPotion(fluidHungerIII, big, "HungerIII", Potion.hunger, 60, 2);
+		potionRegistry.addPotion(fluidHungerLong, big, "HungerLong", Potion.hunger, 480, 0);
+		potionRegistry.addPotion(fluidHungerVeryLong, big, "HungerVeryLong", Potion.hunger, 960, 0);
+		potionRegistry.addPotion(fluidHealthBoost, big, "HealthBoost", Potion.field_76434_w, 240, 0, true);
+		potionRegistry.addPotion(fluidHealthBoostII, big, "HealthBoostII", Potion.field_76434_w, 120, 1, true);
+		potionRegistry.addPotion(fluidHealthBoostIII, big, "HealthBoostIII", Potion.field_76434_w, 60, 2, true);
+		potionRegistry.addPotion(fluidHealthBoostLong, big, "HealthBoostLong", Potion.field_76434_w, 480, 0, true);
+		potionRegistry.addPotion(fluidHealthBoostVeryLong, big, "HealthBoostVeryLong", Potion.field_76434_w, 960, 0, true);
+		potionRegistry.addPotion(fluidAbsorption, big, "Absorption", Potion.field_76444_x, 120, 0);
+		potionRegistry.addPotion(fluidAbsorptionII, big, "AbsorptionII", Potion.field_76444_x, 60, 1);
+		potionRegistry.addPotion(fluidAbsorptionIII, big, "AbsorptionIII", Potion.field_76444_x, 30, 2);
+		potionRegistry.addPotion(fluidAbsorptionLong, big, "AbsorptionLong", Potion.field_76444_x, 240, 0);
+		potionRegistry.addPotion(fluidAbsorptionVeryLong, big, "AbsorptionVeryLong", Potion.field_76444_x, 480, 0);
+		potionRegistry.addPotion(fluidSaturation, big, "Saturation", Potion.field_76443_y, 1, 0);
+		potionRegistry.addPotion(fluidSaturationII, big, "SaturationII", Potion.field_76443_y, 1, 1);
+		potionRegistry.addPotion(fluidSaturationIII, big, "SaturationIII", Potion.field_76443_y, 1, 2);
+		potionRegistry.addPotion(fluidWither, big, "Wither", Potion.wither, 40, 0);
+		potionRegistry.addPotion(fluidWitherII, big, "WitherII", Potion.wither, 20, 1);
+		potionRegistry.addPotion(fluidWitherIII, big, "WitherIII", EffectPlugin.wither, 10, 2);
+		potionRegistry.addPotion(fluidWitherLong, big, "WitherLong", Potion.wither, 80, 0);
+		potionRegistry.addPotion(fluidWitherVeryLong, big, "WitherVeryLong", Potion.wither, 160, 0);
+		potionRegistry.addPotion(fluidHolyWater, big, "HolyWater", EffectPlugin.angel, 20, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterII, big, "HolyWaterII", EffectPlugin.angel, 10, 1, true);
+		potionRegistry.addPotion(fluidHolyWaterLong, big, "HolyWaterLong", EffectPlugin.angel, 40, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterVeryLong, big, "HolyWaterVeryLong", EffectPlugin.angel, 80, 0, true);
+		potionRegistry.addPotion(fluidHolyWaterIII, big, "HolyWaterIII", EffectPlugin.angel, 5, 2, true);
+		potionRegistry.addPotion(fluidFlight, big, "Flight", EffectPlugin.flight, 30, 0);
+		potionRegistry.addPotion(fluidFlightLong, big, "FlightLong", EffectPlugin.flight, 60, 0);
+		potionRegistry.addPotion(fluidFlightVeryLong, big, "FlightVeryLong", EffectPlugin.flight, 120, 0);
+		potionRegistry.addPotion(fluidAntidote, big, "Antidote", EffectPlugin.immunity, 120, 0, true);
+		potionRegistry.addPotion(fluidAntidoteII, big, "AntidoteII", EffectPlugin.immunity, 60, 1, true);
+		potionRegistry.addPotion(fluidAntidoteIII, big, "AntidoteIII", EffectPlugin.immunity, 30, 2, true);
+		//potionRegistry.addPotion(fluidAntidoteIIII, big, "AntidoteIIII", EffectPlugin.immunity, 15, 3, true);
+		potionRegistry.addPotion(fluidAntidoteLong, big, "AntidoteLong", EffectPlugin.immunity, 240, 0, true);
+		potionRegistry.addPotion(fluidAntidoteVeryLong, big, "AntidoteVeryLong", EffectPlugin.immunity, 480, 0, true);
+		potionRegistry.addPotion(fluidBoom, big, "Boom", EffectPlugin.creeper, 16, 0, true);
+		potionRegistry.addPotion(fluidBoomII, big, "BoomII", EffectPlugin.creeper, 8, 1, true);
+		potionRegistry.addPotion(fluidBoomIII, big, "BoomIII", EffectPlugin.creeper, 4, 2, true);
+		potionRegistry.addPotion(fluidBoomLong, big, "BoomLong", EffectPlugin.creeper, 32, 0, true);
+		potionRegistry.addPotion(fluidBoomVeryLong, big, "BoomVeryLong", EffectPlugin.creeper, 64, 0, true);
+		potionRegistry.addPotion(fluidCryo, big, "Cryo", EffectPlugin.frozen, 16, 0, true);
+		potionRegistry.addPotion(fluidCryoLong, big, "CryoLong", EffectPlugin.frozen, 32, 0, true);
+		potionRegistry.addPotion(fluidCryoVeryLong, big, "CryoVeryLong", EffectPlugin.frozen, 64, 0, true);
+		potionRegistry.addPotion(fluidEternalFlame, big, "EternalFlame", EffectPlugin.flame, 60, 0);
+		potionRegistry.addPotion(fluidEternalFlameLong, big, "EternalFlameLong", EffectPlugin.flame, 120, 0);
+		potionRegistry.addPotion(fluidEternalFlameVeryLong, big, "EternalFlameVeryLong", EffectPlugin.flame, 240, 0);
+		potionRegistry.addPotion(fluidFireImmunity, big, "FireImmunity", EffectPlugin.fireproof, 70, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityLong, big, "FireImmunityLong", EffectPlugin.fireproof, 140, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityVeryLong, big, "FireImmunityVeryLong", EffectPlugin.fireproof, 280, 0, true);
+		potionRegistry.addPotion(fluidFireImmunityII, big, "FireImmunityII", EffectPlugin.fireproof, 35, 1, true);
+		potionRegistry.addPotion(fluidFireImmunityIII, big, "FireImmunityIII", EffectPlugin.fireproof, 20, 2, true);
+		potionRegistry.addPotion(fluidFireImmunityIIII, big, "FireImmunityIIII", EffectPlugin.fireproof, 10, 3, true);
+		potionRegistry.addPotion(fluidFireEater, big, "FireEater", EffectPlugin.fireEater, 90, 0, true);
+		potionRegistry.addPotion(fluidFireEaterII, big, "FireEaterII", EffectPlugin.fireEater, 45, 1, true);
+		potionRegistry.addPotion(fluidFireEaterIII, big, "FireEaterIII", EffectPlugin.fireEater, 23, 2, true);
+		potionRegistry.addPotion(fluidFireEaterLong, big, "FireEaterLong", EffectPlugin.fireEater, 180, 0, true);
+		potionRegistry.addPotion(fluidFireEaterVeryLong, big, "FireEaterVeryLong", EffectPlugin.fireEater, 360, 0, true);
 	}
 
 	@Override
@@ -388,8 +653,6 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidHunger, fluidSaturation, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHungerII, fluidSaturationII, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHungerIII, fluidSaturationIII, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidHungerLong, fluidSaturationLong, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidHungerVeryLong, fluidSaturationVeryLong, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidAwkward, fluidSaturation, Items.cake);
 		recipeRegistry.addRecipe(fluidHunger, fluidSaturation, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidSaturation, fluidHunger, Items.fermented_spider_eye);
@@ -397,14 +660,8 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidSaturationII, fluidHungerII, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHungerIII, fluidSaturationIII, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidSaturationIII, fluidHungerIII, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidHungerLong, fluidSaturationLong, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidSaturationLong, fluidHungerLong, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidHungerVeryLong, fluidSaturationVeryLong, Items.fermented_spider_eye);
-		recipeRegistry.addRecipe(fluidSaturationVeryLong, fluidHungerVeryLong, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidSaturation, fluidSaturationII, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidSaturationII, fluidSaturationIII, ItemPlugin.obsidianTear);
-		recipeRegistry.addRecipe(fluidSaturation, fluidSaturationLong, Items.redstone);
-		recipeRegistry.addRecipe(fluidSaturationLong, fluidSaturationVeryLong, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidAwkward, fluidHaste, ItemPlugin.spiderFang);
 		recipeRegistry.addRecipe(fluidFatigue, fluidHaste, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHaste, fluidFatigue, Items.fermented_spider_eye);

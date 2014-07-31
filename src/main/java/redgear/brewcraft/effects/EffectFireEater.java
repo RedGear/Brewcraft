@@ -8,22 +8,21 @@ import redgear.brewcraft.plugins.core.DamageSourcePlugin;
 public class EffectFireEater extends PotionExtension {
 
 	public EffectFireEater(int id) {
-		super(id, false, 0x660000);
-		setPotionName("potion.brewcraft.fireEater");
+		super("fireEater", id, false, 0x660000);
 		setIconIndex(6, 0);
 	}
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		if(living.isBurning())
+		if (living.isBurning())
 			living.heal(2 * strength + 1);
 		else
 			living.attackEntityFrom(DamageSourcePlugin.fireEater, 2 * strength + 1);
-		
+
 		if (living instanceof EntityPlayer && AchievementPlugin.fireEater != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.fireEater, 1);
 	}
-	
+
 	/**
 	 * checks if Potion effect is ready to be applied this tick.
 	 */

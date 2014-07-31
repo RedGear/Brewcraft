@@ -7,8 +7,7 @@ import redgear.brewcraft.plugins.core.AchievementPlugin;
 public class EffectFireproof extends PotionExtension {
 
 	public EffectFireproof(int id) {
-		super(id, false, 0xCC0000);
-		setPotionName("potion.brewcraft.fireproof");
+		super("fireproof", id, false, 0xCC0000);
 		setIconIndex(5, 0);
 
 	}
@@ -21,6 +20,12 @@ public class EffectFireproof extends PotionExtension {
 		if (living instanceof EntityPlayer && AchievementPlugin.fireproof != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.fireproof, 1);
 
+	}
+	
+	@Override
+	public boolean isReady(int par1, int par2) {
+		int k = 50 >> par2;
+		return k > 0 ? par1 % k == 0 : true;
 	}
 
 }

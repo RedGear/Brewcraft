@@ -29,6 +29,7 @@ public class VillagePlugin implements IPlugin {
 	@Override
 	public void preInit(ModUtils mod) {
 		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Witch Profession ID", 15));
+		VillagerRegistry.instance().registerVillagerId(Brewcraft.inst.getInt("General", "Warlock Profession ID", 16));
 
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillageWitchHutHandler());
 		if (Brewcraft.inst.getBoolean("General", "Witch Hut Village Generation", true))

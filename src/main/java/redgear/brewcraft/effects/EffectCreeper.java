@@ -7,14 +7,13 @@ import net.minecraft.util.DamageSource;
 import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectCreeper extends PotionExtension {
-
+	
 	public EffectCreeper(int id) {
-		super(id, true, 0x00CC00);
-		setPotionName("potion.brewcraft.creeper");
+		super("creeper", id, true, 0x00CC00);
 		setIconIndex(0, 0);
 	}
 
-	@Override
+	@Override 
 	public void performEffect(EntityLivingBase living, int strength) {
 		int duration = living.getActivePotionEffect(this).getDuration();
 		boolean flag = living.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");

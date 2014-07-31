@@ -45,7 +45,7 @@ public class EntityBrewcraftPotion extends EntityPotion {
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 		SubItemPotion potion = getPotionItem();
-
+		
 		if (!worldObj.isRemote) {
 
 			AxisAlignedBB range = boundingBox.expand(4.0D, 2.0D, 4.0D);
@@ -58,15 +58,10 @@ public class EntityBrewcraftPotion extends EntityPotion {
 					potion.effect(entity);
 
 			}
-
-			//TODO: Replace this with the stuff that will create particles with the right color. 
-			//worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ),getPotionDamage());
-
 			ParticleHandler.send(worldObj, posX, posY, posZ, potion.getEffect(), ParticleHandler.POTION);
 			worldObj.playSoundEffect(posX, posY, posZ, "game.potion.smash", 1.0F,
 					worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			setDead();
-
 		}
 	}
 

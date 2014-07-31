@@ -4,28 +4,31 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import redgear.brewcraft.plugins.core.AchievementPlugin;
+import redgear.brewcraft.plugins.core.EffectPlugin;
 
 public class EffectImmunity extends PotionExtension {
 
 	public EffectImmunity(int id) {
-		super(id, false, 0x9933CC);
-		setPotionName("potion.brewcraft.immunity");
+		super("immunity", id, false, 0x9933CC);
 		setIconIndex(3, 0);
 	}
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
 		living.removePotionEffect(Potion.poison.id);
+		living.removePotionEffect(EffectPlugin.poison.id);
 
 		if (strength >= 1) {
 			living.removePotionEffect(Potion.hunger.id);
 			living.removePotionEffect(Potion.weakness.id);
+			living.removePotionEffect(Potion.moveSlowdown.id);
 		}
 
 		if (strength >= 2) {
 			living.removePotionEffect(Potion.wither.id);
+			living.removePotionEffect(EffectPlugin.wither.id);
 			living.removePotionEffect(Potion.confusion.id);
-			living.removePotionEffect(Potion.blindness.id);
+			living.removePotionEffectClient(Potion.blindness.id);
 		}
 
 		/*
@@ -47,5 +50,4 @@ public class EffectImmunity extends PotionExtension {
 			((EntityPlayer) living).addStat(AchievementPlugin.immunity, 1);
 
 	}
-
 }

@@ -1,5 +1,8 @@
 package redgear.brewcraft.plugins.item;
 
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.items.ItemHeart;
 import redgear.brewcraft.items.ItemTear;
@@ -20,7 +23,18 @@ public class ItemPlugin implements IPlugin {
 	public static SimpleItem tiredSpores;
 	public static SimpleItem remedySalve;
 	public static SimpleItem steelScales;
+	
+	public static MetaItem<SubItem> misc;
 	public static SimpleItem splashBottle;
+	public static SimpleItem emptyVial;
+	public static SimpleItem splashVial;
+	public static SimpleItem emptyBigBottle;
+	public static SimpleItem splashBigBottle;
+	public static SimpleItem waterSplashBottle;
+	public static SimpleItem waterVial;
+	public static SimpleItem waterSplashVial;
+	public static SimpleItem waterBigBottle;
+	public static SimpleItem waterSplashBigBottle;
 	public static SimpleItem metalRing;
 
 	public static ItemTear tears;
@@ -57,8 +71,19 @@ public class ItemPlugin implements IPlugin {
 		tiredSpores = ingredients.addMetaItem(new SubItem("tiredspores"));
 		remedySalve = ingredients.addMetaItem(new SubItem("remedysalve"));
 		steelScales = ingredients.addMetaItem(new SubItem("steelscales"));
-		splashBottle = ingredients.addMetaItem(new SubItem("splashBottle"));
-		metalRing = ingredients.addMetaItem(new SubItem("metalring"));
+		
+		misc = new MetaItem<SubItem>("RedGear.Brewcraft.Misc");
+		splashBottle = misc.addMetaItem(new SubItem("splashbottle"));
+		emptyVial = misc.addMetaItem(new SubItem("vial"));
+		splashVial = misc.addMetaItem(new SubItem("vialsplash"));
+		emptyBigBottle = misc.addMetaItem(new SubItem("bigbottle"));
+		splashBigBottle = misc.addMetaItem(new SubItem("bigsplash"));
+		waterSplashBottle = misc.addMetaItem(new SubItem("watersplashbottle"));
+		waterVial = misc.addMetaItem(new SubItem("watervial"));
+		waterSplashVial = misc.addMetaItem(new SubItem("watersplashvial"));
+		waterBigBottle = misc.addMetaItem(new SubItem("waterbigbottle"));
+		waterSplashBigBottle = misc.addMetaItem(new SubItem("watersplashbigbottle"));
+		metalRing = misc.addMetaItem(new SubItem("metalring"));
 
 		tears = new ItemTear("RedGear.Brewcraft.Tears");
 		obsidianTear = tears.addMetaItem(new SubItem("obsidiantear"));
@@ -70,6 +95,17 @@ public class ItemPlugin implements IPlugin {
 		heartBlaze = hearts.addMetaItem(new SubItem("heartblaze"));
 
 		ingredients.setCreativeTab(Brewcraft.tabMisc);
+		misc.setCreativeTab(Brewcraft.tabMisc);
+
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(FluidRegistry.WATER, 250), waterVial.getStack());
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(FluidRegistry.WATER, 1000),
+				waterSplashBottle.getStack());
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(FluidRegistry.WATER, 250),
+				waterSplashVial.getStack());
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(FluidRegistry.WATER, 2000),
+				waterSplashBigBottle.getStack());
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(FluidRegistry.WATER, 2000),
+				waterBigBottle.getStack());
 	}
 
 	@Override

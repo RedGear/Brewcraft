@@ -31,6 +31,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	public final AdvFluidTank tank;
 
 	public boolean isPowered = false;
+	public int delay;
 
 	public TileEntitySprayer() {
 		super(10);
@@ -44,55 +45,60 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	protected boolean doPreWork() {
 		if (isPowered && tank.getAmount() >= 50) {
 
-			AxisAlignedBB range = getRenderBoundingBox().expand(3.0D, 2.0D, 3.0D);
-			@SuppressWarnings("unchecked")
-			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
+			if (delay > 0) {
+				--delay;
+				return false;
+				//This delays the sprayer from spraying for about a second.
+			}
 
-			final FluidStack fluid = tank.getFluid();
-			final ItemStack potion = FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000),
-					new ItemStack(Items.glass_bottle));
-			Collection<PotionEffect> effects = null;
-
-			if (potion != null && potion.getItem() instanceof MetaItemPotion) {
-				final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
-				final SubItemPotion bot = bottle.getMetaItem(bottle.getDamage(potion));
-
-				ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(),
-						ParticleHandler.MIST);
-				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
-						worldObj.rand.nextFloat() * 0.1F + 0.9F);
-
-				effects = new ArrayList<PotionEffect>(1);
-				effects.add(new PotionEffect(bot.getEffect().id, bot.getEffect().isInstant() ? 1 : bot.duration / 2,
-						bot.strength));
-
-			} else if (potion != null && potion.getItem() instanceof ItemPotion) {
+			if (delay == 0) {
+				AxisAlignedBB range = getRenderBoundingBox().expand(3.0D, 2.0D, 3.0D);
 				@SuppressWarnings("unchecked")
-				final List<PotionEffect> list = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
+				List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
 
-				if (list != null) {
+				final FluidStack fluid = tank.getFluid();
+				final ItemStack potion = FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000),
+						new ItemStack(Items.glass_bottle));
+				Collection<PotionEffect> effects = null;
 
-					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5,
-							PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST);
+				if (potion != null && potion.getItem() instanceof MetaItemPotion) {
+					final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
+					final SubItemPotion bot = bottle.getMetaItem(bottle.getDamage(potion));
+
+					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(),
+							ParticleHandler.MIST);
 					worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 							worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
-					effects = list;
+					effects = new ArrayList<PotionEffect>(1);
+					effects.add(new PotionEffect(bot.getEffect().id,
+							bot.getEffect().isInstant() ? 1 : bot.duration / 2, bot.strength));
 
-				}
-			} else
-				return false;
+				} else if (potion != null && potion.getItem() instanceof ItemPotion) {
+					@SuppressWarnings("unchecked")
+					final List<PotionEffect> list = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
 
-			if (effects != null)
-				for (EntityLivingBase entity : entities)
-					for (PotionEffect effect : effects)
-						entity.addPotionEffect(effect);
-			tank.drain(50, true);
-			return true;
+					if (list != null) {
+
+						ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5,
+								PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST);
+						worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
+								worldObj.rand.nextFloat() * 0.1F + 0.9F);
+
+						effects = list;
+					}
+				} else
+					return false;
+
+				if (effects != null)
+					for (EntityLivingBase entity : entities)
+						for (PotionEffect effect : effects)
+							entity.addPotionEffect(effect);
+				tank.drain(50, true);
+				return true;
+			}
 		}
-
-		else
-			return false;
+		return false;
 	}
 
 	@Override

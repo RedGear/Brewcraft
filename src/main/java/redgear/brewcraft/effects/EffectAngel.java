@@ -13,8 +13,7 @@ import redgear.brewcraft.plugins.core.AchievementPlugin;
 public class EffectAngel extends PotionExtension {
 
 	public EffectAngel(int id) {
-		super(id, false, 0xFFFF33);
-		setPotionName("potion.brewcraft.angel");
+		super("angel", id, false, 0xFFFF33);
 		setIconIndex(1, 0);
 	}
 

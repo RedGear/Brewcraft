@@ -10,6 +10,7 @@ import redgear.brewcraft.effects.EffectFireEater;
 import redgear.brewcraft.effects.EffectFireproof;
 import redgear.brewcraft.effects.EffectFlight;
 import redgear.brewcraft.effects.EffectFrozen;
+import redgear.brewcraft.effects.EffectVanillaThree;
 import redgear.brewcraft.effects.EffectImmunity;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
@@ -25,6 +26,9 @@ public class EffectPlugin implements IPlugin {
 	public static Potion fireproof;
 	public static Potion flame;
 	public static Potion fireEater;
+	public static Potion poison;
+	public static Potion wither;
+	public static Potion regeneration;
 
 	@Override
 	public String getName() {
@@ -55,7 +59,7 @@ public class EffectPlugin implements IPlugin {
 		flight = new EffectFlight(Brewcraft.inst.getInt("Potion Effect IDs", "'Flight' Effect ID", 41));
 
 		creeper = new EffectCreeper(Brewcraft.inst.getInt("Potion Effect IDs", "'Combustion' Effect ID", 42));
-
+		
 		immunity = new EffectImmunity(Brewcraft.inst.getInt("Potion Effect IDs", "'Immunity' Effect ID", 43));
 
 		frozen = new EffectFrozen(Brewcraft.inst.getInt("Potion Effect IDs", "'Frozen' Effect ID", 44))
@@ -67,6 +71,16 @@ public class EffectPlugin implements IPlugin {
 		flame = new EffectEternalFlame(Brewcraft.inst.getInt("Potion Effect IDs", "'Eternal Flame' Effect ID", 46));
 
 		fireEater = new EffectFireEater(Brewcraft.inst.getInt("Potion Effect IDs", "'Fire Eater' Effect ID", 47));
+
+		poison = new EffectVanillaThree("poison", Brewcraft.inst.getInt("Potion Effect IDs", "'Poison' Effect ID", 48),
+				true, 5149489);
+
+		wither = new EffectVanillaThree("wither", Brewcraft.inst.getInt("Potion Effect IDs", "'Wither' Effect ID", 49),
+				true, 3484199);
+
+		regeneration = new EffectVanillaThree("regeneration", Brewcraft.inst.getInt("Potion Effect IDs",
+				"'Regeneration' Effect ID", 50), false, 13458603);
+
 	}
 
 	@Override

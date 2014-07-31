@@ -7,8 +7,7 @@ import redgear.brewcraft.plugins.core.AchievementPlugin;
 public class EffectFlight extends PotionExtension {
 
 	public EffectFlight(int id) {
-		super(id, false, 0xFFFFFF);
-		setPotionName("potion.brewcraft.flight");
+		super("flight", id, false, 0xFFFFFF);
 		setIconIndex(2, 0);
 	}
 

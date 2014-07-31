@@ -32,8 +32,12 @@ public class TipHandler {
 
 	boolean flag = Brewcraft.inst.getBoolean("General",
 			"Add tooltips to fluid containers to categorize the contained fluids.", false);
+	boolean flag2 = Brewcraft.inst
+			.getBoolean("General", "Add tooltips to fluid containers to display capacity.", false);
 
 	@SubscribeEvent
+	//Trying to take a little bit of the load off of this event class, it's causing occasional crashes from the
+	//creative inventory screen.
 	public void onTooltip(ItemTooltipEvent event) {
 		if (event.itemStack.getItem() == ItemBlock.getItemFromBlock(KegPlugin.kegs)) {
 			event.toolTip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tooltip.brewcraft.keg"));
@@ -60,19 +64,14 @@ public class TipHandler {
 				event.toolTip.add(EnumChatFormatting.RED
 						+ StatCollector.translateToLocal("tooltip.brewcraft.keg.invalid"));
 		}
-		if (event.itemStack.getItem() == ItemPlugin.ingredients && event.itemStack.getItemDamage() != 7
-				&& event.itemStack.getItemDamage() != 8 || event.itemStack.getItem() == ItemPlugin.hearts
-				|| event.itemStack.getItem() == ItemPlugin.tears)
-			event.toolTip.add(EnumChatFormatting.DARK_PURPLE
-					+ StatCollector.translateToLocal("tooltip.brewcraft.ingredient"));
-		if (event.itemStack.getItem() == ItemPlugin.hearts)
-			event.toolTip.add(StatCollector.translateToLocal("tooltip.brewcraft.food"));
-		if (event.itemStack.getItem() == ItemPlugin.tears && event.itemStack.getItemDamage() == 0)
-			event.toolTip.add(EnumChatFormatting.DARK_RED
-					+ StatCollector.translateToLocal("tooltip.brewcraft.tear.nether"));
-		if (event.itemStack.getItem() == ItemPlugin.tears && event.itemStack.getItemDamage() == 1)
-			event.toolTip.add(EnumChatFormatting.DARK_AQUA
-					+ StatCollector.translateToLocal("tooltip.brewcraft.tear.overworld"));
+
+		if (event.itemStack.getItem() == ItemBlock.getItemFromBlock(KegPlugin.kegs)) {
+			
+		}
+		
+		if (event.itemStack.getItem() == ItemPlugin.ingredients) {
+			event.toolTip.add(StatCollector.translateToLocal("tooltip.brewcraft.ingredient"));
+		}
 
 		if (flag)
 			if (FluidContainerRegistry.getFluidForFilledItem(event.itemStack) != null) {
@@ -87,6 +86,12 @@ public class TipHandler {
 					event.toolTip.add(EnumChatFormatting.GREEN
 							+ StatCollector.translateToLocal("tooltip.brewcraft.keg.gaseous"));
 			}
+		if (flag2)
+			if (FluidContainerRegistry.isContainer(event.itemStack)) {
+				FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(event.itemStack);
+				event.toolTip.add(EnumChatFormatting.ITALIC
+						+ StatCollector.translateToLocalFormatted("tooltip.brewcraft.capacity", fluid.amount));
+				event.toolTip.add(EnumChatFormatting.ITALIC + fluid.getFluid().getLocalizedName());
+			}
 	}
-
 }

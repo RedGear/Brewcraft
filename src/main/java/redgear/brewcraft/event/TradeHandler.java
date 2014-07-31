@@ -24,6 +24,8 @@ public class TradeHandler implements IVillageTradeHandler {
 				VillagerRegistry.instance().registerVillageTradeHandler(i, instance);
 			VillagerRegistry.instance().registerVillageTradeHandler(
 					Brewcraft.inst.getInt("General", "Witch Profession ID", 15), instance);
+			VillagerRegistry.instance().registerVillageTradeHandler(
+					Brewcraft.inst.getInt("General", "Warlock Profession ID", 16), instance);
 
 		}
 		return instance;
@@ -36,8 +38,8 @@ public class TradeHandler implements IVillageTradeHandler {
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
 		if (villager.getProfession() == 2) {
 			if (powderTrade) {
-				recipeList.add(new MerchantRecipe(ItemPlugin.holyDust.getStack(random.nextInt(1) + 2),
-						new ItemStack(Items.emerald, random.nextInt(4) + 1)));
+				recipeList.add(new MerchantRecipe(ItemPlugin.holyDust.getStack(random.nextInt(1) + 2), new ItemStack(
+						Items.emerald, random.nextInt(4) + 1)));
 				recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 3),
 						ItemPlugin.holyDust.getStack(random.nextInt(3) + 1)));
 			}
@@ -48,13 +50,13 @@ public class TradeHandler implements IVillageTradeHandler {
 		}
 
 		if (villager.getProfession() == 0) {
-			recipeList.add(new MerchantRecipe(ItemPlugin.heartSmall.getStack(random.nextInt(3) + 1),
-					new ItemStack(Items.emerald, random.nextInt(5) + 3)));
+			recipeList.add(new MerchantRecipe(ItemPlugin.heartSmall.getStack(random.nextInt(3) + 1), new ItemStack(
+					Items.emerald, random.nextInt(5) + 3)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(5) + 1),
 					ItemPlugin.heartSmall.getStack(random.nextInt(3) + 1)));
 		}
 
-		if (villager.getProfession() == Brewcraft.inst.getInt("General", "Villager Profession ID", 15)) {
+		if (villager.getProfession() == Brewcraft.inst.getInt("General", "Witch Profession ID", 15)) {
 
 			//All base level potions.
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 3)),
@@ -142,8 +144,8 @@ public class TradeHandler implements IVillageTradeHandler {
 					new ItemStack(Items.potionitem, 1, 8238)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(5) + 4)),
 					new ItemStack(Items.potionitem, 1, 16430)));
-
-			//Most ingredients.
+		}
+		if (villager.getProfession() == Brewcraft.inst.getInt("General", "Warlock Profession ID", 16)) {
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 1)),
 					new ItemStack(Items.spider_eye, random.nextInt(2) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(3) + 2)),
@@ -178,6 +180,10 @@ public class TradeHandler implements IVillageTradeHandler {
 					ItemPlugin.remedySalve.getStack(random.nextInt(2) + 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 2)),
 					ItemPlugin.splashBottle.getStack(3)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 1)),
+					ItemPlugin.emptyVial.getStack(6)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 1)),
+					ItemPlugin.splashVial.getStack(6)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 6)),
 					ItemPlugin.heartGold.getStack()));
 			recipeList.add(new MerchantRecipe(new ItemStack(Items.emerald, random.nextInt(random.nextInt(4) + 4)),
