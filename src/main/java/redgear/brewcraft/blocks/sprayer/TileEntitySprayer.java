@@ -31,10 +31,10 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	public final AdvFluidTank tank;
 
 	public boolean isPowered = false;
-	public int delay;
+	public int delay = 1;
 
 	public TileEntitySprayer() {
-		super(10);
+		super(20);
 
 		tank = new SprayerTank(FluidContainerRegistry.BUCKET_VOLUME * 8);
 
@@ -45,60 +45,56 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	protected boolean doPreWork() {
 		if (isPowered && tank.getAmount() >= 50) {
 
-			if (delay > 0) {
-				--delay;
-				return false;
-				//This delays the sprayer from spraying for about a second.
-			}
+			setIdle(delay * 20);
 
-			if (delay == 0) {
-				AxisAlignedBB range = getRenderBoundingBox().expand(3.0D, 2.0D, 3.0D);
+			AxisAlignedBB range = getRenderBoundingBox().expand(3.0D, 2.0D, 3.0D);
+			@SuppressWarnings("unchecked")
+			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
+
+			final FluidStack fluid = tank.getFluid();
+			final ItemStack potion = FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000),
+					new ItemStack(Items.glass_bottle));
+			Collection<PotionEffect> effects = null;
+
+			if (potion != null && potion.getItem() instanceof MetaItemPotion) {
+				final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
+				final SubItemPotion bot = bottle.getMetaItem(bottle.getDamage(potion));
+
+				ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(),
+						ParticleHandler.MIST);
+				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
+						worldObj.rand.nextFloat() * 0.1F + 0.9F);
+
+				effects = new ArrayList<PotionEffect>(1);
+				effects.add(new PotionEffect(bot.getEffect().id, bot.getEffect().isInstant() ? 1 : bot.duration / 2,
+						bot.strength));
+
+			} else if (potion != null && potion.getItem() instanceof ItemPotion) {
 				@SuppressWarnings("unchecked")
-				List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
+				final List<PotionEffect> list = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
 
-				final FluidStack fluid = tank.getFluid();
-				final ItemStack potion = FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000),
-						new ItemStack(Items.glass_bottle));
-				Collection<PotionEffect> effects = null;
+				if (list != null) {
 
-				if (potion != null && potion.getItem() instanceof MetaItemPotion) {
-					final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
-					final SubItemPotion bot = bottle.getMetaItem(bottle.getDamage(potion));
-
-					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(),
-							ParticleHandler.MIST);
+					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5,
+							PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST);
 					worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 							worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
-					effects = new ArrayList<PotionEffect>(1);
-					effects.add(new PotionEffect(bot.getEffect().id,
-							bot.getEffect().isInstant() ? 1 : bot.duration / 2, bot.strength));
+					effects = list;
+				}
+			} else
+				return false;
 
-				} else if (potion != null && potion.getItem() instanceof ItemPotion) {
-					@SuppressWarnings("unchecked")
-					final List<PotionEffect> list = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
+			if (effects != null)
+				for (EntityLivingBase entity : entities)
+					for (PotionEffect effect : effects)
+						entity.addPotionEffect(effect);
+			tank.drain(50, true);
 
-					if (list != null) {
+			return true;
+		} else
+			return false;
 
-						ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5,
-								PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST);
-						worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
-								worldObj.rand.nextFloat() * 0.1F + 0.9F);
-
-						effects = list;
-					}
-				} else
-					return false;
-
-				if (effects != null)
-					for (EntityLivingBase entity : entities)
-						for (PotionEffect effect : effects)
-							entity.addPotionEffect(effect);
-				tank.drain(50, true);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
@@ -123,6 +119,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 
 	@Override
 	public void setPowered(boolean isPowered) {
+		setIdle(0);
 		this.isPowered = isPowered;
 	}
 
@@ -138,6 +135,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	@Override
 	public void writeToNBT(NBTTagCompound tag) {
 		super.writeToNBT(tag);
+		tag.setInteger("delay", delay);
 		tag.setBoolean("isPowered", isPowered);
 		tag.setByte("face", (byte) face.ordinal());
 	}
@@ -149,6 +147,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
+		delay = tag.getInteger("delay");
 		isPowered = tag.getBoolean("isPowered");
 		face = ForgeDirection.getOrientation(tag.getByte("face"));
 	}

@@ -2,6 +2,7 @@ package redgear.brewcraft.blocks.sprayer;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import redgear.brewcraft.packet.ParticleHandler;
 import redgear.core.render.GuiBase;
 import redgear.core.render.gui.element.ElementButton;
 import redgear.core.render.gui.element.ElementFluidTankWithGlass;
@@ -69,9 +70,9 @@ public class GuiSprayer extends GuiBase<ContainerSprayer> {
 		TileEntitySprayer tile = myContainer.myTile;
 
 		if (buttonName.equals("AddDelay") && tile.delay < 30) {
-			tile.delay++;
-		} else if (buttonName.equals("SubtractDelay") && tile.delay > 0) {
-			--tile.delay;
+			ParticleHandler.sendGuiSprayerPacket(tile, ++tile.delay);
+		} else if (buttonName.equals("SubtractDelay") && tile.delay > 1) {
+			ParticleHandler.sendGuiSprayerPacket(tile, --tile.delay);
 		}
 	}
 }

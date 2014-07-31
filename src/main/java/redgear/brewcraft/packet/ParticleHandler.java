@@ -10,7 +10,10 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import redgear.brewcraft.blocks.sprayer.TileEntitySprayer;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.FMLEventChannel;
@@ -40,7 +43,20 @@ public class ParticleHandler {
 
 	@SubscribeEvent
 	public void onServerPacket(ServerCustomPacketEvent event) {
-
+		SprayerDelayMessage message = new SprayerDelayMessage();
+		message.fromBytes(event.packet.payload());
+		
+		if(message.dimension >= MinecraftServer.getServer().worldServers.length)
+			return;
+		
+		World world = MinecraftServer.getServer().worldServers[message.dimension];
+		TileEntity tile = world.getTileEntity(message.x, message.y, message.z);
+		
+		if(tile instanceof TileEntitySprayer){
+			TileEntitySprayer sprayer = (TileEntitySprayer) tile;
+			sprayer.delay = message.value;
+		}
+		
 	}
 
 	@SubscribeEvent
@@ -108,6 +124,15 @@ public class ParticleHandler {
 		message.toBytes(buf);
 		FMLProxyPacket packet = new FMLProxyPacket(buf, name);
 		net.sendToAllAround(packet, new TargetPoint(world.provider.dimensionId, x, y, z, 32));
+	}
+	
+	public static void sendGuiSprayerPacket(TileEntitySprayer tile, int newDelay){
+		SprayerDelayMessage message = new SprayerDelayMessage(tile, newDelay);
+		ByteBuf buf = Unpooled.buffer();
+		message.toBytes(buf);
+		FMLProxyPacket packet = new FMLProxyPacket(buf, name);
+		net.sendToServer(packet);
+		
 	}
 
 	public String getParticle(int par1, ParticleMessage message) {
