@@ -44,7 +44,7 @@ public class GuiSprayer extends GuiBase<ContainerSprayer> {
 
 		if (this.myContainer.myTile.delay == 30)
 			this.addDelay.setDisabled();
-		else if (this.myContainer.myTile.delay == 0)
+		else if (this.myContainer.myTile.delay == 1)
 			this.subtractDelay.setDisabled();
 		else {
 			this.addDelay.setActive();
