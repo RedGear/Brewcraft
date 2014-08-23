@@ -60,6 +60,6 @@ public class ItemHeart extends MetaItem<SubItem> {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List list, boolean par4) {
-		list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tooltip.brewcraft.food"));
+		list.add(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip.brewcraft.food"));
 	}
 }

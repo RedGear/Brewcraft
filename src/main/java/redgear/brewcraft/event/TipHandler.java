@@ -9,7 +9,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.block.KegPlugin;
-import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.core.util.ItemStackUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -65,14 +64,6 @@ public class TipHandler {
 						+ StatCollector.translateToLocal("tooltip.brewcraft.keg.invalid"));
 		}
 
-		if (event.itemStack.getItem() == ItemBlock.getItemFromBlock(KegPlugin.kegs)) {
-			
-		}
-		
-		if (event.itemStack.getItem() == ItemPlugin.ingredients) {
-			event.toolTip.add(StatCollector.translateToLocal("tooltip.brewcraft.ingredient"));
-		}
-
 		if (flag)
 			if (FluidContainerRegistry.getFluidForFilledItem(event.itemStack) != null) {
 				FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(event.itemStack);
@@ -89,9 +80,12 @@ public class TipHandler {
 		if (flag2)
 			if (FluidContainerRegistry.isContainer(event.itemStack)) {
 				FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(event.itemStack);
-				event.toolTip.add(EnumChatFormatting.ITALIC
-						+ StatCollector.translateToLocalFormatted("tooltip.brewcraft.capacity", fluid.amount));
-				event.toolTip.add(EnumChatFormatting.ITALIC + fluid.getFluid().getLocalizedName());
+				if (fluid != null && fluid.amount > 0) {
+					event.toolTip.add(" ");
+					event.toolTip.add(EnumChatFormatting.ITALIC
+							+ StatCollector.translateToLocalFormatted("tooltip.brewcraft.capacity", fluid.amount));
+					event.toolTip.add(EnumChatFormatting.ITALIC + fluid.getFluid().getLocalizedName());
+				}
 			}
 	}
 }

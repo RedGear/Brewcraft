@@ -23,7 +23,7 @@ public class ItemPlugin implements IPlugin {
 	public static SimpleItem tiredSpores;
 	public static SimpleItem remedySalve;
 	public static SimpleItem steelScales;
-	
+
 	public static MetaItem<SubItem> misc;
 	public static SimpleItem splashBottle;
 	public static SimpleItem emptyVial;
@@ -71,7 +71,7 @@ public class ItemPlugin implements IPlugin {
 		tiredSpores = ingredients.addMetaItem(new SubItem("tiredspores"));
 		remedySalve = ingredients.addMetaItem(new SubItem("remedysalve"));
 		steelScales = ingredients.addMetaItem(new SubItem("steelscales"));
-		
+
 		misc = new MetaItem<SubItem>("RedGear.Brewcraft.Misc");
 		splashBottle = misc.addMetaItem(new SubItem("splashbottle"));
 		emptyVial = misc.addMetaItem(new SubItem("vial"));
