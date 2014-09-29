@@ -202,7 +202,7 @@ public class PotionPlugin implements IPlugin {
 		fluidAntidote = potionRegistry.addPotion(null, "Antidote", EffectPlugin.immunity, 60, 0, true);
 		fluidAntidoteII = potionRegistry.addPotion(null, "AntidoteII", EffectPlugin.immunity, 45, 1, true);
 		fluidAntidoteIII = potionRegistry.addPotion(null, "AntidoteIII", EffectPlugin.immunity, 30, 2, true);
-		//fluidAntidoteIIII = potionRegistry.addPotion(null, "AntidoteIIII", EffectPlugin.immunity, 20, 3, true);
+		fluidAntidoteIIII = potionRegistry.addPotion(null, "AntidoteIIII", EffectPlugin.immunity, 20, 3, true);
 		fluidAntidoteLong = potionRegistry.addPotion(null, "AntidoteLong", EffectPlugin.immunity, 120, 0, true);
 		fluidAntidoteVeryLong = potionRegistry.addPotion(null, "AntidoteVeryLong", EffectPlugin.immunity, 240, 0, true);
 		fluidBoom = potionRegistry.addPotion(null, "Boom", EffectPlugin.creeper, 8, 0, true);
@@ -333,7 +333,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidAntidote, vials, "Antidote", EffectPlugin.immunity, 15, 0, true);
 		potionRegistry.addPotion(fluidAntidoteII, vials, "AntidoteII", EffectPlugin.immunity, 10, 1, true);
 		potionRegistry.addPotion(fluidAntidoteIII, vials, "AntidoteIII", EffectPlugin.immunity, 10, 2, true);
-		//potionRegistry.addPotion(fluidAntidoteIIII, vials, "AntidoteIIII", EffectPlugin.immunity, 5, 3, true);
+		potionRegistry.addPotion(fluidAntidoteIIII, vials, "AntidoteIIII", EffectPlugin.immunity, 5, 3, true);
 		potionRegistry.addPotion(fluidAntidoteLong, vials, "AntidoteLong", EffectPlugin.immunity, 60, 0, true);
 		potionRegistry.addPotion(fluidAntidoteVeryLong, vials, "AntidoteVeryLong", EffectPlugin.immunity, 120, 0, true);
 		potionRegistry.addPotion(fluidBoom, vials, "Boom", EffectPlugin.creeper, 4, 0, true);
@@ -464,7 +464,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidAntidote, big, "Antidote", EffectPlugin.immunity, 120, 0, true);
 		potionRegistry.addPotion(fluidAntidoteII, big, "AntidoteII", EffectPlugin.immunity, 60, 1, true);
 		potionRegistry.addPotion(fluidAntidoteIII, big, "AntidoteIII", EffectPlugin.immunity, 30, 2, true);
-		//potionRegistry.addPotion(fluidAntidoteIIII, big, "AntidoteIIII", EffectPlugin.immunity, 15, 3, true);
+		potionRegistry.addPotion(fluidAntidoteIIII, big, "AntidoteIIII", EffectPlugin.immunity, 15, 3, true);
 		potionRegistry.addPotion(fluidAntidoteLong, big, "AntidoteLong", EffectPlugin.immunity, 240, 0, true);
 		potionRegistry.addPotion(fluidAntidoteVeryLong, big, "AntidoteVeryLong", EffectPlugin.immunity, 480, 0, true);
 		potionRegistry.addPotion(fluidBoom, big, "Boom", EffectPlugin.creeper, 16, 0, true);

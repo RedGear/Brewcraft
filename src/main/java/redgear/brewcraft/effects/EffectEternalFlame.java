@@ -18,6 +18,7 @@ public class EffectEternalFlame extends PotionExtension {
 	public void performEffect(EntityLivingBase living, int strength) {
 		living.setFire(2);
 
+		//Maybe have the health bar catch on fire or turn 'molten' in the future?
 		//Places a 3x3x1 square of fire around the entity.
 		if (living.worldObj.rand.nextInt(100) == 0) {
 			WorldLocation base = new WorldLocation((int) living.posX, (int) living.posY, (int) living.posZ,

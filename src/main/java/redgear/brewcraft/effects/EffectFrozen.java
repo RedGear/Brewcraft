@@ -16,6 +16,9 @@ public class EffectFrozen extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
+		
+		//In the future maybe cause snow to appear around the player,
+		//or possibly have their health bar turn 'frozen or something?
 		if (living instanceof EntityPlayer && AchievementPlugin.freeze != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.freeze, 1);
 	}

@@ -14,6 +14,7 @@ public class EffectFireEater extends PotionExtension {
 
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
+		//Maybe have health bar turn 'molten' while this is active?
 		if (living.isBurning())
 			living.heal(2 * strength + 1);
 		else

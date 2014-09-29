@@ -17,6 +17,7 @@ public class EffectFireproof extends PotionExtension {
 
 		living.extinguish();
 
+		//Maybe have health bar turn 'molten' or something while this is active?
 		if (living instanceof EntityPlayer && AchievementPlugin.fireproof != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.fireproof, 1);
 

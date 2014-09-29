@@ -35,8 +35,6 @@ public class TipHandler {
 			.getBoolean("General", "Add tooltips to fluid containers to display capacity.", false);
 
 	@SubscribeEvent
-	//Trying to take a little bit of the load off of this event class, it's causing occasional crashes from the
-	//creative inventory screen.
 	public void onTooltip(ItemTooltipEvent event) {
 		if (event.itemStack.getItem() == ItemBlock.getItemFromBlock(KegPlugin.kegs)) {
 			event.toolTip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tooltip.brewcraft.keg"));

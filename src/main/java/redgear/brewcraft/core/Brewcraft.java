@@ -9,6 +9,7 @@ import redgear.brewcraft.event.DamageHandler;
 import redgear.brewcraft.event.DropHandler;
 import redgear.brewcraft.event.TipHandler;
 import redgear.brewcraft.event.TradeHandler;
+import redgear.brewcraft.event.UpdateHandler;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.plugins.block.KegPlugin;
 import redgear.brewcraft.plugins.block.MachinePlugin;
@@ -81,6 +82,7 @@ public class Brewcraft extends ModUtils {
 		TradeHandler.register();
 		ParticleHandler.register();
 		TipHandler.register();
+		UpdateHandler.register();
 		
 		((BrewcraftTab) tabMisc).setTabIcon(MachinePlugin.brewery.getItem());
 		((BrewcraftTab) tabPotions).setTabIcon(new ItemStack(PotionPlugin.potions).getItem());

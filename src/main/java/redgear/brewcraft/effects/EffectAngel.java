@@ -23,6 +23,7 @@ public class EffectAngel extends PotionExtension {
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
 
+		//Maybe have health bar turn white/gold while this is active?
 		if (living instanceof EntityZombie) {
 			final EntityZombie villager = (EntityZombie) living;
 			if (villager.isVillager()) {
