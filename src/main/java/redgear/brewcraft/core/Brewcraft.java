@@ -11,6 +11,7 @@ import redgear.brewcraft.event.TipHandler;
 import redgear.brewcraft.event.TradeHandler;
 import redgear.brewcraft.event.UpdateHandler;
 import redgear.brewcraft.packet.ParticleHandler;
+import redgear.brewcraft.packet.SprayerDelayHandler;
 import redgear.brewcraft.plugins.block.KegPlugin;
 import redgear.brewcraft.plugins.block.MachinePlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
@@ -64,7 +65,8 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
 		addPlugin(new VillagePlugin());
-		addPlugin(new BrewcraftClientProxy());
+		if(isClient())
+			addPlugin(new BrewcraftClientProxy());
 
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
@@ -81,6 +83,7 @@ public class Brewcraft extends ModUtils {
 		DropHandler.register();
 		TradeHandler.register();
 		ParticleHandler.register();
+		SprayerDelayHandler.register();
 		TipHandler.register();
 		UpdateHandler.register();
 		

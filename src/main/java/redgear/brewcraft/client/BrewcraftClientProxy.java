@@ -31,7 +31,7 @@ public class BrewcraftClientProxy implements IPlugin {
 
 	@Override
 	public boolean shouldRun(ModUtils mod, ModState state) {
-		return Brewcraft.inst.isClient();
+		return mod.isClient();
 	}
 
 	@Override
