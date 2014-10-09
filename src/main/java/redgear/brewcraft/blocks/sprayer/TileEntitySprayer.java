@@ -47,7 +47,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 
 			setIdle(delay * 20);
 
-			AxisAlignedBB range = getRenderBoundingBox().expand(3.0D, 2.0D, 3.0D);
+			AxisAlignedBB range = worldObj.getBlock(xCoord, yCoord, zCoord).getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord, zCoord).expand(3.0D, 2.0D, 3.0D);
 			@SuppressWarnings("unchecked")
 			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
 

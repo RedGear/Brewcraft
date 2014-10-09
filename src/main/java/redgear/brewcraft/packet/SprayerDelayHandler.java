@@ -14,7 +14,7 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
 public class SprayerDelayHandler {
 	
-	public static final String name = "Brewcraft|SprayerDelay";
+	public static final String name = "Brewcraft|SpDelay";
 	
 	private static FMLEventChannel net;
 	public static SprayerDelayHandler inst;
