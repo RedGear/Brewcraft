@@ -10,18 +10,18 @@ import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.recipes.BreweryRecipe;
-import redgear.core.api.tile.IBucketableTank;
 import redgear.core.api.tile.IFacedTile;
 import redgear.core.api.util.FacedTileHelper;
 import redgear.core.fluids.AdvFluidTank;
+import redgear.core.inventory.InvSlot;
 import redgear.core.inventory.TransferRule;
 import redgear.core.tile.TileEntityTank;
 import redgear.core.util.SimpleItem;
 
-public class TileEntityBrewery extends TileEntityTank implements IBucketableTank, IFacedTile {
+public class TileEntityBrewery extends TileEntityTank implements IFacedTile {
 
 	ForgeDirection face;
-	
+
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;
 
@@ -33,7 +33,18 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	public TileEntityBrewery() {
 		super(10);
 
-		itemSlot = addSlot(79, 36);
+		itemSlot = addSlot(new InvSlot(this, 79, 36) {
+			@Override
+			public boolean stackAllowed(ItemStack stack) {
+				SimpleItem item = new SimpleItem(stack);
+
+				for (BreweryRecipe recipe : PotionPlugin.recipeRegistry.recipes)
+					if (recipe.item.equals(item))
+						return true;
+
+				return false;
+			}
+		});
 
 		inputTank = new BreweryInputTank(FluidContainerRegistry.BUCKET_VOLUME * 12, this);
 		outputTank = new AdvFluidTank(FluidContainerRegistry.BUCKET_VOLUME * 12).addFluidMap(-1, TransferRule.OUTPUT);
@@ -42,26 +53,26 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		addTank(outputTank);
 	}
 
+
+
 	@Override
 	protected boolean doPreWork() {
-		boolean check = false;
-
 		ItemStack stack = getStackInSlot(itemSlot);
 		if (stack != null) {
 			SimpleItem item = new SimpleItem(stack);
 
 			if (item.equals(ItemPlugin.obsidianTear) || item.equals(ItemPlugin.pureTear)) {
 				ItemPlugin.tears.onUpdate(stack, worldObj, this, itemSlot);
-				stack = getStackInSlot(itemSlot);
-				item = new SimpleItem(stack);
-				check = true;
+				return true;
 			}
 		}
-		return check;
+		return false;
 	}
 
+
+
 	@Override
-	protected int checkWork() {
+    protected int checkWork() {
 		if (!inputTank.isEmpty()) {
 			ItemStack stack = getStackInSlot(itemSlot);
 			if (stack != null) {
@@ -72,7 +83,7 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 				if (currRecipe != null)
 					if (inputTank.canDrain(currRecipe.input, true) && outputTank.canFill(currRecipe.output, true)) {
 						currItem = item;
-						decrStackSize(itemSlot, 1);
+                        decrStackSize(itemSlot, 1);
 						output = currRecipe.output;
 						output.amount = 10;
 						return currRecipe.input.amount / 10;
@@ -84,15 +95,15 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	}
 
 	@Override
-	protected boolean doWork() {
+    protected boolean doWork() {
 		inputTank.drain(output.amount, true);
 		outputTank.fill(output, true);
 
-		return this.getIdle() % 5 == 0;
+		return getIdle() % 5 == 0;
 	}
 
 	@Override
-	protected boolean doPostWork() {
+    protected boolean doPostWork() {
 		currItem = null;
 		output = null;
 		return true;
@@ -108,6 +119,8 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 		writeFluidStack(tag, "output", output);
 		if (currItem != null)
 			currItem.writeToNBT(tag, "currItem");
+        if(face == null)
+            face = ForgeDirection.SOUTH;
 		tag.setByte("face", (byte) face.ordinal());
 	}
 
@@ -128,44 +141,44 @@ public class TileEntityBrewery extends TileEntityTank implements IBucketableTank
 	}
 
 	@Override
-	protected boolean tryUseEnergy(int energy) {
+    protected boolean tryUseEnergy(int energy) {
 		return true;
 	}
 
 	public int getScaledWork(int total) {
-		if (work == 0 || workTotal == 0)
+		if (getWork() == 0 || getWorkTotal() == 0)
 			return 0;
 		else
-			return (int) ((float) work / (float) workTotal * total);
-	}
-	
-	@Override
-	public int getDirectionId() {
-		return face.ordinal();
+			return (int) ((float) getWork() / (float) getWorkTotal() * total);
 	}
 
-	@Override
-	public ForgeDirection getDirection() {
-		return face;
-	}
+    @Override
+    public int getDirectionId() {
+        return face.ordinal();
+    }
 
-	@Override
-	public boolean setDirection(int id) {
-		if (id >= 0 && id < 6) {
-			face = ForgeDirection.getOrientation(id);
-			return true;
-		} else
-			return false;
-	}
+    @Override
+    public ForgeDirection getDirection() {
+        return face;
+    }
 
-	@Override
-	public boolean setDirection(ForgeDirection side) {
-		face = side;
-		return true;
-	}
+    @Override
+    public boolean setDirection(int id) {
+        if (id >= 0 && id < 6) {
+            face = ForgeDirection.getOrientation(id);
+            return true;
+        } else
+            return false;
+    }
 
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		face = FacedTileHelper.facePlayerFlat(entity);
-	}
+    @Override
+    public boolean setDirection(ForgeDirection side) {
+        face = side;
+        return true;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+        face = FacedTileHelper.facePlayer(entity);
+    }
 }

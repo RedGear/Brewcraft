@@ -26,7 +26,7 @@ public class TileRendererBrewery extends TileEntitySpecialRenderer {
 
 		TileEntityBrewery tile = (TileEntityBrewery) tileentity;
 
-		int direction = tile.getDirectionId();
+		int direction = tile.getDirection().ordinal();
 		GL11.glRotatef(rotationMap[direction & 3] * 90, 0.0F, 1.0F, 0.0F); //Rotates model to correct angel. 
 
 		GL11.glScalef(1.0F, -1F, -1F); //Uh, not sure what this does
