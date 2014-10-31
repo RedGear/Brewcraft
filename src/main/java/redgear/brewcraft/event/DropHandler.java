@@ -42,46 +42,45 @@ public class DropHandler {
 			final EntitySkeleton skeleton = (EntitySkeleton) event.entity;
 
 			if (skeleton.getSkeletonType() == 1 || skeleton.isBurning())
-				if (rand.nextDouble() < 0.6D && event.source.getDamageType().equals("player"))
+				if (rand.nextFloat() < 0.6D && event.source.getDamageType().equals("player"))
 					skeleton.entityDropItem(
-							ItemPlugin.charredBone.getStack(event.entityLiving.worldObj.rand.nextInt(2) + 1),
+							ItemPlugin.charredBone.getStack(rand.nextInt(2) + 1),
 							0.0F);
 		}
 
-		if (event.entity.worldObj.rand.nextInt(200) == 0 && !(event.entity instanceof EntityPlayer)
-				&& event.entity instanceof IMob && event.source.getDamageType().equals("player"))
-			event.entity.dropItem(ItemPlugin.heartSmall.item, 1);
+		if (rand.nextInt(200) == 0 && event.entity instanceof IMob && event.source.getDamageType().equals("player"))
+			event.entity.entityDropItem(ItemPlugin.heartSmall.getStack(), 0.0F);
 
 		if (event.entity instanceof EntityGhast) {
 
-			if (event.source.getDamageType().equals("player") && rand.nextDouble() < 0.1D)
+			if (event.source.getDamageType().equals("player") && rand.nextFloat() < 0.1F)
 				event.entity.entityDropItem(ItemPlugin.obsidianTear.getStack(), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityChicken) {
-			if (rand.nextDouble() < 0.05D)
+			if (rand.nextFloat() < 0.05F)
 				event.entityLiving.entityDropItem(ItemPlugin.goldenFeather.getStack(), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityWitch) {
-			if (rand.nextDouble() < 0.7D)
-				event.entityLiving.entityDropItem(ItemPlugin.tiredSpores.getStack(rand.nextInt(3)), 0.0F);
-			if (rand.nextDouble() > 0.2D)
-				event.entityLiving.entityDropItem(ItemPlugin.remedySalve.getStack(rand.nextInt(3)), 0.0F);
+			if (rand.nextFloat() < 0.7F)
+				event.entityLiving.entityDropItem(ItemPlugin.tiredSpores.getStack(rand.nextInt(2) + 1), 0.0F);
+			if (rand.nextDouble() > 0.2F)
+				event.entityLiving.entityDropItem(ItemPlugin.remedySalve.getStack(rand.nextInt(2) + 1), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntitySpider) {
-			if (rand.nextDouble() < 0.25D)
+			if (rand.nextFloat() < 0.25F)
 				event.entityLiving.entityDropItem(ItemPlugin.spiderFang.getStack(rand.nextInt(1) + 1), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntitySilverfish) {
-			if (rand.nextDouble() < 0.7D)
+			if (rand.nextFloat() < 0.7F)
 				event.entityLiving.entityDropItem(ItemPlugin.steelScales.getStack(rand.nextInt(3) + 1), 0.0F);
 		}
 
 		if (event.entityLiving instanceof EntityBlaze) {
-			if (rand.nextDouble() < 0.5D)
+			if (rand.nextFloat() < 0.5F)
 				event.entityLiving.entityDropItem(ItemPlugin.heartBlaze.getStack(), 0.0F);
 		}
 	}

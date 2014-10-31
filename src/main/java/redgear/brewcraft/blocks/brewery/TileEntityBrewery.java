@@ -20,7 +20,7 @@ import redgear.core.util.SimpleItem;
 
 public class TileEntityBrewery extends TileEntityTank implements IFacedTile {
 
-	ForgeDirection face;
+	ForgeDirection face = ForgeDirection.SOUTH;
 
 	public final AdvFluidTank inputTank;
 	public final AdvFluidTank outputTank;
