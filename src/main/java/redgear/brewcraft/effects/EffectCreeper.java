@@ -4,17 +4,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectCreeper extends PotionExtension {
-
+	
 	public EffectCreeper(int id) {
-		super(id, true, 0x00CC00);
-		setPotionName("potion.creeper");
+		super("creeper", id, true, 0x00CC00);
 		setIconIndex(0, 0);
 	}
 
-	@Override
+	@Override 
 	public void performEffect(EntityLivingBase living, int strength) {
 		int duration = living.getActivePotionEffect(this).getDuration();
 		boolean flag = living.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
@@ -32,9 +31,8 @@ public class EffectCreeper extends PotionExtension {
 				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, strength * 3 + 4, flag);
 				living.attackEntityFrom(DamageSource.generic, 100F);
 			}
-			if (living instanceof EntityPlayer && AchievementPlugin.explode != null) {
+			if (living instanceof EntityPlayer && AchievementPlugin.explode != null)
 				((EntityPlayer) living).addStat(AchievementPlugin.explode, 1);
-			}
 		}
 	}
 }

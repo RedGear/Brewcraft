@@ -1,7 +1,7 @@
 package redgear.brewcraft.plugins.compat;
 
 import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.util.CoreDungeonLoot;
@@ -32,9 +32,8 @@ public class VanillaPlugin implements IPlugin {
 
 	@Override
 	public void Init(ModUtils mod) {
-		if (Brewcraft.inst.getBoolean("General", "Golden Feather Dungeon Loot",
-				"Toggle Golden Feather as Dungeon Loot", true))
-			CoreDungeonLoot.addLootToDungeons(IngredientPlugin.goldenFeather.getStack(), LootRarity.RARE);
+		if (Brewcraft.inst.getBoolean("General", "Golden Feather Dungeon Loot", true))
+			CoreDungeonLoot.addLootToDungeons(ItemPlugin.goldenFeather.getStack(), LootRarity.RARE);
 	}
 
 	@Override

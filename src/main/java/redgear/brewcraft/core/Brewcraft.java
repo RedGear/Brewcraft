@@ -1,33 +1,33 @@
 package redgear.brewcraft.core;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import redgear.brewcraft.blocks.BreweryFactory;
+import net.minecraft.item.ItemStack;
 import redgear.brewcraft.client.BrewcraftClientProxy;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
-import redgear.brewcraft.entity.ParticleHandler;
 import redgear.brewcraft.event.CraftingHandler;
 import redgear.brewcraft.event.DamageHandler;
 import redgear.brewcraft.event.DropHandler;
+import redgear.brewcraft.event.TipHandler;
 import redgear.brewcraft.event.TradeHandler;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
-import redgear.brewcraft.plugins.common.CraftingPlugin;
-import redgear.brewcraft.plugins.common.DamageSourcePlugin;
-import redgear.brewcraft.plugins.common.EffectPlugin;
-import redgear.brewcraft.plugins.common.IngredientPlugin;
-import redgear.brewcraft.plugins.common.PotionPlugin;
+import redgear.brewcraft.event.UpdateHandler;
+import redgear.brewcraft.packet.ParticleHandler;
+import redgear.brewcraft.packet.SprayerDelayHandler;
+import redgear.brewcraft.plugins.block.KegPlugin;
+import redgear.brewcraft.plugins.block.MachinePlugin;
 import redgear.brewcraft.plugins.compat.BuildcraftPlugin;
 import redgear.brewcraft.plugins.compat.ForestryPlugin;
 import redgear.brewcraft.plugins.compat.VanillaPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
+import redgear.brewcraft.plugins.core.CraftingPlugin;
+import redgear.brewcraft.plugins.core.DamageSourcePlugin;
+import redgear.brewcraft.plugins.core.EffectPlugin;
+import redgear.brewcraft.plugins.item.ItemPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
+import redgear.brewcraft.plugins.world.VillagePlugin;
 import redgear.brewcraft.utils.BrewcraftTab;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
-import redgear.core.block.MetaTileSpecialRenderer;
-import redgear.core.block.SubTile;
 import redgear.core.mod.ModUtils;
-import redgear.core.util.SimpleItem;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -41,43 +41,39 @@ public class Brewcraft extends ModUtils {
 	@Instance("redgear_brewcraft")
 	public static ModUtils inst;
 
-	public static MetaTileSpecialRenderer brewing;
-	public static SimpleItem brewery;
-
-	public static CreativeTabs tab;
+	public static CreativeTabs tabMisc;
+	public static CreativeTabs tabPotions;
+	public static CreativeTabs tabVials;
+	public static CreativeTabs tabBig;
 
 	@Override
 	protected void PreInit(FMLPreInitializationEvent event) {
 
 		PotionArrayExpander.init();
+		
+		tabMisc = new BrewcraftTab("misc");
+		tabPotions = new BrewcraftTab("potions");
+		tabVials = new BrewcraftTab("vials");
+		tabBig = new BrewcraftTab("big");
 
 		addPlugin(new DamageSourcePlugin());
 		addPlugin(new EffectPlugin());
+		addPlugin(new ItemPlugin());
 		addPlugin(new PotionPlugin());
-		addPlugin(new IngredientPlugin());
+		addPlugin(new MachinePlugin());
+		addPlugin(new KegPlugin());
 		addPlugin(new AchievementPlugin());
 		addPlugin(new CraftingPlugin());
-
-		if (isClient())
+		addPlugin(new VillagePlugin());
+		if(isClient())
 			addPlugin(new BrewcraftClientProxy());
 
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
 
-		tab = new BrewcraftTab("brewcraft", getBoolean("General", "Toggle Unconventional Creative Tab Overlay",
-				"Toggle the cool background for the Brewcraft creative tab."));
-
-		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Potion",
+		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Brewcraft:Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
-
-		brewing = new MetaTileSpecialRenderer(Material.iron, "RedGear.Brewcraft.Brewery",
-				RenderingRegistry.getNextAvailableRenderId());
-
-		brewing.setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setCreativeTab(tab)
-				.setHarvestLevel("pickaxe", 0);
-		brewery = brewing.addMetaBlock(new SubTile("brewery", new BreweryFactory()));
-
 	}
 
 	@Override
@@ -86,8 +82,15 @@ public class Brewcraft extends ModUtils {
 		DamageHandler.register();
 		DropHandler.register();
 		TradeHandler.register();
-		ParticleHandler.register();// hi guys! Mind if I join you?
-
+		ParticleHandler.register();
+		SprayerDelayHandler.register();
+		TipHandler.register();
+		UpdateHandler.register();
+		
+		((BrewcraftTab) tabMisc).setTabIcon(MachinePlugin.brewery.getItem());
+		((BrewcraftTab) tabPotions).setTabIcon(new ItemStack(PotionPlugin.potions).getItem());
+		((BrewcraftTab) tabVials).setTabIcon(new ItemStack(PotionPlugin.vials).getItem());
+		((BrewcraftTab) tabBig).setTabIcon(new ItemStack(PotionPlugin.big).getItem());
 	}
 
 	@Override

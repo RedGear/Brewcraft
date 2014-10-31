@@ -1,8 +1,8 @@
 package redgear.brewcraft.event;
 
 import net.minecraft.item.Item;
-import redgear.brewcraft.core.Brewcraft;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.block.MachinePlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -26,7 +26,7 @@ public class CraftingHandler {
 
 	@SubscribeEvent
 	public void collectBrewery(final PlayerEvent.ItemCraftedEvent event) {
-		if (event.crafting.equals(Item.getItemFromBlock(Brewcraft.brewery.getBlock())))
+		if (event.crafting.equals(Item.getItemFromBlock(MachinePlugin.brewery.getBlock())))
 			event.player.addStat(AchievementPlugin.craftBrewery, 1);
 	}
 }

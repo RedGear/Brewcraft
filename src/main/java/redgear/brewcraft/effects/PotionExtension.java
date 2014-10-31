@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class PotionExtension extends Potion {
 
-	public PotionExtension(int id, boolean isBad, int particleColor) {
+	public PotionExtension(String name, int id, boolean isBad, int particleColor) {
 		super(id, isBad, particleColor);
-
+		setPotionName("potion.brewcraft." + name);
 	}
 
 	@Override

@@ -8,13 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectAngel extends PotionExtension {
 
 	public EffectAngel(int id) {
-		super(id, false, 0xFFFF33);
-		setPotionName("potion.angel");
+		super("angel", id, false, 0xFFFF33);
 		setIconIndex(1, 0);
 	}
 
@@ -24,6 +23,7 @@ public class EffectAngel extends PotionExtension {
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
 
+		//Maybe have health bar turn white/gold while this is active?
 		if (living instanceof EntityZombie) {
 			final EntityZombie villager = (EntityZombie) living;
 			if (villager.isVillager()) {
@@ -37,9 +37,8 @@ public class EffectAngel extends PotionExtension {
 		else
 			living.heal(strength + 1 * 1F);
 
-		if (living instanceof EntityPlayer && AchievementPlugin.holywater != null) {
+		if (living instanceof EntityPlayer && AchievementPlugin.holywater != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.holywater, 1);
-		}
 	}
 
 	/**

@@ -3,6 +3,7 @@
 bin
 build
 eclipse
+dep
 run
 
 #################
@@ -220,3 +221,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.iml
+*.iml
+*.ipr
+*.iws

@@ -2,13 +2,12 @@ package redgear.brewcraft.effects;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import redgear.brewcraft.plugins.common.AchievementPlugin;
+import redgear.brewcraft.plugins.core.AchievementPlugin;
 
 public class EffectFrozen extends PotionExtension {
 
 	public EffectFrozen(int id) {
-		super(id, true, 0xCCFFFF);
-		setPotionName("potion.frozen");
+		super("frozen", id, true, 0xCCFFFF);
 		setIconIndex(4, 0);
 	}
 
@@ -17,9 +16,11 @@ public class EffectFrozen extends PotionExtension {
 	 */
 	@Override
 	public void performEffect(EntityLivingBase living, int strength) {
-		if (living instanceof EntityPlayer && AchievementPlugin.freeze != null) {
+		
+		//In the future maybe cause snow to appear around the player,
+		//or possibly have their health bar turn 'frozen or something?
+		if (living instanceof EntityPlayer && AchievementPlugin.freeze != null)
 			((EntityPlayer) living).addStat(AchievementPlugin.freeze, 1);
-		}
 	}
 
 	/**

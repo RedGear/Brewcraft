@@ -1,0 +1,17 @@
+[
+{
+  "modid": "redgear_brewcraft",
+  "name": "Brewcraft",
+  "description": "Industrial brewing and fluid potions!",
+  "version": "${version}",
+  "credits": "Created by Team Red Gear",
+  "logoFile": "",
+  "mcversion": "${minecraft_version}",
+  "url": "http://curse.com/project/69805",
+  "updateUrl": "",
+  "authors": [ "Enosphorous", "LordBlackHole"],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": ["redgear_core"]
+}
+]
