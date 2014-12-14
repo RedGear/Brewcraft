@@ -12,22 +12,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
-import redgear.core.api.tile.IFacedTile;
-import redgear.core.api.util.FacedTileHelper;
 import redgear.core.fluids.AdvFluidTank;
+import redgear.core.tile.Faced;
 import redgear.core.tile.TileEntityTank;
 import cofh.api.tileentity.IRedstoneCache;
 
-public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache, IFacedTile {
+public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache, Faced {
 
-	ForgeDirection face;
 	public final AdvFluidTank tank;
 
 	public boolean isPowered = false;
@@ -42,7 +38,7 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	}
 
 	@Override
-	protected boolean doPreWork() {
+	public boolean doPreWork() {
 		if (isPowered && tank.getAmount() >= 50) {
 
 			setIdle(delay * 20);
@@ -98,22 +94,22 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 	}
 
 	@Override
-	protected int checkWork() {
+	public int checkWork() {
 		return 0;
 	}
 
 	@Override
-	protected boolean doWork() {
+	public boolean doWork() {
 		return false;
 	}
 
 	@Override
-	protected boolean tryUseEnergy(int energy) {
+	public boolean tryUseEnergy(int energy) {
 		return true;
 	}
 
 	@Override
-	protected boolean doPostWork() {
+	public boolean doPostWork() {
 		return false;
 	}
 
@@ -137,7 +133,6 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 		super.writeToNBT(tag);
 		tag.setInteger("delay", delay);
 		tag.setBoolean("isPowered", isPowered);
-		tag.setByte("face", (byte) face.ordinal());
 	}
 
 	/**
@@ -149,36 +144,5 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 		super.readFromNBT(tag);
 		delay = tag.getInteger("delay");
 		isPowered = tag.getBoolean("isPowered");
-		face = ForgeDirection.getOrientation(tag.getByte("face"));
-	}
-
-	@Override
-	public int getDirectionId() {
-		return face.ordinal();
-	}
-
-	@Override
-	public ForgeDirection getDirection() {
-		return face;
-	}
-
-	@Override
-	public boolean setDirection(int id) {
-		if (id >= 0 && id < 6) {
-			face = ForgeDirection.getOrientation(id);
-			return true;
-		} else
-			return false;
-	}
-
-	@Override
-	public boolean setDirection(ForgeDirection side) {
-		face = side;
-		return true;
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		face = FacedTileHelper.facePlayer(entity);
 	}
 }

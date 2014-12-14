@@ -59,6 +59,19 @@ public class CraftingPlugin implements IPlugin {
 		if (Brewcraft.inst.getBoolean("Recipes", "Splash Bottle Crafting Recipe", true))
 			GameRegistry.addShapedRecipe(ItemPlugin.splashBottle.getStack(3), new Object[] {" @!", "@ @", " @ ",
 					Character.valueOf('!'), Items.gunpowder, Character.valueOf('@'), Blocks.glass });
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Large Bottle Crafting Recipe"))
+			GameRegistry.addShapedRecipe(ItemPlugin.emptyBigBottle.getStack(3), new Object[] {"G G", "G G", "GGG", 'G', Blocks.glass});
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Large Splash Bottle Crafting Recipe"))
+			GameRegistry.addShapedRecipe(ItemPlugin.splashBigBottle.getStack(3), new Object[] {"G G", "G!G", "GGG", 'G', Blocks.glass, '!', Items.gunpowder});
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Vial Crafting Recipe"))
+			GameRegistry.addShapedRecipe(ItemPlugin.emptyVial.getStack(3), new Object[] {"G", "G", 'G', Blocks.glass});
+		
+		if (Brewcraft.inst.getBoolean("Recipes", "Splash Vial Crafting Recipe"))
+			GameRegistry.addShapedRecipe(ItemPlugin.splashVial.getStack(3), new Object[] {"!", "G", "G", 'G', Blocks.glass, '!', Items.gunpowder});
+		
 
 		boolean ironOverride = false;
 

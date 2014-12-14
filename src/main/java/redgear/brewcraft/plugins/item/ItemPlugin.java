@@ -1,5 +1,6 @@
 package redgear.brewcraft.plugins.item;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -12,6 +13,8 @@ import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.common.LoaderState.ModState;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemPlugin implements IPlugin {
 
@@ -73,7 +76,12 @@ public class ItemPlugin implements IPlugin {
 		steelScales = ingredients.addMetaItem(new SubItem("steelscales"));
 
 		misc = new MetaItem<SubItem>("RedGear.Brewcraft.Misc");
-		splashBottle = misc.addMetaItem(new SubItem("splashbottle"));
+		splashBottle = misc.addMetaItem(new SubItem("splashbottle"){
+			@SideOnly(Side.CLIENT)
+			public void registerIcons(String modName, IIconRegister par1IconRegister) {
+				itemIcon = par1IconRegister.registerIcon("potion_bottle_splash");
+			}
+		});
 		emptyVial = misc.addMetaItem(new SubItem("vial"));
 		splashVial = misc.addMetaItem(new SubItem("vialsplash"));
 		emptyBigBottle = misc.addMetaItem(new SubItem("bigbottle"));

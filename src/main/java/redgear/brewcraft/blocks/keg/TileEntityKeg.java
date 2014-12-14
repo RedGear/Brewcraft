@@ -2,11 +2,11 @@ package redgear.brewcraft.blocks.keg;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import redgear.core.api.tile.IBucketableTank;
 import redgear.core.fluids.AdvFluidTank;
+import redgear.core.tile.Bucketable;
 import redgear.core.tile.TileEntityTank;
 
-public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
+public class TileEntityKeg extends TileEntityTank implements Bucketable {
 
 	public final AdvFluidTank tank;
 	public EnumKegType type;
@@ -24,27 +24,27 @@ public class TileEntityKeg extends TileEntityTank implements IBucketableTank {
 	}
 
 	@Override
-	protected boolean doPreWork() {
+	public boolean doPreWork() {
 		return false;
 	}
 
 	@Override
-	protected int checkWork() {
+	public int checkWork() {
 		return 0;
 	}
 
 	@Override
-	protected boolean doWork() {
+	public boolean doWork() {
 		return false;
 	}
 
 	@Override
-	protected boolean tryUseEnergy(int energy) {
+	public boolean tryUseEnergy(int energy) {
 		return false;
 	}
 
 	@Override
-	protected boolean doPostWork() {
+	public boolean doPostWork() {
 		return false;
 	}
 	
