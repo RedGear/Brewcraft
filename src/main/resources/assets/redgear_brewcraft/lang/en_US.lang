@@ -49,6 +49,8 @@ tile.RedGear.Brewcraft.Kegs.kegSilver.name=Silver Keg
 tile.RedGear.Brewcraft.Kegs.kegTungsten.name=Tungsten Keg
 tile.RedGear.Brewcraft.Kegs.kegBrass.name=Brass Keg
 tile.RedGear.Brewcraft.Kegs.kegRubber.name=Rubber-Sealed Keg
+tile.RedGear.Brewcraft.Bottlers.bottler.name=Bottler
+tile.RedGear.Brewcraft.Bottlers.unbottler.name=Unbottler
 
 container.brewery=Brewery
 container.tab.information=Information
@@ -56,6 +58,8 @@ container.sprayer=Sprayer
 container.sprayer.adddelay=Add delay
 container.sprayer.subdelay=Subtract delay
 container.keg=Keg
+container.bottler=Bottler
+container.unbottler=Unbottler
 
 itemGroup.brewcraft.misc=Brewcraft Misc
 itemGroup.brewcraft.potions=Brewcraft Potions

@@ -51,14 +51,15 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 
 	@Override
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		if (!player.capabilities.isCreativeMode) {
-			--stack.stackSize;
-			player.inventory.addItemStackToInventory(potionBottle);
-		}
-
 		if (!world.isRemote)
 			getMetaItem(stack.getItemDamage()).effect(player);
-
+		
+		if (!player.capabilities.isCreativeMode) {
+			if(--stack.stackSize <= 0)
+				return potionBottle.copy();
+			else
+				player.inventory.addItemStackToInventory(potionBottle.copy());
+		}
 		return stack;
 	}
 
