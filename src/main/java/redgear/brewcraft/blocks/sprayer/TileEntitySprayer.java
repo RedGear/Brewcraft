@@ -12,8 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.packet.ParticleHandler;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.SubItemPotion;
@@ -21,6 +24,7 @@ import redgear.core.fluids.AdvFluidTank;
 import redgear.core.tile.Faced;
 import redgear.core.tile.TileEntityTank;
 import cofh.api.tileentity.IRedstoneCache;
+import redgear.core.world.Location;
 
 public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache, Faced {
 
@@ -34,6 +38,8 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 
 		tank = new SprayerTank(FluidContainerRegistry.BUCKET_VOLUME * 8);
 
+		setFlat(false);
+
 		addTank(tank);
 	}
 
@@ -43,7 +49,24 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 
 			setIdle(delay * 20);
 
-			AxisAlignedBB range = worldObj.getBlock(xCoord, yCoord, zCoord).getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord, zCoord).expand(3.0D, 2.0D, 3.0D);
+			ForgeDirection direct = getDirection();
+			Location loc = getLocation();
+
+
+			double minX = xCoord - (direct == ForgeDirection.WEST  ? 6 : direct == ForgeDirection.EAST  ? -1.5 : 1.5);
+			double minY = yCoord - (direct == ForgeDirection.DOWN  ? 6 : direct == ForgeDirection.UP    ? -1.5 : 1.5);
+			double minZ = zCoord - (direct == ForgeDirection.NORTH ? 6 : direct == ForgeDirection.SOUTH ? -1.5 : 1.5);
+
+			double maxX = xCoord + (direct == ForgeDirection.EAST  ? 6 : direct == ForgeDirection.WEST  ? -1.0 : 1.5);
+			double maxY = yCoord + (direct == ForgeDirection.UP    ? 6 : direct == ForgeDirection.DOWN  ? -1.0 : 1.5);
+			double maxZ = zCoord + (direct == ForgeDirection.SOUTH ? 6 : direct == ForgeDirection.NORTH ? -1.0 : 1.5);
+
+
+			Brewcraft.inst.logDebug("Current location: ", loc, ", spraying min: [", minX, ", ", minY, ", ", minZ, "], to max: [", maxX, ", ", maxY, ", ", maxZ, "]");
+
+			AxisAlignedBB range = AxisAlignedBB.getBoundingBox(minX, minY, minZ,
+					maxX, maxY, maxZ);
+
 			@SuppressWarnings("unchecked")
 			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, range);
 
@@ -56,8 +79,8 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 				final MetaItemPotion bottle = (MetaItemPotion) potion.getItem();
 				final SubItemPotion bot = bottle.getMetaItem(bottle.getDamage(potion));
 
-				ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, bot.getEffect(),
-						ParticleHandler.MIST);
+				ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, bot.getEffect(),
+						ParticleHandler.MIST, getDirection());
 				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 						worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
@@ -71,8 +94,8 @@ public class TileEntitySprayer extends TileEntityTank implements IRedstoneCache,
 
 				if (list != null) {
 
-					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5,
-							PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST);
+					ParticleHandler.send(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+							PotionHelper.func_77915_a(potion.getItemDamage(), false), true, ParticleHandler.MIST, getDirection());
 					worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 0.5F,
 							worldObj.rand.nextFloat() * 0.1F + 0.9F);
 

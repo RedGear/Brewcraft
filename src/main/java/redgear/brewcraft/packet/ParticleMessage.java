@@ -4,6 +4,7 @@ import net.minecraft.potion.Potion;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ParticleMessage implements IMessage {
 
@@ -13,6 +14,7 @@ public class ParticleMessage implements IMessage {
 	public int color;
 	public boolean instant;
 	public int particle;
+	public int direction;
 
 	public ParticleMessage() {
 
@@ -23,7 +25,7 @@ public class ParticleMessage implements IMessage {
 			fromBytes(packet.payload());
 	}
 
-	public ParticleMessage(double x, double y, double z, int color, boolean instant, int particle) {
+	public ParticleMessage(double x, double y, double z, int color, boolean instant, int particle, int direction) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -32,10 +34,15 @@ public class ParticleMessage implements IMessage {
 			this.instant = instant;
 		}
 		this.particle = particle;
+		this.direction = direction;
 	}
 
-	public ParticleMessage(double x, double y, double z, Potion effect, int particle) {
-		this(x, y, z, effect == null ? 0 : effect.getLiquidColor(), effect == null ? false : effect.isInstant(), particle);
+	public ParticleMessage(double x, double y, double z, int color, boolean instant, int particle){
+		this(x, y, z, color, instant, particle, ForgeDirection.UNKNOWN.ordinal());
+	}
+
+	public ParticleMessage(double x, double y, double z, Potion effect, int particle, int direction) {
+		this(x, y, z, effect == null ? 0 : effect.getLiquidColor(), effect == null ? false : effect.isInstant(), particle, direction);
 	}
 
 	@Override
@@ -49,6 +56,7 @@ public class ParticleMessage implements IMessage {
 		color = buf.readInt();
 		instant = buf.readBoolean();
 		particle = buf.readInt();
+		direction = buf.readInt();
 	}
 
 	@Override
@@ -62,6 +70,7 @@ public class ParticleMessage implements IMessage {
 		buf.writeInt(color);
 		buf.writeBoolean(instant);
 		buf.writeInt(particle);
+		buf.writeInt(direction);
 	}
 
 }

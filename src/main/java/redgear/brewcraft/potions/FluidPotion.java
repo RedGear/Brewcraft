@@ -5,6 +5,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.core.Brewcraft;
 import redgear.core.asm.RedGearCore;
 import redgear.core.util.SimpleItem;
@@ -64,6 +65,15 @@ public class FluidPotion extends Fluid {
 	 * Returns the localized name of this fluid.
 	 */
 	@Override
+	public String getLocalizedName(FluidStack stack) {
+		return getLocalizedName();
+	}
+
+	/**
+	 * Returns the localized name of this fluid.
+	 */
+	@Override
+	@Deprecated
 	public String getLocalizedName() {
 		return localName;
 	}
