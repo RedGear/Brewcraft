@@ -38,7 +38,7 @@ group= mod_group // http://maven.apache.org/guides/mini/guide-naming-conventions
 archivesBaseName = mod_name
 
 minecraft{
-	version = "${minecraft_version}-${forge_version}"
+	version = "${forge_version}-${minecraft_version}"
 
 	replace "@ModVersion@", project.version
 }

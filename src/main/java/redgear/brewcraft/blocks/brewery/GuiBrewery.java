@@ -10,7 +10,7 @@ import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 public class GuiBrewery extends GuiBase<ContainerBrewery> {
 
 	public static final ResourceLocation texture = new ResourceLocation("redgear_brewcraft:textures/gui/brewery.png");
-	ElementDualScaled work;
+	ElementDualScaled<TileEntityBrewery, ContainerBrewery, GuiBrewery> work;
 
 	public GuiBrewery(ContainerBrewery container) {
 		super(container, texture);
@@ -25,8 +25,11 @@ public class GuiBrewery extends GuiBase<ContainerBrewery> {
 		addElement(new ElementFluidTankWithGlass(this, 26, 13, tile.inputTank).setGauge(0));
 		addElement(new ElementFluidTankWithGlass(this, 134, 13, tile.outputTank).setGauge(0));
 
-		work = (ElementDualScaled) addElement(new ElementDualScaled(this, 62, 30).setSize(12, 29).setTexture(
-				"redgear_brewcraft:textures/gui/brewoverlay.png", 24, 29));
+		work = new ElementDualScaled<TileEntityBrewery, ContainerBrewery, GuiBrewery>(this, 62, 30);
+		work.setSize(12, 29)
+				.setTexture("redgear_brewcraft:textures/gui/brewoverlay.png", 24, 29);
+
+		addElement(work);
 	}
 
 	@Override

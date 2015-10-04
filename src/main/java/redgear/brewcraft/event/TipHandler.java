@@ -82,7 +82,7 @@ public class TipHandler {
 					event.toolTip.add(" ");
 					event.toolTip.add(EnumChatFormatting.ITALIC
 							+ StatCollector.translateToLocalFormatted("tooltip.brewcraft.capacity", fluid.amount));
-					event.toolTip.add(EnumChatFormatting.ITALIC + fluid.getFluid().getLocalizedName());
+					event.toolTip.add(EnumChatFormatting.ITALIC + fluid.getLocalizedName());
 				}
 			}
 	}

@@ -13,7 +13,7 @@ import redgear.core.util.StringHelper;
 
 public class TileRendererBrewery extends TileEntitySpecialRenderer {
 
-	private final int rotationMap[] = {0, 3, 2, 1 };
+	private final int rotationMap[] = {1, 1, 0, 0};
 	ModelBrewery model = new ModelBrewery();
 	ResourceLocation texture = StringHelper.parseModelTexture(Brewcraft.inst.modId, "brewery");
 

@@ -57,7 +57,7 @@ public class RecipeRegistry implements IRecipeRegistry {
 
 	public void addRecipe(FluidStack input, FluidStack output, SimpleItem item, int amount) {
 		if (input != null && output != null && item != null) {
-			if (Brewcraft.inst.getBoolean("Brewery Recipes", "Toggle " + output.getFluid().getLocalizedName()
+			if (Brewcraft.inst.getBoolean("Brewery Recipes", "Toggle " + output.getLocalizedName()
 					+ " Recipe")) {
 				if (!recipes.add(new BreweryRecipe(resizeStack(input.copy(), amount), output, item)))
 					Brewcraft.inst.myLogger

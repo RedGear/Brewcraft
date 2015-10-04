@@ -1,5 +1,6 @@
 package redgear.brewcraft.blocks.brewery;
 
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.core.fluids.AdvFluidTank;
@@ -21,10 +22,7 @@ public class BreweryInputTank extends AdvFluidTank {
 	@Override
 	public boolean canAccept(int fluidId) {
 		//This one shouldn't be called since canFillWithMap is also being overridden, but just to be safe ...
-		if (PotionPlugin.recipeRegistry.getBreweryRecipe(new FluidStack(fluidId, 1), tile.getCurrItem()) != null)
-			return true;
-		else
-			return false;
+		return PotionPlugin.recipeRegistry.getBreweryRecipe(new FluidStack(FluidRegistry.getFluid(fluidId), 1), tile.getCurrItem()) != null;
 	}
 
 	/**
