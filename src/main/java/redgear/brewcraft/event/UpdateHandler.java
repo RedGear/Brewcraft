@@ -1,6 +1,8 @@
 package redgear.brewcraft.event;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -51,16 +53,20 @@ public class UpdateHandler {
 					player.removePotionEffectClient(Potion.blindness.id);
 				}
 
+				Set<Integer> idsToRemove = new HashSet<Integer>();
+
 				if (strength >= 3) {
 					Collection<PotionEffect> map = player.getActivePotionEffects();
-					int id = 0;
 
 					for (PotionEffect effect : map) {
-						id = effect.getPotionID();
+						int id = effect.getPotionID();
 
 						if (id < Potion.potionTypes.length && Potion.potionTypes[id].isBadEffect())
-							player.removePotionEffect(id);
+							idsToRemove.add(id);
 					}
+
+					for(int id : idsToRemove)
+						player.removePotionEffect(id);
 				}
 			}
 		}
