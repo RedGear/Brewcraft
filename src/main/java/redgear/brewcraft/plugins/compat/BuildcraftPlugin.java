@@ -36,7 +36,7 @@ public class BuildcraftPlugin implements IPlugin {
 	@Override
 	public void Init(ModUtils mod) {
 		if (Brewcraft.inst.getBoolean("Plugins", "Buildcraft Plugin", true)) {
-			if (Mods.BCEnergy.isIn()) {	
+			if (Mods.BCCore.isIn()) {	
 				BuildcraftFuelRegistry.fuel.addFuel(PotionPlugin.fluidBoom.getFluid(), power, time);
 				BuildcraftFuelRegistry.fuel.addFuel(PotionPlugin.fluidBoomII.getFluid(), power * 2, time / 2);
 				BuildcraftFuelRegistry.fuel.addFuel(PotionPlugin.fluidBoomIII.getFluid(), power * 3, time / 3);
