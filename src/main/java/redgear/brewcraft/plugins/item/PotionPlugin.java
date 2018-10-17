@@ -186,6 +186,7 @@ public class PotionPlugin implements IPlugin {
 		fluidHarmIII = potionRegistry.addPotion(null, "HarmIII", Potion.harm, 1, 2);
 		fluidHealIII = potionRegistry.addPotion(null, "HealIII", Potion.heal, 1, 2);
 		fluidVisionVeryLong = potionRegistry.addPotion(null, "VisionVeryLong", Potion.nightVision, 960, 0);
+		fluidInvisibleVeryLong = potionRegistry.addPotion(null, "InvisibleVeryLong", Potion.invisibility, 960, 0);
 		fluidWeaknessVeryLong = potionRegistry.addPotion(null, "WeaknessVeryLong", Potion.weakness, 480, 0, true);
 		fluidSlownessVeryLong = potionRegistry.addPotion(null, "SlownessVeryLong", Potion.moveSlowdown, 480, 0, true);
 		fluidWaterBreatheVeryLong = potionRegistry.addPotion(null, "WaterBreatheVeryLong", Potion.waterBreathing, 960, 0);
@@ -235,6 +236,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidVisionVeryLong, vials, "VisionVeryLong", Potion.nightVision, 480, 0);
 		potionRegistry.addPotion(fluidInvisible, vials, "Invisible", Potion.invisibility, 45, 0);
 		potionRegistry.addPotion(fluidInvisibleLong, vials, "InvisibleLong", Potion.invisibility, 90, 0);
+		potionRegistry.addPotion(fluidInvisibleVeryLong, vials, "InvisibleVeryLong", Potion.invisibility, 180, 0);
 		potionRegistry.addPotion(fluidRegen, vials, "Regen", Potion.regeneration, 15, 0);
 		potionRegistry.addPotion(fluidRegenII, vials, "RegenII", Potion.regeneration, 7, 1);
 		potionRegistry.addPotion(fluidRegenLong, vials, "RegenLong", Potion.regeneration, 45, 0);
@@ -366,6 +368,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidVisionVeryLong, big, "VisionVeryLong", Potion.nightVision, 1440, 0);
 		potionRegistry.addPotion(fluidInvisible, big, "Invisible", Potion.invisibility, 360, 0);
 		potionRegistry.addPotion(fluidInvisibleLong, big, "InvisibleLong", Potion.invisibility, 720, 0);
+		potionRegistry.addPotion(fluidInvisibleVeryLong, big, "InvisibleVeryLong", Potion.invisibility, 1440, 0);
 		potionRegistry.addPotion(fluidRegen, big, "Regen", Potion.regeneration, 90, 0);
 		potionRegistry.addPotion(fluidRegenII, big, "RegenII", Potion.regeneration, 45, 1);
 		potionRegistry.addPotion(fluidRegenLong, big, "RegenLong", Potion.regeneration, 180, 0);
