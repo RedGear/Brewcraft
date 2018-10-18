@@ -1,5 +1,5 @@
 1.3.3.2		18/10/2018
 Fixed/Added Invisibilty Potions Tier 3 not appearing
 
-1.3.3.1		18/10/2018
+1.3.3.1		17/10/2018
 Fixed Buildcraft plugin integration to use Combustion Potions as fuel
