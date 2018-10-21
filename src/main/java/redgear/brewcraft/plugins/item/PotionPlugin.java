@@ -735,7 +735,7 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidAbsorption, fluidAbsorptionLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidAbsorptionLong, fluidAbsorption, Items.glowstone_dust);
 	}
-
+	
 	private FluidStack createVanillaPotion(String name, int metaBottle, int metaSplash, int duration, int strength) {
 		FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
 				Items.potionitem, metaBottle), duration * 20, strength), potionTexture), 1000);
@@ -749,5 +749,9 @@ public class PotionPlugin implements IPlugin {
 
 	public static RecipeRegistry getRecipeList() {
 		return recipeRegistry;
+	}
+
+	public static PotionRegistry getPotionList() {
+		return potionRegistry;
 	}
 }
