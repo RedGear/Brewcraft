@@ -104,4 +104,8 @@ public class RecipeRegistry implements IRecipeRegistry {
 		return null;
 
 	}
+	
+	public Set<BreweryRecipe> getBreweryRecipeSet() {
+		return recipes;
+	}
 }

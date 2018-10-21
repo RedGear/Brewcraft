@@ -746,4 +746,8 @@ public class PotionPlugin implements IPlugin {
 					ItemPlugin.splashBottle.getStack());
 		return potion;
 	}
+
+	public static RecipeRegistry getRecipeList() {
+		return recipeRegistry;
+	}
 }

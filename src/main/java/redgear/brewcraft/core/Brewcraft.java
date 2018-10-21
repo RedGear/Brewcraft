@@ -24,6 +24,7 @@ import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.plugins.world.VillagePlugin;
+import redgear.brewcraft.plugins.nei.NEIBrewcraftPluginConfig;
 import redgear.brewcraft.utils.BrewcraftTab;
 import redgear.brewcraft.utils.PotionArrayExpander;
 import redgear.core.asm.RedGearCore;
@@ -71,7 +72,7 @@ public class Brewcraft extends ModUtils {
 		addPlugin(new ForestryPlugin());
 		addPlugin(new BuildcraftPlugin());
 		addPlugin(new VanillaPlugin());
-
+		//addPlugin(new NEIBrewcraftPluginConfig());
 		EntityRegistry.registerModEntity(EntityBrewcraftPotion.class, "Brewcraft:Potion",
 				EntityRegistry.findGlobalUniqueEntityId(), RedGearCore.inst, 128, 10, true);
 	}
