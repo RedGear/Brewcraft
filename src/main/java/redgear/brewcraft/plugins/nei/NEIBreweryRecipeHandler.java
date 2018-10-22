@@ -1,34 +1,51 @@
 package redgear.brewcraft.plugins.nei;
 
+import static codechicken.lib.gui.GuiDraw.changeTexture;
+import static codechicken.lib.gui.GuiDraw.drawTexturedModalRect;
 import static net.minecraft.init.Items.potionitem;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
+import org.lwjgl.opengl.GL11;
 
+import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import codechicken.nei.recipe.GuiRecipe;
 import cpw.mods.fml.common.FMLLog;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
+import redgear.brewcraft.blocks.brewery.ContainerBrewery;
+import redgear.brewcraft.blocks.brewery.GuiBrewery;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionRegistry;
+import redgear.core.render.gui.element.ElementFluidTank;
+import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 import redgear.core.util.SimpleItem;
+import redgear.core.fluids.AdvFluidTank;
+import redgear.core.render.GuiBase;
 
 public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
-
+	
 	@Override
 	public String getRecipeName() {
 		String name = StatCollector.translateToLocal("redgear.brewcraft.brewery");
@@ -78,8 +95,9 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	
 	public RecipeRegistry recipes = PotionPlugin.getRecipeList();
 	public PotionRegistry potions = PotionPlugin.getPotionList();
+	Object[] recipearray = recipes.getBreweryRecipeSet().toArray();
 	
-
+	
 	@Override
     public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(46, 34, 24, 19), "fuel"));
@@ -98,6 +116,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		//FMLLog.log(Level.INFO, "Yes! You got USAGE recipes loading (ingredient). Wait where are they?");
 		//FMLLog.log(Level.INFO, "Ingredient: " + ingredient.getItem().getClass());
 		
+		//FMLLog.log(Level.INFO, "Get Blocks" + PotionPlugin.fluidAwkward.getFluid().getBlock().getLocalizedName());
+		
 		if ((ingredient.getItem() instanceof ItemPotion) || (ingredient.getItem() instanceof MetaItemPotion)) {
 			
 			FMLLog.log(Level.INFO, "What? So Fluids Exist?   " + ingredient.getItem().getItemStackDisplayName(ingredient).toString());
@@ -111,6 +131,15 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 					FMLLog.log(Level.INFO, ingredient.getItemDamage() + " : " + recipe.input.getFluid().getID());
 					FMLLog.log(Level.INFO, "EUREKA!!!!!!!!! YOU GOT: " + recipe.input.getFluid().getLocalizedName(recipe.input));
 				}
+				if (ingredient.getItem() instanceof MetaItemPotion) {
+					//ItemStack theone = new ItemStack(PotionPlugin.potions);
+					
+					Fluid theone = ((BreweryRecipe)recipearray[0]).input.getFluid();
+					
+					/* gets name, but what about fluid */
+					String thepotion = ((FluidPotion)theone).getLocalizedName();
+					
+				}
 			}		
 		} else {		
 	        for (BreweryRecipe recipe : this.recipes.getBreweryRecipeSet()) {
@@ -120,7 +149,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	            //if (NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.item.getItem()), ingredient)) {
 	            	CachedBreweryRecipe arecipe = new CachedBreweryRecipe(recipe);
 	            	//FMLLog.log(Level.INFO, "CHECKCKCKCHCK");
-	        		if (recipe.input.isFluidEqual(ingredient)) {
+	        		if (recipe.input.isFluidEqual(ingredient)) { //may not work, fluid not equal to potion
 		                //FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe (fluid)");
 		                arecipes.add(arecipe);
 		            } else if (recipe.item.isItemEqual(new SimpleItem(ingredient.getItem()), true)){
@@ -137,7 +166,111 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	}
 	
 	public void loadUsageRecipes(FluidStack ingredient) {
-		FMLLog.log(Level.INFO, "What? So Fluids Exist?");
+		FMLLog.log(Level.INFO, "What? So Fluids Exist?$%)(#$&^");
 	}
 	
+	@Override
+    public String getOverlayIdentifier() {
+        return "brewcraft.brewery";
+    }
+	
+	@Override
+	public void drawForeground(int recipe) {
+		GL11.glColor4f(1, 1, 1, 1);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        changeTexture(getGuiTexture());
+        drawExtras(recipe);
+		
+		//this.drawProgressBar(153, 2, 176, 60, 19, 79, 50, 3);
+		//GuiDraw.drawTexturedModalRect(0, 0, 0, 0, 166, 65);
+		FMLLog.log(Level.INFO, "Draw, mister!");
+		
+		//GuiBrewery gui = new GuiBrewery();
+		
+		
+		FluidStack theone = ((BreweryRecipe)recipearray[0]).input;
+
+		AdvFluidTank inputadvtank = new AdvFluidTank(theone, 3000);
+		
+		InventoryPlayer living = new InventoryPlayer(null);
+		GuiBrewery gui = new GuiBrewery(new ContainerBrewery(living, new TileEntityBrewery()));
+		ElementFluidTank setinput = new NEIFluidTank(gui, 26, 13, inputadvtank).setGauge(3000);
+		//FMLLog.log(Level.INFO, "cmon!");
+		//ElementFluidTank setoutput = new ElementFluidTankWithGlass(gui, 134, 13, inputadvtank).setGauge(3000);
+		setinput.draw();
+	}
+	
+	
+	
+	
+	public boolean PositionedFluidTank (GuiRecipe gui, BreweryRecipe recipe) {
+		//"copyhack" for now from TE
+		int minX1 = 153;
+		int maxX1 = 169;
+		int minY1 = 19;
+		int maxY1 = 79;
+		int yOffset = 65;
+		Point mousepos = GuiDraw.getMousePosition();
+		FluidStack fluid = null;
+
+		//if ((mousepos.x >= minX1 + gui.guiLeft) && (mousepos.x < maxX1 + gui.guiLeft) && (mousepos.y >= minY1 + gui.guiTop)
+		//		&& (mousepos.y < maxY1 + gui.guiTop) && (this.arecipe[0] == recipe)) {
+			fluid = ((CachedBreweryRecipe) arecipes.get(0)).recipe.input;
+		//} else if ((mousepos.x >= minX1 + gui.guiLeft) && (mousepos.x < maxX1 + gui.guiLeft) && (mousepos.y >= minY1 + gui.guiTop + yOffset)
+		//		&& (mousepos.y < maxY1 + gui.guiTop + yOffset) && (this.arecipe[1] == recipe)) {
+		//	fluid = ((CachedBreweryRecipe) arecipes.get(0)).recipe.input;
+		//}
+
+		if ((fluid != null) && (fluid.amount > 0) ) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/*
+	
+	int arecipe[] = { -1, -1 };
+	
+	public void drawFluid(int recipe, boolean increase) {
+
+		int recipeIndex = 0;
+
+		if (arecipe[0] == -1) {
+			arecipe[0] = recipe;
+		} else if (arecipe[1] == -1 && arecipe[0] != recipe) {
+			arecipe[1] = recipe;
+		}
+		if (arecipe[0] != recipe && arecipe[1] != recipe) {
+			resetCounters();
+			drawFluid(recipe, increase);
+			return;
+		}
+		if (arecipe[1] == recipe) {
+			recipeIndex = 1;
+		}
+		drawTexturedModalRect(147, 2, 32, 96, 18, scaleFluid + 2);
+
+		int fluid = getScaledFluid(fluidAmount[recipeIndex]);
+
+		if (increase) {
+			drawFluidRect(148, 3 + scaleFluid - fluid, ((NEIRecipeBase) arecipes.get(recipe)).fluid, 16, fluid);
+		} else {
+			drawFluidRect(148, 3 + fluid, ((NEIRecipeBase) arecipes.get(recipe)).fluid, 16, scaleFluid - fluid);
+		}
+
+		if (cycleticks % 20 == 0 && cycleticks != lastCycle[recipeIndex]) {
+			if (fluidAmount[recipeIndex] == maxFluid) {
+				fluidAmount[recipeIndex] = 0;
+			}
+			fluidAmount[recipeIndex] += ((NEIRecipeBase) arecipes.get(recipe)).fluid.amount;
+
+			if (fluidAmount[recipeIndex] > maxFluid) {
+				fluidAmount[recipeIndex] = maxFluid;
+			}
+		}
+		drawTexturedModalRect(148, 2, 80, 96, 18, scaleFluid + 2);
+	}
+	
+	*/
 }
