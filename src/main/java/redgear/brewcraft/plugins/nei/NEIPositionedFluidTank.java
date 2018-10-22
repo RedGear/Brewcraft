@@ -4,9 +4,9 @@ import net.minecraftforge.fluids.IFluidTank;
 import redgear.core.render.GuiBase;
 import redgear.core.render.gui.element.ElementFluidTankWithGlass;
 
-public class NEIFluidTank extends ElementFluidTankWithGlass {
+public class NEIPositionedFluidTank extends ElementFluidTankWithGlass {
 
-	public NEIFluidTank(GuiBase gui, int posX, int posY, IFluidTank tank) {
+	public NEIPositionedFluidTank(GuiBase gui, int posX, int posY, IFluidTank tank) {
 		super(gui, posX, posY, tank);
 	}
 	

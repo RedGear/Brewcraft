@@ -15,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
+import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import codechicken.nei.recipe.GuiRecipe;
 import cpw.mods.fml.common.FMLLog;
@@ -27,9 +28,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
+import redgear.brewcraft.blocks.brewery.BreweryInputTank;
 import redgear.brewcraft.blocks.brewery.ContainerBrewery;
 import redgear.brewcraft.blocks.brewery.GuiBrewery;
 import redgear.brewcraft.plugins.item.PotionPlugin;
@@ -63,11 +66,29 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
      * Fill the recipe array with subclasses of this to make transforming the different types of recipes out there into a nice format for NEI a much easier job.
      */
 	public class CachedBreweryRecipe extends CachedRecipe {
-		
+		//Typed variables from brewcraft to add to CachedBreweryRecipe
 		public BreweryRecipe recipe;
+		public NEIPositionedFluidTank posInputTank;
+		public NEIPositionedFluidTank posOutputTank;
 
 		public CachedBreweryRecipe(BreweryRecipe recipe) {
 			this.recipe = recipe;
+			if (recipe.input != null) {
+				//FluidStack theone = ((BreweryRecipe)recipearray[0]).input;
+				FluidStack inputFluid = recipe.input;
+				AdvFluidTank inputAdvTank = new AdvFluidTank(inputFluid, FluidContainerRegistry.BUCKET_VOLUME * 12); //12000mb
+				FluidStack outputFluid = recipe.output;
+				AdvFluidTank outputAdvTank = new AdvFluidTank(outputFluid, FluidContainerRegistry.BUCKET_VOLUME * 12);
+				
+				
+				InventoryPlayer living = new InventoryPlayer(null); //dummy instance
+				GuiBrewery gui = new GuiBrewery(new ContainerBrewery(living, new TileEntityBrewery())); //dummy instance
+				
+				this.posInputTank = (NEIPositionedFluidTank) new NEIPositionedFluidTank(gui, 21, 2, inputAdvTank).setGauge(3000);
+				this.posOutputTank = (NEIPositionedFluidTank) new NEIPositionedFluidTank(gui, 129, 2, outputAdvTank).setGauge(3000);
+				FMLLog.log(Level.INFO, "cmon!");
+            }
+			
 		}
 		
 		/**
@@ -79,9 +100,13 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
         @Override
         public List<PositionedStack> getIngredients() {
         	ArrayList<PositionedStack> inputs = new ArrayList<PositionedStack>();
-            if (recipe.input != null)
+            
+        	/*
+        	if (recipe.input != null)
             	//FMLLog.log(Level.INFO, "Input potion fluid?");
             	inputs.add(new PositionedStack(new ItemStack(recipe.input.getFluid().getBlock()), 21, 13));
+            */            
+            
             if (recipe.item != null)
             	inputs.add(new PositionedStack(new ItemStack(recipe.item.getItem()), 74, 24));
             return inputs;
@@ -89,7 +114,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		
 		@Override
 		public PositionedStack getResult() {
-			return new PositionedStack(new ItemStack(recipe.output.getFluid().getBlock()), 129, 13);
+			//return new PositionedStack(new ItemStack(recipe.output.getFluid().getBlock()), 129, 13);
+			return null; //no item output, only fluid
 		}	
 	}
 	
@@ -183,94 +209,92 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		
 		//this.drawProgressBar(153, 2, 176, 60, 19, 79, 50, 3);
 		//GuiDraw.drawTexturedModalRect(0, 0, 0, 0, 166, 65);
-		FMLLog.log(Level.INFO, "Draw, mister!");
+		//FMLLog.log(Level.INFO, "Draw, mister!");
 		
 		//GuiBrewery gui = new GuiBrewery();
 		
+		for (CachedRecipe reciperef : arecipes) {
+			((CachedBreweryRecipe) reciperef).posInputTank.draw();
+			((CachedBreweryRecipe) reciperef).posOutputTank.draw();
+			
+		}
 		
-		FluidStack theone = ((BreweryRecipe)recipearray[0]).input;
-
-		AdvFluidTank inputadvtank = new AdvFluidTank(theone, 3000);
-		
-		InventoryPlayer living = new InventoryPlayer(null);
-		GuiBrewery gui = new GuiBrewery(new ContainerBrewery(living, new TileEntityBrewery()));
-		ElementFluidTank setinput = new NEIFluidTank(gui, 26, 13, inputadvtank).setGauge(3000);
-		//FMLLog.log(Level.INFO, "cmon!");
-		//ElementFluidTank setoutput = new ElementFluidTankWithGlass(gui, 134, 13, inputadvtank).setGauge(3000);
-		setinput.draw();
+		CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
+		// Not fully classified, see neiintegration/RecipeHandlerBase, which I didn't fully understand
+        if (crecipe.posInputTank != null) {
+        	crecipe.posInputTank.draw();
+        }
+        if (crecipe.posOutputTank != null) {
+            crecipe.posOutputTank.draw();
+        }
 	}
 	
-	
-	
-	
-	public boolean PositionedFluidTank (GuiRecipe gui, BreweryRecipe recipe) {
-		//"copyhack" for now from TE
-		int minX1 = 153;
-		int maxX1 = 169;
-		int minY1 = 19;
-		int maxY1 = 79;
-		int yOffset = 65;
-		Point mousepos = GuiDraw.getMousePosition();
-		FluidStack fluid = null;
-
-		//if ((mousepos.x >= minX1 + gui.guiLeft) && (mousepos.x < maxX1 + gui.guiLeft) && (mousepos.y >= minY1 + gui.guiTop)
-		//		&& (mousepos.y < maxY1 + gui.guiTop) && (this.arecipe[0] == recipe)) {
-			fluid = ((CachedBreweryRecipe) arecipes.get(0)).recipe.input;
-		//} else if ((mousepos.x >= minX1 + gui.guiLeft) && (mousepos.x < maxX1 + gui.guiLeft) && (mousepos.y >= minY1 + gui.guiTop + yOffset)
-		//		&& (mousepos.y < maxY1 + gui.guiTop + yOffset) && (this.arecipe[1] == recipe)) {
-		//	fluid = ((CachedBreweryRecipe) arecipes.get(0)).recipe.input;
-		//}
-
-		if ((fluid != null) && (fluid.amount > 0) ) {
-			return true;
-		}
-		return false;
-	}
-	
-	
-	/*
-	
-	int arecipe[] = { -1, -1 };
-	
-	public void drawFluid(int recipe, boolean increase) {
-
-		int recipeIndex = 0;
-
-		if (arecipe[0] == -1) {
-			arecipe[0] = recipe;
-		} else if (arecipe[1] == -1 && arecipe[0] != recipe) {
-			arecipe[1] = recipe;
-		}
-		if (arecipe[0] != recipe && arecipe[1] != recipe) {
-			resetCounters();
-			drawFluid(recipe, increase);
-			return;
-		}
-		if (arecipe[1] == recipe) {
-			recipeIndex = 1;
-		}
-		drawTexturedModalRect(147, 2, 32, 96, 18, scaleFluid + 2);
-
-		int fluid = getScaledFluid(fluidAmount[recipeIndex]);
-
-		if (increase) {
-			drawFluidRect(148, 3 + scaleFluid - fluid, ((NEIRecipeBase) arecipes.get(recipe)).fluid, 16, fluid);
-		} else {
-			drawFluidRect(148, 3 + fluid, ((NEIRecipeBase) arecipes.get(recipe)).fluid, 16, scaleFluid - fluid);
-		}
-
-		if (cycleticks % 20 == 0 && cycleticks != lastCycle[recipeIndex]) {
-			if (fluidAmount[recipeIndex] == maxFluid) {
-				fluidAmount[recipeIndex] = 0;
-			}
-			fluidAmount[recipeIndex] += ((NEIRecipeBase) arecipes.get(recipe)).fluid.amount;
-
-			if (fluidAmount[recipeIndex] > maxFluid) {
-				fluidAmount[recipeIndex] = maxFluid;
-			}
-		}
-		drawTexturedModalRect(148, 2, 80, 96, 18, scaleFluid + 2);
-	}
-	
-	*/
+	@Override
+    public List<String> handleTooltip(GuiRecipe guiRecipe, List<String> currenttip, int recipe) {
+        super.handleTooltip(guiRecipe, currenttip, recipe);
+        CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
+        if (GuiContainerManager.shouldShowTooltip(guiRecipe)) {
+            Point mouse = GuiDraw.getMousePosition();
+            Point offset = guiRecipe.getRecipePosition(recipe);
+            Point relMouse = new Point(mouse.x - (guiRecipe.width - 176) / 2 - offset.x, mouse.y - (guiRecipe.height - 166) / 2 - offset.y);
+            
+            currenttip = this.provideTooltip(guiRecipe, currenttip, crecipe, relMouse);
+        }
+        return currenttip;
+    }
+    /*
+    @Override
+    public List<String> handleItemTooltip(GuiRecipe guiRecipe, ItemStack itemStack, List<String> currenttip, int recipe) {
+        super.handleItemTooltip(guiRecipe, itemStack, currenttip, recipe);
+        CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
+        Point mouse = GuiDraw.getMousePosition();
+        Point offset = guiRecipe.getRecipePosition(recipe);
+        Point relMouse = new Point(mouse.x - (guiRecipe.width - 176) / 2 - offset.x, mouse.y - (guiRecipe.height - 166) / 2 - offset.y);
+        
+        currenttip = this.provideItemTooltip(guiRecipe, itemStack, currenttip, crecipe, relMouse);
+        return currenttip;
+    }
+    */
+    /**
+     * provides tooltips for fluid tanks in paticular
+     * @param guiRecipe
+     * @param currenttip
+     * @param crecipe
+     * @param relMouse
+     * @return
+     */
+    public List<String> provideTooltip(GuiRecipe guiRecipe, List<String> currenttip, CachedBreweryRecipe crecipe, Point relMouse) {
+    	if (crecipe.posInputTank != null) {
+            if (crecipe.posInputTank.intersectsWith(relMouse.x,relMouse.y)) {
+            	crecipe.posInputTank.addTooltip(currenttip);
+            }
+        }
+    	if (crecipe.posOutputTank != null) {
+            if (crecipe.posOutputTank.intersectsWith(relMouse.x,relMouse.y)) {
+            	crecipe.posOutputTank.addTooltip(currenttip);
+            }
+        }
+        return currenttip;
+    }
+    
+    /*
+    public List<String> provideItemTooltip(GuiRecipe guiRecipe, ItemStack itemStack, List<String> currenttip, CachedBaseRecipe crecipe, Point relMouse) {
+        for (PositionedStack stack : crecipe.getIngredients()) {
+            if (stack instanceof PositionedStackAdv && ((PositionedStackAdv) stack).getRect().contains(relMouse)) {
+                currenttip = ((PositionedStackAdv) stack).handleTooltip(guiRecipe, currenttip);
+            }
+        }
+        for (PositionedStack stack : crecipe.getOtherStacks()) {
+            if (stack instanceof PositionedStackAdv && ((PositionedStackAdv) stack).getRect().contains(relMouse)) {
+                currenttip = ((PositionedStackAdv) stack).handleTooltip(guiRecipe, currenttip);
+            }
+        }
+        PositionedStack stack = crecipe.getResult();
+        if (stack instanceof PositionedStackAdv && ((PositionedStackAdv) stack).getRect().contains(relMouse)) {
+            currenttip = ((PositionedStackAdv) stack).handleTooltip(guiRecipe, currenttip);
+        }
+        return currenttip;
+    }
+    
+    */
 }
