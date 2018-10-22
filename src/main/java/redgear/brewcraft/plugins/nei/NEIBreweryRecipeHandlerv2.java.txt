@@ -1,0 +1,295 @@
+package redgear.brewcraft.plugins.nei;
+
+import static net.minecraft.init.Items.potionitem;
+
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Map.Entry;
+
+
+import cpw.mods.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
+import org.lwjgl.opengl.GL11;
+
+import codechicken.nei.ItemStackSet;
+import codechicken.nei.NEIServerUtils;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import codechicken.nei.recipe.BrewingRecipeHandler.BrewingRecipe;
+import codechicken.nei.recipe.BrewingRecipeHandler.CachedBrewingRecipe;
+import codechicken.nei.recipe.FurnaceRecipeHandler.FuelPair;
+import codechicken.nei.recipe.FurnaceRecipeHandler.SmeltingPair;
+import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
+import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
+import static codechicken.lib.gui.GuiDraw.*;
+import codechicken.lib.gui.GuiDraw;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.plugins.item.PotionPlugin;
+import redgear.brewcraft.recipes.BreweryRecipe;
+import redgear.brewcraft.recipes.RecipeRegistry;
+import redgear.core.render.RenderHelper;
+import redgear.core.util.SimpleItem;
+
+public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
+	
+	int maxEnergy = 24000;
+	int scaleEnergy = 42;
+
+	int maxFluid = 10000;
+	int scaleFluid = 60;
+
+	int energyAmount[] = new int[2];
+	int fluidAmount[] = new int[2];
+	int lastCycle[] = new int[2];
+	int crecipe[] = { -1, -1 };
+	
+
+	@Override
+	public String getRecipeName() {
+		String name = StatCollector.translateToLocal("redgear.brewcraft.brewery");
+    	FMLLog.log(Level.INFO, "You got the Brewcraft Stuff " + name);
+		return "Brewery"; //ideally replace with language-independent StatCollector or similar
+	}
+
+	@Override
+	public String getGuiTexture() {
+		return new ResourceLocation("redgear_brewcraft:textures/gui/brewery.png").toString();
+	}
+	
+	/**
+     * This Recipe Handler runs on this internal class
+     * Fill the recipe array with subclasses of this to make transforming the different types of recipes out there into a nice format for NEI a much easier job.
+     */
+	public class CachedBreweryRecipe extends CachedRecipe {
+        final long offset = System.currentTimeMillis();
+
+        public BreweryRecipe recipe;
+
+		public ArrayList<PositionedStack> inputs;
+        
+        public CachedBreweryRecipe(BreweryRecipe recipe) {
+            this.recipe = recipe;
+        }
+        
+        /**
+         * The ingredients required to produce the result
+         * Use this if you have more than one ingredient
+         *
+         * @return A list of positioned ingredient items.
+         */
+        @Override
+        public List<PositionedStack> getIngredients() {
+        	ArrayList<PositionedStack> inputs = new ArrayList<PositionedStack>();
+            if (recipe.input != null)
+            	FMLLog.log(Level.INFO, "Input potion fluid?");
+            	inputs.add(new PositionedStack(new ItemStack(recipe.input.getFluid().getBlock()), 26, 13));
+            if (recipe.item != null)
+            	inputs.add(new PositionedStack(new ItemStack(recipe.item.getItem()), 75, 31));
+            return inputs;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return new PositionedStack(new ItemStack(recipe.output.getFluid().getBlock()), 134, 13);
+        }
+    }
+	
+	//public static final ItemStackSet ingredients = new ItemStackSet();
+    //public static final HashSet<BreweryRecipe> apotions = new HashSet<BreweryRecipe>();
+    public RecipeRegistry recipes = PotionPlugin.getRecipeList();
+	
+	@Override
+    public void loadTransferRects() {
+        transferRects.add(new RecipeTransferRect(new Rectangle(46, 34, 24, 19), "fuel"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(104, 34, 24, 19), "brewcraft.brewery"));
+    }
+	
+	/** loading crafting for potion fluids
+	 * 
+	 */
+	@Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
+		FMLLog.log(Level.INFO, "Yes! You got CRAFTING recipes loading. Wait where are they?");
+		if (outputId.equals("brewcraft.brewery") && getClass() == NEIBreweryRecipeHandler.class) {//don't want subclasses getting a hold of this
+    		FMLLog.log(Level.INFO, "Loading validated. Get ready... ");
+    		FMLLog.log(Level.INFO, "Potion 0 " + recipes.getBreweryRecipe(PotionPlugin.water, new SimpleItem(Items.nether_wart)).toString());
+    		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+				arecipes.add(new CachedBreweryRecipe(recipe));
+			}
+		} else if ((outputId.equals("liquid")) && (results.length == 1) && ((results[0] instanceof FluidStack))) {
+			for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+				if (recipe.output.isFluidEqual((FluidStack) results[0])) {
+					arecipes.add(new CachedBreweryRecipe(recipe));
+				}
+			}
+        }
+        FMLLog.log(Level.INFO, "Length of Matched Recipes " + arecipes.size());
+    }
+	
+	@Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+		FMLLog.log(Level.INFO, "Yes! You got USAGE recipes loading (ingredient). Wait where are they?");
+        for (BreweryRecipe recipe : this.recipes.getBreweryRecipeSet()) {
+        	 FMLLog.log(Level.INFO, "Recipe Item " + new ItemStack(recipe.item.getItem()).toString());
+        	 FMLLog.log(Level.INFO, "Held Item" + ingredient.toString());
+        	
+            if (NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.item.getItem()), ingredient)) {
+                //FluidPair arecipe = new FluidPair(new FluidStack(recipe.input.getFluid(), 1000), new FluidStack(recipe.output.getFluid(), 1000));
+                //arecipe.setIngredientPermutation(recipes, recipe.item));
+            	CachedBreweryRecipe arecipe = new CachedBreweryRecipe(recipe);
+            	 FMLLog.log(Level.INFO, "CHECKCKCKCHCK");
+        		if (recipe.input.isFluidEqual(ingredient)) {
+	                FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe (fluid)");
+	                arecipes.add(arecipe);
+	            } else if (recipe.item.isItemEqual(new SimpleItem(ingredient.getItem()), true)){
+	            	FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe");
+	                arecipes.add(arecipe);
+	            }
+            }
+        }
+	}
+	
+        /*
+	public class FluidPair extends CachedRecipe
+    {
+        public FluidPair(FluidStack inputf, FluidStack outputf) {
+            this.inputf = new PositionedStack(inputf, 51, 6);
+            this.outputf = new PositionedStack(outputf, 111, 24);
+        }
+
+        PositionedStack inputf;
+        PositionedStack outputf;
+        
+        public PositionedStack getResult() {
+            return outputf;
+        }
+    }
+	*/
+	
+	public void drawFluid(int recipe, boolean increase) {
+
+		int recipeIndex = 0;
+
+		if (crecipe[0] == -1) {
+			crecipe[0] = recipe;
+		} else if (crecipe[1] == -1 && crecipe[0] != recipe) {
+			crecipe[1] = recipe;
+		}
+		if (crecipe[0] != recipe && crecipe[1] != recipe) {
+			resetCounters();
+			drawFluid(recipe, increase);
+			return;
+		}
+		if (crecipe[1] == recipe) {
+			recipeIndex = 1;
+		}
+		drawTexturedModalRect(147, 2, 32, 96, 18, scaleFluid + 2);
+
+		int fluid = getScaledFluid(fluidAmount[recipeIndex]);
+
+		if (increase) {
+			drawFluidRect(148, 3 + scaleFluid - fluid, ((CachedBreweryRecipe) arecipes.get(recipe)).recipe.input, 16, fluid);
+		} else {
+			drawFluidRect(148, 3 + fluid, ((CachedBreweryRecipe) arecipes.get(recipe)).recipe.input, 16, scaleFluid - fluid);
+		}
+
+		if (cycleticks % 20 == 0 && cycleticks != lastCycle[recipeIndex]) {
+			if (fluidAmount[recipeIndex] == maxFluid) {
+				fluidAmount[recipeIndex] = 0;
+			}
+			fluidAmount[recipeIndex] += ((CachedBreweryRecipe) arecipes.get(recipe)).recipe.input.amount;
+
+			if (fluidAmount[recipeIndex] > maxFluid) {
+				fluidAmount[recipeIndex] = maxFluid;
+			}
+		}
+		drawTexturedModalRect(148, 2, 80, 96, 18, scaleFluid + 2);
+	}
+
+	public int getScaledEnergy(int amount) {
+
+		return amount * scaleEnergy / maxEnergy;
+	}
+
+	public int getScaledFluid(int amount) {
+
+		return amount * scaleFluid / maxFluid;
+	}
+
+	protected void drawFluidRect(int j, int k, FluidStack fluid, int width, int height) {
+
+		if (height > scaleFluid) {
+			height = scaleFluid;
+		}
+		int drawHeight = 0;
+		int drawWidth = 0;
+
+		RenderHelper.setBlockTextureSheet();
+		RenderHelper.setColor3ub(fluid.getFluid().getColor(fluid));
+
+		for (int x = 0; x < width; x += 16) {
+			for (int y = 0; y < height; y += 16) {
+				drawWidth = Math.min(width - x, 16);
+				drawHeight = Math.min(height - y, 16);
+				drawScaledTexturedModelRectFromIcon(j + x, k + y, fluid.getFluid().getIcon(), drawWidth, drawHeight);
+			}
+		}
+		GL11.glColor4f(1, 1, 1, 1);
+		changeTexture(getGuiTexture());
+	}
+	
+	private void resetCounters() {
+
+		crecipe[0] = -1;
+		crecipe[1] = -1;
+		energyAmount[0] = 0;
+		energyAmount[1] = 0;
+		fluidAmount[0] = 0;
+		fluidAmount[1] = 0;
+		lastCycle[0] = 0;
+		lastCycle[1] = 0;
+	}
+	
+	public static void drawScaledTexturedModelRectFromIcon(int i, int j, IIcon icon, int x, int y) {
+
+		if (icon == null) {
+			return;
+		}
+		double minU = icon.getMinU();
+		double maxU = icon.getMaxU();
+		double minV = icon.getMinV();
+		double maxV = icon.getMaxV();
+
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(i + 0, j + y, GuiDraw.gui.getZLevel(), minU, minV + (maxV - minV) * y / 16F);
+		tessellator.addVertexWithUV(i + x, j + y, GuiDraw.gui.getZLevel(), minU + (maxU - minU) * x / 16F, minV + (maxV - minV) * y / 16F);
+		tessellator.addVertexWithUV(i + x, j + 0, GuiDraw.gui.getZLevel(), minU + (maxU - minU) * x / 16F, minV);
+		tessellator.addVertexWithUV(i + 0, j + 0, GuiDraw.gui.getZLevel(), minU, minV);
+
+		tessellator.draw();
+	}
+	
+	
+	@Override
+    public String getOverlayIdentifier() {
+        return "brewcraft.brewery";
+    }
+	
+}
