@@ -2,10 +2,13 @@ package redgear.brewcraft.plugins.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
+import cpw.mods.fml.common.LoaderState.ModState;
 import redgear.brewcraft.blocks.brewery.GuiBrewery;
 import redgear.brewcraft.recipes.BreweryRecipe;
+import redgear.core.mod.IPlugin;
+import redgear.core.mod.ModUtils;
 
-public class NEIBrewcraftPluginConfig implements IConfigureNEI {
+public class NEIBrewcraftPluginConfig implements IConfigureNEI{
 
 	@Override
 	public void loadConfig() {
@@ -21,7 +24,6 @@ public class NEIBrewcraftPluginConfig implements IConfigureNEI {
 
 	@Override
 	public String getVersion() {
-		return "0.2";
+		return "0.5";
 	}
-
 }

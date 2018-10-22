@@ -6,6 +6,7 @@ import static net.minecraft.init.Items.potionitem;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import redgear.brewcraft.blocks.brewery.GuiBrewery;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
+import redgear.brewcraft.potions.SubItemPotion;
 import redgear.brewcraft.recipes.BreweryRecipe;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionRegistry;
@@ -74,21 +76,16 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		public CachedBreweryRecipe(BreweryRecipe recipe) {
 			this.recipe = recipe;
 			if (recipe.input != null) {
-				//FluidStack theone = ((BreweryRecipe)recipearray[0]).input;
-				FluidStack inputFluid = recipe.input;
-				AdvFluidTank inputAdvTank = new AdvFluidTank(inputFluid, FluidContainerRegistry.BUCKET_VOLUME * 12); //12000mb
-				FluidStack outputFluid = recipe.output;
-				AdvFluidTank outputAdvTank = new AdvFluidTank(outputFluid, FluidContainerRegistry.BUCKET_VOLUME * 12);
-				
+				AdvFluidTank inputAdvTank = new AdvFluidTank(recipe.input, FluidContainerRegistry.BUCKET_VOLUME * 12); //12000mb
+				AdvFluidTank outputAdvTank = new AdvFluidTank(recipe.output, FluidContainerRegistry.BUCKET_VOLUME * 12);
 				
 				InventoryPlayer living = new InventoryPlayer(null); //dummy instance
 				GuiBrewery gui = new GuiBrewery(new ContainerBrewery(living, new TileEntityBrewery())); //dummy instance
 				
 				this.posInputTank = (NEIPositionedFluidTank) new NEIPositionedFluidTank(gui, 21, 2, inputAdvTank).setGauge(3000);
 				this.posOutputTank = (NEIPositionedFluidTank) new NEIPositionedFluidTank(gui, 129, 2, outputAdvTank).setGauge(3000);
-				FMLLog.log(Level.INFO, "cmon!");
+				//FMLLog.log(Level.INFO, "cmon!");
             }
-			
 		}
 		
 		/**
@@ -100,36 +97,28 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
         @Override
         public List<PositionedStack> getIngredients() {
         	ArrayList<PositionedStack> inputs = new ArrayList<PositionedStack>();
-            
-        	/*
-        	if (recipe.input != null)
-            	//FMLLog.log(Level.INFO, "Input potion fluid?");
-            	inputs.add(new PositionedStack(new ItemStack(recipe.input.getFluid().getBlock()), 21, 13));
-            */            
-            
-            if (recipe.item != null)
+        	if (recipe.item != null)
             	inputs.add(new PositionedStack(new ItemStack(recipe.item.getItem()), 74, 24));
             return inputs;
         }
 		
 		@Override
 		public PositionedStack getResult() {
-			//return new PositionedStack(new ItemStack(recipe.output.getFluid().getBlock()), 129, 13);
 			return null; //no item output, only fluid
 		}	
 	}
-	
-	public RecipeRegistry recipes = PotionPlugin.getRecipeList();
-	public PotionRegistry potions = PotionPlugin.getPotionList();
-	Object[] recipearray = recipes.getBreweryRecipeSet().toArray();
-	
 	
 	@Override
     public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(46, 34, 24, 19), "fuel"));
         transferRects.add(new RecipeTransferRect(new Rectangle(104, 34, 24, 19), "brewcraft.brewery"));
     }
-
+	
+	public RecipeRegistry recipes = PotionPlugin.getRecipeList();
+	public PotionRegistry potions = PotionPlugin.getPotionList();
+	Object[] recipearray = recipes.getBreweryRecipeSet().toArray();
+	
+	
 	/**
      * In this function you need to fill up the empty recipe array with recipes
      * The default passes it to a cleaner handler if inputId is an item
@@ -141,7 +130,6 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient) {
 		//FMLLog.log(Level.INFO, "Yes! You got USAGE recipes loading (ingredient). Wait where are they?");
 		//FMLLog.log(Level.INFO, "Ingredient: " + ingredient.getItem().getClass());
-		
 		//FMLLog.log(Level.INFO, "Get Blocks" + PotionPlugin.fluidAwkward.getFluid().getBlock().getLocalizedName());
 		
 		if ((ingredient.getItem() instanceof ItemPotion) || (ingredient.getItem() instanceof MetaItemPotion)) {
@@ -153,19 +141,51 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				//FMLLog.log(Level.INFO, recipe.input.getFluid().getLocalizedName(recipe.input) + " : " + ingredient.getDisplayName());
 				//FMLLog.log(Level.INFO, recipe.input.getFluid().getLocalizedName(recipe.input) + " : " + ingredient.getDisplayName());
 				//FMLLog.log(Level.INFO, recipe.input.getFluid().getID() + " : " + recipe.input.getFluid().getLocalizedName(recipe.input));
-				if (ingredient.getItemDamage() == recipe.input.getFluid().getID()) { //not really correct, but getting this to work
-					FMLLog.log(Level.INFO, ingredient.getItemDamage() + " : " + recipe.input.getFluid().getID());
-					FMLLog.log(Level.INFO, "EUREKA!!!!!!!!! YOU GOT: " + recipe.input.getFluid().getLocalizedName(recipe.input));
+				//if (ingredient.getItemDamage() == recipe.input.getFluid().getID()) { //not really correct, but getting this to work
+				//	FMLLog.log(Level.INFO, ingredient.getItemDamage() + " : " + recipe.input.getFluid().getID());
+				//	FMLLog.log(Level.INFO, "EUREKA!!!!!!!!! YOU GOT: " + recipe.input.getFluid().getLocalizedName(recipe.input));
+			}
+			if (ingredient.getItem() instanceof MetaItemPotion) {
+				//ItemStack theone = new ItemStack(PotionPlugin.potions);
+				
+				//FMLLog(Level.INFO, "Chase " + 
+				
+				MetaItemPotion instancedPotion = (MetaItemPotion) ingredient.getItem();
+				SubItemPotion readablePotion = instancedPotion.getMetaItem((instancedPotion).getDamage(ingredient));
+				//FMLLog.log(Level.INFO, "Finally, potion details from ingredient. Can you get the matching fluid?" + readablePotion.potion.getName());
+				
+				for (int i = 1; i < recipearray.length; i++) {
+					//FMLLog.log(Level.INFO, "Does this match " + ((BreweryRecipe) recipearray[i]).input.getLocalizedName());
+					
 				}
-				if (ingredient.getItem() instanceof MetaItemPotion) {
-					//ItemStack theone = new ItemStack(PotionPlugin.potions);
-					
-					Fluid theone = ((BreweryRecipe)recipearray[0]).input.getFluid();
-					
-					/* gets name, but what about fluid */
-					String thepotion = ((FluidPotion)theone).getLocalizedName();
-					
+				//FMLLog.log(Level.INFO,  "was it the fluidcontainerregistry all along " + FluidContainerRegistry.getFluidForFilledItem(ingredient).getLocalizedName());
+				
+				//((MetaItemPotion) ingredient.getItem()).getMetaItem(ingredient.getItem().getDamage)
+				
+				/*
+				for (Field field : ingredient.getItem().getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value;
+					try {
+						value = field.get(ingredient.getItem());
+						FMLLog.log(Level.INFO, name + " | " + value);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
 				}
+				*/
+
+				Fluid theone = ((BreweryRecipe)recipearray[0]).input.getFluid();
+				
+				/* gets name, but what about fluid */
+				String thepotion = ((FluidPotion)theone).getLocalizedName();
+				
 			}		
 		} else {		
 	        for (BreweryRecipe recipe : this.recipes.getBreweryRecipeSet()) {
@@ -173,26 +193,71 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	        	//FMLLog.log(Level.INFO, "Held Item   :" + ingredient.toString());
 	        	
 	            //if (NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.item.getItem()), ingredient)) {
-	            	CachedBreweryRecipe arecipe = new CachedBreweryRecipe(recipe);
-	            	//FMLLog.log(Level.INFO, "CHECKCKCKCHCK");
-	        		if (recipe.input.isFluidEqual(ingredient)) { //may not work, fluid not equal to potion
-		                //FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe (fluid)");
-		                arecipes.add(arecipe);
-		            } else if (recipe.item.isItemEqual(new SimpleItem(ingredient.getItem()), true)){
-		            	//FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe");
-		                arecipes.add(arecipe);
-		            }
+            	CachedBreweryRecipe arecipe = new CachedBreweryRecipe(recipe);
+            	//FMLLog.log(Level.INFO, "CHECKCKCKCHCK");
+        		if (recipe.input.isFluidEqual(ingredient)) { //may not work, fluid not equal to potion
+	                //FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe (fluid)");
+	                arecipes.add(arecipe);
+	            } else if (recipe.item.isItemEqual(new SimpleItem(ingredient.getItem()), true)){
+	            	//FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe");
+	                arecipes.add(arecipe);
+	            }
 	            //}
 	        }
 		}
 	}
 	
-	public void loadUsageRecipes(ItemPotion ingredient) {
-		FMLLog.log(Level.INFO, "DO YOU EVEN");
+	@Override
+	public void loadCraftingRecipes(ItemStack result) {
+		if ((result.getItem() instanceof ItemPotion) || (result.getItem() instanceof MetaItemPotion)) {
+			if (result.getItem() instanceof MetaItemPotion) {
+				for (int i = 1; i < recipearray.length; i++) {
+					//FMLLog.log(Level.INFO, "Does this result match " + ((BreweryRecipe) recipearray[i]).input.getLocalizedName());
+					
+				}
+				// Possibly missing some additional type/validation checks, not sure really how to do those
+				//FluidStack fluidForCrafting = FluidContainerRegistry.getFluidForFilledItem(result);
+				//this.loadCraftingRecipes((FluidStack) fluidForCrafting[0]);
+			}
+		}
 	}
 	
-	public void loadUsageRecipes(FluidStack ingredient) {
-		FMLLog.log(Level.INFO, "What? So Fluids Exist?$%)(#$&^");
+	@Override
+	public void loadCraftingRecipes(String outputId, Object... results) {
+		FMLLog.log(Level.INFO, "Trying to get that liquid recipe");
+		
+		
+		if ((outputId.equals("item")) && (results.length == 1) && ((results[0] instanceof ItemStack))) { //all this instanceof and type casting would do people's heads in
+			if (((ItemStack) results[0]).getItem() instanceof MetaItemPotion) {
+				FluidStack resultFluid = FluidContainerRegistry.getFluidForFilledItem(((ItemStack) results[0]));
+				
+				for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+					if (recipe.output.isFluidEqual(resultFluid)) {
+						this.arecipes.add(new CachedBreweryRecipe(recipe));
+					}
+				}
+			}
+				
+			FMLLog.log(Level.INFO, "What is this outputID?" + outputId);
+			FMLLog.log(Level.INFO, "results length : class " + results.length + results[0].getClass());
+		}
+		/*
+		if (outputId.equals("liquid")) {
+			FMLLog.log(Level.INFO, "Pass check 1");
+			if (results.length == 1) {
+				FMLLog.log(Level.INFO, "Pass check 2");
+			}
+		}
+			
+			
+		if ((outputId.equals("liquid")) && (results.length == 1) && ((results[0] instanceof FluidStack))) {
+			for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+				if (recipe.output.isFluidEqual((FluidStack) results[0])) {
+					this.arecipes.add(new CachedBreweryRecipe(recipe));
+				}
+			}
+		}
+		*/
 	}
 	
 	@Override
