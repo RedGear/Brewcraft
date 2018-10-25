@@ -19,11 +19,9 @@ import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.BrewingRecipeHandler.BrewingRecipe;
-import codechicken.nei.recipe.BrewingRecipeHandler.CachedBrewingRecipe;
-import codechicken.nei.recipe.BrewingRecipeHandler;
 import codechicken.nei.recipe.GuiRecipe;
 import cpw.mods.fml.common.FMLLog;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -40,7 +38,6 @@ import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.brewcraft.blocks.brewery.BreweryInputTank;
 import redgear.brewcraft.blocks.brewery.ContainerBrewery;
 import redgear.brewcraft.blocks.brewery.GuiBrewery;
-import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
@@ -57,7 +54,7 @@ import redgear.core.util.SimpleItem;
 import redgear.core.fluids.AdvFluidTank;
 import redgear.core.render.GuiBase;
 
-public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
+public class NEIBreweryRecipeHandler2 extends TemplateRecipeHandler {
 	
 	@Override
 	public String getRecipeName() {
@@ -81,7 +78,14 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	public class CachedBreweryRecipe extends CachedRecipe {
 		//Typed variables from brewcraft to add to CachedBreweryRecipe
 		public BreweryRecipe recipe;
-		
+		public NEIPositionedFluidTank posInputTank;
+		public NEIPositionedFluidTank posOutputTank;
+
+		public CachedBreweryRecipe(BreweryRecipe recipe) {
+			this.recipe = recipe;
+			
+						
+        }
 		/**
          * Returns a list of NEIPositionedFluidTank
          *
@@ -98,10 +102,6 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
             }	
             return tankList;
         }
-		public CachedBreweryRecipe(BreweryRecipe recipe) {
-			this.recipe = recipe;						
-        }
-		
 		
 		/**
          * The ingredients required to produce the result
@@ -113,8 +113,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
         public List<PositionedStack> getIngredients() {
         	ArrayList<PositionedStack> inputs = new ArrayList<PositionedStack>();
         	if (recipe.item != null)
-            	inputs.add(new PositionedStack(recipe.item.getStack(), 74, 24));
-        		//FMLLog.log(Level.INFO, "Stack Item  " + recipe.item.getItemId() + " " + recipe.item.getMeta());
+            	inputs.add(new PositionedStack(new ItemStack(recipe.item.getItem()), 74, 24));
             return inputs;
         }
 		
@@ -126,7 +125,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	
 	@Override
     public void loadTransferRects() {
-        this.transferRects.add(new RecipeTransferRect(new Rectangle(56, 19, 12, 29), "brewcraft.brewery"));        
+        transferRects.add(new RecipeTransferRect(new Rectangle(56, 19, 12, 29), "brewcraft.brewery"));        
         
     }
 
@@ -136,15 +135,35 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	
 	
 	/**
-     * Loads usage recipes for ItemStack
+     * In this function you need to fill up the empty recipe array with recipes
+     * The default passes it to a cleaner handler if inputId is an item
+     *
+     * @param inputId     A String identifier representing the type of ingredients used. Eg. {"item", "fuel"}
+     * @param ingredients Objects representing the ingredients that matching recipes must contain.
      */
 	@Override
     public void loadUsageRecipes(ItemStack ingredient) {
+		//FMLLog.log(Level.INFO, "Yes! You got USAGE recipes loading (ingredient). Wait where are they?");
+		//FMLLog.log(Level.INFO, "Ingredient: " + ingredient.getItem().getClass());
+		//FMLLog.log(Level.INFO, "Get Blocks" + PotionPlugin.fluidAwkward.getFluid().getBlock().getLocalizedName());
+		
 		if ((ingredient.getItem() instanceof ItemPotion) || (ingredient.getItem() instanceof MetaItemPotion)) {
 			
-			if (ingredient.getItem() instanceof MetaItemPotion) {				
+			FMLLog.log(Level.INFO, "What? So Fluids Exist?   " + ingredient.getItem().getItemStackDisplayName(ingredient).toString());
+			//FMLLog.log(Level.INFO, ingredient.getItem().getUnlocalizedName());
+			//for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+				//FMLLog.log(Level.INFO, "YOU " + recipe.input.getFluid().getName());
+				//FMLLog.log(Level.INFO, recipe.input.getFluid().getLocalizedName(recipe.input) + " : " + ingredient.getDisplayName());
+				//FMLLog.log(Level.INFO, recipe.input.getFluid().getLocalizedName(recipe.input) + " : " + ingredient.getDisplayName());
+				//FMLLog.log(Level.INFO, recipe.input.getFluid().getID() + " : " + recipe.input.getFluid().getLocalizedName(recipe.input));
+				//if (ingredient.getItemDamage() == recipe.input.getFluid().getID()) { //not really correct, but getting this to work
+				//	FMLLog.log(Level.INFO, ingredient.getItemDamage() + " : " + recipe.input.getFluid().getID());
+				//	FMLLog.log(Level.INFO, "EUREKA!!!!!!!!! YOU GOT: " + recipe.input.getFluid().getLocalizedName(recipe.input));
+			//}
+			if (ingredient.getItem() instanceof MetaItemPotion) {
+				
 				MetaItemPotion instancedPotion = (MetaItemPotion) ingredient.getItem(); //ItemStack to instance of potion
-				//SubItemPotion readablePotion = instancedPotion.getMetaItem((instancedPotion).getDamage(ingredient)); //getting potion with readable properties (strength, duration, effect)
+				SubItemPotion readablePotion = instancedPotion.getMetaItem((instancedPotion).getDamage(ingredient)); //getting potion with readable properties (strength, duration, effect)
 				//FMLLog.log(Level.INFO, "Finally, potion details from ingredient. Can you get the matching fluid?" + readablePotion.potion.getName());
 				
 				//for (int i = 1; i < recipearray.length; i++) {
@@ -154,14 +173,30 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				//FMLLog.log(Level.INFO,  "was it the fluidcontainerregistry all along " + FluidContainerRegistry.getFluidForFilledItem(ingredient).getLocalizedName());
 				
 				//((MetaItemPotion) ingredient.getItem()).getMetaItem(ingredient.getItem().getDamage)
+				
+				/*
+				for (Field field : ingredient.getItem().getClass().getDeclaredFields()) {
+				    field.setAccessible(true);
+				    String name = field.getName();
+				    Object value;
+					try {
+						value = field.get(ingredient.getItem());
+						FMLLog.log(Level.INFO, name + " | " + value);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+				}
+				*/
 
-				//Fluid theone = ((BreweryRecipe)recipearray[0]).input.getFluid();
+				Fluid theone = ((BreweryRecipe)recipearray[0]).input.getFluid();
 				
 				/* gets name, but what about fluid */
-				//String thepotion = ((FluidPotion)theone).getLocalizedName();
-				
-				loadCraftingRecipes(FluidContainerRegistry.getFluidForFilledItem(ingredient));
-				
+				String thepotion = ((FluidPotion)theone).getLocalizedName();
 				
 			}		
 		} else {		
@@ -175,37 +210,14 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
         		if (recipe.input.isFluidEqual(ingredient)) { //may not work, fluid not equal to potion
 	                //FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe (fluid)");
 	                arecipes.add(arecipe);
-	            } else if (recipe.item.item.equals(ingredient.getItem())){ //recipe.item.item required for damage values
-	            	FMLLog.log(Level.INFO, "recipe itemmmmm: " + recipe.item.item.getUnlocalizedName());
+	            } else if (recipe.item.isItemEqual(new SimpleItem(ingredient.getItem()), true)){
 	            	//FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe");
 	                arecipes.add(arecipe);
 	            }
 	            //}
 	        }
-	        FMLLog.log(Level.INFO, "Item equivalency: " + (ItemPlugin.steelScales).isItemEqual(ItemPlugin.holyDust, false));
 		}
 	}
-	
-	/**
-	 * Loads crafting recipes for FluidStack
-	 */
-	public void loadCraftingRecipes(FluidStack fluid) {
-		//FMLLog.log(Level.INFO, "Do you go here for fluids");
-		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-            if (recipe.output.isFluidEqual(fluid)) {
-                this.arecipes.add(new CachedBreweryRecipe(recipe));
-            }
-        }
-    }
-	
-	
-	public void loadUsageRecipes(FluidStack fluid) {
-		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-            if (recipe.input.isFluidEqual(fluid)) {
-                this.arecipes.add(new CachedBreweryRecipe(recipe));
-            }
-        }
-    }
 	
 	/*
 	@Override
@@ -243,11 +255,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				
 			FMLLog.log(Level.INFO, "What is this outputID?" + outputId);
 			FMLLog.log(Level.INFO, "results length : class " + results.length + results[0].getClass());
-		} else if (outputId.equals("liquid") && results[0] instanceof FluidStack && ((FluidStack) results[0]).getFluid() != null) {
-            this.loadCraftingRecipes((FluidStack) results[0]); //pass to loadCraftingRecipes, FluidStack version
-		} else if (outputId.equals("brewcraft.brewery") && getClass() == NEIBreweryRecipeHandler.class)//don't want subclasses getting a hold of this
-            for (BreweryRecipe recipe : recipes.getBreweryRecipeSet())
-                arecipes.add(new CachedBreweryRecipe(recipe));
+		}
 	}
 	
 	@Override
@@ -260,13 +268,28 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		GL11.glColor4f(1, 1, 1, 1);
         GL11.glDisable(GL11.GL_LIGHTING);
         changeTexture(getGuiTexture());
+        
 		
-		for (CachedRecipe crecipe : arecipes) {
-			for (NEIPositionedFluidTank tank : (((CachedBreweryRecipe) crecipe).getFluidTanks())) {
-				tank.draw();
-			}
+		//this.drawProgressBar(153, 2, 176, 60, 19, 79, 50, 3);
+		//GuiDraw.drawTexturedModalRect(0, 0, 0, 0, 166, 65);
+		//FMLLog.log(Level.INFO, "Draw, mister!");
+		
+		//GuiBrewery gui = new GuiBrewery();
+		
+		for (CachedRecipe reciperef : arecipes) {
+			((CachedBreweryRecipe) reciperef).posInputTank.draw();
+			((CachedBreweryRecipe) reciperef).posOutputTank.draw();
+			
 		}
 		
+		CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
+		// Not fully class-ified, see neiintegration/RecipeHandlerBase, which I didn't fully understand
+        if (crecipe.posInputTank != null) {
+        	crecipe.posInputTank.draw();
+        }
+        if (crecipe.posOutputTank != null) {
+            crecipe.posOutputTank.draw();
+        }
         drawExtras(recipe);
 	}
 	/**
@@ -304,39 +327,40 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	*/
     @Override
     public boolean mouseClicked(GuiRecipe gui, int button, int recipe) {
-    	//FMLLog.log(Level.INFO, "clickedtank");
+        /*
     	if (button == 0) {
-            if (this.clickedFluidTank(gui, recipe, false)) {
-            	FMLLog.log(Level.INFO, "tank left clicked recipes");
+            if (this.transferFluidTank(gui, recipe, false)) {
                 return true;
             }
         } else if (button == 1) {
-            if (this.clickedFluidTank(gui, recipe, true)) {
-            	FMLLog.log(Level.INFO, "tank right clicked usage");
+            if (this.transferFluidTank(gui, recipe, true)) {
                 return true;
             }
         }
-    	//FluidStack metatest = positionedFluidTankToFluidStack(recipe, true);
+        */
+    	FluidStack metatest = positionedFluidTankToFluidStack(recipe, true);
+    	FMLLog.log(Level.INFO, "clicked");
     	
         return super.mouseClicked(gui, button, recipe);
     }
 	
-    protected boolean clickedFluidTank(GuiRecipe guiRecipe, int recipe, boolean usage) {
+	/*
+    protected boolean transferFluidTank(GuiRecipe guiRecipe, int recipe, boolean usage) {
         CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
         Point mousepos = GuiDraw.getMousePosition();
         Point offset = guiRecipe.getRecipePosition(recipe);
         Point relMouse = new Point(mousepos.x - (guiRecipe.width - 176) / 2 - offset.x, mousepos.y - (guiRecipe.height - 166) / 2 - offset.y);
-        if (crecipe.getFluidTanks() != null) {
-            for (NEIPositionedFluidTank tank : crecipe.getFluidTanks()) {
-                if (tank.intersectsWith(relMouse.x,relMouse.y)) {
-                    return tank.transfer(usage);
-                }
+        if (crecipe.posInputTank != null) {
+        	
+        	if (crecipe.posOutputTank.intersectsWith(relMouse.x,relMouse.y)) {
+        		FMLLog.log(Level.INFO, positionedFluidTanktoPotion(recipe, usage).toString());
             }
+
         }
         
         return false;
     }
-    
+    */
     
     /**
      * 
@@ -344,18 +368,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
      * @param usage	whether user requested for "Usage" or "Recipe" of tank
      * @return
      */
-    /*
     protected FluidStack positionedFluidTankToFluidStack(int recipeIndex, boolean usage) { //int recipe from codechicken.nei should be named recipeIndex
-    	CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipeIndex); //get cached recipe from arecipes
-    	
-    	Point mousepos = GuiDraw.getMousePosition();
-        Point offset = guiRecipe.getRecipePosition(recipe);
-        Point relMouse = new Point(mousepos.x - (guiRecipe.width - 176) / 2 - offset.x, mousepos.y - (guiRecipe.height - 166) / 2 - offset.y);
-    	
-    	
-    	for (NEIPositionedFluidTank tank : crecipe.getFluidTanks()) {
-    		if (tank)
-    	}
+    	CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipeIndex); //get cached recipe from int
     	NEIPositionedFluidTank tankToConvert = (NEIPositionedFluidTank) crecipe.posInputTank;
     	FluidStack convertedFluidStack = tankToConvert.getPositionedTankFluidStack();
     	
@@ -363,12 +377,13 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
     	
     	//FMLLog.log(Level.INFO, fluidregistry[0].toString());
     	
+    	/*
     	for (int i = 0; i < fluidregistry.length; i++) {
     		if (convertedFluidStack.isFluidEqual(fluidregistry[i])) {
     			FMLLog.log(Level.INFO, fluidregistry[i]
     		}
     	}
-    	
+    	*/
     	
     	FMLLog.log(Level.INFO, "GET THE FLUID " + convertedFluidStack.getLocalizedName());
     	
@@ -379,8 +394,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
     	}
     	
     	return null;
-    }
-    */
+    }    
     
 	@Override
     public List<String> handleTooltip(GuiRecipe guiRecipe, List<String> currenttip, int recipe) {
@@ -417,11 +431,14 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
      * @return
      */
     public List<String> provideTooltip(GuiRecipe guiRecipe, List<String> currenttip, CachedBreweryRecipe crecipe, Point relMouse) {
-        if (crecipe.getFluidTanks() != null) {
-            for (NEIPositionedFluidTank tank : crecipe.getFluidTanks()) {
-                if (tank.intersectsWith(relMouse.x,relMouse.y)) {
-                    tank.addTooltip(currenttip);
-                }
+    	if (crecipe.posInputTank != null) {
+            if (crecipe.posInputTank.intersectsWith(relMouse.x,relMouse.y)) {
+            	crecipe.posInputTank.addTooltip(currenttip);
+            }
+        }
+    	if (crecipe.posOutputTank != null) {
+            if (crecipe.posOutputTank.intersectsWith(relMouse.x,relMouse.y)) {
+            	crecipe.posOutputTank.addTooltip(currenttip);
             }
         }
         return currenttip;

@@ -589,11 +589,11 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidFlight, fluidFlightLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidFlightLong, fluidFlight, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidFlightLong, fluidFlightVeryLong, ItemPlugin.pureTear.getStack());
-		recipeRegistry.addRecipe(fluidRegen, fluidHolyWater, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenII, fluidHolyWaterII, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenIII, fluidHolyWaterIII, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenLong, fluidHolyWaterLong, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenVeryLong, fluidHolyWaterVeryLong, ItemPlugin.holyDust);
+		recipeRegistry.addRecipe(fluidRegen, fluidHolyWater, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenII, fluidHolyWaterII, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenIII, fluidHolyWaterIII, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenLong, fluidHolyWaterLong, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenVeryLong, fluidHolyWaterVeryLong, ItemPlugin.holyDust.getStack());
 		recipeRegistry.addRecipe(fluidHolyWater, fluidHarm, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHolyWaterII, fluidHarmII, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHolyWaterIII, fluidHarmIII, Items.fermented_spider_eye);
