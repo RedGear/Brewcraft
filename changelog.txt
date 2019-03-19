@@ -1,3 +1,15 @@
+1.3.5dev7	19/03/2019
+Fixed bug with right clicking for "usage" on tank not working
+
+1.3.5dev6 	19/03/2019
+Fixed bug with drawing all recipes' tanks, instead of a single recipe. Should show right fluid now
+
+1.3.5dev5	18/03/2019
+Active again on the project, fix usage recipes displaying
+
+1.3.5dev2	22/10/2018
+partial NEI Integration
+
 1.3.3.2		18/10/2018
 Fixed/Added Invisibilty Potions Tier 3 not appearing
 
