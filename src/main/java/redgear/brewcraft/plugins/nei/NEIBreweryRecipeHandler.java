@@ -26,7 +26,6 @@ import net.minecraftforge.fluids.FluidStack;
 import redgear.brewcraft.blocks.brewery.ContainerBrewery;
 import redgear.brewcraft.blocks.brewery.GuiBrewery;
 import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
-import redgear.brewcraft.plugins.item.ItemPlugin;
 import redgear.brewcraft.plugins.item.PotionPlugin;
 import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.recipes.BreweryRecipe;
@@ -60,13 +59,14 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	public class CachedBreweryRecipe extends CachedRecipe {
 		// Typed variables from brewcraft to add to CachedBreweryRecipe
 		public BreweryRecipe recipe;
+		List<NEIPositionedFluidTank> tankList = new ArrayList<NEIPositionedFluidTank>();
 
 		/**
 		 * Returns a list of NEIPositionedFluidTank
 		 *
 		 */
-		public List<NEIPositionedFluidTank> getFluidTanks() {
-			List<NEIPositionedFluidTank> tankList = new ArrayList<NEIPositionedFluidTank>();
+		
+		public void setFluidTanks() {
 			if ((recipe.input != null) && (recipe.output != null)) {
 				AdvFluidTank inputAdvTank = new AdvFluidTank(recipe.input, FluidContainerRegistry.BUCKET_VOLUME * 12); // 12000mb
 				AdvFluidTank outputAdvTank = new AdvFluidTank(recipe.output, FluidContainerRegistry.BUCKET_VOLUME * 12);
@@ -76,12 +76,14 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				tankList.add(
 						(NEIPositionedFluidTank) new NEIPositionedFluidTank(gui, 129, 2, outputAdvTank).setGauge(3000));
 			}
-
+		}
+		public List<NEIPositionedFluidTank> getFluidTanks() {
 			return tankList;
 		}
 
 		public CachedBreweryRecipe(BreweryRecipe recipe) {
 			this.recipe = recipe;
+			setFluidTanks();
 		}
 
 		/**
@@ -114,7 +116,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 
 	RecipeRegistry recipes = PotionPlugin.getRecipeList();
 	PotionRegistry potions = PotionPlugin.getPotionList();
-	Object[] recipearray = recipes.getBreweryRecipeSet().toArray();
+	//BreweryRecipe[] recipearray = (BreweryRecipe[]) recipes.getBreweryRecipeSet().toArray();
 
 	/**
 	 * Loads usage recipes for ItemStack
@@ -129,7 +131,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				
 				loadUsageRecipes(FluidContainerRegistry.getFluidForFilledItem(ingredient));
 
-			}
+			}			
 		} else {
 			for (BreweryRecipe recipe : this.recipes.getBreweryRecipeSet()) {
 				// FMLLog.log(Level.INFO, "Recipe Item :" + new
@@ -145,14 +147,13 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 					arecipes.add(arecipe);
 				} else if (recipe.item.item.equals(ingredient.getItem())) { // recipe.item.item required for damage
 																			// values
-					FMLLog.log(Level.INFO, "recipe itemmmmm: " + recipe.item.item.getUnlocalizedName());
+					//FMLLog.log(Level.INFO, "recipe itemmmmm: " + recipe.item.item.getUnlocalizedName());
 					// FMLLog.log(Level.INFO, arecipe.toString() + "So there is a recipe");
 					arecipes.add(arecipe);
 				}
 				// }
 			}
-			FMLLog.log(Level.INFO,
-					"Item equivalency: " + (ItemPlugin.steelScales).isItemEqual(ItemPlugin.holyDust, false));
+			//FMLLog.log(Level.INFO, "Item equivalency: " + (ItemPlugin.steelScales).isItemEqual(ItemPlugin.holyDust, false));
 		}
 	}
 
@@ -164,6 +165,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
 			if (recipe.output.isFluidEqual(fluid)) {
 				this.arecipes.add(new CachedBreweryRecipe(recipe));
+				System.out.println("WAY " + recipe.input.getLocalizedName() + recipe.input.getFluid().getColor());
+				System.out.println("OUT " + recipe.output.getLocalizedName() + recipe.output.getFluid().getColor());
 			}
 		}
 	}
@@ -173,10 +176,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
 			if (recipe.input.isFluidEqual(fluid)) {
 				this.arecipes.add(new CachedBreweryRecipe(recipe));
-				//System.out.println("WAY " + Integer.toHexString(recipe.input.getFluid().getColor()));
-				//System.out.println("OUT " + Integer.toHexString(recipe.output.getFluid().getColor()));
-				System.out.println("WAY " + recipe.input.getFluid().getColor());
-				System.out.println("OUT " + recipe.output.getFluid().getColor());
+				System.out.println("WAY " + recipe.input.getLocalizedName() + recipe.input.getFluid().getColor());
+				System.out.println("OUT " + recipe.output.getLocalizedName() + recipe.output.getFluid().getColor());
 			}
 		}
 	}
@@ -236,14 +237,19 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		changeTexture(getGuiTexture());
 
-		for (CachedRecipe crecipe : arecipes) {
-			for (NEIPositionedFluidTank tank : (((CachedBreweryRecipe) crecipe).getFluidTanks())) {
-				//System.out.println("FKIN TANK COLOR " + Integer.toHexString(tank.getPositionedTankFluidStack().getFluid().getColor()));
-				tank.draw();
-			}
+		
+		CachedRecipe crecipe = arecipes.get(recipe);
+		List<NEIPositionedFluidTank> fluidtanklist = ((CachedBreweryRecipe) crecipe).getFluidTanks();
+		for (NEIPositionedFluidTank tank : fluidtanklist) {
+			//System.out.println("FKIN TANK COLOR " + Integer.toHexString(tank.getPositionedTankFluidStack().getFluid().getColor()));
+			tank.draw();
 		}
-
 		drawExtras(recipe);
+	}
+
+	private void setFluidTanks() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -275,7 +281,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	 */
 	@Override
 	public boolean mouseClicked(GuiRecipe gui, int button, int recipe) {
-		// FMLLog.log(Level.INFO, "clickedtank");
+		FMLLog.log(Level.INFO, "clickedtank");
 		if (button == 0) {
 			if (this.clickedFluidTank(gui, recipe, false)) {
 				FMLLog.log(Level.INFO, "tank left clicked recipes");
@@ -296,8 +302,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		CachedBreweryRecipe crecipe = (CachedBreweryRecipe) this.arecipes.get(recipe);
 		Point mousepos = GuiDraw.getMousePosition();
 		Point offset = guiRecipe.getRecipePosition(recipe);
-		Point relMouse = new Point(mousepos.x - (guiRecipe.width - 176) / 2 - offset.x,
-				mousepos.y - (guiRecipe.height - 166) / 2 - offset.y);
+		Point relMouse = new Point(mousepos.x - (guiRecipe.width - 176) / 2 - offset.x,	mousepos.y - (guiRecipe.height - 166) / 2 - offset.y);
+		
 		if (crecipe.getFluidTanks() != null) {
 			for (NEIPositionedFluidTank tank : crecipe.getFluidTanks()) {
 				if (tank.intersectsWith(relMouse.x, relMouse.y)) {
