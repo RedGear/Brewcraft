@@ -186,6 +186,7 @@ public class PotionPlugin implements IPlugin {
 		fluidHarmIII = potionRegistry.addPotion(null, "HarmIII", Potion.harm, 1, 2);
 		fluidHealIII = potionRegistry.addPotion(null, "HealIII", Potion.heal, 1, 2);
 		fluidVisionVeryLong = potionRegistry.addPotion(null, "VisionVeryLong", Potion.nightVision, 960, 0);
+		fluidInvisibleVeryLong = potionRegistry.addPotion(null, "InvisibleVeryLong", Potion.invisibility, 960, 0);
 		fluidWeaknessVeryLong = potionRegistry.addPotion(null, "WeaknessVeryLong", Potion.weakness, 480, 0, true);
 		fluidSlownessVeryLong = potionRegistry.addPotion(null, "SlownessVeryLong", Potion.moveSlowdown, 480, 0, true);
 		fluidWaterBreatheVeryLong = potionRegistry.addPotion(null, "WaterBreatheVeryLong", Potion.waterBreathing, 960, 0);
@@ -235,6 +236,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidVisionVeryLong, vials, "VisionVeryLong", Potion.nightVision, 480, 0);
 		potionRegistry.addPotion(fluidInvisible, vials, "Invisible", Potion.invisibility, 45, 0);
 		potionRegistry.addPotion(fluidInvisibleLong, vials, "InvisibleLong", Potion.invisibility, 90, 0);
+		potionRegistry.addPotion(fluidInvisibleVeryLong, vials, "InvisibleVeryLong", Potion.invisibility, 180, 0);
 		potionRegistry.addPotion(fluidRegen, vials, "Regen", Potion.regeneration, 15, 0);
 		potionRegistry.addPotion(fluidRegenII, vials, "RegenII", Potion.regeneration, 7, 1);
 		potionRegistry.addPotion(fluidRegenLong, vials, "RegenLong", Potion.regeneration, 45, 0);
@@ -366,6 +368,7 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidVisionVeryLong, big, "VisionVeryLong", Potion.nightVision, 1440, 0);
 		potionRegistry.addPotion(fluidInvisible, big, "Invisible", Potion.invisibility, 360, 0);
 		potionRegistry.addPotion(fluidInvisibleLong, big, "InvisibleLong", Potion.invisibility, 720, 0);
+		potionRegistry.addPotion(fluidInvisibleVeryLong, big, "InvisibleVeryLong", Potion.invisibility, 1440, 0);
 		potionRegistry.addPotion(fluidRegen, big, "Regen", Potion.regeneration, 90, 0);
 		potionRegistry.addPotion(fluidRegenII, big, "RegenII", Potion.regeneration, 45, 1);
 		potionRegistry.addPotion(fluidRegenLong, big, "RegenLong", Potion.regeneration, 180, 0);
@@ -586,11 +589,11 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidFlight, fluidFlightLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidFlightLong, fluidFlight, Items.glowstone_dust);
 		recipeRegistry.addRecipe(fluidFlightLong, fluidFlightVeryLong, ItemPlugin.pureTear.getStack());
-		recipeRegistry.addRecipe(fluidRegen, fluidHolyWater, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenII, fluidHolyWaterII, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenIII, fluidHolyWaterIII, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenLong, fluidHolyWaterLong, ItemPlugin.holyDust);
-		recipeRegistry.addRecipe(fluidRegenVeryLong, fluidHolyWaterVeryLong, ItemPlugin.holyDust);
+		recipeRegistry.addRecipe(fluidRegen, fluidHolyWater, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenII, fluidHolyWaterII, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenIII, fluidHolyWaterIII, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenLong, fluidHolyWaterLong, ItemPlugin.holyDust.getStack());
+		recipeRegistry.addRecipe(fluidRegenVeryLong, fluidHolyWaterVeryLong, ItemPlugin.holyDust.getStack());
 		recipeRegistry.addRecipe(fluidHolyWater, fluidHarm, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHolyWaterII, fluidHarmII, Items.fermented_spider_eye);
 		recipeRegistry.addRecipe(fluidHolyWaterIII, fluidHarmIII, Items.fermented_spider_eye);
@@ -732,7 +735,7 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidAbsorption, fluidAbsorptionLong, Items.redstone);
 		recipeRegistry.addRecipe(fluidAbsorptionLong, fluidAbsorption, Items.glowstone_dust);
 	}
-
+	
 	private FluidStack createVanillaPotion(String name, int metaBottle, int metaSplash, int duration, int strength) {
 		FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
 				Items.potionitem, metaBottle), duration * 20, strength), potionTexture), 1000);
@@ -742,5 +745,13 @@ public class PotionPlugin implements IPlugin {
 			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaSplash),
 					ItemPlugin.splashBottle.getStack());
 		return potion;
+	}
+
+	public static RecipeRegistry getRecipeList() {
+		return recipeRegistry;
+	}
+
+	public static PotionRegistry getPotionList() {
+		return potionRegistry;
 	}
 }
