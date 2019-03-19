@@ -12,7 +12,6 @@ public class NEIPositionedFluidTank extends ElementFluidTankWithGlass {
 		super(gui, posX, posY, tank);
 	}
 
-	// not quite sure what all this does (taken from NEI Integration)
 	public boolean transfer(boolean usage) {
 		if (this.tank.getFluid() != null && this.tank.getFluid().amount > 0) {
 			if (usage) {

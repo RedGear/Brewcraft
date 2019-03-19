@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.gui.GuiDraw;
@@ -15,7 +14,6 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
@@ -104,8 +102,6 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 			ArrayList<PositionedStack> inputs = new ArrayList<PositionedStack>();
 			if (recipe.item != null)
 				inputs.add(new PositionedStack(recipe.item.getStack(), 74, 24));
-			// FMLLog.log(Level.INFO, "Stack Item " + recipe.item.getItemId() + " " +
-			// recipe.item.getMeta());
 			return inputs;
 		}
 
@@ -138,8 +134,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 
 			if (ingredient.getItem() instanceof MetaItemPotion) {
 				System.out.println("BREWCRAFTED POTION");
-				MetaItemPotion instancedPotion = (MetaItemPotion) ingredient.getItem(); // ItemStack to instance of
-				// potion
+				MetaItemPotion instancedPotion = (MetaItemPotion) ingredient.getItem(); // ItemStack to instance of potion
 
 				loadUsageRecipes(FluidContainerRegistry.getFluidForFilledItem(ingredient));
 
@@ -194,9 +189,6 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 					}
 				}
 			}
-
-			FMLLog.log(Level.INFO, "What is this outputID?" + outputId);
-			FMLLog.log(Level.INFO, "results length : class " + results.length + results[0].getClass());
 		} else if (outputId.equals("liquid") && results[0] instanceof FluidStack
 				&& ((FluidStack) results[0]).getFluid() != null) {
 			this.loadCraftingRecipes((FluidStack) results[0]); // pass to loadCraftingRecipes, FluidStack version
@@ -219,8 +211,6 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		CachedRecipe crecipe = arecipes.get(recipe);
 		List<NEIPositionedFluidTank> fluidtanklist = ((CachedBreweryRecipe) crecipe).getFluidTanks();
 		for (NEIPositionedFluidTank tank : fluidtanklist) {
-			// System.out.println("FKIN TANK COLOR " +
-			// Integer.toHexString(tank.getPositionedTankFluidStack().getFluid().getColor()));
 			tank.draw();
 		}
 		drawExtras(recipe);
@@ -240,12 +230,10 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	public boolean mouseClicked(GuiRecipe gui, int button, int recipe) {
 		if (button == 0) {
 			if (this.clickedFluidTank(gui, recipe, false)) {
-				FMLLog.log(Level.INFO, "tank left clicked recipes");
 				return true;
 			}
 		} else if (button == 1) {
 			if (this.clickedFluidTank(gui, recipe, true)) {
-				FMLLog.log(Level.INFO, "tank right clicked usage");
 				return true;
 			}
 		}
