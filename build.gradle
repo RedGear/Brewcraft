@@ -17,8 +17,8 @@ buildscript {
 repositories {
 	mavenLocal()
 	maven {
-		name = "mymavenrepo"
-		url = myMavenRepoReadUrl
+		name = "artifactory"
+		url = "https://jonius7.jfrog.io/artifactory/RedGearCore/"
 	}
 	
 	maven { // the repo from which to get NEI and stuff
