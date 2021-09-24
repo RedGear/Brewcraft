@@ -14,4 +14,15 @@ Now, I’m not going to spoil all of the surprises, you’re going to have to tr
 ## Installation & Reporting Issues ##
 A prerequisite to this mod is Minecraft Forge. This is required for the mod to run correctly. Aside from this, you will need our core class library, RedGear Core. This is required for the mod to run. Brewcraft and RedGear Core must be inside the mods folder in your .minecraft directory. 
 
+### Notes (2021)
+
+Add the libraries required in `/libs` folder (for your sanity)
+
+- `CodeChickenCore-1.7.10-1.0.7.47-dev.jar`
+- `CodeChickenLib-1.7.10-1.1.3.140-dev.jar`
+- `ForgeMultipart-1.7.10-1.2.0.347-dev.jar`
+
+- `NotEnoughItems-1.7.10-1.0.5.120-dev.jar`
+
+RedGearCore-dev version can be found using the Wayback Machine: [https://web.archive.org/web/*/https://dl.bintray.com/lordblackhole/RedGear/redgear/core/RedGearCore/1.7.10-2.2.2/RedGearCore-1.7.10-2.2.2-dev.jar](https://web.archive.org/web/*/https://dl.bintray.com/lordblackhole/RedGear/redgear/core/RedGearCore/1.7.10-2.2.2/RedGearCore-1.7.10-2.2.2-dev.jar)
 

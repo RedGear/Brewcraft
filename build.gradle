@@ -17,8 +17,8 @@ buildscript {
 repositories {
 	mavenLocal()
 	maven {
-		name = "bintray"
-		url = "http://dl.bintray.com/lordblackhole/RedGear"
+		name = "mymavenrepo"
+		url = myMavenRepoReadUrl
 	}
 	
 	maven { // the repo from which to get NEI and stuff
@@ -30,7 +30,7 @@ repositories {
 apply plugin: 'forge'
 
 dependencies {
-	compile "redgear.core:RedGearCore:${minecraft_version}-${core_version}:dev"//
+	compile "redgear.core:RedGearCore:${minecraft_version}-${core_version}-dev"//
 }
 
 version = mod_version
