@@ -2,19 +2,27 @@ package redgear.brewcraft.potions;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.core.EffectPlugin;
+import redgear.brewcraft.plugins.item.PotionPlugin;
+import redgear.brewcraft.utils.PotionRegistry;
 import redgear.core.item.MetaItem;
+import redgear.core.tile.TileEntityTank;
 import redgear.core.util.SimpleItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -62,7 +70,7 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 		}
 		return stack;
 	}
-
+	
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 32;
@@ -83,12 +91,38 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;
+				
 
 		} else
 			player.setItemInUse(stack, getMaxItemUseDuration(stack));
 
 		return stack;
 	}
+	
+	@Override
+	/**
+     * This is called when the item is used, before the block is activated.
+     */
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {	
+		if (!player.capabilities.isCreativeMode) {
+			SubItemPotion potion = getMetaItem(stack.getItemDamage());
+			TileEntity b = world.getTileEntity(x, y, z);
+			if (b instanceof TileEntityBrewery) {
+				//System.out.println("GOT BC Brewery");
+				TileEntityBrewery c = (TileEntityBrewery) b;
+				//System.out.println(c.inputTank.canFill(this.getFluidCapacity()));
+				FluidStack d = FluidContainerRegistry.getFluidForFilledItem(stack);
+				if (c.inputTank.canFill(this.getFluidCapacity()) && 
+						(c.inputTank.canFillWithMap(d, false))) {
+					//PotionRegistry d = PotionPlugin.getPotionList();
+					
+					player.inventory.addItemStackToInventory(potionBottle.copy());
+				}			
+			}				
+		}
+		return false;
+        
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)
