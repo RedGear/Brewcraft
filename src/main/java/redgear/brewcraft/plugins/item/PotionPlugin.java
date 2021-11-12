@@ -82,7 +82,8 @@ public class PotionPlugin implements IPlugin {
 		big = new MetaItemPotion("RedGear.Brewcraft.BigPotions", "redgear_brewcraft:bigbottle",
 				"redgear_brewcraft:bigoverlay", "redgear_brewcraft:bigsplash");
 
-		potions.setEmptyItems(new ItemStack(Items.glass_bottle, 1, 0), new ItemStack(Items.potionitem, 1, 0));
+		//potions.setEmptyItems(new ItemStack(Items.glass_bottle, 1, 0), new ItemStack(Items.potionitem, 1, 0));
+		potions.setEmptyItems(PotionPlugin.emptyBottle, ItemPlugin.splashBottle.getStack());
 		potions.setCreativeTab(Brewcraft.tabPotions);
 		vials.setEmptyItems(ItemPlugin.emptyVial.getStack(), ItemPlugin.splashVial.getStack());
 		vials.setFluidCapacity(250);

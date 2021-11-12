@@ -133,7 +133,7 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		if ((ingredient.getItem() instanceof ItemPotion) || (ingredient.getItem() instanceof MetaItemPotion)) {
 
 			if (ingredient.getItem() instanceof MetaItemPotion) {
-				System.out.println("BREWCRAFTED POTION");
+				//System.out.println("BREWCRAFTED POTION");
 				MetaItemPotion instancedPotion = (MetaItemPotion) ingredient.getItem(); // ItemStack to instance of potion
 
 				loadUsageRecipes(FluidContainerRegistry.getFluidForFilledItem(ingredient));
@@ -166,8 +166,8 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
 			if (recipe.input.isFluidEqual(fluid)) {
 				this.arecipes.add(new CachedBreweryRecipe(recipe));
-				System.out.println("WAY " + recipe.input.getLocalizedName() + recipe.input.getFluid().getColor());
-				System.out.println("OUT " + recipe.output.getLocalizedName() + recipe.output.getFluid().getColor());
+				//System.out.println("IN  " + recipe.input.getLocalizedName() + recipe.input.getFluid().getColor());
+				//System.out.println("OUT " + recipe.output.getLocalizedName() + recipe.output.getFluid().getColor());
 			}
 		}
 	}
