@@ -48,9 +48,11 @@ public class MetaTileBottlers extends MetaTile {
 					TileEntity tile = world.getTileEntity(x, y, z);
 					if (tile instanceof Bucketable
 							&& ((Bucketable) tile).bucket(player, player.inventory.currentItem,
-									player.getHeldItem()))
-						System.out.println("YOU CLICKED with potion on bottlers");
+									player.getHeldItem())) {
+						//System.out.println("YOU CLICKED with potion on bottlers");
+						ReturnBottle.addBottleToInventory(world, tile, player, side, f, g, t);
 						return true;
+					}
 
 				}
 

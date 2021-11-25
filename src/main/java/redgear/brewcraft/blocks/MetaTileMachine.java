@@ -2,15 +2,19 @@ package redgear.brewcraft.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.core.asm.RedGearCore;
 import redgear.core.block.MetaTileSpecialRenderer;
 import redgear.core.block.SubTile;
 import redgear.core.tile.Bucketable;
 import redgear.core.tile.IWrenchableTile;
+import redgear.core.tile.TileEntityTank;
 
 public class MetaTileMachine extends MetaTileSpecialRenderer {
 	public final int renderId;
@@ -49,9 +53,11 @@ public class MetaTileMachine extends MetaTileSpecialRenderer {
 					TileEntity tile = world.getTileEntity(x, y, z);
 					if (tile instanceof Bucketable
 							&& ((Bucketable) tile).bucket(player, player.inventory.currentItem,
-									player.getHeldItem()))
-						System.out.println("YOU CLICKED with potion on machine");
+									player.getHeldItem())) {
+						//System.out.println("YOU CLICKED with potion on machine");
+						ReturnBottle.addBottleToInventory(world, tile, player, side, f, g, t);
 						return true;
+					}
 
 				}
 
@@ -62,4 +68,6 @@ public class MetaTileMachine extends MetaTileSpecialRenderer {
 		}
 		return false;
 	}
+	
+	
 }
