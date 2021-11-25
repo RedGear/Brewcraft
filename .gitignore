@@ -7,6 +7,18 @@ dep
 run
 lib
 
+###MINECRAFT
+asm
+config
+crash-reports
+logs
+libs
+mods
+resourcepacks
+saves
+options.txt
+usernamecache.json
+
 #################
 ## Eclipse
 #################
