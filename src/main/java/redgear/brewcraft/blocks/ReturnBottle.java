@@ -21,24 +21,18 @@ public class ReturnBottle {
 			
 			
 			if (tile instanceof TileEntityBrewery) {
-				TileEntityBrewery tileEntity = (TileEntityBrewery) tile;
-				if (tileEntity.inputTank.canFill(capacity) &&
-						tileEntity.inputTank.canFillWithMap(potionFluid, false)) {
-					System.out.println("THIS IS WHERE YOU FILL BREWERY");
-					ItemStack fillTank = FluidContainerRegistry.drainFluidContainer(stack);
-					if (fillTank != null) {
-						player.inventory.addItemStackToInventory(fillTank);
-					}
+				//TileEntityBrewery tileEntity = (TileEntityBrewery) tile;
+				//System.out.println("THIS IS WHERE YOU FILL BREWERY");
+				ItemStack fillTank = FluidContainerRegistry.drainFluidContainer(stack);
+				if (fillTank != null) {
+					player.inventory.addItemStackToInventory(fillTank);
 				}
 			} else {
-				TileEntityTank tileEntity = (TileEntityTank) tile;
-				if (tileEntity.getTank(0).canFill(capacity) &&
-						tileEntity.getTank(0).canFillWithMap(potionFluid, false)) {
-					System.out.println("THIS IS WHERE YOU FILL (OTHER MACHINE)");
-					ItemStack fillTank = FluidContainerRegistry.drainFluidContainer(stack);
-					if (fillTank != null) {
-						player.inventory.addItemStackToInventory(fillTank);
-					}
+				//TileEntityTank tileEntity = (TileEntityTank) tile;
+				//System.out.println("THIS IS WHERE YOU FILL (OTHER MACHINE)");
+				ItemStack fillTank = FluidContainerRegistry.drainFluidContainer(stack);
+				if (fillTank != null) {
+					player.inventory.addItemStackToInventory(fillTank);
 				}
 			}
 		}
