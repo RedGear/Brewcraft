@@ -3,6 +3,7 @@ package redgear.brewcraft.plugins.item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -10,6 +11,7 @@ import redgear.brewcraft.core.Brewcraft;
 import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.brewcraft.potions.FluidPotion;
 import redgear.brewcraft.potions.MetaItemPotion;
+import redgear.brewcraft.potions.VanillaPotion;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionRegistry;
 import redgear.core.fluids.FluidUtil;
@@ -97,35 +99,35 @@ public class PotionPlugin implements IPlugin {
 	public void Init(ModUtils mod) {
 
 		//Vanilla potions. (and III-level/Very Long for vanilla bases)
-		fluidAwkward = createVanillaPotion("Awkward", 16, 0, 0, 0);
-		fluidVision = createVanillaPotion("Vision", 8230, 16422, 180, 0);
-		fluidVisionLong = createVanillaPotion("VisionLong", 8262, 16454, 480, 0);
-		fluidInvisible = createVanillaPotion("Invisible", 8238, 16430, 180, 0);
-		fluidInvisibleLong = createVanillaPotion("InvisibleLong", 8270, 16462, 480, 0);
-		fluidRegen = createVanillaPotion("Regen", 8193, 16385, 45, 0);
-		fluidRegenII = createVanillaPotion("RegenII", 8225, 16417, 120, 1);
-		fluidRegenLong = createVanillaPotion("RegenLong", 8257, 16449, 120, 0);
-		fluidFast = createVanillaPotion("Fast", 8194, 16386, 180, 0);
-		fluidFastLong = createVanillaPotion("FastLong", 8258, 16450, 480, 0);
-		fluidFastII = createVanillaPotion("FastII", 8226, 16418, 90, 1);
-		fluidWeakness = createVanillaPotion("Weakness", 8232, 16424, 90, 0);
-		fluidWeaknessLong = createVanillaPotion("WeaknessLong", 8264, 16456, 240, 0);
-		fluidStrength = createVanillaPotion("Strength", 8201, 16393, 180, 0);
-		fluidStrengthLong = createVanillaPotion("StrengthLong", 8265, 16457, 480, 0);
-		fluidStrengthII = createVanillaPotion("StrengthII", 8233, 16425, 90, 1);
-		fluidFireResist = createVanillaPotion("FireResist", 8227, 16419, 180, 0);
-		fluidFireResistLong = createVanillaPotion("FireResistLong", 8259, 16451, 480, 0);
-		fluidSlowness = createVanillaPotion("Slowness", 8234, 16426, 90, 0);
-		fluidSlownessLong = createVanillaPotion("SlownessLong", 8266, 16458, 240, 0);
-		fluidPoison = createVanillaPotion("Poison", 8196, 16388, 45, 0);
-		fluidPoisonII = createVanillaPotion("PoisonII", 8228, 16420, 22, 1);
-		fluidPoisonLong = createVanillaPotion("PoisonLong", 8260, 16452, 120, 0);
-		fluidHarm = createVanillaPotion("Harm", 8268, 16460, 0, 0);
-		fluidHarmII = createVanillaPotion("HarmII", 8236, 16428, 0, 1);
-		fluidHeal = createVanillaPotion("Heal", 8261, 16453, 0, 0);
-		fluidHealII = createVanillaPotion("HealII", 8229, 16421, 0, 1);
-		fluidWaterBreathe = createVanillaPotion("WaterBreathe", 8237, 16429, 180, 0);
-		fluidWaterBreatheLong = createVanillaPotion("WaterBreatheLong", 8269, 16461, 480, 0);
+		fluidAwkward = registerVanillaPotion("Awkward", 16, 0, null, 0, 0);
+		fluidVision = registerVanillaPotion("Vision", 8230, 16422, Potion.nightVision, 180, 0);
+		fluidVisionLong = registerVanillaPotion("VisionLong", 8262, 16454, Potion.nightVision, 480, 0);
+		fluidInvisible = registerVanillaPotion("Invisible", 8238, 16430, Potion.invisibility, 180, 0);
+		fluidInvisibleLong = registerVanillaPotion("InvisibleLong", 8270, 16462, Potion.invisibility, 480, 0);
+		fluidRegen = registerVanillaPotion("Regen", 8193, 16385, Potion.regeneration, 45, 0);
+		fluidRegenII = registerVanillaPotion("RegenII", 8225, 16417, Potion.regeneration, 120, 1);
+		fluidRegenLong = registerVanillaPotion("RegenLong", 8257, 16449, Potion.regeneration, 120, 0);
+		fluidFast = registerVanillaPotion("Fast", 8194, 16386, Potion.moveSpeed, 180, 0);
+		fluidFastLong = registerVanillaPotion("FastLong", 8258, 16450, Potion.moveSpeed, 480, 0);
+		fluidFastII = registerVanillaPotion("FastII", 8226, 16418, Potion.moveSpeed, 90, 1);
+		fluidWeakness = registerVanillaPotion("Weakness", 8232, 16424, Potion.weakness, 90, 0);
+		fluidWeaknessLong = registerVanillaPotion("WeaknessLong", 8264, 16456, Potion.weakness, 240, 0);
+		fluidStrength = registerVanillaPotion("Strength", 8201, 16393, Potion.damageBoost, 180, 0);
+		fluidStrengthLong = registerVanillaPotion("StrengthLong", 8265, 16457, Potion.damageBoost, 480, 0);
+		fluidStrengthII = registerVanillaPotion("StrengthII", 8233, 16425, Potion.damageBoost, 90, 1);
+		fluidFireResist = registerVanillaPotion("FireResist", 8227, 16419, Potion.fireResistance, 180, 0);
+		fluidFireResistLong = registerVanillaPotion("FireResistLong", 8259, 16451, Potion.fireResistance, 480, 0);
+		fluidSlowness = registerVanillaPotion("Slowness", 8234, 16426, Potion.moveSlowdown, 90, 0);
+		fluidSlownessLong = registerVanillaPotion("SlownessLong", 8266, 16458, Potion.moveSlowdown, 240, 0);
+		fluidPoison = registerVanillaPotion("Poison", 8196, 16388, Potion.poison, 45, 0);
+		fluidPoisonII = registerVanillaPotion("PoisonII", 8228, 16420, Potion.poison, 22, 1);
+		fluidPoisonLong = registerVanillaPotion("PoisonLong", 8260, 16452, Potion.poison, 120, 0);
+		fluidHarm = registerVanillaPotion("Harm", 8268, 16460, Potion.harm, 0, 0);
+		fluidHarmII = registerVanillaPotion("HarmII", 8236, 16428, Potion.harm, 0, 1);
+		fluidHeal = registerVanillaPotion("Heal", 8261, 16453, Potion.heal, 0, 0);
+		fluidHealII = registerVanillaPotion("HealII", 8229, 16421, Potion.heal, 0, 1);
+		fluidWaterBreathe = registerVanillaPotion("WaterBreathe", 8237, 16429, Potion.waterBreathing, 180, 0);
+		fluidWaterBreatheLong = registerVanillaPotion("WaterBreatheLong", 8269, 16461, Potion.waterBreathing, 480, 0);
 		fluidHaste = potionRegistry.addPotion(null, "Haste", Potion.digSpeed, 90, 0, true);
 		fluidHasteII = potionRegistry.addPotion(null, "HasteII", Potion.digSpeed, 45, 1, true);
 		fluidHasteIII = potionRegistry.addPotion(null, "HasteIII", Potion.digSpeed, 25, 2, true);
@@ -405,9 +407,9 @@ public class PotionPlugin implements IPlugin {
 		potionRegistry.addPotion(fluidHeal, big, "Heal", Potion.heal, 1, 0);
 		potionRegistry.addPotion(fluidHealII, big, "HealII", Potion.heal, 1, 1);
 		potionRegistry.addPotion(fluidHealIII, big, "HealIII", Potion.heal, 1, 2);
-		potionRegistry.addPotion(fluidWaterBreathe, big, "WaterBreathe", Potion.waterBreathing, 180, 0);
-		potionRegistry.addPotion(fluidWaterBreatheLong, big, "WaterBreatheLong", Potion.waterBreathing, 360, 0);
-		potionRegistry.addPotion(fluidWaterBreatheVeryLong, big, "WaterBreatheVeryLong", Potion.waterBreathing, 720, 0);
+		potionRegistry.addPotion(fluidWaterBreathe, big, "WaterBreathe", Potion.waterBreathing, 360, 0);
+		potionRegistry.addPotion(fluidWaterBreatheLong, big, "WaterBreatheLong", Potion.waterBreathing, 720, 0);
+		potionRegistry.addPotion(fluidWaterBreatheVeryLong, big, "WaterBreatheVeryLong", Potion.waterBreathing, 1440, 0);
 		potionRegistry.addPotion(fluidHaste, big, "Haste", Potion.digSpeed, 180, 0, true);
 		potionRegistry.addPotion(fluidHasteII, big, "HasteII", Potion.digSpeed, 90, 1, true);
 		potionRegistry.addPotion(fluidHasteIII, big, "HasteIII", Potion.digSpeed, 45, 2, true);
@@ -737,9 +739,23 @@ public class PotionPlugin implements IPlugin {
 		recipeRegistry.addRecipe(fluidAbsorptionLong, fluidAbsorption, Items.glowstone_dust);
 	}
 	
-	private FluidStack createVanillaPotion(String name, int metaBottle, int metaSplash, int duration, int strength) {
-		FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
-				Items.potionitem, metaBottle), duration * 20, strength), potionTexture), 1000);
+	private VanillaPotion registerVanillaPotion(String name, int metaBottle, int metaSplash, Potion effect, int duration, int strength) {
+		
+		//FluidStack potion = new FluidStack(FluidUtil.createFluid(new FluidPotion("potion" + name, new SimpleItem(
+		//		Items.potionitem, metaBottle), duration * 20, strength), potionTexture), 1000);
+		
+		SimpleItem potionItem = new SimpleItem(Items.potionitem, metaBottle);
+		FluidPotion potionFluidWrapper = new FluidPotion("potion" + name, potionItem, duration * 20, strength);
+		Fluid potionFluid = FluidUtil.createFluid(potionFluidWrapper, PotionPlugin.potionTexture);
+		FluidStack potionStack = new FluidStack(potionFluid, 1000);
+		VanillaPotion potion = new VanillaPotion(potionStack, 1000);
+		
+		potion.potionItem = potionItem;
+		potion.potionFluidWrapper = potionFluidWrapper;
+		potion.potionFluid = potionFluid;
+		potion.potionStack = potionStack;
+
+		//potionRegistry.addPotion(potion, name, effect, duration, strength);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
 				emptyBottle);
 		if (metaSplash != 0)
@@ -747,6 +763,10 @@ public class PotionPlugin implements IPlugin {
 					ItemPlugin.splashBottle.getStack());
 		return potion;
 	}
+	
+	//public FluidStack FluidStackFromItemPotion(ItemPotion potion) {
+		
+	//}
 
 	public static RecipeRegistry getRecipeList() {
 		return recipeRegistry;
