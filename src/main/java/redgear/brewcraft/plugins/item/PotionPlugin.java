@@ -14,6 +14,7 @@ import redgear.brewcraft.potions.MetaItemPotion;
 import redgear.brewcraft.potions.VanillaPotion;
 import redgear.brewcraft.recipes.RecipeRegistry;
 import redgear.brewcraft.utils.PotionRegistry;
+import redgear.brewcraft.utils.VanillaPotionRegistry;
 import redgear.core.fluids.FluidUtil;
 import redgear.core.mod.IPlugin;
 import redgear.core.mod.ModUtils;
@@ -30,6 +31,7 @@ public class PotionPlugin implements IPlugin {
 	public static FluidStack lava = new FluidStack(FluidRegistry.LAVA, 1000);
 	public static PotionRegistry potionRegistry = new PotionRegistry();
 	public static RecipeRegistry recipeRegistry = new RecipeRegistry();
+	public static VanillaPotionRegistry vanillaRegistry = new VanillaPotionRegistry();
 	public static final String potionTexture = "potionWhite";
 
 	//Vanilla potions. (and III-level/Very Long for vanilla bases)
@@ -760,6 +762,8 @@ public class PotionPlugin implements IPlugin {
 		potion.potionFluidWrapper = potionFluidWrapper;
 		potion.potionFluid = potionFluid;
 		potion.potionStack = potionStack;
+		potion.metaBottle = metaBottle;
+		potion.metaSplash = metaSplash;
 
 		//potionRegistry.addPotion(potion, name, effect, duration, strength);
 		FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaBottle),
@@ -767,6 +771,8 @@ public class PotionPlugin implements IPlugin {
 		if (metaSplash != 0)
 			FluidContainerRegistry.registerFluidContainer(potion, new ItemStack(Items.potionitem, 1, metaSplash),
 					ItemPlugin.splashBottle.getStack());
+		
+		vanillaRegistry.registerPotion(potion);
 		return potion;
 	}
 	
