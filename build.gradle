@@ -17,8 +17,8 @@ buildscript {
 repositories {
 	mavenLocal()
 	maven {
-		name = "bintray"
-		url = "http://dl.bintray.com/lordblackhole/RedGear"
+		name = "artifactory"
+		url = "https://jonius7.jfrog.io/artifactory/RedGearCore/"
 	}
 	
 	maven { // the repo from which to get NEI and stuff
@@ -30,7 +30,7 @@ repositories {
 apply plugin: 'forge'
 
 dependencies {
-	compile "redgear.core:RedGearCore:${minecraft_version}-${core_version}:dev"//
+	compile "redgear.core:RedGearCore:${minecraft_version}-${core_version}-dev"//
 }
 
 version = mod_version
@@ -38,7 +38,7 @@ group= mod_group // http://maven.apache.org/guides/mini/guide-naming-conventions
 archivesBaseName = mod_name
 
 minecraft{
-	version = "${forge_version}-${minecraft_version}"
+	version = "${minecraft_version}-${forge_version}-${minecraft_version}"
 
 	replace "@ModVersion@", project.version
 }

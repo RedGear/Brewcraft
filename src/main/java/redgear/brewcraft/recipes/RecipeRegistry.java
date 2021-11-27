@@ -72,7 +72,7 @@ public class RecipeRegistry implements IRecipeRegistry {
 			else if (input.amount <= 0)
 				message.append("Input fluid amount is less than 1. ");
 			if (output == null)
-				message.append("Output Fluid is null. ");
+				message.append("Output Fluid is null. " + "Inputs: " + input.getLocalizedName() + ", " + item.getName());
 			else if (output.amount <= 0)
 				message.append("Output fluid amount is less than 1. ");
 
@@ -103,5 +103,9 @@ public class RecipeRegistry implements IRecipeRegistry {
 				return recipe;
 		return null;
 
+	}
+	
+	public Set<BreweryRecipe> getBreweryRecipeSet() {
+		return recipes;
 	}
 }

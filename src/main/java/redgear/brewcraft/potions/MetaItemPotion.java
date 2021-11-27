@@ -2,16 +2,21 @@ package redgear.brewcraft.potions;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import redgear.brewcraft.blocks.brewery.TileEntityBrewery;
 import redgear.brewcraft.entity.EntityBrewcraftPotion;
 import redgear.brewcraft.plugins.core.EffectPlugin;
 import redgear.core.item.MetaItem;
@@ -62,7 +67,7 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 		}
 		return stack;
 	}
-
+	
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 32;
@@ -77,18 +82,44 @@ public class MetaItemPotion extends MetaItem<SubItemPotion> {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		SubItemPotion potion = getMetaItem(stack.getItemDamage());
 		if (potion.isSplash) {
-
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 			if (!world.isRemote)
 				world.spawnEntityInWorld(new EntityBrewcraftPotion(world, player, stack.copy()));
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;
-
 		} else
 			player.setItemInUse(stack, getMaxItemUseDuration(stack));
 
 		return stack;
 	}
+	
+	
+	/**
+     * This is called when the item is used, before the block is activated.
+     */
+	
+	/*
+	@Override
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {	
+		if (!player.capabilities.isCreativeMode) {
+			TileEntity usedOn = world.getTileEntity(x, y, z);			
+			if (usedOn instanceof TileEntityBrewery) {
+				SubItemPotion potion = getMetaItem(stack.getItemDamage());
+				TileEntityBrewery tileEntity = (TileEntityBrewery) usedOn;
+				FluidStack potionFluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+				if (tileEntity.inputTank.canFill(this.getFluidCapacity()) && 
+						(tileEntity.inputTank.canFillWithMap(potionFluid, false))) {
+					if (potion.isSplash) {
+						player.inventory.addItemStackToInventory(potionSplash.copy());
+					} else {
+						player.inventory.addItemStackToInventory(potionBottle.copy());
+					}
+				}			
+			}				
+		}
+		return false;
+        
+    }*/
 
 	@Override
 	@SideOnly(Side.CLIENT)
