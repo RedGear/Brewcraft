@@ -27,7 +27,7 @@ public class VanillaPotionRegistry {
 	public VanillaPotion getRegularPotion(int meta) {
 		for(VanillaPotion potion : this.getRegistry()) {
 			if(potion.metaBottle == meta) {
-				System.out.println("Found potion " + potion.metaBottle);
+				//System.out.println("Found potion " + potion.metaBottle);
 				return potion;
 			}
 		}
@@ -37,7 +37,7 @@ public class VanillaPotionRegistry {
 	public VanillaPotion getRegularPotionEquivalent (int meta) {
 		for(VanillaPotion potion : this.getRegistry()) {
 			if(potion.metaSplash == meta) {
-				System.out.println("Found Equivalent for " + potion.metaBottle + " | " + potion.metaSplash);
+				//System.out.println("Found Equivalent for " + potion.metaBottle + " | " + potion.metaSplash);
 				return potion;
 			}
 		}

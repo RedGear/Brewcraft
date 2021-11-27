@@ -143,28 +143,36 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 				loadUsageRecipes(FluidContainerRegistry.getFluidForFilledItem(ingredient));
 
 			} else if (ingredient.getItem() instanceof ItemPotion) {
-				//System.out.println("BREWCRAFTED POTION");
-				//ItemPotion instancedPotion = (ItemPotion) ingredient.getItem(); // ItemStack to instance of potion
-
 				ItemPotion potion = (ItemPotion) ingredient.getItem();
-				for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-					if (recipe.input.getFluid() instanceof FluidPotion) {
-						FluidPotion ac = ((FluidPotion) recipe.input.getFluid());
-						if (ac.item.getItem() instanceof ItemPotion) {
-							ItemStack stack = (ItemStack) ac.item;
-							ItemPotion item = (ItemPotion) ac.item.getItem();
-							if (ac.item.getItem().equals(potion)) {
-								@SuppressWarnings("unchecked")
-								List<PotionEffect> effect = (List<PotionEffect>) potion.getEffects(ingredient);
-								@SuppressWarnings("unchecked")
-								List<PotionEffect> recipeeffect = (List<PotionEffect>) item.getEffects(stack);
-								if (effect.equals(recipeeffect)) {
+				int meta = potion.getDamage(ingredient);
+				if(ItemPotion.isSplash(meta)) { //if splash potion
+					VanillaPotion regularPotion = PotionPlugin.vanillaRegistry.getRegularPotionEquivalent(meta);
+					if (regularPotion != null) {
+						for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+							if (recipe.input.getFluid() instanceof FluidPotion) {
+								if (recipe.input.getFluid().equals(regularPotion.potionFluidWrapper)) {
+									System.out.println("EUREKA");
+									this.arecipes.add(new CachedBreweryRecipe(recipe));
+								}
+							}
+						}
+					}
+				} else {
+					VanillaPotion regularPotion = PotionPlugin.vanillaRegistry.getRegularPotion(meta);
+					if (regularPotion != null) {
+						for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+							if (recipe.input.getFluid() instanceof FluidPotion) {
+								if (recipe.input.getFluid().equals(regularPotion.potionFluidWrapper)) {
+									System.out.println("EUREKA");
 									this.arecipes.add(new CachedBreweryRecipe(recipe));
 								}
 							}
 						}
 					}
 				}
+				
+				
+				
 			}
 		} else {
 			for (BreweryRecipe recipe : this.recipes.getBreweryRecipeSet()) {
@@ -183,15 +191,16 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 	 */
 	public void loadCraftingRecipes(FluidStack fluid) {
 		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) { // for each recipe in the recipe registry
-			if (recipe.output.isFluidStackIdentical(fluid)) { // is the recipe's output equal to the fluid
+			if (recipe.output.isFluidEqual(fluid)) { // is the recipe's output equal to the fluid
 				this.arecipes.add(new CachedBreweryRecipe(recipe));
 			}
 		}
 	}
-
+	
+	//fluid tank
 	public void loadUsageRecipes(FluidStack fluid) {
 		for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-			if (recipe.input.isFluidStackIdentical(fluid)) {
+			if (recipe.input.isFluidEqual(fluid)) {
 				this.arecipes.add(new CachedBreweryRecipe(recipe));
 				//System.out.println("IN  " + recipe.input.getLocalizedName() + recipe.input.getFluid().getColor());
 				//System.out.println("OUT " + recipe.output.getLocalizedName() + recipe.output.getFluid().getColor());
@@ -223,72 +232,29 @@ public class NEIBreweryRecipeHandler extends TemplateRecipeHandler {
 					int meta = potion.getDamage(result);
 					if(ItemPotion.isSplash(meta)) { //if splash potion
 						VanillaPotion regularPotion = PotionPlugin.vanillaRegistry.getRegularPotionEquivalent(meta);
-						for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-							if (recipe.output.getFluid() instanceof FluidPotion) {
-								/*FluidPotion ac = ((FluidPotion) recipe.output.getFluid());
-								if (ac.item.getItem() instanceof ItemPotion) {
-									ItemStack stack = (ItemStack) ac.item;
-									ItemPotion item = (ItemPotion) ac.item.getItem();									
-									if (item.equals(regularPotion.potionItem.item)) {
+						if (regularPotion != null) {							
+							for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+								if (recipe.output.getFluid() instanceof FluidPotion) {
+									if (recipe.output.getFluid().equals(regularPotion.potionFluidWrapper)) {
+										//System.out.println("EUREKA");
 										this.arecipes.add(new CachedBreweryRecipe(recipe));
 									}
-								}*/
-								if (recipe.output.getFluid().equals(regularPotion.potionFluidWrapper)) {
-									System.out.println("EUREKA");
-									this.arecipes.add(new CachedBreweryRecipe(recipe));
 								}
 							}
 						}
 					} else {
 						VanillaPotion regularPotion = PotionPlugin.vanillaRegistry.getRegularPotion(meta);
-						for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-							if (recipe.output.getFluid() instanceof FluidPotion) {
-								/*FluidPotion ac = ((FluidPotion) recipe.output.getFluid());
-								if (ac.item.getItem() instanceof ItemPotion) {
-									ItemStack stack = (ItemStack) ac.item;
-									ItemPotion item = (ItemPotion) ac.item.getItem();
-									if (item.equals(potion)) {
+						if (regularPotion != null) {
+							for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
+								if (recipe.output.getFluid() instanceof FluidPotion) {
+									if (recipe.output.getFluid().equals(regularPotion.potionFluidWrapper)) {
+										//System.out.println("EUREKA");
 										this.arecipes.add(new CachedBreweryRecipe(recipe));
 									}
-								}*/
-								if (recipe.output.getFluid().equals(regularPotion.potionFluidWrapper)) {
-									System.out.println("EUREKA");
-									this.arecipes.add(new CachedBreweryRecipe(recipe));
 								}
 							}
 						}
 					}
-				
-				/*} else if (result.getItem() instanceof ItemPotion) {
-					ItemPotion potion = (ItemPotion) result.getItem();
-					//FluidStack resultFluid = FluidContainerRegistry.getFluidForFilledItem(new ItemStack(potion));
-					for (BreweryRecipe recipe : recipes.getBreweryRecipeSet()) {
-						if (recipe.output.getFluid() instanceof FluidPotion) {
-							FluidPotion ac = ((FluidPotion) recipe.output.getFluid());
-							if (ac.item.getItem() instanceof ItemPotion) {
-								ItemStack stack = (ItemStack) ac.item;
-								ItemPotion item = (ItemPotion) ac.item.getItem();
-								if (ac.item.getItem().equals(potion)) {
-									
-
-									//if (effect.get(0).equals(recipeeffect.get(0))) {
-									if(ItemPotion.isSplash(potion.getDamage(result))) {
-										if(PotionPlugin.vanillaRegistry.getRegularPotionEquivalent(potion.getDamage(result)) >= 0) {
-											this.arecipes.add(new CachedBreweryRecipe(recipe));
-										}
-									} else {
-										@SuppressWarnings("unchecked")
-										List<PotionEffect> effect = (List<PotionEffect>) potion.getEffects(result);
-										@SuppressWarnings("unchecked")
-										List<PotionEffect> recipeeffect = (List<PotionEffect>) item.getEffects(stack);
-										if (effect.equals(recipeeffect)) {
-											this.arecipes.add(new CachedBreweryRecipe(recipe));
-										}
-									}
-								}
-							}
-						}
-					}*/
 				}
 			}
 		} else if (outputId.equals("liquid") && results[0] instanceof FluidStack
